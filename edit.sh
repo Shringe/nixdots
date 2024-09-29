@@ -17,5 +17,10 @@ function nixRebuildSwitch {
   sudo nixos-rebuild switch --flake "$flake_dir"
 }
 
+function gitCommit {
+  git commit -m "Auto commit."
+}
+
 editPath
 nixRebuildSwitch
+gitCommit
