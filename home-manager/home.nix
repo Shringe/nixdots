@@ -7,6 +7,7 @@
 #    ./scripts.nix
     ./fish.nix
     # ./librewolf.nix
+    ./is_generic_linux.nix
     ./firefox.nix
   ];
 
