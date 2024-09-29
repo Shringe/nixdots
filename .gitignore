@@ -1,3 +1,6 @@
 wifi.nix
 hardware-configuration.nix
 
+
+__pycache__/
+*.pyc
