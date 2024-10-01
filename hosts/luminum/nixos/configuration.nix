@@ -22,6 +22,7 @@
 
   # Set your time zone.
   time.timeZone = "US/Chicago";
+  networking.hostName = "luminum";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -40,7 +41,8 @@
       options = "caps:backspace";
     };
   };
-  services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.enable = true;
+  services.displayManager.ly.enable = true;
 
   
   services.pipewire = {
@@ -60,6 +62,7 @@
 
     age
     vim-startuptime
+    fastfetch
     neovim
     sops
     fish

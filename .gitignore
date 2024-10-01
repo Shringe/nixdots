@@ -1,6 +1,6 @@
-wifi.nix
-hardware-configuration.nix
-is_generic_linux.nix
+# wifi.nix
+# hardware-configuration.nix
+# is_generic_linux.nix
 
 
 __pycache__/
