@@ -5,7 +5,7 @@ family = "MesloLGS NF"
 style = "Regular"
 
 [shell]
-program = "/bin/fish"
+program = "fish"
 
 [window]
 opacity = 0.88
