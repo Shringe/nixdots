@@ -1,0 +1,16 @@
+import = ["~/.config/alacritty/themes/themes/snazzy.toml"]
+
+[font.normal]
+family = "MesloLGS NF"
+style = "Regular"
+
+[shell]
+program = "/bin/sh"
+
+[window]
+opacity = 1
+
+[window.padding]
+x = 1
+y = 1
+
