@@ -57,8 +57,10 @@
     eza
     git 
     atuin
+    picom
     btop
     font-awesome
+    meslo-lgs-nf
   ];
 
   
