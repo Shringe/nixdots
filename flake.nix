@@ -17,10 +17,10 @@
       };
     };
   in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.luminum = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit system; inherit inputs; };
       modules = [ 
-        ./nixos/configuration.nix 
+        ./hosts/luminum/nixos/configuration.nix 
       ];
     };
   };
