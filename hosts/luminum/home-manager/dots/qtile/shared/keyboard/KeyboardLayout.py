@@ -3,7 +3,7 @@ from os import path
 from json import load
 from libqtile.config import Key
 from libqtile.lazy import LazyCall
-from evdev import ecodes
+# from evdev import ecodes
 
 
 class KeyboardLayout:
