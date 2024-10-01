@@ -1,6 +1,9 @@
+{ pkgs, ... }:
 {
+  home.packages = [ pkgs.vim-startuptime ];
+
   # Tested with:
-  # time vim-startuptime -script -vimpath nvim 
+  # time vim-startuptime -vimpath nvim 
   programs.nixvim.performance = {
     # ~25% speed up
     byteCompileLua = {

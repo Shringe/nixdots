@@ -1,0 +1,16 @@
+import = ["~/.config/alacritty/themes/themes/breeze.toml"]
+
+[font.normal]
+family = "MesloLGS NF"
+style = "Regular"
+
+[shell]
+program = "/bin/fish"
+
+[window]
+opacity = 0.88
+
+# [window.padding]
+# x = 4
+# y = 1
+

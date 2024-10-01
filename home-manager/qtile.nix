@@ -6,6 +6,6 @@
     dunst
     #    greenclip
     flameshot
-    picom
+    #    picom
   ];  
 }
