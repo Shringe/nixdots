@@ -2,7 +2,7 @@
   users.users = {
       shringe = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [ "wheel" "networkmanager" "audio" ];
         initialPassword = "123";
       };
     };

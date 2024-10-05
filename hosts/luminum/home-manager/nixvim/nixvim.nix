@@ -1,14 +1,14 @@
 { pkgs, ... }:
-let
-  nixvim = import (builtins.fetchGit {
-    url = "https://github.com/nix-community/nixvim";
-    # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-    # ref = "nixos-24.05";
-  });
-in
+# let
+#   nixvim = import (builtins.fetchGit {
+#     url = "https://github.com/nix-community/nixvim";
+#     # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+#     # ref = "nixos-24.05";
+#   });
+# in
 {
   imports = [
-    nixvim.homeManagerModules.nixvim
+    # inputs.nixvim.homeManagerModules.nixvim
     ./optimizations.nix
     ./extra-plugins
   ];
@@ -25,7 +25,11 @@ in
     };
 
     opts = {
+      # Numberlines
       number = true;
+
+      # Saves undo history to swapfile
+      undofile = true;
 
       # 2 spaces for tab
       tabstop = 2;
