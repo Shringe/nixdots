@@ -12,13 +12,14 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.tmp.useTmpfs = true;
+  hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9dd79a41-eed0-4f77-9e7f-802b12f6e2a5";
       fsType = "btrfs";
       options = [ "subvol=_active/@" "compress=zstd" ];
     };
-
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/04a281ed-c78e-4b1b-8bd2-c1aa1ea2949b";
 
   fileSystems."/boot" =

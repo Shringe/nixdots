@@ -1,4 +1,12 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    picom
+    ranger
+    alacritty
+    dunst
+
+  ];
   xdg.configFile = {
     "qtile" = {
       source = ./qtile;

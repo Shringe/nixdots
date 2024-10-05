@@ -12,23 +12,34 @@
       ./qtile.nix
       ./wifi.nix
       ./packages.nix
+
+      inputs.sops-nix.nixosModules.sops
     ];
-
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+
+  sops = {
+    defaultSopsFile = ./../../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/home/shringe/.config/sops/age/keys.txt";
+  };
+
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+    # kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
+    # kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+  };
 
   # Set your time zone.
-  time.timeZone = "US/Chicago";
+  time.timeZone = "US/Central";
   networking.hostName = "luminum";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    # keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
@@ -41,13 +52,24 @@
       options = "caps:backspace";
     };
   };
-  # services.displayManager.sddm.enable = true;
-  services.displayManager.ly.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "matrix";
+    };
+  };
 
-  
+  # hardware.pulseaudio = {
+  #   enable = true;
+  #   support32Bit = true;
+  # };
+  #
+  # services.pipewire.enable = false;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
+    alsa.enable = true;
+
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -64,6 +86,8 @@
     vim-startuptime
     fastfetch
     neovim
+    picom
+
     sops
     fish
     eza
@@ -75,6 +99,7 @@
 
 
     btrfs-progs
+    compsize
     cryptsetup
   ];
   # Some programs need SUID wrappers, can be configured further or are

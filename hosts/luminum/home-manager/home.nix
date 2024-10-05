@@ -7,7 +7,9 @@
     ./scripts.nix
     ./fish.nix
     # ./librewolf.nix
-    ./is_generic_linux.nix
+    # ./is_generic_linux.nix
+    # ./qutebrowser.nix
+
     ./firefox.nix
     ./dots
   ];
@@ -33,13 +35,13 @@
 
   programs = {
     git = {
-     enable = true;
-     userName = "Shringe";
-     userEmail = "dashingkoso@gmail.com";
-     
-     extraConfig = {
-       credential.helper = "store";
-     };
+      enable = true;
+      userName = "Shringe";
+      userEmail = "dashingkoso@gmail.com";
+      
+      extraConfig = {
+        credential.helper = "store";
+      };
     };
     atuin.enable = true;
     bash.enable = true;
@@ -52,14 +54,21 @@
   home.packages = with pkgs; [
     #neovim
     fish
+    xclip
+    alsa-firmware
     fzf
+    haskellPackages.greenclip
+    redshift
     bat
     eza
     git 
     atuin
     picom
+    chromium
+    qutebrowser
     btop
     font-awesome
+    pavucontrol
     meslo-lgs-nf
   ];
 
