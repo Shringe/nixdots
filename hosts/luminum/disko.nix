@@ -40,7 +40,6 @@
                 settings = {
                   allowDiscards = true;
                 };
-                };	
                 content = {
                   type = "btrfs";
                   extraArgs = ["-L" "nixos" "-f"];
