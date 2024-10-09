@@ -1,12 +1,11 @@
 { config, ... }:
 {
-  sops.secrets."wireless" = {};
   networking.wireless = {
     enable = true;
 
-    secretsFile = config.sops.secrets."wireless".path;
+    secretsFile = config.age.secrets.wireless.path;
     networks = {
-      "TP-Link_76C0".pskRaw = "ext:home_pass";  
+      "TP-Link_76C0".pskRaw = "ext:home";  
     };
   };
 
