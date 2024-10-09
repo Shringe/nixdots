@@ -23,7 +23,6 @@
         { name = "pisces" ; src = pkgs.fishPlugins.pisces.src; }
         { name = "fzf-fish" ; src = pkgs.fishPlugins.fzf-fish.src; }
         { name = "humantime-fish" ; src = pkgs.fishPlugins.humantime-fish.src; }
-       
       ];
     };
   };

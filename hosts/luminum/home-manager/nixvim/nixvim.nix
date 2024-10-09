@@ -25,6 +25,8 @@
     };
 
     opts = {
+      shell = "fish";
+
       # Numberlines
       number = true;
 

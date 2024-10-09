@@ -13,14 +13,12 @@
       ./wifi.nix
       ./packages.nix
 
-      inputs.sops-nix.nixosModules.sops
+      inputs.agenix.nixosModules.default
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  sops = {
-    defaultSopsFile = ./../../../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
-    age.keyFile = "/home/shringe/.config/sops/age/keys.txt";
+  age.secrets = {
+    wireless.file = ./../../../secrets/wireless.age;
   };
 
   boot = {
@@ -76,32 +74,40 @@
   services.libinput.enable = true;
 
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-    expect
+  environment = {
+    sessionVariables = {
+      FLAKE="/nixdots";
+    };
+    systemPackages = with pkgs; [
+      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      wget
+      git
+      expect
 
-    age
-    vim-startuptime
-    fastfetch
-    neovim
-    picom
+      age
+      inputs.agenix.packages.${system}.default
 
-    sops
-    fish
-    eza
-    bat
-    #atuin
-    btop
-    htop
-    nix-search-cli
+      vim-startuptime
+      fastfetch
+      neovim
+      picom
+
+      fish
+      eza
+      bat
+      #atuin
+      btop
+      htop
+
+      nix-search-cli
+      nh
 
 
-    btrfs-progs
-    compsize
-    cryptsetup
-  ];
+      btrfs-progs
+      compsize
+      cryptsetup
+    ];
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

@@ -29,7 +29,7 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.shellAliases = {
-    ls = "eza --group-directories-first --icons";
+    ls = "eza --group-directories-first --icons --group";
     pyclean = "find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete";
   };
 
@@ -41,6 +41,7 @@
       
       extraConfig = {
         credential.helper = "store";
+        safe.directory = "/nixdots";
       };
     };
     atuin.enable = true;
