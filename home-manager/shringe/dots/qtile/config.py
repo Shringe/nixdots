@@ -8,6 +8,7 @@ from shared import keybinds, layouts
 # Core settings
 # Anything left blank is to be set in x11/wayland functions instead
 keys: list = keybinds.keys
+
 mod: str = keybinds.mod
 groups: list = layouts.groups
 floating_layout = layouts.floating
@@ -37,6 +38,7 @@ def x11():
     from x11 import keybinds
 
     logger.setLevel("WARNING")
+    # logger.setLevel("DEBUG")
     logger.info("Loading X11 config")
 
     # Importing hooks

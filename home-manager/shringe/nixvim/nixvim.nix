@@ -1,16 +1,8 @@
 { pkgs, ... }:
-# let
-#   nixvim = import (builtins.fetchGit {
-#     url = "https://github.com/nix-community/nixvim";
-#     # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-#     # ref = "nixos-24.05";
-#   });
-# in
 {
   imports = [
-    # inputs.nixvim.homeManagerModules.nixvim
-    ./optimizations.nix
     ./extra-plugins
+    ./optimizations.nix
   ];
 
 
@@ -18,6 +10,7 @@
     enable = true;
     colorschemes.catppuccin.enable = true;
 
+    # Simple plugins
     plugins = {
       lualine.enable = true;
       nvim-autopairs.enable = true;
