@@ -2,7 +2,7 @@
 {
   programs.firefox = {
     enable = true;
-    package = pkgs.librewolf;
+    # package = pkgs.librewolf;
     policies = {
       Preferences = {
         "middlemouse.paste" = false;

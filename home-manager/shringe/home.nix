@@ -10,7 +10,8 @@
     # ./is_generic_linux.nix
     # ./qutebrowser.nix
 
-    ./firefox.nix
+    ./firefox2.nix
+
     ./dots
   ];
 
@@ -71,6 +72,7 @@
     font-awesome
     pavucontrol
     meslo-lgs-nf
+    nh
   ];
 
   
@@ -83,6 +85,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     EDITOR = "nvim";
+    FLAKE = "/nixdots";
   };
 
   # Let Home Manager install and manage itself.

@@ -4,7 +4,8 @@
     keymaps = [
       {
         mode = [ "t" "n" ];
-        key = "<leader>n";
+        # key = "<leader>n";
+        key = "<C-n>";
         action = "<cmd>ToggleTerm fish<CR>";
       }
     ];
