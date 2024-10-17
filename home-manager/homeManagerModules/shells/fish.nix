@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{ lib, pkgs, config, ... }:
 {
-  programs = {
-    atuin.enableFishIntegration = true;
-    fish = {
+  options.shells.fish = {
+    enable = lib.mkEnableOption "Enables fish shell configuration";
+    # atuin = lib.mkEnableOption;
+  };
+  config.programs = {
+    # atuin = lib.mkIf config.shells.fish.atuin { 
+    #   enableFishIntegration = true;
+    # };
+    fish = lib.mkIf config.shells.fish.enable {
       enable = true;
       interactiveShellInit = ''
         set fish_greeting # disable greeting
@@ -25,5 +31,5 @@
         { name = "humantime-fish" ; src = pkgs.fishPlugins.humantime-fish.src; }
       ];
     };
-  };
+  };  
 }
