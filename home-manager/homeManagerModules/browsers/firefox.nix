@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
   let
     lock-false = {
       Value = false;
@@ -10,8 +10,13 @@
     };
   in
 {
-  programs = {
-    firefox = {
+  
+  options = {
+    browsers.firefox.enable = lib.mkEnableOption "Enable Firefox browser";
+  };
+
+  config = {
+    programs.firefox = lib.mkIf config.browsers.firefox.enable {
       enable = true;
       languagePacks = [ "en-US" ];
 
@@ -59,7 +64,7 @@
           #   installation_mode = "force_installed";
           # };
         };
-  
+
 
         search = {
           force = true;

@@ -32,7 +32,7 @@
         luminum = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
           modules = [ 
-            ./hosts/luminum/nixos/configuration.nix 
+            ./nixos/luminum/configuration.nix 
           ];
         };
       };
@@ -40,8 +40,9 @@
         shringe = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ 
-            ./hosts/luminum/home-manager/home.nix 
+            ./home-manager/shringe/home.nix 
             inputs.nixvim.homeManagerModules.nixvim
+            ./home-manager/homeManagerModules
           ];
         };
       };
