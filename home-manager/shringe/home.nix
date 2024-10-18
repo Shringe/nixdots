@@ -28,7 +28,7 @@
       
       extraConfig = {
         credential.helper = "store";
-        safe.directory = "/nixdots";
+        safe.directory = [ "/nixdots" "/nixdots/.git" ];
       };
     };
   };
