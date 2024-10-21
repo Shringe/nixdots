@@ -9,7 +9,7 @@
     keymaps = [
       {
         mode = "n";
-        key = "<leader>e";
+        key = "<C-e>";
         action = "<cmd>NvimTreeToggle<CR>";
       }
     ];

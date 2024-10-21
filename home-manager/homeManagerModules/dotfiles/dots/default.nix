@@ -1,13 +1,7 @@
-{ pkgs, ... }:
+{ config, lib, ... }:
 {
-  home.packages = with pkgs; [
-    picom
-    ranger
-    alacritty
-    dunst
-
-  ];
-  xdg.configFile = {
+  imports = [ ./qtile ];
+  xdg.configFile = lib.mkIf config.homeManagerModules.dotfiles.enable {
     "qtile" = {
       source = ./qtile;
       recursive = true;

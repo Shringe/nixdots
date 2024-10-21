@@ -1,12 +1,11 @@
-{ pkgs, ... }:
+{ config, lib, ... }:
 {
   imports = [
     ./extra-plugins
     ./optimizations.nix
   ];
 
-
-  programs.nixvim = {
+  programs.nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
     enable = true;
     colorschemes.catppuccin.enable = true;
 
@@ -15,6 +14,7 @@
       lualine.enable = true;
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
+      friendly-snippets.enable = true;
     };
 
     opts = {
