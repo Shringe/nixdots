@@ -17,9 +17,6 @@ def format_tui(
         case "alacritty":
             theme: str = expanduser("~/.config/alacritty/tui.toml")
             fmt: str = "{} --config-file=" + theme + " -T {} -e {}"
-        case "nixGL alacritty":
-            theme: str = expanduser("~/.config/alacritty/tui.toml")
-            fmt: str = "{} --config-file=" + theme + " -T {} -e {}"
         case _:
             raise NotImplementedError(
                 f'Must add "{terminal}" to the list of supported terminals'

@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,9 +44,11 @@
       homeConfigurations = {
         shringe = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
           modules = [ 
             ./home-manager/shringe/home.nix 
             inputs.nixvim.homeManagerModules.nixvim
+            # inputs.firefox-addons
             ./home-manager/homeManagerModules
           ];
         };

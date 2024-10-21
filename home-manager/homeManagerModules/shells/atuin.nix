@@ -1,7 +1,6 @@
 { lib, config, ... }:
 {
-  options.shells.atuin.enable = lib.mkEnableOption "Enables and configures Atuin";
-  config.programs.atuin = lib.mkIf config.shells.atuin.enable {
+  config.programs.atuin = lib.mkIf config.homeManagerModules.shells.atuin.enable {
     enable = true;
   };
 }

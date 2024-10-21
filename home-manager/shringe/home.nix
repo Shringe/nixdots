@@ -2,11 +2,7 @@
 
 {
   imports = [
-    ./nixvim/nixvim.nix
-    ./qtile.nix
     ./scripts.nix
-
-    ./dots
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -14,9 +10,12 @@
   home.username = "shringe";
   home.homeDirectory = "/home/shringe";
 
-
-  browsers.default = true;
-  shells.enable = true;
+  homeManagerModules = {
+    nixvim.enable = true;
+    browsers.default = true;
+    shells.enable = true;
+    dotfiles.enable = true;
+  };
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
@@ -55,15 +54,11 @@
     btop
     font-awesome
     pavucontrol
-    meslo-lgs-nf
     nh
-  ];
 
-  
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-  };
+    meslo-lgs-nf
+    jetbrains-mono
+  ];
 
   home.sessionPath = [ "/home/shringe/.config/home-manager/scripts" ];
   home.sessionVariables = {

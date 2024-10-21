@@ -5,7 +5,7 @@ from os.path import expanduser
 
 @dataclass(frozen=True)
 class DefaultApplications:
-    terminal: str = "nixGL alacritty"
+    terminal: str = "alacritty"
     browser: str = "librewolf"
     music_player: str = "termusic"
     file_manager: str = "ranger"
