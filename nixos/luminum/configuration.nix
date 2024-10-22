@@ -18,7 +18,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   age.secrets = {
-    wireless.file = ./../../../secrets/wireless.age;
+    wireless.file = ./../../secrets/wireless.age;
   };
 
   boot = {

@@ -38,10 +38,10 @@
     };
 
     keymaps = [
-      {
-        key = ";";
-        action = ":";
-      }
+      # {
+      #   key = ";";
+      #   action = ":";
+      # }
       {
         mode = "n";
         key = "<leader>k";
