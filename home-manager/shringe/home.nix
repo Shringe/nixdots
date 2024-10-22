@@ -12,7 +12,9 @@
 
   homeManagerModules = {
     nixvim.enable = true;
-    browsers.default = true;
+    desktop = {
+      browsers.enable = true;
+    };
     shells.enable = true;
     dotfiles.enable = true;
   };

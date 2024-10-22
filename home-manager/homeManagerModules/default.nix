@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   imports = [
-    ./browsers
+    ./desktop
     ./shells
     ./dotfiles
     ./nixvim
@@ -14,10 +14,17 @@
       optimizations = lib.mkEnableOption "Applies expiremental performance optimizations";
     };
 
-    browsers = {
-      default = lib.mkEnableOption "Enables preferred browser module";
-      firefox.enable = lib.mkEnableOption "Firefox";
+    desktop = {
+      office = {
+        enable = lib.mkEnableOption "Office suite";
+        libreoffice.enable = lib.mkEnableOption "Libreoffice";
+      };
+      browsers = {
+        enable = lib.mkEnableOption "Enables preferred browser module";
+        firefox.enable = lib.mkEnableOption "Firefox";
+      };
     };
+
 
     shells = {
       enable = lib.mkEnableOption "Enable all shells and shell configuration"; 
@@ -53,8 +60,13 @@
       optimizations = lib.mkDefault true;
     };
 
-    browsers = lib.mkIf config.homeManagerModules.browsers.default {
-      firefox.enable = lib.mkDefault true;
+    desktop = {
+      office = lib.mkIf config.homeManagerModules.desktop.office.enable {
+        libreoffice.enable = lib.mkDefault true;
+      };
+      browsers = lib.mkIf config.homeManagerModules.desktop.browsers.enable {
+        firefox.enable = lib.mkDefault true;
+      };
     };
 
     shells = {

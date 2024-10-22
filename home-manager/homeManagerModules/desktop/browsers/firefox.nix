@@ -11,7 +11,7 @@
   in
 {
   config = {
-    programs.firefox = lib.mkIf config.homeManagerModules.browsers.firefox.enable {
+    programs.firefox = lib.mkIf config.homeManagerModules.desktop.browsers.firefox.enable {
       enable = true;
       languagePacks = [ "en-US" ];
       profiles.default.extensions = with inputs.firefox-addons.packages."x86_64-linux"; [

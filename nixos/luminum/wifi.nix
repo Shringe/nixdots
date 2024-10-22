@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   networking.wireless = {
     enable = true;
@@ -9,9 +9,21 @@
     };
   };
 
-  system.activationScripts.rfkillUnblockWlan = {
-    text = "rfkill unblock wlan";
-    deps = [];
+  # system.activationScripts.rfkillUnblockWlan = {
+  #   text = ''
+  #     rfkill unblock wlan > /tmp/unblockwlan.txt
+  #   '';
+  #   deps = [];
+  # };
+
+  systemd.services.rfkillUnblockWlan = {
+    description = "unblocks wlan";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.util-linux}/bin/rfkill unblock wlan";
+      RemainAfterExit = true;
+    };
+    wantedBy = [ "multi-user.target" ];
   };
 }
 
