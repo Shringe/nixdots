@@ -76,8 +76,7 @@
       };
     };
 
-    shells = {
-      enable = lib.mkDefault true; 
+    shells = lib.mkIf config.homeManagerModules.shells.enable {
       fish = {
         enable = lib.mkDefault true;
         atuin = lib.mkDefault true;
@@ -91,8 +90,7 @@
     };
 
     dotfiles = {
-      enable = lib.mkDefault true;
-      # qtile.installDependencies = lib.mkDefault true;
+      # enable = lib.mkDefault true;
     };
 
     wm.qtile = lib.mkIf config.homeManagerModules.wm.default {
