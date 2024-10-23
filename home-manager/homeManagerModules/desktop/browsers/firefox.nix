@@ -14,13 +14,43 @@
     programs.firefox = lib.mkIf config.homeManagerModules.desktop.browsers.firefox.enable {
       enable = true;
       languagePacks = [ "en-US" ];
-      profiles.default.extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
-        ublock-origin
-        vimium
-        canvasblocker
-        privacy-badger
-        bitwarden
-      ];
+      profiles.default = {
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          ublock-origin
+          vimium
+          canvasblocker
+          privacy-badger
+          bitwarden
+          languagetool
+        ];
+        search = {
+          force = true;
+          engines = {
+            "Nix Packages" = {
+              urls = [{
+                template = "https://search.nixos.org/packages";
+                params = [
+                  { name = "type"; value = "packages"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@np" ];
+            };
+            "SearXNG" = {
+              urls = [{
+                template = "https://seek.fyi/search?q={searchTerms}";
+                params = [
+                  { name = "type"; value = "engines"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@sx" ];
+            };
+          };
+        };
+      };
 
       /* ---- POLICIES ---- */
       # Check about:policies#documentation for options.
@@ -81,33 +111,6 @@
         # };
 
 
-        search = {
-          force = true;
-          engines = {
-            "Nix Packages" = {
-              urls = [{
-                template = "https://search.nixos.org/packages";
-                params = [
-                  { name = "type"; value = "packages"; }
-                  { name = "query"; value = "{searchTerms}"; }
-                ];
-              }];
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@np" ];
-            };
-            "SearXNG" = {
-              urls = [{
-                template = "https://seek.fyi/search?q={searchTerms}";
-                params = [
-                  { name = "type"; value = "engines"; }
-                  { name = "query"; value = "{searchTerms}"; }
-                ];
-              }];
-              # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@sx" ];
-            };
-          };
-        };
         /* ---- PREFERENCES ---- */
         # Check about:config for options.
         Preferences = { 

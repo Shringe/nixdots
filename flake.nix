@@ -4,10 +4,15 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    nur = {
+      url = "github:nix-community/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # firefox-addons = {
+    #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -30,7 +35,11 @@
       pkgs = import nixpkgs {
         inherit system;
 
-        config.allowUnfree = false;
+        # config.allowUnfree = false;
+        overlays = [
+          inputs.nur.overlay
+        ];
+        config.allowUnfree = true;
       };
     in {
       nixosConfigurations = {
