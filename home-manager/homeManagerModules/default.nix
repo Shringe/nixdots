@@ -5,10 +5,14 @@
     ./shells
     ./dotfiles
     ./nixvim
+    ./scripts
   ];
 
   # Defines all options for homeManagerModules
   options.homeManagerModules = {
+    scripts = {
+      enable = lib.mkEnableOption "packages shell scriptss";
+    };
     nixvim = {
       enable = lib.mkEnableOption "Nixvim configuration";
       optimizations = lib.mkEnableOption "Applies expiremental performance optimizations";
@@ -56,6 +60,9 @@
 
   # Defines default options for homeManagerModules
   config.homeManagerModules = {
+    scripts = {
+      # enable = lib.mk
+    };
     nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
       optimizations = lib.mkDefault true;
     };

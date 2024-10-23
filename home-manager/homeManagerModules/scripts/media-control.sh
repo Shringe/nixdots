@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+notify-send "Test title" "I am alive!"
 
 # github https://github.com/Shringe/dunst-media-control
 
@@ -36,7 +37,7 @@ function get_mic_mute {
 # Uses regex to get brightness from xbacklight
 function get_brightness {
     declare -i absb
-    declare -i relb
+    # declare -i relb
     absb=$(brightnessctl g)
     maxb=$(brightnessctl m)
     absb=$(( absb * 100 ))
@@ -77,7 +78,7 @@ function get_album_art {
         album_art="${url/file:\/\//}"
     elif [[ $url == "http://"* ]] && [[ $download_album_art == "true" ]]; then
         # Identify filename from URL
-        filename="$(echo $url | sed "s/.*\///")"
+        filename="$(echo "$url" | sed "s/.*\///")"
 
         # Download file to /tmp if it doesn't exist
         if [ ! -f "/tmp/$filename" ]; then
@@ -87,7 +88,7 @@ function get_album_art {
         album_art="/tmp/$filename"
     elif [[ $url == "https://"* ]] && [[ $download_album_art == "true" ]]; then
         # Identify filename from URL
-        filename="$(echo $url | sed "s/.*\///")"
+        filename="$(echo "$url" | sed "s/.*\///")"
         
         # Download file to /tmp if it doesn't exist
         if [ ! -f "/tmp/$filename" ]; then
@@ -111,9 +112,9 @@ function show_volume_notif {
         if [[ $show_album_art == "true" ]]; then
             get_album_art
         fi
-        notify-send -t $notification_timeout -h string:x-dunst-stack-tag:volume_notif -h int:value:$volume -i "$album_art" "$volume_icon $volume%" "$current_song"
+        notify-send -t "$notification_timeout" -h string:x-dunst-stack-tag:volume_notif -h int:value:"$volume" -i "$album_art" "$volume_icon $volume%" "$current_song"
     else
-        notify-send -t $notification_timeout -h string:x-dunst-stack-tag:volume_notif -h int:value:$volume "$volume_icon $volume%"
+        notify-send -t "$notification_timeout" -h string:x-dunst-stack-tag:volume_notif -h int:value:"$volume" "$volume_icon $volume%"
     fi
 }
 
@@ -126,7 +127,7 @@ function show_music_notif {
     if [[ $show_album_art == "true" ]]; then
         get_album_art
     fi
-    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:music_notif -i "$album_art" "$song_title" "$song_artist - $song_album"
+    notify-send -t "$notification_timeout" -h string:x-dunst-stack-tag:music_notif -i "$album_art" "$song_title" "$song_artist - $song_album"
 }
 
 # Displays mic notification
@@ -134,14 +135,14 @@ function show_mic_notif {
     volume=$(get_mic_volume)
     get_mic_icon  
 
-    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:mic_volume_notif -h int:value:$volume "$mic_icon $volume%"
+    notify-send -t "$notification_timeout" -h string:x-dunst-stack-tag:mic_volume_notif -h int:value:"$volume" "$mic_icon $volume%"
 }
 
 # Displays a brightness notification using dunstify
 function show_brightness_notif {
     brightness=$(get_brightness)
     get_brightness_icon
-    notify-send -t $notification_timeout -h string:x-dunst-stack-tag:brightness_notif -h int:value:$brightness "$brightness_icon $brightness%"
+    notify-send -t "$notification_timeout" -h string:x-dunst-stack-tag:brightness_notif -h int:value:"$brightness" "$brightness_icon $brightness%"
 }
 
 # Main function - Takes user input, "volume_up", "volume_down", "brightness_up", or "brightness_down"

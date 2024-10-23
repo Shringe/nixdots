@@ -15,13 +15,15 @@
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
       friendly-snippets.enable = true;
+      nvim-surround.enable = true;
     };
 
     opts = {
       shell = "fish";
 
       # Numberlines
-      number = true;
+      number = true; 
+      relativenumber = true; 
 
       # Saves undo history to swapfile
       undofile = true;
