@@ -6,6 +6,8 @@
       { name = "nvim_lsp"; }
       { name = "luasnip"; }
       { name = "async_path"; }
+      { name = "buffer"; }
+      { name = "treesitter"; }
     ];
   };
 }
