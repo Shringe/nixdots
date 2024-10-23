@@ -39,7 +39,8 @@
         overlays = [
           inputs.nur.overlay
         ];
-        config.allowUnfree = true;
+        # config.allowUnfree = true;
+        config.allowUnfreePredicate = true;
       };
     in {
       nixosConfigurations = {
