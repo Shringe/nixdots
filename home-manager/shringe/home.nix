@@ -1,9 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-  ];
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "shringe";
@@ -62,9 +59,7 @@
     jetbrains-mono
   ];
 
-  home.sessionPath = [ "/home/shringe/.config/home-manager/scripts" ];
   home.sessionVariables = {
-    # EDITOR = "emacs";
     EDITOR = "nvim";
     FLAKE = "/nixdots";
   };
