@@ -11,6 +11,10 @@
   in
 {
   config = {
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "languagetool"
+      ];
     programs.firefox = lib.mkIf config.homeManagerModules.desktop.browsers.firefox.enable {
       enable = true;
       languagePacks = [ "en-US" ];
