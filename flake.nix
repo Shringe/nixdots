@@ -9,11 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # firefox-addons = {
-    #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +18,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,14 +46,22 @@
         };
       };
       homeConfigurations = {
+        shringed = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [ 
+            ./home-manager/shringed/home.nix 
+            ./home-manager/homeManagerModules
+            inputs.nixvim.homeManagerModules.nixvim
+          ];
+        };
         shringe = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit inputs; };
           modules = [ 
             ./home-manager/shringe/home.nix 
-            inputs.nixvim.homeManagerModules.nixvim
-            # inputs.firefox-addons
             ./home-manager/homeManagerModules
+            inputs.nixvim.homeManagerModules.nixvim
           ];
         };
       };

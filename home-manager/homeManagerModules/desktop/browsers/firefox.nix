@@ -30,6 +30,8 @@
         ];
         search = {
           force = true;
+          default = "SearXNG";
+          order = [ "SearXNG" ];
           engines = {
             "Nix Packages" = {
               urls = [{
