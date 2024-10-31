@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "shringe";
-  home.homeDirectory = "/home/shringe";
+  home.username = "shringed";
+  home.homeDirectory = "/home/shringed";
 
   homeManagerModules = {
     nixvim.enable = true;
@@ -54,7 +54,6 @@
     font-awesome
     pavucontrol
     nh
-    nixgl
 
     meslo-lgs-nf
     jetbrains-mono

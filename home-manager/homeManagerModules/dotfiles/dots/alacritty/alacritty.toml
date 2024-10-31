@@ -1,3 +1,4 @@
+[general]
 import = ["~/.config/alacritty/themes/themes/breeze.toml"]
 
 [font.normal]
@@ -5,7 +6,7 @@ import = ["~/.config/alacritty/themes/themes/breeze.toml"]
 family = "JetbrainsMono"
 style = "Regular"
 
-[shell]
+[terminal.shell]
 program = "fish"
 
 [window]

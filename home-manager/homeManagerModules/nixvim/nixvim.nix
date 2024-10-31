@@ -15,6 +15,7 @@
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
       friendly-snippets.enable = true;
+      lspkind.enable = true;
       nvim-surround.enable = true;
     };
 
