@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-notify-send "Test title" "I am alive!"
+# notify-send "Test title" "I am alive!"
 
 # github https://github.com/Shringe/dunst-media-control
 

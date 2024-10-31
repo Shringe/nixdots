@@ -1,9 +1,11 @@
-from libqtile import layout
-from libqtile.config import Match, DropDown, ScratchPad, Group
-from shared.utils.format import format_tui
-from shared.defaults import apps
-from x11.defaults import theme
 from re import compile
+
+from libqtile import layout
+from libqtile.config import DropDown, Group, Match, ScratchPad
+from x11.defaults import theme
+
+from shared.defaults import apps
+from shared.utils.format import format_tui
 
 active = theme.colors.border_active
 inactive = theme.colors.border_inactive
@@ -71,7 +73,7 @@ groups: list = [
     Group("6", layouts=[primary]),
     Group("7", layouts=[primary]),
     Group("8", layouts=[primary]),
-    Group("9", layouts=[Max]),
+    Group("9", layouts=[primary], spawn=f"{apps.terminal} --working-directory /nixdots"),
     ScratchPad(
         "0",
         [
