@@ -50,16 +50,6 @@
         };
       };
       homeConfigurations = {
-        shringed = inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [ 
-            ./home-manager/shringed/home.nix 
-            inputs.nixvim.homeManagerModules.nixvim
-            # inputs.firefox-addons
-            ./home-manager/homeManagerModules
-          ];
-        };
         shringe = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit inputs; };
