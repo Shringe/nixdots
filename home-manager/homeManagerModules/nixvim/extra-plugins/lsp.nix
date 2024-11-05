@@ -9,19 +9,22 @@
 
           };
         };
-        pyright = {
+        jedi_language_server = {
           enable = true;
-          settings = {
-            pyright = {
-              disableOrganizeImports = true;
-            };
-            python = {
-              analysis = {
-                ignore = [ "*" ];
-              };
-            };
-          };
         };
+        # pyright = {
+        #   enable = true;
+        #   settings = {
+        #     pyright = {
+        #       disableOrganizeImports = true;
+        #     };
+        #     python = {
+        #       analysis = {
+        #         ignore = [ "*" ];
+        #       };
+        #     };
+        #   };
+        # };
         bashls.enable = true;
         nixd.enable = true;
       };
