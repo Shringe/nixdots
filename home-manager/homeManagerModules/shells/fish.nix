@@ -7,6 +7,7 @@
     fish = lib.mkIf config.homeManagerModules.shells.fish.enable {
       enable = true;
       interactiveShellInit = ''
+        fish_vi_key_bindings
         set fish_greeting # disable greeting
 
         # Prefix <nix-shell> to prompt if in nix-shell
