@@ -38,12 +38,14 @@
     globals = {
       mapleader = " ";
     };
-
+# vim.api.nvim_set_keymap(  't'  ,  '<Leader><ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
     keymaps = [
-      # {
-      #   key = ";";
-      #   action = ":";
-      # }
+      {# Esc in terminal mode
+        mode = "t";
+        key = "<ESC>";
+        action = "<C-\\><C-n>";
+        options.silent = true;
+      }
       {
         mode = "n";
         key = "<leader>k";
@@ -67,7 +69,7 @@
         key = "<leader>l";
         options.silent = true;
         action = "<cmd>wincmd l<CR>";
-      }  
+      }
     ];
   };
 }
