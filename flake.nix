@@ -42,6 +42,7 @@
           specialArgs = { inherit system inputs; };
           modules = [ 
             ./nixos/luminum/configuration.nix 
+            ./nixos/nixosModules
           ];
         };
       };

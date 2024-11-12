@@ -17,6 +17,10 @@
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nixosModules = {
+    kanata.enable = true;
+  };
+
   age.secrets = {
     wireless.file = ./../../secrets/wireless.age;
   };
@@ -46,8 +50,6 @@
     enable = true;
     xkb = {
       layout = "us";
-      variant = "colemak";
-      options = "caps:backspace";
     };
   };
   services.displayManager.ly = {

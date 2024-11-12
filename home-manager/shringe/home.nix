@@ -54,7 +54,6 @@
     font-awesome
     pavucontrol
     nh
-    nixgl
 
     meslo-lgs-nf
     jetbrains-mono
