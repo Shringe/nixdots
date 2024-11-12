@@ -24,6 +24,7 @@
           vimium
           canvasblocker
           privacy-badger
+          return-youtube-dislikes
           bitwarden
 
           languagetool
