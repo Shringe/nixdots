@@ -14,11 +14,16 @@
       ./packages.nix
 
       inputs.agenix.nixosModules.default
+      inputs.sops-nix.nixosModules.sops
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
     kanata.enable = true;
+  };
+
+  sops = {
+    
   };
 
   age.secrets = {
