@@ -6,10 +6,14 @@
     ./dotfiles
     ./nixvim
     ./scripts
+    ./sops
   ];
 
   # Defines all options for homeManagerModules
   options.homeManagerModules = {
+    sops = {
+      enable = lib.mkEnableOption "Generate sops keys";
+    };
     scripts = {
       enable = lib.mkEnableOption "packages shell scriptss";
     };
