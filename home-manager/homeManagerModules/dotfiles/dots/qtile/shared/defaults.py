@@ -5,7 +5,8 @@ from os.path import expanduser
 
 @dataclass(frozen=True)
 class DefaultApplications:
-    terminal: str = "alacritty"
+    # terminal: str = "alacritty"
+    terminal: str = "wezterm"
     # browser: str = "librewolf"
     browser: str = "firefox"
     music_player: str = "termusic"
@@ -13,7 +14,7 @@ class DefaultApplications:
 
 
 mod = "mod4"
-keyboard = KeyboardLayout("colemak")
+keyboard = KeyboardLayout("colemak_dh")
 
 apps = DefaultApplications()
 
