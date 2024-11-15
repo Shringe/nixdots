@@ -16,15 +16,19 @@
       steam = {
         enable = lib.mkEnableOption "Steam configuration";
       };
-      # games = {
-      # };
+      games = {
+        enable = lib.mkEnableOption "All other games";
+        prismlauncher.enable = lib.mkEnableOption "prismlauncer configuration";
+      };
     };
   };
   config.nixosModules = {
     gaming = {
       # optimizations = lib.mkDefault config.nixosModules.gaming.optimizations.enable {
-      #
       # };
+      games = lib.mkIf config.nixosModules.gaming.games.enable {
+        prismlauncher.enable = lib.mkDefault true;
+      };
     };
   };
 }

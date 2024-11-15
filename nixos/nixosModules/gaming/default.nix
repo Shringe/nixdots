@@ -1,5 +1,6 @@
 {
   imports = [
+    ./games
     ./steam.nix
   ];
 }

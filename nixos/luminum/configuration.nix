@@ -21,6 +21,7 @@
     kanata.enable = true;
     gaming = {
       steam.enable = true;
+      games.enable = true;
     };
   };
 
