@@ -11,7 +11,8 @@ from x11.display import decorations
 
 
 widget_defaults = dict(
-    font="FontAwesome",
+    # font="FontAwesome",
+    font="JetBrains Mono",
     fontsize=14,
     padding=2,
     update_interval=2,
@@ -47,6 +48,7 @@ primary = Screen(
             ),
             widget.WindowName(**decorations.powerline_right),
             widget.Systray(icon_size=22, **decorations.powerline_right),
+            widget.BatteryIcon(**decorations.powerline_right),
             # widget.Image(
             #     name="nordvpn_icon",
             #     filename=theme.icons.vpn_active,
