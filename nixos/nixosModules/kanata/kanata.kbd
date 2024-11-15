@@ -55,7 +55,7 @@
 
 (defvar
   tap-timeout 120
-  hold-timeout 120
+  hold-timeout 160
 )
 
 (defalias
