@@ -3,10 +3,14 @@
   networking.wireless = {
     enable = true;
 
-    secretsFile = config.age.secrets.wireless.path;
+    secretsFile = config.sops.secrets.wireless.path;
     networks = {
-      "TP-Link_76C0".pskRaw = "ext:home";  
+      "TP-Link_76C0".pskRaw = "ext:home_psk";  
     };
+    # secretsFile = config.age.secrets.wireless.path;
+    # networks = {
+    #   "TP-Link_76C0".pskRaw = "ext:home";  
+    # };
   };
 
   # system.activationScripts.rfkillUnblockWlan = {

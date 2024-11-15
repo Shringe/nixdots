@@ -23,6 +23,10 @@
   };
 
   sops = {
+    defaultSopsFile = ./../secrets.yaml;
+    secrets = {
+      "wireless" = {};
+    };
     
   };
 
@@ -91,6 +95,7 @@
       git
       expect
 
+      sops
       age
       inputs.agenix.packages.${system}.default
 
