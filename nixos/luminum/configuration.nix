@@ -19,6 +19,9 @@
 
   nixosModules = {
     kanata.enable = true;
+    gaming = {
+      steam.enable = true;
+    };
   };
 
   sops = {
