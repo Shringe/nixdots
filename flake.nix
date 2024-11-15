@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+
     nur = {
       url = "github:nix-community/nur";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +32,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -40,6 +42,9 @@
           inputs.nur.overlay
         ];
         config.allowUnfreePredicate = true;
+      };
+      pkgs-stable = import nixpkgs-stable {
+        inherit system;
       };
     in {
       nixosConfigurations = {
@@ -54,7 +59,7 @@
       homeConfigurations = {
         shringed = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs pkgs-stable; };
           modules = [ 
             ./home-manager/shringed/home.nix 
             ./home-manager/homeManagerModules
@@ -63,7 +68,7 @@
         };
         shringe = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs pkgs-stable; };
           modules = [ 
             ./home-manager/shringe/home.nix 
             ./home-manager/homeManagerModules
