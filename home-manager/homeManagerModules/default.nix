@@ -6,10 +6,14 @@
     ./dotfiles
     ./nixvim
     ./scripts
+    ./sops
   ];
 
   # Defines all options for homeManagerModules
   options.homeManagerModules = {
+    sops = {
+      enable = lib.mkEnableOption "Generate sops keys";
+    };
     scripts = {
       enable = lib.mkEnableOption "packages shell scriptss";
     };
@@ -19,6 +23,11 @@
     };
 
     desktop = {
+      terminals = {
+        enable = lib.mkEnableOption "Default terminal";
+        wezterm.enable = lib.mkEnableOption "Wezterm configuration";
+        alacritty.enable = lib.mkEnableOption "Alacritty configuration";
+      };
       office = {
         enable = lib.mkEnableOption "Office suite";
         libreoffice.enable = lib.mkEnableOption "Libreoffice";
@@ -50,7 +59,7 @@
     };
 
     wm = {
-      default = lib.mkEnableOption "Preferred WM";
+      enable = lib.mkEnableOption "Preferred WM";
       qtile = {
         enable = lib.mkEnableOption "Qtile configuration";
         installDependencies = lib.mkEnableOption "Install Qtile configuration dependencies";
@@ -74,6 +83,10 @@
       browsers = lib.mkIf config.homeManagerModules.desktop.browsers.enable {
         firefox.enable = lib.mkDefault true;
       };
+      terminals = lib.mkIf config.homeManagerModules.desktop.terminals.enable {
+
+        wezterm.enable = lib.mkDefault true;
+      };
     };
 
     shells = lib.mkIf config.homeManagerModules.shells.enable {
@@ -93,7 +106,7 @@
       # enable = lib.mkDefault true;
     };
 
-    wm.qtile = lib.mkIf config.homeManagerModules.wm.default {
+    wm.qtile = lib.mkIf config.homeManagerModules.wm.enable {
       enable = lib.mkDefault true;
       installDependencies = lib.mkDefault true;
     };
