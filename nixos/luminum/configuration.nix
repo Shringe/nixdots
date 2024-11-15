@@ -13,7 +13,6 @@
       ./wifi.nix
       ./packages.nix
 
-      inputs.agenix.nixosModules.default
       inputs.sops-nix.nixosModules.sops
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -28,10 +27,6 @@
       "wireless" = {};
     };
     
-  };
-
-  age.secrets = {
-    wireless.file = ./../../secrets/wireless.age;
   };
 
   boot = {
@@ -96,8 +91,6 @@
       expect
 
       sops
-      age
-      inputs.agenix.packages.${system}.default
 
       vim-startuptime
       fastfetch
