@@ -5,25 +5,19 @@ in
 {
   programs.alacritty = lib.mkIf cfg.enable {
     enable = true;
-
-# [general]
-# import = ["~/.config/alacritty/themes/themes/breeze.toml"]
-#
-# [font.normal]
-# # family = "MesloLGS NF"
-# family = "JetbrainsMono"
-# style = "Regular"
-#
-# [terminal.shell]
-# program = "fish"
-#
-# [window]
-# opacity = 0.88
-#
-# [window.padding]
-# x = 4
-# y = 1
-
-
+    settings = {
+      font.normal = {
+        family = "JetbrainsMono";
+        style = "Regular";
+      };
+      terminal.shell.program = "fish";
+      window = {
+        opacity = 0.88;
+        padding = {
+          # x = 4;
+          # y = 1;
+        };
+      };
+    };
   };
 }

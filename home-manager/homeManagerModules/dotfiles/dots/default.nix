@@ -17,10 +17,6 @@
       source = ./ranger;
       recursive = true;
     };
-    "alacritty" = {
-      source = ./alacritty;
-      recursive = true;
-    };
     "dunst" = {
       source = ./dunst;
       recursive = true;
