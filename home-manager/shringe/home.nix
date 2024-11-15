@@ -15,7 +15,7 @@
     };
     shells.enable = true;
     scripts.enable = true;
-    # dotfiles.enable = true;
+    dotfiles.enable = true;
     sops.enable = true;
     wm.enable = true;
   };
