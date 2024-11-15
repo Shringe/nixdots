@@ -16,6 +16,7 @@
       web-devicons.enable = true;
       friendly-snippets.enable = true;
       nvim-surround.enable = true;
+      gitsigns.enable = true;
     };
 
     opts = {

@@ -13,19 +13,21 @@ def format_tui(
     """
     Formats TUI applications according to internal options that should be set within this function.
     """
-    match terminal:
-        case "alacritty":
-            theme: str = expanduser("~/.config/alacritty/tui.toml")
-            fmt: str = "{} --config-file=" + theme + " -T {} -e {}"
-        case _:
-            raise NotImplementedError(
-                f'Must add "{terminal}" to the list of supported terminals'
-            )
 
     if not title:
         title = command
 
-    return fmt.format(terminal, title, command)
+    match terminal:
+        case "alacritty":
+            theme: str = expanduser("~/.config/alacritty/tui.toml")
+            return f"{terminal} --config-file={theme} -T {title} -e {command}"
+        case "wezterm":
+            return f"{terminal} -e {command}"
+        case _:
+            raise NotImplementedError(
+                f'Must add "{terminal}" to the list of supported terminals'
+            )
+            return f"{terminal} -e {command}"
 
 
 def get_theme(name: str, theme_dir="shared.themes") -> Theme:

@@ -1,4 +1,6 @@
 {
     "qwerty": "qwertyuiopasdfghjkl;zxcvbnm",
-    "colemak": "qwfpgjluy;arstdhneiozxcvbkm"
+    "colemak": "qwfpgjluy;arstdhneiozxcvbkm",
+    "colemak_dh": "qwfpbjluy;arstgmneioxcdvzkh",
+    "gallium": "bldczjfou,nrtsvyhaeiqmwgxkp"
 }

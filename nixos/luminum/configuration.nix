@@ -13,12 +13,20 @@
       ./wifi.nix
       ./packages.nix
 
-      inputs.agenix.nixosModules.default
+      inputs.sops-nix.nixosModules.sops
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  age.secrets = {
-    wireless.file = ./../../secrets/wireless.age;
+  nixosModules = {
+    kanata.enable = true;
+  };
+
+  sops = {
+    defaultSopsFile = ./../secrets.yaml;
+    secrets = {
+      "wireless" = {};
+    };
+    
   };
 
   boot = {
@@ -46,8 +54,6 @@
     enable = true;
     xkb = {
       layout = "us";
-      variant = "colemak";
-      options = "caps:backspace";
     };
   };
   services.displayManager.ly = {
@@ -84,8 +90,7 @@
       git
       expect
 
-      age
-      inputs.agenix.packages.${system}.default
+      sops
 
       vim-startuptime
       fastfetch

@@ -3,20 +3,13 @@
   networking.wireless = {
     enable = true;
 
-    secretsFile = config.age.secrets.wireless.path;
+    secretsFile = config.sops.secrets.wireless.path;
     networks = {
-      "TP-Link_76C0".pskRaw = "ext:home";  
+      "TP-Link_76C0".pskRaw = "ext:home_psk";  
     };
   };
 
-  # system.activationScripts.rfkillUnblockWlan = {
-  #   text = ''
-  #     rfkill unblock wlan > /tmp/unblockwlan.txt
-  #   '';
-  #   deps = [];
-  # };
-
-  systemd.services.rfkillUnblockWlan = {
+ systemd.services.rfkillUnblockWlan = {
     description = "unblocks wlan";
     serviceConfig = {
       Type = "oneshot";

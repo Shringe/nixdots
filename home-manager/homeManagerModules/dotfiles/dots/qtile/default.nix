@@ -1,12 +1,14 @@
 { config, lib, pkgs, ... }:
+let
+  cfg = config.homeManagerModules.wm.qtile;
+in
 {
-  config = lib.mkIf config.homeManagerModules.wm.qtile.installDependencies {
-    home.packages = [
-      pkgs.picom
-      pkgs.flameshot
-      pkgs.ranger
-      pkgs.alacritty
-      pkgs.dunst
-    ];
-  };
+  home.packages = lib.mkIf cfg.enable [
+    pkgs.picom
+    pkgs.flameshot
+    pkgs.ranger
+    pkgs.alacritty
+    pkgs.dunst
+  ];
 }
+

@@ -10,10 +10,14 @@
     nixvim.enable = true;
     desktop = {
       browsers.enable = true;
+      terminals.enable = true;
+      terminals.alacritty.enable = true;
     };
     shells.enable = true;
     scripts.enable = true;
     dotfiles.enable = true;
+    sops.enable = true;
+    wm.enable = true;
   };
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
@@ -54,7 +58,6 @@
     font-awesome
     pavucontrol
     nh
-    nixgl
 
     meslo-lgs-nf
     jetbrains-mono
