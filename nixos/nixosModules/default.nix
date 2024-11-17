@@ -8,6 +8,11 @@
   options.nixosModules = {
     kanata = {
       enable = lib.mkEnableOption "Enables full kanata keyboard configuration";
+      variant = lib.mkOption {
+        type = lib.types.str;
+        default = "main";
+        description = "What .kbd file to use. Options can be found in ./kanata/";
+      };
     };
     gaming = {
       optimizations = {

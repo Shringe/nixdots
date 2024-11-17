@@ -1,9 +1,12 @@
 { lib, config, ... }:
+let
+  cfg = config.nixosModules.kanata;
+in
 {
-  services.kanata = lib.mkIf config.nixosModules.kanata.enable {
+  services.kanata = lib.mkIf cfg.enable {
     enable = true;
     keyboards.default = {
-      configFile = ./kanata.kbd;
+      configFile = ./${cfg.variant}.kbd;
     };
   };
 }

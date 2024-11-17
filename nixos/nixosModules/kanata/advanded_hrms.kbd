@@ -1,0 +1,142 @@
+;; set filetype=lisp for better vim syntax highlighting
+(defsrc
+  grv       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps      a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft      z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc                 ralt rmet rctl
+)
+
+(deflayer colemak_dh_hrms
+  @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
+  tab        q          w          f          p          b    j    l          u          y          ;          [    ]    \
+  @extendesc        @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
+  lsft       x          c          d          v          z    k    h          ,          .          /          rsft
+  lctl lmet  lalt                             spc                             ralt       rmet       rctl
+)
+
+(deflayer colemak_dh
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    b    j    l    u    y    ;    [    ]    \
+  @extendesc a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft       x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+
+
+(deffakekeys
+  to-base (layer-switch colemak_dh_hrms)
+)
+
+(defvar 
+  left-hand-keys (
+    q w f p b
+    a r s t g
+    x c d v z 
+  )
+  right-hand-keys (
+    j l u y ;
+    m n e i o
+    k h , . /
+  )
+  hrm-tap-timeout 150
+  hrm-hold-timeout 200
+)
+;; (defalias
+;;   a (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi a @tap) lmet $left-hand-keys)
+;;   s (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi s @tap) lalt $left-hand-keys)
+;;   d (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi d @tap) lctl $left-hand-keys)
+;;   f (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi f @tap) lsft $left-hand-keys)
+;;
+;;   j (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi j @tap) rsft $right-hand-keys)
+;;   k (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi k @tap) rctl $right-hand-keys)
+;;   l (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi l @tap) ralt $right-hand-keys)
+;;   ; (tap-hold-release-keys $hrm-tap-time $hrm-hold-time (multi ; @tap) rmet $right-hand-keys)
+;; )
+;;
+(defalias
+  tap (multi
+    (layer-switch colemak_dh)
+    (on-idle-fakekey to-base tap 20)
+  )
+
+  hrmlaa (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi a @tap) lalt $right-hand-keys)
+  hrmlmr (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi r @tap) lmet $right-hand-keys)
+  hrmlss (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi s @tap) lsft $right-hand-keys)
+  hrmlct (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi t @tap) lctl $right-hand-keys)
+  
+  hrmrcn (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi n @tap) rctl $left-hand-keys)
+  hrmrse (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi e @tap) rsft $left-hand-keys)
+  hrmrmi (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi i @tap) rmet $left-hand-keys)
+  hrmrao (tap-hold-release-keys $hrm-tap-timeout $hrm-hold-timeout (multi o @tap) ralt $left-hand-keys)
+
+  ;; Home row mod keys
+  ;; hrm = homerow mod; e.x. aa = alt a; e.x. mr = lmeta r
+;;  hrmlaa (tap-hold-release $tap-timeout $hold-timeout a lalt)
+;;  hrmlmr (tap-hold-release $tap-timeout $hold-timeout r lmet)
+;;  hrmlss (tap-hold-release $tap-timeout $hold-timeout s lsft)
+;;  hrmlct (tap-hold-release $tap-timeout $hold-timeout t lctl)
+;;  
+;;  hrmrcn (tap-hold-release $tap-timeout $hold-timeout n rctl)
+;;  hrmrse (tap-hold-release $tap-timeout $hold-timeout e rsft)
+;;  hrmrmi (tap-hold-release $tap-timeout $hold-timeout i rmet)
+;;  hrmrao (tap-hold-release $tap-timeout $hold-timeout o ralt)
+)
+
+(deflayer colemak
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  esc        a    r    s    t    d    h    n    e    i    o    '    ret
+  lsft       z    x    c    v    b    k    m    ,    .    /    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(deflayer qwerty
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps       a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer gallium
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        b    l    d    c    z    j    f    o    u    ,    [    ]    \
+  esc        n    r    t    s    v    y    h    a    e    i    /         ret
+  lsft       q    m    w    g    x    k    p    '    ;    .    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(deflayermap (base_extend)
+  f lctl
+  u home
+  i pgup
+  o pgdn
+  p end
+  j left
+  k down
+  l up
+  ; right
+  ' bspc
+  [ del
+)
+
+(defvar
+  tap-timeout 150
+  hold-timeout 150
+)
+
+(defalias
+  extendesc (tap-hold $tap-timeout $hold-timeout esc (layer-while-held base_extend))
+  extendspc (tap-hold $tap-timeout $hold-timeout spc (layer-while-held base_extend))
+  grl (tap-hold $tap-timeout $hold-timeout grv (layer-toggle layouts))
+)
+
+(deflayermap (layouts)
+  1 (layer-switch qwerty)
+  2 (layer-switch colemak)
+  3 (layer-switch gallium)
+  4 (layer-switch colemak_dh)
+  5 (layer-switch colemak_dh_hrms)
+)

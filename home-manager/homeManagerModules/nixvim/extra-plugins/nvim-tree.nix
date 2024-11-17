@@ -7,11 +7,11 @@
       };
     };
     keymaps = [
-      # {
-      #   mode = "n";
-      #   key = "<C-e>";
-      #   action = "<cmd>NvimTreeToggle<CR>";
-      # }
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = "<cmd>NvimTreeToggle<CR>";
+      }
     ];
   };
 }

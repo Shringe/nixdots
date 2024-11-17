@@ -1,0 +1,99 @@
+;; set filetype=lisp for better vim syntax highlighting
+(defsrc
+  grv       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps      a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft      z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc                 ralt rmet rctl
+)
+
+(deflayer colemak_dh_hrms
+  @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
+  tab        q          w          f          p          b    j    l          u          y          ;          [    ]    \
+  @extendesc        @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
+  lsft       x          c          d          v          z    k    h          ,          .          /          rsft
+  lctl lmet  lalt                             spc                             ralt       rmet       rctl
+)
+
+(deflayer colemak_dh
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    b    j    l    u    y    ;    [    ]    \
+  @extendesc a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft       x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+
+
+(defvar 
+  hrm-tap-timeout 120
+  hrm-hold-timeout 200
+)
+(defalias
+  hrmlaa (tap-hold-release $tap-timeout $hold-timeout a lalt)
+  hrmlmr (tap-hold-release $tap-timeout $hold-timeout r lmet)
+  hrmlss (tap-hold-release $tap-timeout $hold-timeout s lsft)
+  hrmlct (tap-hold-release $tap-timeout $hold-timeout t lctl)
+  
+  hrmrcn (tap-hold-release $tap-timeout $hold-timeout n rctl)
+  hrmrse (tap-hold-release $tap-timeout $hold-timeout e rsft)
+  hrmrmi (tap-hold-release $tap-timeout $hold-timeout i rmet)
+  hrmrao (tap-hold-release $tap-timeout $hold-timeout o ralt)
+)
+
+(deflayer colemak
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  esc        a    r    s    t    d    h    n    e    i    o    '    ret
+  lsft       z    x    c    v    b    k    m    ,    .    /    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(deflayer qwerty
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps       a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer gallium
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        b    l    d    c    z    j    f    o    u    ,    [    ]    \
+  esc        n    r    t    s    v    y    h    a    e    i    /         ret
+  lsft       q    m    w    g    x    k    p    '    ;    .    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(deflayermap (base_extend)
+  f lctl
+  u home
+  i pgup
+  o pgdn
+  p end
+  j left
+  k down
+  l up
+  ; right
+  ' bspc
+  [ del
+)
+
+(defvar
+  tap-timeout 150
+  hold-timeout 150
+)
+
+(defalias
+  extendesc (tap-hold $tap-timeout $hold-timeout esc (layer-while-held base_extend))
+  extendspc (tap-hold $tap-timeout $hold-timeout spc (layer-while-held base_extend))
+  grl (tap-hold $tap-timeout $hold-timeout grv (layer-toggle layouts))
+)
+
+(deflayermap (layouts)
+  1 (layer-switch qwerty)
+  2 (layer-switch colemak)
+  3 (layer-switch gallium)
+  4 (layer-switch colemak_dh)
+  5 (layer-switch colemak_dh_hrms)
+)

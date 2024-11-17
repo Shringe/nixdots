@@ -42,6 +42,9 @@
         inherit system;
       };
     in {
+      devShells.x86_64-linux.default = import ./devshell.nix {
+        inherit pkgs;
+      };
       nixosConfigurations = {
         luminum = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
