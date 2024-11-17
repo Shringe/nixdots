@@ -18,6 +18,18 @@
       nvim-surround.enable = true;
       gitsigns.enable = true;
     };
+    autoCmd = [
+      { # Associates .kbd(kanata config) files with lisp
+        command = "setfiletype lisp";
+        event = [
+          "BufNewFile"
+          "BufRead"
+        ];
+        pattern = [
+          "*.kbd"
+        ];
+      }
+    ];
 
     opts = {
       shell = "fish";

@@ -18,7 +18,11 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
-    kanata.enable = true;
+    # kanata.enable = true;
+    kanata = {
+      enable = true;
+      variant = "hrms";
+    };
     gaming = {
       steam.enable = true;
       games.enable = true;
