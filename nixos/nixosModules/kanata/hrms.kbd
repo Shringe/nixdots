@@ -1,3 +1,7 @@
+(defcfg
+  process-unmapped-keys true
+)
+
 ;; set filetype=lisp for better vim syntax highlighting
 (defsrc
   grv       1    2    3    4    5    6    7    8    9    0    -    =    bspc
@@ -11,8 +15,8 @@
   @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
   tab        q          w          f          p          b    j    l          u          y          ;          [    ]    \
   @extendesc        @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
-  lsft       x          c          d          v          z    k    h          ,          .          /          rsft
-  lctl lmet  lalt                             spc                             ralt       rmet       rctl
+  caps       x          c          d          v          z    k    h          ,          .          /          caps
+  caps caps  caps                             spc                             caps       caps       caps
 )
 
 (deflayer colemak_dh
@@ -26,19 +30,23 @@
 
 
 (defvar 
-  hrm-tap-timeout 120
-  hrm-hold-timeout 200
+  pinky 260
+  ring 240
+  middle 170
+  index 210
+  hrm-tap-timeout 200
+  ;; hrm-hold-timeout 200
 )
 (defalias
-  hrmlaa (tap-hold-release $tap-timeout $hold-timeout a lalt)
-  hrmlmr (tap-hold-release $tap-timeout $hold-timeout r lmet)
-  hrmlss (tap-hold-release $tap-timeout $hold-timeout s lsft)
-  hrmlct (tap-hold-release $tap-timeout $hold-timeout t lctl)
+  hrmlaa (tap-hold-release $tap-timeout $pinky a lalt)
+  hrmlmr (tap-hold-release $tap-timeout $ring r lmet)
+  hrmlss (tap-hold-release $tap-timeout $middle s lsft)
+  hrmlct (tap-hold-release $tap-timeout $index t lctl)
   
-  hrmrcn (tap-hold-release $tap-timeout $hold-timeout n rctl)
-  hrmrse (tap-hold-release $tap-timeout $hold-timeout e rsft)
-  hrmrmi (tap-hold-release $tap-timeout $hold-timeout i rmet)
-  hrmrao (tap-hold-release $tap-timeout $hold-timeout o ralt)
+  hrmrcn (tap-hold-release $tap-timeout $index n rctl)
+  hrmrse (tap-hold-release $tap-timeout $middle e rsft)
+  hrmrmi (tap-hold-release $tap-timeout $ring i rmet)
+  hrmrao (tap-hold-release $tap-timeout $pinky o ralt)
 )
 
 (deflayer colemak
