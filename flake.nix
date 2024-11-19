@@ -6,6 +6,11 @@
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
 
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/nur";
       inputs.nixpkgs.follows = "nixpkgs";
