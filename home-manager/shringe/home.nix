@@ -9,9 +9,9 @@
   homeManagerModules = {
     nixvim.enable = true;
     desktop = {
+      office.enable = true;
       browsers.enable = true;
       terminals.enable = true;
-      terminals.alacritty.enable = true;
     };
     shells.enable = true;
     scripts.enable = true;
