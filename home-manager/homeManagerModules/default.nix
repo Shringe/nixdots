@@ -31,6 +31,7 @@
       office = {
         enable = lib.mkEnableOption "Office suite";
         libreoffice.enable = lib.mkEnableOption "Libreoffice";
+        pdf.enable = lib.mkEnableOption "pdf suite";
       };
       browsers = {
         enable = lib.mkEnableOption "Enables preferred browser module";
@@ -79,6 +80,7 @@
     desktop = {
       office = lib.mkIf config.homeManagerModules.desktop.office.enable {
         libreoffice.enable = lib.mkDefault true;
+        pdf.enable = lib.mkDefault true;
       };
       browsers = lib.mkIf config.homeManagerModules.desktop.browsers.enable {
         firefox.enable = lib.mkDefault true;
