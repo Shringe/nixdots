@@ -15,8 +15,8 @@
   @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
   tab        q          w          f          p          b    j    l          u          y          ;          [    ]    \
   @extendesc        @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
-  caps       x          c          d          v          z    k    h          ,          .          /          caps
-  caps caps  caps                             spc                             caps       caps       caps
+  caps       x          c          d          v          z    k    h          ,          .          /          @fkeys
+  caps caps  caps                             @extendspc                      caps       caps       caps
 )
 
 (deflayer colemak_dh
@@ -87,14 +87,27 @@
   [ del
 )
 
+(deflayermap (function)
+  1 f1
+  2 f2
+  3 f3
+  4 f4
+  5 f5
+  6 f6
+  7 f7
+  8 f8
+  9 f9
+)
+
 (defvar
   tap-timeout 150
-  hold-timeout 150
+  hold-timeout 180
 )
 
 (defalias
+  fkeys (one-shot-press $hold-timeout (layer-shile-held function))
   extendesc (tap-hold $tap-timeout $hold-timeout esc (layer-while-held base_extend))
-  extendspc (tap-hold $tap-timeout $hold-timeout spc (layer-while-held base_extend))
+  extendspc (tap-hold-release $tap-timeout $hold-timeout spc (layer-while-held base_extend))
   grl (tap-hold $tap-timeout $hold-timeout grv (layer-toggle layouts))
 )
 
