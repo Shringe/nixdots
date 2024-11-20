@@ -76,8 +76,8 @@
 (deflayermap (base_extend)
   f lctl
   u home
-  i pgup
-  o pgdn
+  i pgdn
+  o pgup
   p end
   j left
   k down
@@ -97,15 +97,19 @@
   7 f7
   8 f8
   9 f9
+  0 f10
+  - f11
+  = f12
 )
 
 (defvar
   tap-timeout 150
   hold-timeout 180
+  one-shot-timeout 2000
 )
 
 (defalias
-  fkeys (one-shot-press $hold-timeout (layer-shile-held function))
+  fkeys (one-shot-press $one-shot-timeout (layer-while-held function))
   extendesc (tap-hold $tap-timeout $hold-timeout esc (layer-while-held base_extend))
   extendspc (tap-hold-release $tap-timeout $hold-timeout spc (layer-while-held base_extend))
   grl (tap-hold $tap-timeout $hold-timeout grv (layer-toggle layouts))
