@@ -8,6 +8,8 @@ pkgs.mkShell {
     vim
     kanata
 
+    xorg.xev
+
     disko
     util-linux
     cryptsetup

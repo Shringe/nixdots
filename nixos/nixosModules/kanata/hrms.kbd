@@ -1,5 +1,6 @@
 (defcfg
   process-unmapped-keys true
+  block-unmapped-keys yes
 )
 
 ;; set filetype=lisp for better vim syntax highlighting
@@ -14,63 +15,9 @@
 (deflayer colemak_dh_hrms
   @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
   tab        q          w          f          p          b    j    l          u          y          ;          [    ]    \
-  @extendesc        @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
-  caps       x          c          d          v          z    k    h          ,          .          /          @fkeys
-  caps caps  caps                             @extendspc                      caps       caps       caps
-)
-
-(deflayer colemak_dh
-  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        q    w    f    p    b    j    l    u    y    ;    [    ]    \
-  @extendesc a    r    s    t    g    m    n    e    i    o    '    ret
-  lsft       x    c    d    v    z    k    h    ,    .    /    rsft
-  lctl lmet  lalt           spc                 ralt rmet rctl
-)
-
-
-
-(defvar 
-  pinky 260
-  ring 240
-  middle 170
-  index 210
-  hrm-tap-timeout 200
-  ;; hrm-hold-timeout 200
-)
-(defalias
-  hrmlaa (tap-hold-release $tap-timeout $pinky a lalt)
-  hrmlmr (tap-hold-release $tap-timeout $ring r lmet)
-  hrmlss (tap-hold-release $tap-timeout $middle s lsft)
-  hrmlct (tap-hold-release $tap-timeout $index t lctl)
-  
-  hrmrcn (tap-hold-release $tap-timeout $index n rctl)
-  hrmrse (tap-hold-release $tap-timeout $middle e rsft)
-  hrmrmi (tap-hold-release $tap-timeout $ring i rmet)
-  hrmrao (tap-hold-release $tap-timeout $pinky o ralt)
-)
-
-(deflayer colemak
-  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        q    w    f    p    g    j    l    u    y    ;    [    ]    \
-  esc        a    r    s    t    d    h    n    e    i    o    '    ret
-  lsft       z    x    c    v    b    k    m    ,    .    /    rsft
-  lctl lmet  lalt           @extendspc          ralt rmet rctl
-)
-
-(deflayer qwerty
-  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps       a    s    d    f    g    h    j    k    l    ;    '         ret
-  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet  lalt           spc                 ralt rmet rctl
-)
-
-(deflayer gallium
-  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        b    l    d    c    z    j    f    o    u    ,    [    ]    \
-  esc        n    r    t    s    v    y    h    a    e    i    /         ret
-  lsft       q    m    w    g    x    k    p    '    ;    .    rsft
-  lctl lmet  lalt           @extendspc          ralt rmet rctl
+  @extendesc @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
+  @numpad    x          c          d          v          z    k    h          ,          .          /          @fkeys
+  _    _     _                                @extendspc                      _          _          _   
 )
 
 (deflayermap (base_extend)
@@ -102,18 +49,82 @@
   = f12
 )
 
+(deflayer numpad
+  ;; _ _ _ _ _ _ _ _ _ _ _ _    _ _
+  _ _   _   _   _ _ _ _ _ _ _ _    _ _
+  _ _   _   _   _ _ [ 1 2 3 , del  _ _
+  _ _   kp+ kp* _ _ ] 4 5 6 . bspc ret
+  _ kp- kp/ _   _ _ _ 7 8 9 0 _
+  _ _ _        _        _ _ _
+)
+
 (defvar
   tap-timeout 150
-  hold-timeout 180
+  hold-timeout 200
   one-shot-timeout 2000
 )
 
 (defalias
-  fkeys (one-shot-press $one-shot-timeout (layer-while-held function))
+  numpad (one-shot $one-shot-timeout (layer-while-held numpad))
+  fkeys (one-shot $one-shot-timeout (layer-while-held function))
   extendesc (tap-hold $tap-timeout $hold-timeout esc (layer-while-held base_extend))
   extendspc (tap-hold-release $tap-timeout $hold-timeout spc (layer-while-held base_extend))
   grl (tap-hold $tap-timeout $hold-timeout grv (layer-toggle layouts))
 )
+
+(deflayer colemak_dh
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    b    j    l    u    y    ;    [    ]    \
+  @extendesc a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft       x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer colemak
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  esc        a    r    s    t    d    h    n    e    i    o    '    ret
+  lsft       z    x    c    v    b    k    m    ,    .    /    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(deflayer qwerty
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps       a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer gallium
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        b    l    d    c    z    j    f    o    u    ,    [    ]    \
+  esc        n    r    t    s    v    y    h    a    e    i    /         ret
+  lsft       q    m    w    g    x    k    p    '    ;    .    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(defvar 
+  pinky 260
+  ring 240
+  middle 180
+  index 210
+  hrm-tap-timeout 200
+  ;; hrm-hold-timeout 200
+)
+
+(defalias
+  hrmlaa (tap-hold-release $tap-timeout $pinky a lalt)
+  hrmlmr (tap-hold-release $tap-timeout $ring r lmet)
+  hrmlss (tap-hold-release $tap-timeout $middle s lsft)
+  hrmlct (tap-hold-release $tap-timeout $index t lctl)
+  
+  hrmrcn (tap-hold-release $tap-timeout $index n rctl)
+  hrmrse (tap-hold-release $tap-timeout $middle e rsft)
+  hrmrmi (tap-hold-release $tap-timeout $ring i rmet)
+  hrmrao (tap-hold-release $tap-timeout $pinky o ralt)
+)
+
 
 (deflayermap (layouts)
   1 (layer-switch qwerty)
