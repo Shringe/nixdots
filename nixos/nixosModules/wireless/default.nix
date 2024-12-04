@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  cfg = config.nixosModules.wireless;
+in
 {
-  networking.wireless = {
+  networking.wireless = lib.mkIf cfg.enable {
     enable = true;
 
     secretsFile = config.sops.secrets.wireless.path;
@@ -9,7 +12,7 @@
     };
   };
 
- systemd.services.rfkillUnblockWlan = {
+ systemd.services.rfkillUnblockWlan = lib.mkIf cfg.fixes.unblockWlan.enable {
     description = "unblocks wlan";
     serviceConfig = {
       Type = "oneshot";

@@ -10,7 +10,7 @@
       ./users.nix
       # ./power-save.nix
       ./qtile.nix
-      ./wifi.nix
+      # ./wifi.nix
       ./packages.nix
 
       inputs.sops-nix.nixosModules.sops
@@ -18,6 +18,10 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
+    wireless = {
+      enable = true;
+      fixes.unblockWlan.enable = true;
+    };
     battery.enable = true;
     kanata = {
       enable = true;
