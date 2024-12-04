@@ -9,7 +9,7 @@
       ./hardware-configuration.nix
       ./users.nix
       # ./power-save.nix
-      ./qtile.nix
+      # ./qtile.nix
       # ./wifi.nix
       ./packages.nix
 
