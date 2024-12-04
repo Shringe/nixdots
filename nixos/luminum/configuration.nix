@@ -21,7 +21,7 @@
     # kanata.enable = true;
     kanata = {
       enable = true;
-      variant = "hrms";
+      variant = "wide";
     };
     gaming = {
       steam.enable = true;

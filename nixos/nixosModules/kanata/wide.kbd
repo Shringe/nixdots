@@ -1,0 +1,284 @@
+(defcfg
+  process-unmapped-keys true
+  ;; block-unmapped-keys yes
+)
+
+;; set filetype=lisp for better vim syntax highlighting
+(defsrc
+  grv       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab       q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps      a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft      z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc                 ralt rmet rctl
+)
+
+;; Defaults
+(defvar
+  default colemak_dh_hrms
+  default_wide colemak_dh_hrms_wide
+)
+
+;; Timings
+(defvar
+  ;; General
+  tt 300
+  ht 200
+  lock_tt 260
+  ost 1000
+
+  ;; Home row mods
+  pinky 260
+  ring 240
+  middle 185
+  index 225
+  hrm_tt 300
+  ;; hrm_ht 200
+)
+
+(defalias
+  wnumpad (one-shot $ost (layer-while-held numpad_wide))
+  wsym (one-shot $ost (layer-while-held symbols_wide))
+  wfmkeys (one-shot $ost (layer-while-held function_media_wide))
+  wextendspc (tap-hold-release $tt $ht spc (layer-while-held extend_wide))
+  wexit (layer-switch $default_wide)
+
+  wesclock (tap-hold $lock_tt $ht esc (layer-while-held layer_lock_wide))
+
+  numpad (one-shot $ost (layer-while-held numpad))
+  fkeys (one-shot $ost (layer-while-held function))
+  spcfm (tap-hold-release $tt $ht spc (layer-while-held function_media))
+  bsym (one-shot $ost (layer-while-held base_symbols))
+  sym (one-shot $ost (layer-while-held symbols))
+  fmkeys (one-shot $ost (layer-while-held function_media))
+
+  extendesc (tap-hold $tt $ht esc (layer-while-held base_extend))
+  extendspc (tap-hold-release $tt $ht spc (layer-while-held base_extend))
+
+
+  ;; Home row mods Colemak
+  hrmlaa (tap-hold-release $tt $pinky a lalt)
+  hrmlmr (tap-hold-release $tt $ring r lmet)
+  hrmlss (tap-hold-release $tt $middle s lsft)
+  hrmlct (tap-hold-release $tt $index t lctl)
+  
+  hrmrcn (tap-hold-release $tt $index n rctl)
+  hrmrse (tap-hold-release $tt $middle e rsft)
+  hrmrmi (tap-hold-release $tt $ring i rmet)
+  hrmrao (tap-hold-release $tt $pinky o ralt)
+
+
+  grl (tap-hold $tt $ht grv (layer-toggle layouts))
+)
+
+(deflayermap (layouts)
+  1 (layer-switch qwerty)
+  2 (layer-switch colemak)
+  3 (layer-switch gallium)
+  4 (layer-switch colemak_dh)
+  5 (layer-switch colemak_dh_hrms)
+  6 (layer-switch colemak_dh_hrms_wide)
+  7 (layer-switch qwerty_wide)
+  \ (layer-switch gaming)
+)
+
+(deflayermap (layer_lock_wide)
+  caps @wexit
+  lsft (layer-switch numpad_wide)
+  rsft (layer-switch function_media_wide)
+  lalt (layer-switch symbols_wide)
+  ralt (layer-switch symbols_wide)
+)
+
+(deflayermap (function)
+  1 f1
+  2 f2
+  3 f3
+  4 f4
+  5 f5
+  6 f6
+  7 f7
+  8 f8
+  9 f9
+  0 f10
+  - f11
+  = f12
+)
+
+(deflayermap (base_extend)
+  f lctl
+  u home
+  i pgdn
+  o pgup
+  p end
+  j left
+  k down
+  l up
+  ; right
+  ' bspc
+  [ del
+)
+
+(deflayer function_media_wide
+  _      _    _    _    _    _    _    _    _    _    _    _    _    _    
+  _      _    bru  brdn _    _    _    f12  f7   f8   f9   _    _    _    
+  @wexit prev volu vold next _    _    f11  f4   f5   f6   _    _     
+  _      _    mute pp   _    _    _    f10  f1   f2   f3   _     
+  _    _    _            _          _    _    _    
+)
+
+(deflayer function_media
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    
+  _    _    bru  brdn _    _    _    f1   f2   f3   f10  _    _    _    
+  _    prev volu vold next _    _    f4   f5   f6   f11  _    _     
+  _    _    mute pp   _    _    _    f7   f8   f9   f12  _     
+  _    _    _            _          _    _    _    
+)
+
+;; (deflayer function_media
+;;   _    _    _    _    _    _    _    _    _    _    _    _    _    _    
+;;   _    bru  brdn vold volu _    _    f1   f2   f3   f10  _    _    _    
+;;   _    lalt lmet lsft lctl _    _    f4   f5   f6   f11  _    _     
+;;   _    mute pp   next prev _    _    f7   f8   f9   f12  _     
+;;   _    _    _            _          _    _    _    
+;; )
+
+(deflayer numpad_wide
+  _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  _      _   _   _   _ _ _ [   7 8 9 . , _
+  @wexit _   kp+ kp* _ _ _ ]   4 5 6 0 ret
+  _      kp- kp/ _   _ _ _ S-- 1 2 3 _
+  _ _ _         _                _ _ _
+)
+
+(deflayer numpad
+  ;; _ _ _ _ _ _ _ _ _ _ _ _    _ _
+  _ _   _   _   _ _ _ _ _ _ _ _    _ _
+  _ _   _   _   _ _ [ 7 8 9 , del  _ _
+  _ _   kp+ kp* _ _ ] 4 5 6 0 bspc ret
+  _ kp- kp/ _   _ _ _ 1 2 3 . _
+  _ _ _         _                _ _ _
+  ;; _ _ _        @spcfm        _ _ _
+)
+
+
+;; found online, based on
+;; @~&$?  +<=>#
+;; []()'  -:%!;
+;; {}*`"  ^_\|/
+(deflayer base_symbols
+  _  _   _   _   _   _   _   _   _   _   _   _ _ _
+  _  S-2 S-` S-7 S-4 S-/ S-= S-, =   S-. S-3 _ _ _
+  _  [   ]   S-9 S-0 '   -   S-; S-5 S-1 ;   _ _
+  _  S-[ S-] S-8 `   S-' S-6 S-- \   S-\ /   _
+  _  _  _        _         _  _  _
+)
+
+
+;; &{}`+    *=<>#
+;; _()"-    ?^:;$
+;;  []'~%  |@!\/
+(deflayer symbols_wide
+  _  _   _   _   _   _     _   _   _   _   _   _ _ _
+  _      S-7 S-[ S-] `   S-=   _   S-8 =   S-, S-. S-3 _ _
+  @wexit S-- S-9 S-0 S-' -     _   S-/ S-6 S-; ;   S-4 _
+  _      [   ]   '   S-` S-5   S-\ S-2 S-1 \   /   _
+  _  _  _        _         _  _  _
+)
+
+;; @{}~?  +<=>#
+;; $()"*  -:%!;
+;; []'`&  ^_\|/
+
+;; &{}`+  *=:;#
+;; _()"-  ?$<>^
+;; []'~%  @!\|/
+(deflayer symbols
+  _  _   _   _   _   _     _   _   _   _   _   _ _ _
+  _  S-7 S-[ S-] `   S-=   S-8 =   S-; ;   S-3 _ _ _
+  _  S-- S-9 S-0 S-' -     S-/ S-4 S-, S-. S-6 _ _
+  _  [   ]   '   S-`   S-5   S-2 S-1 \   S-\ /   _
+  _  _  _        _         _  _  _
+)
+
+
+(deflayer colemak_dh_hrms_wide
+  @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
+  tab        q          w          f          p          b    [    j    l          u          y          ;          ]    (layer-switch gaming)
+  @wesclock  @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    '    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    ret
+  @wnumpad   x          c          d          v          z    /    k    h          ,          .          @wfmkeys
+  _    _     @wsym                            @wextendspc                     @wsym      _          _   
+)
+
+(deflayer colemak_dh_hrms
+  @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
+  tab        q          w          f          p          b    j    l          u          y          ;          [    ]    \
+  @extendesc @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
+  @numpad    x          c          d          v          z    k    h          ,          .          /          @fmkeys
+  _    _     @sym                             @extendspc                      @sym       _          _   
+)
+
+(deflayer colemak_dh
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    b    j    l    u    y    ;    [    ]    \
+  @extendesc a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft       x    c    d    v    z    k    h    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer colemak
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    f    p    g    j    l    u    y    ;    [    ]    \
+  esc        a    r    s    t    d    h    n    e    i    o    '    ret
+  lsft       z    x    c    v    b    k    m    ,    .    /    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+(deflayer qwerty
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps       a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer qwerty_wide
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    e    r    t    [    y    u    i    o    p    ]    \
+  caps       a    s    d    f    g    '    h    j    k    l    ;         ret
+  lsft       z    x    c    v    b    /    n    m    ,    .    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer gallium
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        b    l    d    c    z    j    f    o    u    ,    [    ]    \
+  esc        n    r    t    s    v    y    h    a    e    i    /         ret
+  lsft       q    m    w    g    x    k    p    '    ;    .    rsft
+  lctl lmet  lalt           @extendspc          ralt rmet rctl
+)
+
+;; (deflayer gaming
+;;   grv        1    2    3    4    5    6    7    8    9    0    -    =    bspc
+;;   tab        p    q    w    e    r    t    y    u    i    o    [    ]    (layer-switch $default_wide)
+;;   esc  	     ;    a    s    d    f    g    h    j    k    l    '         ret
+;;   lsft       /    z    x    c    v    b    n    m    ,    .    rsft
+;;   lctl lmet  lalt           spc                 ralt rmet rctl
+;; )
+
+(deflayer gaming
+  grv        1    2    3    4    5    6      7    8    9    0    -    =    bspc
+  tab        [    q    w    e    r    t      y    u    i    o    p    ]    (layer-switch $default_wide)
+  esc        '    a    s    d    f    g      h    j    k    l    ;         ret
+  lsft       /    z    x    c    v    @fkeys n    m    ,    .    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+)
+
+(deflayer extend_wide
+  _      _    _    _    _    _    _    _    _    _    _    _     _    _    
+  _      _    _    _    _     _    _    _    home  pgdn  pgup  end    _    _    
+  @wexit lalt lmet lsft lctl  _    _    _    left  down  up    right  _     
+  _      _    _    tab  C-tab _    _    _    bspc  del   _     _      
+  _    _    _            _          _    _    _    
+)
+
+
