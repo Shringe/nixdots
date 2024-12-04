@@ -3,8 +3,8 @@ let
   cfg = config.nixosModules.battery;
 in
 {
-  powerManagement.enable = lib.mkIf cfg.powerManagement; # base nixos power management
-  services = lib.mkIf cfg.powerManagement {
+  powerManagement.enable = cfg.powerManagement.enable; # base nixos power management
+  services = lib.mkIf cfg.powerManagement.enable {
     thermald.enable = true; # Prevents overheating on Intel
 
     tlp = {
