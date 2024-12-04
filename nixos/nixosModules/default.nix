@@ -14,6 +14,13 @@
         description = "What .kbd file to use. Options can be found in ./kanata/";
       };
     };
+
+    battery = {
+      enable = lib.mkEnableOption "Enables default battey conscience power management";
+      tooling.enable = lib.mkEnableOption "Enables tooling.";
+      powerManagement.enable = lib.mkEnableOption "Enables power conservation";
+    };
+
     gaming = {
       optimizations = {
         enable = lib.mkEnableOption "Full optimizations";
@@ -27,8 +34,15 @@
       };
     };
   };
+
   config.nixosModules = {
+    battery = lib.mkIf config.nixosModules.battery.enable {
+      tooling.enable = lib.mkDefault true;
+      powerManagement.enable = lib.mkDefault true;
+    };
+
     gaming = {
+
       # optimizations = lib.mkDefault config.nixosModules.gaming.optimizations.enable {
       # };
       games = lib.mkIf config.nixosModules.gaming.games.enable {

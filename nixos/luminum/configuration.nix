@@ -8,7 +8,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./users.nix
-      ./power-save.nix
+      # ./power-save.nix
       ./qtile.nix
       ./wifi.nix
       ./packages.nix
@@ -18,7 +18,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
-    # kanata.enable = true;
+    battery.enable = true;
     kanata = {
       enable = true;
       variant = "wide";
