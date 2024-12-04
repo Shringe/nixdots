@@ -3,6 +3,7 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     fish
     bash
+    tmux
 
     git
     vim
