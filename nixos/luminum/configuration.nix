@@ -18,6 +18,8 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
+    desktop.qtile.enable = true;
+
     wireless = {
       enable = true;
       fixes.unblockWlan.enable = true;
