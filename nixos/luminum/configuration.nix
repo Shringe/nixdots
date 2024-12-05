@@ -11,7 +11,7 @@
       # ./power-save.nix
       # ./qtile.nix
       # ./wifi.nix
-      ./packages.nix
+      # ./packages.nix
 
       inputs.sops-nix.nixosModules.sops
     ];
