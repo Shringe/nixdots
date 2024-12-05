@@ -5,9 +5,14 @@
     ./gaming
     ./wireless
     ./battery
+    ./desktop
   ];
 
   options.nixosModules = {
+    desktop = {
+      qtile.enable = lib.mkEnableOption "Qtile dependencies";
+    };
+
     kanata = {
       enable = lib.mkEnableOption "Enables full kanata keyboard configuration";
       variant = lib.mkOption {
