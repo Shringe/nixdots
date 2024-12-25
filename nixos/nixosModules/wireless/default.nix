@@ -8,7 +8,7 @@ in
 
     secretsFile = config.sops.secrets.wireless.path;
     networks = {
-      "TP-Link_76C0".pskRaw = "ext:home_psk";  
+      # "TP-Link_76C0".pskRaw = "ext:home_psk";  
     };
   };
 
