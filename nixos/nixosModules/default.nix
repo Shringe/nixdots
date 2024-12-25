@@ -6,6 +6,7 @@
     ./wireless
     ./battery
     ./desktop
+    ./sops
   ];
 
   options.nixosModules = {

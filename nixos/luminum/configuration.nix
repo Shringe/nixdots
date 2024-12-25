@@ -13,7 +13,7 @@
       # ./wifi.nix
       # ./packages.nix
 
-      inputs.sops-nix.nixosModules.sops
+      # inputs.sops-nix.nixosModules.sops
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -34,14 +34,13 @@
       games.enable = true;
     };
   };
-
-  sops = {
-    defaultSopsFile = ./../secrets.yaml;
-    secrets = {
-      "wireless" = {};
-    };
-    
-  };
+  #
+  # sops = {
+  #   defaultSopsFile = ./../secrets.yaml;
+  #   secrets = {
+  #     "wireless" = {};
+  #   };
+  # };
 
   boot = {
     loader = {

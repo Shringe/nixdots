@@ -5,6 +5,7 @@
     ./fish.nix
     ./aliases.nix
     ./atuin.nix
+    ./tmux.nix
   ];
 
   # options.shells.enable = lib.mkEnableOption "Enable all shells and shell configuration";

@@ -52,6 +52,7 @@
       };
       aliases.enable = lib.mkEnableOption "Enables aliases";
       atuin.enable = lib.mkEnableOption "Enables atuin configuration and integration"; 
+      tmux.enable = lib.mkEnableOption "Enables tmux configuration and integration"; 
     };
 
     dotfiles = {
@@ -102,6 +103,7 @@
       };
       aliases.enable = lib.mkDefault true;
       atuin.enable = lib.mkDefault true; 
+      tmux.enable = lib.mkDefault true;
     };
 
     dotfiles = {

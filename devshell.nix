@@ -7,6 +7,7 @@ pkgs.mkShell {
 
     git
     vim
+    ranger
     kanata
 
     xorg.xev
@@ -14,8 +15,10 @@ pkgs.mkShell {
     disko
     util-linux
     cryptsetup
+    btrfs-progs
 
     age
+    ssh-to-age
     sops
   ];
 
