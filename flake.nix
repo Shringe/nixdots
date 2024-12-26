@@ -51,6 +51,14 @@
         inherit pkgs;
       };
       nixosConfigurations = {
+        diety = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system inputs; };
+          modules = [ 
+            ./nixos/diety/configuration.nix 
+            ./nixos/nixosModules
+          ];
+        };
+
         luminum = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
           modules = [ 
@@ -69,6 +77,7 @@
             inputs.nixvim.homeManagerModules.nixvim
           ];
         };
+
         shringe = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit inputs pkgs-stable; };
