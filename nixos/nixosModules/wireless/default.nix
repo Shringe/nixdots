@@ -3,12 +3,14 @@ let
   cfg = config.nixosModules.wireless;
 in
 {
+  sops.secrets.wireless = lib.mkIf cfg.enable {};
+
   networking.wireless = lib.mkIf cfg.enable {
     enable = true;
 
     secretsFile = config.sops.secrets.wireless.path;
     networks = {
-      # "TP-Link_76C0".pskRaw = "ext:home_psk";  
+      "TP-Link_76C0".pskRaw = "ext:home_pskRaw";  
     };
   };
 
