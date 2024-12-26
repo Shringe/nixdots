@@ -7,13 +7,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./users.nix
-      # ./power-save.nix
-      # ./qtile.nix
-      # ./wifi.nix
-      # ./packages.nix
-
-      # inputs.sops-nix.nixosModules.sops
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -33,14 +26,10 @@
       steam.enable = true;
       games.enable = true;
     };
+    users = {
+      shringe.enable = true;
+    };
   };
-  #
-  # sops = {
-  #   defaultSopsFile = ./../secrets.yaml;
-  #   secrets = {
-  #     "wireless" = {};
-  #   };
-  # };
 
   boot = {
     loader = {

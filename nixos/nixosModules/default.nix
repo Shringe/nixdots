@@ -7,9 +7,15 @@
     ./battery
     ./desktop
     ./sops
+    ./users
   ];
 
   options.nixosModules = {
+    users = {
+      shringe.enable = lib.mkEnableOption "Laptop user";
+      shringed.enable = lib.mkEnableOption "Desktop user";
+    };
+
     desktop = {
       qtile.enable = lib.mkEnableOption "Qtile dependencies";
     };
