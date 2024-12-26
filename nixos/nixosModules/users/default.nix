@@ -1,7 +1,7 @@
 {
   imports = [
-    ./shringe
-    ./shringed
+    ./shringe.nix
+    ./shringed.nix
   ];
 
 
