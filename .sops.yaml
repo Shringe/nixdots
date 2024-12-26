@@ -12,10 +12,10 @@ creation_rules:
     - age:
       - *luminum
       - *shringe
-  - path_regex: home-manager/homeManagerModules/secrets.yaml
-    key_groups:
-    - age:
-      - *shringe
+  # - path_regex: home-manager/homeManagerModules/secrets.yaml
+  #   key_groups:
+  #   - age:
+  #     - *shringe
 
   
   # - path_regex: secrets.yaml$
