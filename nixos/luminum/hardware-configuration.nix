@@ -12,7 +12,6 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.tmp.useTmpfs = true;
   hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" =
