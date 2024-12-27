@@ -46,7 +46,9 @@
         overlays = [
           inputs.nur.overlay
         ];
-        config.allowUnfreePredicate = true;
+
+        config.allowUnfree = true;
+        # config.allowUnfreePredicate = true;
       };
       pkgs-stable = import nixpkgs-stable {
         inherit system;

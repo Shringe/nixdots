@@ -6,7 +6,7 @@
 
 
   users = {
-    mutableUsers = false;
+    # mutableUsers = false;
 
     groups = {
       nixdots = {};

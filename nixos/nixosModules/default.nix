@@ -8,9 +8,19 @@
     ./desktop
     ./sops
     ./users
+    ./mouse
+    ./drivers
   ];
 
   options.nixosModules = {
+    drivers = {
+      nvidia.enable = lib.mkEnableOption "Nvidia drivers";
+    };
+
+    mouse = {
+      main.enable = lib.mkEnableOption "Proper mouse settings.";
+    };
+
     users = {
       shringe.enable = lib.mkEnableOption "Laptop user";
       shringed.enable = lib.mkEnableOption "Desktop user";
