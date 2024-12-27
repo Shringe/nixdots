@@ -5,6 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+	
+    disko = {
+      url = "github:nix-community/disko";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-colors = {
       url = "github:misterio77/nix-colors";
@@ -51,10 +56,10 @@
         inherit pkgs;
       };
       nixosConfigurations = {
-        diety = nixpkgs.lib.nixosSystem {
+        deity = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
           modules = [ 
-            ./nixos/diety/configuration.nix 
+            ./nixos/deity/configuration.nix 
             ./nixos/nixosModules
           ];
         };
