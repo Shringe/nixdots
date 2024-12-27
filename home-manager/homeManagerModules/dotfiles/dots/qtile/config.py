@@ -65,12 +65,15 @@ def wayland():
     wl_xcursor_theme = ""
     wl_xcursor_size = 24
 
+    x11()
+
 
 match qtile.core.name:
     case "x11":
         x11()
     case "wayland":
         wayland()
+
 # Group keybinds
 for group in groups:
     keys.extend(

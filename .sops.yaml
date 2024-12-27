@@ -2,16 +2,20 @@ keys:
   - &hosts:
     # - &luminum age1ws3dyg036d3sjtxvfwt006hpcn8gd85xtyzae8fv33dptl4dg4dsmafsvl
     - &luminum age1ws3dyg036d3sjtxvfwt006hpcn8gd85xtyzae8fv33dptl4dg4dsmafsvl
+    - &deity age1ws3dyg036d3sjtxvfwt006hpcn8gd85xtyzae8fv33dptl4dg4dsmafsvl
   - &users:
     # - &shringe age1fg0x99x8f0uxvtswget0alvk4g59tqx28vffke24l0hct45vgdwqgwe7wy
     - &shringe age15lfna9r6dnlqmc890u2dqn5uxpmfktqfedyxh0q4xumkgvxlrevq9aylte
+    - &shringed age15lfna9r6dnlqmc890u2dqn5uxpmfktqfedyxh0q4xumkgvxlrevq9aylte
 creation_rules:
   # - path_regex: nixos/secrets.yaml$
   - path_regex: secrets.yaml$
     key_groups:
     - age:
       - *luminum
+      - *deity
       - *shringe
+      - *shringed
   # - path_regex: home-manager/homeManagerModules/secrets.yaml
   #   key_groups:
   #   - age:

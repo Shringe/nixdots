@@ -9,7 +9,6 @@ in
     pkgs.ranger
     pkgs.alacritty
     pkgs.dunst
-    pkgs.unclutter
   ];
 }
 

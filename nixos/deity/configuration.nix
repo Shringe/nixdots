@@ -25,6 +25,8 @@
       games.enable = true;
     };
 
+    drivers.nvidia.enable = true;
+
     users = {
       shringed.enable = true;
     };
