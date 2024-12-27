@@ -20,6 +20,7 @@
     };
 
     gaming = {
+      optimizations.enable = true;
       steam.enable = true;
       games.enable = true;
     };
@@ -40,7 +41,7 @@
 
   # Set your time zone.
   time.timeZone = "US/Central";
-  networking.hostName = "luminum";
+  networking.hostName = "deity";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";

@@ -1,0 +1,1 @@
+nix run github:nix-community/nixos-anywhere -- --flake '/nixdots#deity' --generate-hardware-config nixos-generate-config ./nixos/deity/hardware-configuration.nix --target-host "nixos@$1" --copy-host-keys

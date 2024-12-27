@@ -39,7 +39,6 @@
                 # https://0pointer.net/blog/unlocking-luks2-volumes-with-tpm2-fido2-pkcs11-security-hardware-on-systemd-248.html
                 settings = {
                   allowDiscards = true;
-                };
                 };	
                 content = {
                   type = "btrfs";
