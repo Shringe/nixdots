@@ -3,6 +3,10 @@ let
   cfg = config.nixosModules.gaming.optimizations;
 in
 {
-  boot.tmp.useTmpfs = lib.mkIf cfg.enable true;
+  boot = lib.mkIf cfg.enable {
+    tmp.useTmpfs = true;
 
+    # kernelPackages = pkgs.linuxKernel.kernels.linux_zen;
+    kernelPackages = pkgs.linuxPackages_zen;
+  };
 }
