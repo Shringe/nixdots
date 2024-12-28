@@ -8,7 +8,6 @@
 
   homeManagerModules = {
     nixvim.enable = true;
-    mouse.main.enable = true;
     desktop = {
       browsers.enable = true;
       terminals.enable = true;

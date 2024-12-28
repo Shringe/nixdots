@@ -30,6 +30,8 @@
     users = {
       shringed.enable = true;
     };
+
+    mouse.main.enable = true;
   };
 
   boot = {
