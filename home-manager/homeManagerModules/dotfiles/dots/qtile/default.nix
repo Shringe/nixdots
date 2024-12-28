@@ -9,6 +9,10 @@ in
     pkgs.ranger
     pkgs.alacritty
     pkgs.dunst
+    # pkgs.rofi-emoji
+    pkgs.emojipick
+    pkgs.rofi
+    pkgs.rofi-power-menu
   ];
 }
 
