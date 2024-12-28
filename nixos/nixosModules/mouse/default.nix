@@ -3,8 +3,12 @@ let
   cfg = config.nixosModules.mouse;
 in
 {
-  services.libinput.mouse = lib.mkIf cfg.main.enable {
-    accelProfile = "flat";
-    accelSpeed = "-1.0";
+  services.libinput = lib.mkIf cfg.main.enable {
+    enable = true;
+
+    mouse = {
+      accelProfile = "flat";
+      accelSpeed = "-0.675";
+    };
   };
 }
