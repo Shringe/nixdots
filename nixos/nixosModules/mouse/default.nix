@@ -5,6 +5,6 @@ in
 {
   services.libinput.mouse = lib.mkIf cfg.main.enable {
     accelProfile = "flat";
-    accelSpeed = "-0.75";
+    accelSpeed = "-1.0";
   };
 }
