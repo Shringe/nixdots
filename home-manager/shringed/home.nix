@@ -41,6 +41,7 @@
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     #neovim
+    protonup
     fish
     xclip
     alsa-firmware
@@ -66,6 +67,8 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     FLAKE = "/nixdots";
+
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
   };
 
   # Let Home Manager install and manage itself.

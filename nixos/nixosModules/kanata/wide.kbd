@@ -12,6 +12,15 @@
   lctl lmet lalt           spc                 ralt rmet rctl
 )
 
+;; First defined keymap is default
+(deflayer colemak_dh_hrms_wide
+  @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
+  tab        q          w          f          p          b    [    j    l          u          y          ;          ]    (layer-switch gaming)
+  @wesclock  @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    '    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    ret
+  @wnumpad   x          c          d          v          z    /    k    h          ,          .          @wfmkeys
+  _    _     @wsym                            @wextendspc                     @wsym      _          _   
+)
+
 ;; Defaults
 (defvar
   default colemak_dh_hrms
@@ -53,6 +62,8 @@
 
   extendesc (tap-hold $tt $ht esc (layer-while-held base_extend))
   extendspc (tap-hold-release $tt $ht spc (layer-while-held base_extend))
+
+  cws (caps-word 2000)
 
 
   ;; Home row mods Colemak
@@ -201,13 +212,13 @@
 )
 
 
-(deflayer colemak_dh_hrms_wide
-  @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
-  tab        q          w          f          p          b    [    j    l          u          y          ;          ]    (layer-switch gaming)
-  @wesclock  @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    '    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    ret
-  @wnumpad   x          c          d          v          z    /    k    h          ,          .          @wfmkeys
-  _    _     @wsym                            @wextendspc                     @wsym      _          _   
-)
+;; (deflayer colemak_dh_hrms_wide
+;;   @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
+;;   tab        q          w          f          p          b    [    j    l          u          y          ;          ]    (layer-switch gaming)
+;;   @wesclock  @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    '    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    ret
+;;   @wnumpad   x          c          d          v          z    /    k    h          ,          .          @wfmkeys
+;;   _    _     @wsym                            @wextendspc                     @wsym      _          _   
+;; )
 
 (deflayer colemak_dh_hrms
   @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
@@ -277,7 +288,7 @@
   _      _    _    _    _    _    _    _    _    _    _    _     _    _    
   _      _    _    _    _     _    _    _    home  pgdn  pgup  end    _    _    
   @wexit lalt lmet lsft lctl  _    _    _    left  down  up    right  _     
-  _      _    _    tab  C-tab _    _    _    bspc  del   _     _      
+  _      @cws tab  C-tab _    _    _    _    bspc  del   _     _      
   _    _    _            _          _    _    _    
 )
 

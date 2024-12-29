@@ -13,6 +13,21 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+
+  fileSystems."/mnt/Steam/Main" = { 
+    device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
+    fsType = "btrfs";
+    options = [ "subvol=_steam/main" "noatime" ];
+    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
+  };
+
+  fileSystems."/mnt/Steam/libraries/SSD1" = { 
+    device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
+    fsType = "btrfs";
+    options = [ "subvol=_steam/library" "compress=zstd" "noatime" ];
+    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

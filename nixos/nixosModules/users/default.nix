@@ -10,6 +10,7 @@
 
     groups = {
       nixdots = {};
+      steam = {};
     };
 
     users.root = {

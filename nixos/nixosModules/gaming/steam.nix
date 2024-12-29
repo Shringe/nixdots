@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.nixosModules.gaming.steam;
 in
@@ -12,7 +12,21 @@ in
     ];
   };
 
-  programs.steam = lib.mkIf cfg.enable {
-    enable = true;
+  programs = lib.mkIf cfg.enable {
+    gamescope.enable = true;
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
   };
+
+
+  hardware = lib.mkIf cfg.enable {
+    xone.enable = true;
+    graphics.enable32Bit = true;
+  };
+
+  environment.systemPackages = lib.mkIf cfg.enable [
+    # pkgs.proton-ge-bin
+  ];
 }

@@ -21,9 +21,12 @@
 
     gaming = {
       optimizations.enable = true;
+      tooling.enable = true;
       steam.enable = true;
       games.enable = true;
     };
+
+    openrgb.enable = true;
 
     drivers.nvidia.enable = true;
 
