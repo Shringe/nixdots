@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  cfg = config.nixosModules.wireless;
+  cfg = config.nixosModules.networking.wireless;
 in
 {
   sops.secrets.wireless = lib.mkIf cfg.enable {};

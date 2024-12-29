@@ -22,6 +22,9 @@
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
+  services.kdeconnect.enable = true;
+  services.kdeconnect.indicator = true;
+
   programs = {
     git = {
       enable = true;

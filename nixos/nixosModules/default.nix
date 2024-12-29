@@ -3,7 +3,7 @@
   imports = [
     ./kanata
     ./gaming
-    ./wireless
+    ./networking
     ./battery
     ./desktop
     ./sops
@@ -11,9 +11,17 @@
     ./mouse
     ./openrgb
     ./drivers
+    ./development
   ];
 
   options.nixosModules = {
+    development = {
+      pi = {
+        enable = lib.mkEnableOption "All Raspberry Pi dev configuration.";
+        tooling.enable = lib.mkEnableOption "Extra tooling";
+      };
+    };
+
     openrgb = {
       enable = lib.mkEnableOption "OpenRGB";
     };
@@ -44,10 +52,21 @@
       };
     };
 
-    wireless = {
-      enable = lib.mkEnableOption "Enables wireless connections";
-      fixes = {
-        unblockWlan.enable = lib.mkEnableOption "Automatically unblocks wlan on startup";
+    networking = {
+      vpn = {
+        nordvpn.enable = lib.mkEnableOption "Enables nordvpn";
+      };
+
+      wireless = {
+        enable = lib.mkEnableOption "Enables wireless connections";
+        fixes = {
+          unblockWlan.enable = lib.mkEnableOption "Automatically unblocks wlan on startup";
+        };
+      };
+
+      firewall = {
+        enable = lib.mkEnableOption "Base firewall configration";
+        kdeconnect.enable = lib.mkEnableOption "Open kdeconnect ports";
       };
     };
 
@@ -74,6 +93,12 @@
   };
 
   config.nixosModules = {
+    development = {
+      pi = lib.mkIf config.nixosModules.development.pi.enable {
+        tooling.enable = lib.mkDefault true;
+      };
+    };
+
     battery = lib.mkIf config.nixosModules.battery.enable {
       tooling.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;

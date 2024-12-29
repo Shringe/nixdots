@@ -1,6 +1,4 @@
 {
-  description = "First flake";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
@@ -59,7 +57,7 @@
       };
       nixosConfigurations = {
         deity = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system inputs; };
+          specialArgs = { inherit system inputs pkgs; };
           modules = [ 
             ./nixos/deity/configuration.nix 
             ./nixos/nixosModules
@@ -67,7 +65,7 @@
         };
 
         luminum = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system inputs; };
+          specialArgs = { inherit system inputs pkgs; };
           modules = [ 
             ./nixos/luminum/configuration.nix 
             ./nixos/nixosModules
