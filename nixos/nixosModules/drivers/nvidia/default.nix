@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs,... }:
 let
   cfg = config.nixosModules.drivers.nvidia;
 in
@@ -16,7 +16,7 @@ in
     graphics.enable = true;
 
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
 
       powerManagement = {
@@ -28,6 +28,12 @@ in
 
       nvidiaSettings = true;
     };
+  };
+
+  programs.tuxclocker = lib.mkIf cfg.enable {
+    enable = true;
+    useUnfree = true;
+    enabledNVIDIADevices = [ 0 ];
   };
 
   services.xserver.videoDrivers = lib.mkIf cfg.enable [ "nvidia" ];

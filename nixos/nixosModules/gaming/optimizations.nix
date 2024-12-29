@@ -9,4 +9,6 @@ in
     # kernelPackages = pkgs.linuxKernel.kernels.linux_zen;
     kernelPackages = pkgs.linuxPackages_zen;
   };
+
+  programs.gamemode.enable = lib.mkIf cfg.enable true;
 }

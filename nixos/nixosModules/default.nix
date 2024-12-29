@@ -9,10 +9,15 @@
     ./sops
     ./users
     ./mouse
+    ./openrgb
     ./drivers
   ];
 
   options.nixosModules = {
+    openrgb = {
+      enable = lib.mkEnableOption "OpenRGB";
+    };
+
     drivers = {
       nvidia.enable = lib.mkEnableOption "Nvidia drivers";
     };
@@ -53,6 +58,8 @@
     };
 
     gaming = {
+      tooling.enable = lib.mkEnableOption "Extra tooling";
+
       optimizations = {
         enable = lib.mkEnableOption "Full optimizations";
       };
