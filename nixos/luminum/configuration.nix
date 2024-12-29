@@ -12,22 +12,33 @@
 
   nixosModules = {
     desktop.qtile.enable = true;
-
-    wireless = {
-      enable = true;
-      fixes.unblockWlan.enable = true;
-    };
     battery.enable = true;
+
+    networking = {
+      wireless = {
+        enable = true;
+        fixes.unblockWlan.enable = true;
+      };
+
+      firewall = {
+        enable = true;
+        kdeconnect.enable = true;
+      };
+
+      vpn.nordvpn.enable = true;
+    };
+
     kanata = {
       enable = true;
       variant = "wide";
     };
-    gaming = {
-      steam.enable = true;
-      games.enable = true;
-    };
+
     users = {
       shringe.enable = true;
+    };
+
+    development = {
+      pi.enable = true;
     };
   };
 
@@ -71,12 +82,12 @@
   # };
   #
   # services.pipewire.enable = false;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-
-  };
+  # services.pipewire = {
+  #   enable = true;
+  #   pulse.enable = true;
+  #   alsa.enable = true;
+  #
+  # };
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
