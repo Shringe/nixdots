@@ -7,6 +7,7 @@ in
     pkgs.steam-run
     pkgs.gamemode
     pkgs.mangohud
+    pkgs.discord
     pkgs.gamescope
     # pkgs.protonhax
   ];

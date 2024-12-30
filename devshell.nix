@@ -15,6 +15,7 @@ pkgs.mkShell {
     disko
     util-linux
     cryptsetup
+    nixos-anywhere
     btrfs-progs
 
     age
