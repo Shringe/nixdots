@@ -19,6 +19,7 @@
       pi = {
         enable = lib.mkEnableOption "All Raspberry Pi dev configuration.";
         tooling.enable = lib.mkEnableOption "Extra tooling";
+        building.enable = lib.mkEnableOption "Remote building of RPI images.";
       };
     };
 

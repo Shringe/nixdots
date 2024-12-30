@@ -46,8 +46,8 @@
         ];
 
         config.allowUnfree = true;
-        # config.allowUnfreePredicate = true;
       };
+       
       pkgs-stable = import nixpkgs-stable {
         inherit system;
       };
@@ -55,6 +55,7 @@
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
       };
+
       nixosConfigurations = {
         deity = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs pkgs; };
@@ -71,7 +72,30 @@
             ./nixos/nixosModules
           ];
         };
+
+        nixpi = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            system = "aarch64-linux";
+
+            pkgs = import nixpkgs {
+              system = "aarch64-linux";
+
+              overlays = [
+                inputs.nur.overlay
+              ];
+
+              config.allowUnfree = true;
+            };
+          };
+
+          modules = [
+            ./nixos/nixpi/configuration.nix
+            ./nixos/nixosModules
+          ];
+        };
       };
+
       homeConfigurations = {
         shringed = inputs.home-manager.lib.homeManagerConfiguration {
           inherit pkgs;

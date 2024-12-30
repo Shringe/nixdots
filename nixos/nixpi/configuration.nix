@@ -7,40 +7,25 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # ./disko.nix
+      ./disko.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
-    desktop.qtile.enable = true;
-    battery.enable = true;
-
     networking = {
-      wireless = {
-        enable = true;
-        fixes.unblockWlan.enable = true;
-      };
-
       firewall = {
         enable = true;
-        kdeconnect.enable = true;
       };
 
       vpn.nordvpn.enable = true;
     };
 
-    kanata = {
-      enable = true;
-      variant = "wide";
-    };
-
     users = {
-      shringe.enable = true;
+      # shringe.enable = true;
     };
 
     development = {
       pi.enable = true;
-      pi.building.enable = true;
     };
   };
 
@@ -55,7 +40,7 @@
 
   # Set your time zone.
   time.timeZone = "US/Central";
-  networking.hostName = "luminum";
+  networking.hostName = "nixpi";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
