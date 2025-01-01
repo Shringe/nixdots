@@ -12,7 +12,7 @@
       '';
 
       plugins = [
-        { name = "transient-fish" ; src = pkgs.fishPlugins.transient-fish.src; }  
+        # { name = "transient-fish" ; src = pkgs.fishPlugins.transient-fish.src; }  
         # { name = "bobthefish" ; src = pkgs.fishPlugins.bobthefish.src; }  
         # { name = "hydro" ; src = pkgs.fishPlugins.hydro.src; }  
         # { name = "tide" ; src = pkgs.fishPlugins.tide.src; }  
