@@ -32,7 +32,10 @@
     };
 
     desktop = {
-      qtile.enable = lib.mkEnableOption "Qtile dependencies";
+      windowManagers = {
+        qtile.enable = lib.mkEnableOption "Qtile dependencies";
+        hyprland.enable = lib.mkEnableOption "hyprland setup";
+      };
     };
 
     kanata = {
