@@ -1,5 +1,6 @@
 {
   imports = [
+    ./displayManagers
     ./qtile.nix
   ];
 }

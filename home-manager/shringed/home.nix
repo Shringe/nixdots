@@ -18,6 +18,7 @@
     dotfiles.enable = true;
     sops.enable = true;
     wm.enable = true;
+    gaming.enable = true;
   };
 
   home.stateVersion = "24.05"; # Please read the comment before changing.

@@ -16,7 +16,7 @@ in
     gamescope.enable = true;
     steam = {
       enable = true;
-      gamescopeSession.enable = true;
+      # gamescopeSession.enable = true;
     };
   };
 

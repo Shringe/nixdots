@@ -9,6 +9,7 @@ in
     pkgs.mangohud
     pkgs.gamescope
     # pkgs.protonhax
+    pkgs.discord
   ];
 
   nixpkgs.config = lib.mkIf cfg.enable { 

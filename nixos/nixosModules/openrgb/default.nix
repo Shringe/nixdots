@@ -11,7 +11,7 @@ in
     udev.packages = [ pkgs.openrgb ];
   };
 
-  environment.systemPackages = lib.mkIf cfg.enable [ pkgs.openrgb-plugin-effects ];
+  environment.systemPackages = lib.mkIf cfg.enable [ pkgs.openrgb-with-all-plugins ];
 
   hardware.i2c.enable = lib.mkIf cfg.enable true;
   boot.kernelModules = lib.mkIf cfg.enable [ "i2c-dev" ];
