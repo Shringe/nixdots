@@ -7,16 +7,24 @@
     ./nixvim
     ./scripts
     ./sops
+    ./gaming
   ];
 
   # Defines all options for homeManagerModules
   options.homeManagerModules = {
+    gaming = {
+      enable = lib.mkEnableOption "All gaming settings";
+      mangohud.enable = lib.mkEnableOption "Mangohud configuration";
+    };
+
     sops = {
       enable = lib.mkEnableOption "Generate sops keys";
     };
+
     scripts = {
       enable = lib.mkEnableOption "packages shell scriptss";
     };
+
     nixvim = {
       enable = lib.mkEnableOption "Nixvim configuration";
       optimizations = lib.mkEnableOption "Applies expiremental performance optimizations";
@@ -28,11 +36,13 @@
         wezterm.enable = lib.mkEnableOption "Wezterm configuration";
         alacritty.enable = lib.mkEnableOption "Alacritty configuration";
       };
+
       office = {
         enable = lib.mkEnableOption "Office suite";
         libreoffice.enable = lib.mkEnableOption "Libreoffice";
         pdf.enable = lib.mkEnableOption "pdf suite";
       };
+
       browsers = {
         enable = lib.mkEnableOption "Enables preferred browser module";
         firefox.enable = lib.mkEnableOption "Firefox";
@@ -71,9 +81,14 @@
 
   # Defines default options for homeManagerModules
   config.homeManagerModules = {
+    gaming = lib.mkIf config.homeManagerModules.gaming.enable {
+      mangohud.enable = lib.mkDefault true;
+    };
+
     scripts = {
       # enable = lib.mk
     };
+
     nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
       optimizations = lib.mkDefault true;
     };
@@ -83,9 +98,11 @@
         libreoffice.enable = lib.mkDefault true;
         pdf.enable = lib.mkDefault true;
       };
+
       browsers = lib.mkIf config.homeManagerModules.desktop.browsers.enable {
         firefox.enable = lib.mkDefault true;
       };
+
       terminals = lib.mkIf config.homeManagerModules.desktop.terminals.enable {
 
         wezterm.enable = lib.mkDefault true;

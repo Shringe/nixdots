@@ -3,15 +3,6 @@ let
   cfg = config.nixosModules.drivers.nvidia;
 in
 {
-  nixpkgs.config = lib.mkIf cfg.enable {
-    # allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    #   "nvidia-x11"
-    #   "nvidia-settings"
-    #   "nvidia-persistenced"
-    # ];
-    allowUnfree = true;
-  };
-
   hardware = lib.mkIf cfg.enable {
     graphics.enable = true;
 
@@ -30,11 +21,10 @@ in
     };
   };
 
-  programs.tuxclocker = lib.mkIf cfg.enable {
-    enable = true;
-    useUnfree = true;
-    enabledNVIDIADevices = [ 0 ];
-  };
+  # Once the package gets merged into nixpkgs
+  environment.systemPackages = lib.mkIf cfg.enable [
+    # pkgs.nvidia_oc
+  ];
 
   services.xserver.videoDrivers = lib.mkIf cfg.enable [ "nvidia" ];
 }
