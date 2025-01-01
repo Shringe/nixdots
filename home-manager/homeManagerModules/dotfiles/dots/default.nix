@@ -1,11 +1,6 @@
 { config, lib, ... }:
 {
-  imports = [ ./qtile ];
   xdg.configFile = lib.mkIf config.homeManagerModules.dotfiles.enable {
-    "qtile" = {
-      source = ./qtile;
-      recursive = true;
-    };
     "picom.conf" = {
       source = ./picom.conf;
     };

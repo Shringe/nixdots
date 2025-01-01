@@ -3,5 +3,6 @@
     ./browsers
     ./office
     ./terminals
+    ./windowManagers
   ];
 }

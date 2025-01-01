@@ -31,6 +31,12 @@
     };
 
     desktop = {
+      windowManagers = {
+        enable = lib.mkEnableOption "Preferred window manager";
+        qtile.enable = lib.mkEnableOption "qtile";
+        hyprland.enable = lib.mkEnableOption "hyprland";
+      };
+
       terminals = {
         enable = lib.mkEnableOption "Default terminal";
         wezterm.enable = lib.mkEnableOption "Wezterm configuration";
@@ -69,14 +75,6 @@
       enable = lib.mkEnableOption "link dotfiles";
       # qtile.installDependencies = lib.mkEnableOption "Install Qtile dotfiles dependencies";
     };
-
-    wm = {
-      enable = lib.mkEnableOption "Preferred WM";
-      qtile = {
-        enable = lib.mkEnableOption "Qtile configuration";
-        installDependencies = lib.mkEnableOption "Install Qtile configuration dependencies";
-      };
-    };
   };
 
   # Defines default options for homeManagerModules
@@ -94,6 +92,11 @@
     };
 
     desktop = {
+      windowManagers = lib.mkIf config.homeManagerModules.desktop.windowManagers.enable {
+        qtile.enable = lib.mkDefault true;
+        hyprland.enable = lib.mkDefault true;
+      };
+
       office = lib.mkIf config.homeManagerModules.desktop.office.enable {
         libreoffice.enable = lib.mkDefault true;
         pdf.enable = lib.mkDefault true;
@@ -125,11 +128,6 @@
 
     dotfiles = {
       # enable = lib.mkDefault true;
-    };
-
-    wm.qtile = lib.mkIf config.homeManagerModules.wm.enable {
-      enable = lib.mkDefault true;
-      installDependencies = lib.mkDefault true;
     };
   };
 }
