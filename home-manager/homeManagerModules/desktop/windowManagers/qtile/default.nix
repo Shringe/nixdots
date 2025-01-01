@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }:
 let
-  cfg = config.homeManagerModules.wm.qtile;
+  cfg = config.homeManagerModules.desktop.windowManagers.qtile;
 in
 {
+  xdg.configFile."qtile" = lib.mkIf cfg.enable {
+      source = ./config;
+      recursive = true;
+  };
+
   home.packages = lib.mkIf cfg.enable [
     pkgs.picom
     pkgs.flameshot
