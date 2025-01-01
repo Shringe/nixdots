@@ -12,7 +12,12 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
-    desktop.qtile.enable = true;
+    desktop = {
+      windowManagers = {
+        qtile.enable = true;
+        hyprland.enable = true;
+      };
+    };
 
     kanata = {
       enable = true;
