@@ -10,7 +10,8 @@ in
     settings = {
       preset = 3;
 
-      # no_display = true;
+      no_display = true;
+      wine = true;
       toggle_hud = "Shift_L + F12";
     };
   };
