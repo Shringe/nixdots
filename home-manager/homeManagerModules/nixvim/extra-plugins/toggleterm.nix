@@ -1,6 +1,15 @@
 {
   programs.nixvim = {
-    plugins.toggleterm.enable = true;
+    plugins.toggleterm = {
+      enable = true;
+
+      settings = {
+        # I have an ultrawide so it makes sense
+        direction = "vertical";
+        size = 70;
+      };
+    };
+
     keymaps = [
       {
         mode = [ "t" "n" ];
