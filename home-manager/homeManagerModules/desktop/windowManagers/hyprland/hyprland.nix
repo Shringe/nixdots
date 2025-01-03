@@ -14,6 +14,8 @@ in
 
     settings = {
       "$mod" = "SUPER";
+      "$d1" = "HDMI-A-1";
+      "$d2" = "DP-1";
 
       exec-once = [
         "waybar"
@@ -92,39 +94,31 @@ in
       };
 
       monitor = [
-        "HDMI-A-1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 1"
-        "DP-1, 2560x1440@165, auto-left, 1, transform, 1, vrr, 1"
+        "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 1"
+        "$d2, 2560x1440@165, auto-left, 1, transform, 1, vrr, 1"
       ];
 
       workspace = [
+        "1, monitor:$d1"
+        "2, monitor:$d1"
+        "3, monitor:$d1"
+        "4, monitor:$d1"
+        "5, monitor:$d1"
+        "6, monitor:$d1"
 
-      ]
-      ++ ( 
-        builtins.concatLists (builtins.genList (i:
-            let
-              monitor = "HDMI-A-1";
-            in [
-              "${toString i}, monitor:${monitor}"
-            ]
-          ) 
-        7)
-      )
-      ++ ( 
-        builtins.concatLists (builtins.genList (i:
-            let
-              monitor = "DP-1";
-              ws = i + 7;
-            in [
-              "${toString ws}, monitor:${monitor}"
-            ]
-          ) 
-        3)
-      );
+        "7, monitor:$d2 name:Discord"
+        "8, monitor:$d2"
+        "9, monitor:$d2 name:Steam"
+      ];
 
+      windowrulev2 = [
+        "workspace 7, class:discord"
+        "workspace 9, class:steam"
+      ];
 
       decoration.blur = {
         enabled = true;
-        # size = 3;
+        size = 10;
         # passes = 1;
       };
 
