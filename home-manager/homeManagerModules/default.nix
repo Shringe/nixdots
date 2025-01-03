@@ -37,6 +37,7 @@
         hyprland = {
           enable = lib.mkEnableOption "Hyprland configuration";
           hyprpaper.enable = lib.mkEnableOption "hyprpaper configuration";
+          wofi.enable = lib.mkEnableOption "Wofi configuration";
           waybar.enable = lib.mkEnableOption "Waybar configuration";
         };
       };
@@ -100,6 +101,7 @@
         hyprland = {
           enable = lib.mkDefault true;
           hyprpaper.enable = lib.mkDefault true;
+          wofi.enable = lib.mkDefault true;
           waybar.enable = lib.mkDefault true;
         };
       };
