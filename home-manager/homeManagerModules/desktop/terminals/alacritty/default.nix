@@ -10,6 +10,7 @@ in
         family = "JetbrainsMono";
         style = "Regular";
       };
+      font.size = 16;
       terminal.shell.program = "fish";
       window = {
         opacity = 0.88;
