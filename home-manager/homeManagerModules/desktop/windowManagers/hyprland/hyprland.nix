@@ -3,8 +3,8 @@ let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland;
 in
 {
-  home.packages = lib.mkIf cfg.enable [
-    pkgs.wl-clipboard
+  home.packages = with pkgs; lib.mkIf cfg.enable [
+    wl-clipboard
   ];
 
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {
@@ -27,7 +27,7 @@ in
         "$mod, r, exec, firefox"
         "$mod, Return, exec, alacritty"
         "$mod, w, killactive"
-        "$mod, s, exec, rofi -show drun"
+        "$mod, s, exec, wofi --show drun"
         "$mod, Space, toggleFloating"
         "$mod, t, fullscreen"
 
