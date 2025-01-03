@@ -10,6 +10,7 @@ in
     pkgs.gamescope
     # pkgs.protonhax
     pkgs.discord
+    pkgs.pulsemixer
   ];
 
   nixpkgs.config = lib.mkIf cfg.enable { 

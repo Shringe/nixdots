@@ -34,7 +34,11 @@
       windowManagers = {
         enable = lib.mkEnableOption "Preferred window manager";
         qtile.enable = lib.mkEnableOption "qtile";
-        hyprland.enable = lib.mkEnableOption "hyprland";
+        hyprland = {
+          enable = lib.mkEnableOption "Hyprland configuration";
+          hyprpaper.enable = lib.mkEnableOption "hyprpaper configuration";
+          waybar.enable = lib.mkEnableOption "Waybar configuration";
+        };
       };
 
       terminals = {
@@ -93,8 +97,11 @@
 
     desktop = {
       windowManagers = lib.mkIf config.homeManagerModules.desktop.windowManagers.enable {
-        qtile.enable = lib.mkDefault true;
-        hyprland.enable = lib.mkDefault true;
+        hyprland = {
+          enable = lib.mkDefault true;
+          hyprpaper.enable = lib.mkDefault true;
+          waybar.enable = lib.mkDefault true;
+        };
       };
 
       office = lib.mkIf config.homeManagerModules.desktop.office.enable {

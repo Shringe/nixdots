@@ -12,6 +12,7 @@ config = {
 
   -- fixes rendering issues
   front_end = "WebGpu",
+  wayland = 0,
 
   window_padding = {
     left = 0,

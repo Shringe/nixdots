@@ -61,12 +61,12 @@ floating = Floating
 # Groups
 groups: list = [
     Group("1", layouts=[primary]),
-    # Group(
-    #     "2",
-    #     layouts=[VerticalTile],
-    #     matches=[Match(wm_class="strawberry"), Match(wm_class="tidal-hifi")],
-    # ),
-    Group("2", layouts=[primary]),
+    Group(
+        "2",
+        layouts=[VerticalTile],
+        matches=[Match(wm_class="strawberry"), Match(wm_class="tidal-hifi")],
+    ),
+    # Group("2", layouts=[primary]),
     Group("3", layouts=[primary]),
     Group("4", layouts=[primary]),
     Group("5", layouts=[primary]),

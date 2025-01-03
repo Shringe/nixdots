@@ -5,5 +5,6 @@ in
 {
   programs.hyprland.enable = lib.mkIf cfg.enable true;
 
+  # Optional, hint electron apps to use wayland:
   environment.sessionVariables.NIXOS_OZONE_WL = lib.mkIf cfg.enable "1";
 }

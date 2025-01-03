@@ -11,6 +11,7 @@
     desktop = {
       browsers.enable = true;
       terminals.enable = true;
+      terminals.alacritty.enable = true;
       office.enable = true;
       windowManagers.enable = true;
     };
