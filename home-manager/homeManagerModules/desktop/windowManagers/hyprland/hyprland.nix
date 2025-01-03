@@ -106,9 +106,9 @@ in
         "5, monitor:$d1"
         "6, monitor:$d1"
 
-        "7, monitor:$d2 name:Discord"
+        "7, monitor:$d2"
         "8, monitor:$d2"
-        "9, monitor:$d2 name:Steam"
+        "9, monitor:$d2"
       ];
 
       windowrulev2 = [
