@@ -17,14 +17,14 @@
   fileSystems."/mnt/Steam/Main" = { 
     device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
     fsType = "btrfs";
-    options = [ "subvol=_steam/main" "noatime" ];
+    options = [ "subvol=_steam/main" "noatime" "nofail" ];
     # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 
   fileSystems."/mnt/Steam/libraries/SSD1" = { 
     device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
     fsType = "btrfs";
-    options = [ "subvol=_steam/library" "compress=zstd" "noatime" ];
+    options = [ "subvol=_steam/library" "compress=zstd" "noatime" "nofail" ];
     # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 

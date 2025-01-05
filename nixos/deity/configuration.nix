@@ -12,6 +12,8 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
+    boot.enable = true;
+
     desktop = {
       windowManagers = {
         qtile.enable = true;
@@ -42,14 +44,6 @@
     mouse.main.enable = true;
   };
 
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    # kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
-    # kernelPackages = pkgs.linuxKernel.packages.linux_zen;
-  };
 
   # Set your time zone.
   time.timeZone = "US/Central";
@@ -69,6 +63,7 @@
       layout = "us";
     };
   };
+
   services.displayManager.ly = {
     enable = true;
     settings = {
@@ -76,12 +71,6 @@
     };
   };
 
-  # hardware.pulseaudio = {
-  #   enable = true;
-  #   support32Bit = true;
-  # };
-  #
-  # services.pipewire.enable = false;
   services.pipewire = {
     enable = true;
     pulse.enable = true;

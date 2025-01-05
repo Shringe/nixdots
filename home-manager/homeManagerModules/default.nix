@@ -31,6 +31,11 @@
     };
 
     desktop = {
+      email = {
+        enable = lib.mkEnableOption "Email setup";
+        thunderbird.enable = lib.mkEnableOption "Thunderbird";
+      };
+
       windowManagers = {
         enable = lib.mkEnableOption "Preferred window manager";
         qtile.enable = lib.mkEnableOption "qtile";
@@ -97,6 +102,10 @@
     };
 
     desktop = {
+      email = lib.mkIf config.homeManagerModules.desktop.email.enable {
+        thunderbird.enable = lib.mkDefault true;
+      };
+
       windowManagers = lib.mkIf config.homeManagerModules.desktop.windowManagers.enable {
         hyprland = {
           enable = lib.mkDefault true;
