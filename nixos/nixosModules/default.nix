@@ -13,8 +13,7 @@
     ./drivers
     ./boot
     ./llm
-
-    ./packages/generalTooling.nix
+    ./packages
   ];
 
   options.nixosModules = {
