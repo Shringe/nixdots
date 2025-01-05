@@ -12,6 +12,13 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
+    llm = {
+      gpt4all = {
+        enable = true;
+        cuda = true;
+      };
+    };
+
     boot.enable = true;
 
     desktop = {

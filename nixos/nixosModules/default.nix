@@ -12,11 +12,19 @@
     ./openrgb
     ./drivers
     ./boot
+    ./llm
 
     ./packages/generalTooling.nix
   ];
 
   options.nixosModules = {
+    llm = {
+      gpt4all = {
+        enable = lib.mkEnableOption "Default gpt4all";
+        cuda = lib.mkEnableOption "Use Cuda";
+      };
+    };
+
     boot = {
       enable = lib.mkEnableOption "Default boot configuration";
       systemd-boot.enable = lib.mkEnableOption "systemd-boot";

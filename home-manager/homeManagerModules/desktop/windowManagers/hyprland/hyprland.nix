@@ -9,6 +9,8 @@ in
     hyprsunset
 
     xdg-desktop-portal-hyprland
+    # xdg-desktop-portal-wlr
+
     # grim
     # slurp
 
@@ -28,7 +30,7 @@ in
       exec-once = [
         "waybar"
 
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
@@ -110,8 +112,6 @@ in
       );
 
       input = {
-        kb_layout = "us";
-
         repeat_rate = 40;
         repeat_delay = 300;
 
@@ -126,7 +126,7 @@ in
 
       monitor = [
         "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 2"
-        "$d2, 2560x1440@165, auto-left, 1, transform, 1, vrr, 1"
+        "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, transform, 1, vrr, 1"
       ];
 
       workspace = [
@@ -162,6 +162,13 @@ in
 
         allow_tearing = true;
       };
+
+      animation = [
+        "workspaces, 1, 5, default"
+        "windows, 1, 5, default"
+        "fade, 1, 5, default"
+        "layers, 1, 5, default"
+      ];
     };
   };
 }
