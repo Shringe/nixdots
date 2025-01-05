@@ -13,8 +13,14 @@
       terminals.enable = true;
       terminals.alacritty.enable = true;
       office.enable = true;
-      windowManagers.enable = true;
+      windowManagers = {
+        enable = true;
+        qtile.enable = true;
+        hyprland.enable = true;
+      };
+      email.enable = true;
     };
+
     shells.enable = true;
     scripts.enable = true;
     dotfiles.enable = true;

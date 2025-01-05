@@ -11,9 +11,17 @@
     ./mouse
     ./openrgb
     ./drivers
+    ./boot
+
+    ./packages/generalTooling.nix
   ];
 
   options.nixosModules = {
+    boot = {
+      enable = lib.mkEnableOption "Default boot configuration";
+      systemd-boot.enable = lib.mkEnableOption "systemd-boot";
+    };
+
     openrgb = {
       enable = lib.mkEnableOption "OpenRGB";
     };
@@ -77,6 +85,10 @@
   };
 
   config.nixosModules = {
+    boot = lib.mkIf config.nixosModules.boot.enable {
+      systemd-boot.enable = lib.mkDefault true;
+    };
+
     battery = lib.mkIf config.nixosModules.battery.enable {
       tooling.enable = lib.mkDefault true;
       powerManagement.enable = lib.mkDefault true;

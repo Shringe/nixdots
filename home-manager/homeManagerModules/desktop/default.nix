@@ -4,5 +4,6 @@
     ./office
     ./terminals
     ./windowManagers
+    ./email
   ];
 }
