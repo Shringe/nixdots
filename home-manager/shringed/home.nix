@@ -7,6 +7,8 @@
   home.homeDirectory = "/home/shringed";
 
   homeManagerModules = {
+    tooling.enable = true;
+    theming.enable = true;
     nixvim.enable = true;
     desktop = {
       browsers.enable = true;

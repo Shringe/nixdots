@@ -13,10 +13,16 @@
     ./drivers
     ./boot
     ./llm
+    ./themes
     ./packages
   ];
 
   options.nixosModules = {
+    themes = {
+      enable = lib.mkEnableOption "Nixos theming";
+      stylix.enable = lib.mkEnableOption "Stylix theming";
+    };
+
     llm = {
       gpt4all = {
         enable = lib.mkEnableOption "Default gpt4all";
@@ -92,6 +98,10 @@
   };
 
   config.nixosModules = {
+    themes = lib.mkIf config.nixosModules.themes.enable {
+      stylix.enable = true;
+    };
+
     boot = lib.mkIf config.nixosModules.boot.enable {
       systemd-boot.enable = lib.mkDefault true;
     };

@@ -8,10 +8,35 @@
     ./scripts
     ./sops
     ./gaming
+    ./theming
+    ./tooling
   ];
 
   # Defines all options for homeManagerModules
   options.homeManagerModules = {
+    tooling = {
+      enable = lib.mkEnableOption "Enable all";
+      systemMonitors.enable = lib.mkEnableOption "systemMonitors";
+    };
+
+    theming = {
+      enable = lib.mkEnableOption "enable theming";
+
+      wallpaper = lib.mkOption {
+        type = lib.types.str;
+        default = "the_valley.png";
+      };
+
+      stylix = {
+        enable = lib.mkEnableOption "Enable theming with stylix";
+        colorScheme = lib.mkOption {
+          type = lib.types.str;
+          default = "catppuccin-mocha";
+          description = "What .yaml theme to use.";
+        };
+      };
+    };
+
     gaming = {
       enable = lib.mkEnableOption "All gaming settings";
       mangohud.enable = lib.mkEnableOption "Mangohud configuration";
@@ -89,6 +114,14 @@
 
   # Defines default options for homeManagerModules
   config.homeManagerModules = {
+    tooling = lib.mkIf config.homeManagerModules.tooling.enable {
+      systemMonitors.enable = lib.mkDefault true;
+    };
+
+    theming = lib.mkIf config.homeManagerModules.theming.enable {
+      stylix.enable = lib.mkDefault true;
+    };
+
     gaming = lib.mkIf config.homeManagerModules.gaming.enable {
       mangohud.enable = lib.mkDefault true;
     };

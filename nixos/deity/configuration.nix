@@ -12,6 +12,10 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
+    themes = {
+      enable = true;
+    };
+
     llm = {
       gpt4all = {
         enable = true;
