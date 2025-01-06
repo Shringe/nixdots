@@ -148,6 +148,8 @@ in
       ];
 
       decoration = {
+        rounding = 8;
+
         blur = {
           enabled = true;
           size = 12;
@@ -156,7 +158,7 @@ in
       };
 
       general = {
-        border_size = 1;
+        border_size = 2;
         gaps_in = 2;
         gaps_out = 3;
 

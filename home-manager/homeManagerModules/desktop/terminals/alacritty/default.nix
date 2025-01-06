@@ -6,19 +6,19 @@ in
   programs.alacritty = lib.mkIf cfg.enable {
     enable = true;
     settings = {
-      font.normal = {
-        family = "JetbrainsMono";
-        style = "Regular";
-      };
-      font.size = 16;
+    #   font.normal = {
+    #     family = "JetbrainsMono";
+    #     style = "Regular";
+    #   };
+    #   font.size = 16;
       terminal.shell.program = "fish";
-      window = {
-        opacity = 0.88;
-        padding = {
+      # window = {
+        # opacity = 0.88;
+        # padding = {
           # x = 4;
           # y = 1;
-        };
-      };
+        # };
+      # };
     };
   };
 }
