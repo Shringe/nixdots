@@ -3,232 +3,271 @@ let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.waybar;
 in
 {
-  home.packages = [ pkgs.waybar ];
+  home.packages = with pkgs; lib.mkIf cfg.enable [
+    fira-sans
+  ];
+
   programs.waybar = lib.mkIf cfg.enable {
     enable = true;
+    
     style = ''
+      @define-color base      #${config.lib.stylix.colors.base00};
+      @define-color mantle    #${config.lib.stylix.colors.base01};
+      @define-color surface0  #${config.lib.stylix.colors.base02};
+      @define-color surface1  #${config.lib.stylix.colors.base03};
+      @define-color surface2  #${config.lib.stylix.colors.base04};
+      @define-color text      #${config.lib.stylix.colors.base05};
+      @define-color rosewater #${config.lib.stylix.colors.base06};
+      @define-color lavender  #${config.lib.stylix.colors.base07};
+      @define-color red       #${config.lib.stylix.colors.base08};
+      @define-color peach     #${config.lib.stylix.colors.base09};
+      @define-color yellow    #${config.lib.stylix.colors.base0A};
+      @define-color green     #${config.lib.stylix.colors.base0B};
+      @define-color teal      #${config.lib.stylix.colors.base0C};
+      @define-color blue      #${config.lib.stylix.colors.base0D};
+      @define-color mauve     #${config.lib.stylix.colors.base0E};
+      @define-color flamingo  #${config.lib.stylix.colors.base0F};
+
       * {
-        font-size: 20px;
-        font-family: monospace;
+          border: none;
+          border-radius: 0;
+          font-family: "JetBrains Mono";
+          font-size: 14px;
+          min-height: 0;
       }
 
       window#waybar {
-        background: #292b2e;
-        color: #fdf6e3;
+          background: @base;
+          color: @text;
       }
 
-      #custom-right-arrow-dark,
-      #custom-left-arrow-dark {
-        color: #1a1a1a;
+      #window {
+          font-weight: bold;
+          color: @text;
       }
-
-      #custom-right-arrow-light,
-      #custom-left-arrow-light {
-        color: #292b2e;
-        background: #1a1a1a;
-      }
-
-      #workspaces,
-      #clock.1,
-      #clock.2,
-      #clock.3,
-      #pulseaudio,
-      #memory,
-      #cpu,
-      #battery,
-      #disk,
-      #tray {
-        background: #1a1a1a;
-      }
+      /*
+      #workspaces {
+          padding: 0 5px;
+      */
 
       #workspaces button {
-        padding: 0 2px;
-        color: #fdf6e3;
+          padding: 0 5px;
+          color: @mauve;
       }
 
       #workspaces button.focused {
-        color: #268bd2;
+          color: @surface1;
       }
 
-      #workspaces button:hover {
-        box-shadow: inherit;
-        text-shadow: inherit;
+      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-notification {
+          padding: 0 5px;
+          color: @text;
+          margin: 0 2px;
+          border-radius: 8px;
+
+          font-weight: bold;
       }
 
-      #workspaces button:hover {
-        background: #1a1a1a;
-        border: #1a1a1a;
-        padding: 0 3px;
+      #custom-notification {
+          background: @lavender;
+          color: @mantle;
       }
 
-      #pulseaudio {
-        color: #268bd2;
-      }
-
-      #memory {
-        color: #2aa198;
-      }
-
-      #cpu {
-        color: #6c71c4;
+      #clock {
+          font-weight: bold;
+          color: @mantle;
+          background: @rosewater;
       }
 
       #battery {
-        color: #859900;
       }
 
-      #disk {
-        color: #b58900;
+      #battery icon {
+          color: @red;
       }
 
-      #clock,
-      #pulseaudio,
-      #memory,
-      #cpu,
-      #battery,
-      #disk {
-        padding: 0 10px;
+      #battery.charging {
+      }
+
+      @keyframes blink {
+          to {
+              background-color: #ffffff;
+              color: @mantle;
+          }
+      }
+
+      #battery.warning:not(.charging) {
+          color: @text;
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+      }
+
+      #cpu {
+          color: @mantle;
+          background: @red;
+          border-radius: 8px;
+      }
+
+      #memory {
+          color: @mantle;
+          background: @peach;
+          border-radius: 8px;
+      }
+
+      #network {
+          color: @mantle;
+          background: @teal;
+          border-radius: 8px;
+      }
+
+      #network.disconnected {
+          background: @yellow;
+          color: @mantle;
+          border-radius: 8px;
+      }
+
+      #pulseaudio {
+          background: @green;
+          color: @mantle;
+          border-radius: 8px;
+      }
+
+      #pulseaudio.muted {
+          background: @yellow;
+          color: @mantle;
+          border-radius: 8px;
+      }
+
+      #custom-spotify {
+          color: rgb(102, 220, 105);
+      }
+
+      #tray {
       }
     '';
 
-    settings.mainBar = {
+    settings.primary = {
       layer = "top";
       position = "top";
+      height = 24;
 
-      output = [
-        "HDMI-A-1"
-        "DP-1"
+      modules-left = [ 
+        # "custom/spotify" 
+        "battery" 
+        "cpu" 
+        "memory" 
+        "privacy"
+        "hyprland/window"
       ];
 
-      modules-left = [
-        "hyprland/workspaces"
-        "custom/right-arrow-dark"
+      modules-center = [ 
+        "hyprland/workspaces" 
       ];
 
-      modules-center = [
-        "custom/left-arrow-dark"
-        "clock#1"
-        "custom/left-arrow-light"
-        "custom/left-arrow-dark"
-        "clock#2"
-        "custom/right-arrow-dark"
-        "custom/right-arrow-light"
-        "clock#3"
-        "custom/right-arrow-dark"
+      modules-right = [ 
+        "tray" 
+        "pulseaudio" 
+        "network" 
+        "custom/notification"
+        "clock" 
       ];
-
-      modules-right = [
-        "custom/left-arrow-dark"
-        "pulseaudio"
-        "custom/left-arrow-light"
-        "custom/left-arrow-dark"
-        "memory"
-        "custom/left-arrow-light"
-        "custom/left-arrow-dark"
-        "cpu"
-        "custom/left-arrow-light"
-        "custom/left-arrow-dark"
-        "battery"
-        "custom/left-arrow-light"
-        "custom/left-arrow-dark"
-        "disk"
-        "custom/left-arrow-light"
-        "custom/left-arrow-dark"
-        "tray"
-      ];
-
-      "custom/left-arrow-dark" = {
-        format = "";
-        tooltip = false;
-      };
-
-      "custom/left-arrow-light" = {
-        format = "";
-        tooltip = false;
-      };
-
-      "custom/right-arrow-dark" = {
-        format = "";
-        tooltip = false;
-      };
-
-      "custom/right-arrow-light" = {
-        format = "";
-        tooltip = false;
-      };
 
       "hyprland/workspaces" = {
         disable-scroll = true;
-        format = "{name}";
+        all-outputs = false;
       };
 
-      "clock#1" = {
-        format = "{:%a}";
-        tooltip = false;
-      };
-
-      "clock#2" = {
-        format = "{:%H:%M}";
-        tooltip = false;
-      };
-
-      "clock#3" = {
-        format = "{:%m-%d}";
-        tooltip = false;
-      };
-
-      pulseaudio = {
-        format = "{icon} {volume:2}%";
-        format-bluetooth = "{icon}  {volume}%";
-        format-muted = "MUTE";
+      "custom/notification" = {
+        # tooltip = false;
+        format = "{} {icon}";
         format-icons = {
-          headphones = "";
-          default = [
-            ""
-            ""
-          ];
+          notification = "<span foreground='red'><sup></sup></span>";
+          none = "";
+          dnd-notification = "<span foreground='red'><sup></sup></span>";
+          dnd-none = "";
+          inhibited-notification = "<span foreground='red'><sup></sup></span>";
+          inhibited-none = "";
+          dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
+          dnd-inhibited-none = "";
         };
-        scroll-step = 5;
-        "on-click" = "pamixer -t";
-        "on-click-right" = "pavucontrol";
+        return-type = "json";
+        exec-if = "which swaync-client";
+        exec = "swaync-client -swb";
+        on-click = "swaync-client -t -sw";
+        on-click-right = "swaync-client -d -sw";
+        escape = true;
       };
 
-      memory = {
-        interval = 5;
-        format = "Mem {}%";
+      #
+      # "hyprland/workspaces" = {
+      #   disable-scroll = true;
+      #   all-outputs = false;
+      #   format = "{icon}";
+      #   "format-icons" = {
+      #     "1:web" = "";
+      #     "2:code" = "";
+      #     "3:term" = "";
+      #     "4:work" = "";
+      #     "5:music" = "";
+      #     "6:docs" = "";
+      #     urgent = "";
+      #     focused = "";
+      #     default = "";
+      #   };
+      # };
+
+      tray = {
+        spacing = 10;
+      };
+
+      clock = {
+        "format" = " {:%a %d %b  %I:%M %p}";
+        "format-alt" = "{:%Y-%m-%d}";
       };
 
       cpu = {
-        interval = 5;
-        format = "CPU {usage:2}%";
+        format = "{usage}% ";
+      };
+
+      memory = {
+        format = "{}% ";
       };
 
       battery = {
+        bat = "BAT0";
         states = {
-          good = 95;
           warning = 30;
           critical = 15;
         };
-        format = "{icon} {capacity}%";
-        format-icons = [
-          ""
-          ""
-          ""
-          ""
-          ""
-        ];
+        format = "{capacity}% {icon}";
+        "format-icons" = [ "" "" "" "" "" ];
       };
 
-      disk = {
-        interval = 5;
-        format = "Disk {percentage_used:2}%";
-        path = "/";
+      network = {
+        "format-wifi" = "{essid} ({signalStrength}%) ";
+        "format-ethernet" = "{ifname}: {ipaddr}/{cidr} ";
+        "format-disconnected" = "Disconnected ⚠";
       };
 
-      tray = {
-        "icon-size" = 20;
+      pulseaudio = {
+        format = "{volume}% {icon}";
+        "format-bluetooth" = "{volume}% {icon}";
+        "format-muted" = "{volume}% ";
+        "format-icons" = {
+          headphones = "";
+          handsfree = "";
+          headset = "";
+          phone = "";
+          portable = "";
+          car = "";
+          default = [ "" "" ];
+        };
+        "on-click" = "pavucontrol";
+        "on-click-right" = "media-control volume_mute";
       };
     };
-
   };
 }
