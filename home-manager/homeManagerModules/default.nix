@@ -24,7 +24,7 @@
 
       wallpaper = lib.mkOption {
         type = lib.types.str;
-        default = "the_valley.png";
+        default = "catppuccin_tux_3840x2160.png";
       };
 
       stylix = {
@@ -69,11 +69,14 @@
           hyprpaper.enable = lib.mkEnableOption "hyprpaper configuration";
           wofi.enable = lib.mkEnableOption "Wofi configuration";
           waybar.enable = lib.mkEnableOption "Waybar configuration";
+          swaync.enable = lib.mkEnableOption "Swaync configuration";
+          hyprlock.enable = lib.mkEnableOption "hyprlock configuration";
         };
       };
 
       terminals = {
         enable = lib.mkEnableOption "Default terminal";
+        ghostty.enable = lib.mkEnableOption "Ghostty config";
         wezterm.enable = lib.mkEnableOption "Wezterm configuration";
         alacritty.enable = lib.mkEnableOption "Alacritty configuration";
       };
@@ -145,6 +148,8 @@
           hyprpaper.enable = lib.mkDefault true;
           wofi.enable = lib.mkDefault true;
           waybar.enable = lib.mkDefault true;
+          swaync.enable = lib.mkDefault true;
+          hyprlock .enable = lib.mkDefault true;
         };
       };
 
@@ -158,7 +163,6 @@
       };
 
       terminals = lib.mkIf config.homeManagerModules.desktop.terminals.enable {
-
         wezterm.enable = lib.mkDefault true;
       };
     };

@@ -1,9 +1,13 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.wofi;
 in
 {
   stylix.targets.wofi.enable = false;
+
+  home.packages = with pkgs; lib.mkIf cfg.enable [
+    wofi-emoji
+  ];
 
   programs.wofi = lib.mkIf cfg.enable {
     enable = true;

@@ -5,16 +5,10 @@ in
 {
   home.packages = with pkgs; lib.mkIf cfg.enable [
     wl-clipboard
+    cliphist
 
     hyprsunset
-
     xdg-desktop-portal-hyprland
-    # xdg-desktop-portal-wlr
-
-    # grim
-    # slurp
-
-    cliphist
   ];
 
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {
@@ -29,11 +23,12 @@ in
 
       exec-once = [
         "waybar"
-
-        # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "swaync"
 
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+
+        # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
       bindm = [
@@ -44,8 +39,6 @@ in
       bind = [
         # Hyprland
         "$mod CTRL, q, exit"
-        "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
-
 
         ",XF86AudioPlay,exec,media-control play_pause"
         ",XF86AudioNext,exec,media-control next"
@@ -61,9 +54,14 @@ in
         "$mod, r, exec, firefox"
         "$mod, Return, exec, alacritty"
         "$mod, w, killactive"
-        "$mod, s, exec, wofi --show drun"
         "$mod, Space, toggleFloating"
         "$mod, t, fullscreen"
+
+        # Wofi
+        "$mod, s, exec, wofi --show drun"
+
+        "$mod, c, exec, wofi-emoji"
+        "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
         # Window focus
         "$mod, n, movefocus, l"

@@ -2,5 +2,6 @@
   imports = [
     ./wezterm
     ./alacritty
+    ./ghostty
   ];
 }

@@ -14,6 +14,7 @@
       browsers.enable = true;
       terminals.enable = true;
       terminals.alacritty.enable = true;
+      terminals.ghostty.enable = true;
       office.enable = true;
       windowManagers = {
         enable = true;
