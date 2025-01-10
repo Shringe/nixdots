@@ -180,6 +180,10 @@ in
         all-outputs = false;
       };
 
+      "hyprland/window" = {
+        icon = true;
+      };
+
       "custom/notification" = {
         # tooltip = false;
         format = "{} {icon}";
