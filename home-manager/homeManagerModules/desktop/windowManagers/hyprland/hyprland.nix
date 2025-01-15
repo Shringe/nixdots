@@ -31,11 +31,33 @@ in
         # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
+      # Mouse binds
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
 
+      # Repeating binds
+      binde = [
+        # Media
+        ",XF86AudioRaiseVolume,exec,media-control volume_up"
+        ",XF86AudioLowerVolume,exec,media-control volume_down"
+        "CTRL,XF86AudioRaiseVolume,exec,media-control mic_up"
+        "CTRL,XF86AudioLowerVolume,exec,media-control mic_down"
+
+        # Window size
+        "$mod ALT, n, resizeactive, 10 0"
+        "$mod ALT, o, resizeactive, -10 0"
+        "$mod ALT, i, resizeactive, 0 -10"
+        "$mod ALT, e, resizeactive, 0 10"
+
+        "$mod ALT, Left, resizeactive, 10 0"
+        "$mod ALT, Right, resizeactive, -10 0"
+        "$mod ALT, Up, resizeactive, 0 10"
+        "$mod ALT, Down, resizeactive, 0 -10"
+      ];
+
+      # Regular binds
       bind = [
         # Hyprland
         "$mod CTRL, q, exit"
@@ -43,11 +65,7 @@ in
         ",XF86AudioPlay,exec,media-control play_pause"
         ",XF86AudioNext,exec,media-control next"
         ",XF86AudioPrev,exec,media-control prev"
-        ",XF86AudioRaiseVolume,exec,media-control volume_up"
-        ",XF86AudioLowerVolume,exec,media-control volume_down"
         ",XF86AudioMute,exec,media-control volume_mute"
-        "CTRL,XF86AudioRaiseVolume,exec,media-control mic_up"
-        "CTRL,XF86AudioLowerVolume,exec,media-control mic_down"
         "CTRL,XF86AudioMute,exec,media-control mic_mute"
 
         # Applications
@@ -85,17 +103,6 @@ in
         "$mod CTRL, Up, movewindow, u"
         "$mod CTRL, Down, movewindow, d"
 
-        # Window size
-        "$mod ALT, n, resizeactive, 10 0"
-        "$mod ALT, o, resizeactive, -10 0"
-        "$mod ALT, i, resizeactive, 0 -10"
-        "$mod ALT, e, resizeactive, 0 10"
-
-        "$mod ALT, Left, resizeactive, 10 0"
-        "$mod ALT, Right, resizeactive, -10 0"
-        "$mod ALT, Up, resizeactive, 0 10"
-        "$mod ALT, Down, resizeactive, 0 -10"
-
       ]
       ++ (
         # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
@@ -120,6 +127,10 @@ in
 
       cursor = {
         no_break_fs_vrr = true;
+      };
+
+      experimental = {
+        # wide_color_gamut = true;
       };
 
       monitor = [
