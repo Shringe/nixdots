@@ -4,7 +4,7 @@ let
 in
 {
   home.packages = with pkgs; lib.mkIf cfg.enable [
-    fira-sans
+    playerctl
   ];
 
   programs.waybar = lib.mkIf cfg.enable {
@@ -59,13 +59,23 @@ in
           color: @surface1;
       }
 
-      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-notification {
+      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-notification, #mpris, #group-audio {
           padding: 0 5px;
           color: @text;
           margin: 0 2px;
           border-radius: 8px;
 
           font-weight: bold;
+      }
+
+      #group-audio {
+          background: @green;
+          color: @mantle;
+      }
+
+      #mpris {
+          background: @green;
+          color: @mantle;
       }
 
       #custom-notification {
@@ -169,11 +179,23 @@ in
 
       modules-right = [ 
         "tray" 
+        # "group/audio"
+        # "mpris"
         "pulseaudio" 
         "network" 
         "custom/notification"
         "clock" 
       ];
+
+      # WIP
+      # "group/audio" = {
+      #   orienation = "vertical";
+      #   modules = [
+      #     "mpris"
+      #     "pulseauidio"
+      #     "cpu"
+      #   ];
+      # };
 
       "hyprland/workspaces" = {
         disable-scroll = true;
@@ -223,13 +245,25 @@ in
       #   };
       # };
 
+      mpris = {
+        format = "{player_icon} {dynamic}";
+        format-paused = "{status_icon} <i>{nynamic}</i>";
+        player-icons = {
+          default = "▶";
+          mpv = "🎵";
+        };
+        status-icons = {
+          paused = "⏸";
+        };
+      };
+
       tray = {
         spacing = 10;
       };
 
       clock = {
-        "format" = " {:%a %d %b  %I:%M %p}";
-        "format-alt" = "{:%Y-%m-%d}";
+        format = " {:%a %d %b  %I:%M %p}";
+        format-alt = "{:%Y-%m-%d}";
       };
 
       cpu = {
@@ -247,20 +281,20 @@ in
           critical = 15;
         };
         format = "{capacity}% {icon}";
-        "format-icons" = [ "" "" "" "" "" ];
+        format-icons = [ "" "" "" "" "" ];
       };
 
       network = {
-        "format-wifi" = "{essid} ({signalStrength}%) ";
-        "format-ethernet" = "{ifname}: {ipaddr}/{cidr} ";
-        "format-disconnected" = "Disconnected ⚠";
+        format-wifi = "{essid} ({signalStrength}%) ";
+        format-ethernet  = "{ifname}: {ipaddr}/{cidr} ";
+        format-disconnected = "Disconnected ⚠";
       };
 
       pulseaudio = {
         format = "{volume}% {icon}";
-        "format-bluetooth" = "{volume}% {icon}";
-        "format-muted" = "{volume}% 🔇";
-        "format-icons" = {
+        format-bluetooth = "{volume}% {icon}";
+        format-muted = "{volume}% 🔇";
+        format-icons = {
           headphones = "";
           handsfree = "";
           headset = "";
@@ -269,8 +303,8 @@ in
           car = "";
           default = [ "" "" ];
         };
-        "on-click" = "pavucontrol";
-        "on-click-right" = "media-control volume_mute";
+        on-click = "pavucontrol";
+        on-click-right = "media-control volume_mute";
       };
     };
   };

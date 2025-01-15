@@ -13,6 +13,40 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/328e0611-fd59-449e-8906-fd9ec5d4941f";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/@" ];
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/739C-C548";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/328e0611-fd59-449e-8906-fd9ec5d4941f";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/@home" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/328e0611-fd59-449e-8906-fd9ec5d4941f";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/@nix" ];
+    };
+
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/328e0611-fd59-449e-8906-fd9ec5d4941f";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/log" ];
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/06008e84-2997-4ebd-a5ee-ac9fea8364bf"; }
+    ];
+
 
   fileSystems."/mnt/Steam/Main" = { 
     device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
