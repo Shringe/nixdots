@@ -4,9 +4,6 @@ let
 in
 {
   home.packages = with pkgs; lib.mkIf cfg.enable [
-    wl-clipboard
-    cliphist
-
     hyprsunset
     xdg-desktop-portal-hyprland
   ];
@@ -14,7 +11,10 @@ in
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {
     enable = true;
 
-    systemd.variables = [ "--all" ];
+    systemd = {
+      enable = true;
+      variables = [ "--all" ];
+    };
 
     settings = {
       "$mod" = "SUPER";
@@ -23,10 +23,7 @@ in
 
       exec-once = [
         "waybar"
-        "swaync"
-
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
+        # "swaync"
 
         # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];

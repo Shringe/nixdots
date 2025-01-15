@@ -10,152 +10,129 @@ in
   programs.waybar = lib.mkIf cfg.enable {
     enable = true;
     
-    style = ''
-      @define-color base      #${config.lib.stylix.colors.base00};
-      @define-color mantle    #${config.lib.stylix.colors.base01};
-      @define-color surface0  #${config.lib.stylix.colors.base02};
-      @define-color surface1  #${config.lib.stylix.colors.base03};
-      @define-color surface2  #${config.lib.stylix.colors.base04};
-      @define-color text      #${config.lib.stylix.colors.base05};
-      @define-color rosewater #${config.lib.stylix.colors.base06};
-      @define-color lavender  #${config.lib.stylix.colors.base07};
-      @define-color red       #${config.lib.stylix.colors.base08};
-      @define-color peach     #${config.lib.stylix.colors.base09};
-      @define-color yellow    #${config.lib.stylix.colors.base0A};
-      @define-color green     #${config.lib.stylix.colors.base0B};
-      @define-color teal      #${config.lib.stylix.colors.base0C};
-      @define-color blue      #${config.lib.stylix.colors.base0D};
-      @define-color mauve     #${config.lib.stylix.colors.base0E};
-      @define-color flamingo  #${config.lib.stylix.colors.base0F};
+style = ''
+  * {
+      border: none;
+      border-radius: 0;
+      font-family: "JetBrains Mono";
+      font-size: 14px;
+      min-height: 0;
+  }
 
-      * {
-          border: none;
-          border-radius: 0;
-          font-family: "JetBrains Mono";
-          font-size: 14px;
-          min-height: 0;
+  window#waybar {
+      background: #${config.lib.stylix.colors.base00};
+      color: #${config.lib.stylix.colors.base05};
+  }
+
+  #window {
+      font-weight: bold;
+      color: #${config.lib.stylix.colors.base05};
+  }
+  /*
+  #workspaces {
+      padding: 0 5px;
+  */
+
+  #workspaces button {
+      padding: 0 5px;
+      color: #${config.lib.stylix.colors.base0E};
+  }
+
+  #workspaces button.focused {
+      color: #${config.lib.stylix.colors.base03};
+  }
+
+  #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification {
+      padding: 0 5px;
+      color: #${config.lib.stylix.colors.base05};
+      margin: 0 2px;
+      border-radius: 8px;
+
+      font-weight: bold;
+  }
+
+  #custom-notification {
+      background: #${config.lib.stylix.colors.base07};
+      color: #${config.lib.stylix.colors.base01};
+  }
+
+  #clock {
+      font-weight: bold;
+      color: #${config.lib.stylix.colors.base01};
+      background: #${config.lib.stylix.colors.base06};
+  }
+
+  #battery {
+  }
+
+  #battery icon {
+      color: #${config.lib.stylix.colors.base08};
+  }
+
+  #battery.charging {
+  }
+
+  @keyframes blink {
+      to {
+          background-color: #ffffff;
+          color: #${config.lib.stylix.colors.base01};
       }
+  }
 
-      window#waybar {
-          background: @base;
-          color: @text;
-      }
+  #battery.warning:not(.charging) {
+      color: #${config.lib.stylix.colors.base05};
+      animation-name: blink;
+      animation-duration: 0.5s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+  }
 
-      #window {
-          font-weight: bold;
-          color: @text;
-      }
-      /*
-      #workspaces {
-          padding: 0 5px;
-      */
+  #cpu {
+      color: #${config.lib.stylix.colors.base01};
+      background: #${config.lib.stylix.colors.base08};
+      border-radius: 8px;
+  }
 
-      #workspaces button {
-          padding: 0 5px;
-          color: @mauve;
-      }
+  #memory {
+      color: #${config.lib.stylix.colors.base01};
+      background: #${config.lib.stylix.colors.base09};
+      border-radius: 8px;
+  }
 
-      #workspaces button.focused {
-          color: @surface1;
-      }
+  #network {
+      color: #${config.lib.stylix.colors.base01};
+      background: #${config.lib.stylix.colors.base0C};
+      border-radius: 8px;
+  }
 
-      #clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode, #custom-notification {
-          padding: 0 5px;
-          color: @text;
-          margin: 0 2px;
-          border-radius: 8px;
+  #network.disconnected {
+      background: #${config.lib.stylix.colors.base0A};
+      color: #${config.lib.stylix.colors.base01};
+      border-radius: 8px;
+  }
 
-          font-weight: bold;
-      }
+  #pulseaudio {
+      background: #${config.lib.stylix.colors.base0B};
+      color: #${config.lib.stylix.colors.base01};
+      border-radius: 8px;
+  }
 
-      #custom-notification {
-          background: @lavender;
-          color: @mantle;
-      }
+  #pulseaudio.muted {
+      background: #${config.lib.stylix.colors.base0A};
+      color: #${config.lib.stylix.colors.base01};
+      border-radius: 8px;
+  }
 
-      #clock {
-          font-weight: bold;
-          color: @mantle;
-          background: @rosewater;
-      }
-
-      #battery {
-      }
-
-      #battery icon {
-          color: @red;
-      }
-
-      #battery.charging {
-      }
-
-      @keyframes blink {
-          to {
-              background-color: #ffffff;
-              color: @mantle;
-          }
-      }
-
-      #battery.warning:not(.charging) {
-          color: @text;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-      }
-
-      #cpu {
-          color: @mantle;
-          background: @red;
-          border-radius: 8px;
-      }
-
-      #memory {
-          color: @mantle;
-          background: @peach;
-          border-radius: 8px;
-      }
-
-      #network {
-          color: @mantle;
-          background: @teal;
-          border-radius: 8px;
-      }
-
-      #network.disconnected {
-          background: @yellow;
-          color: @mantle;
-          border-radius: 8px;
-      }
-
-      #pulseaudio {
-          background: @green;
-          color: @mantle;
-          border-radius: 8px;
-      }
-
-      #pulseaudio.muted {
-          background: @yellow;
-          color: @mantle;
-          border-radius: 8px;
-      }
-
-      #custom-spotify {
-          color: rgb(102, 220, 105);
-      }
-
-      #tray {
-      }
-    '';
-
+  #tray {
+  }
+'';
     settings.primary = {
       layer = "top";
       position = "top";
       height = 24;
 
       modules-left = [ 
-        # "custom/spotify" 
         "battery" 
         "cpu" 
         "memory" 

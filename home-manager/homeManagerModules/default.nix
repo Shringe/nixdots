@@ -71,6 +71,8 @@
           waybar.enable = lib.mkEnableOption "Waybar configuration";
           swaync.enable = lib.mkEnableOption "Swaync configuration";
           hyprlock.enable = lib.mkEnableOption "hyprlock configuration";
+          cliphist.enable = lib.mkEnableOption "cliphist configuration";
+          hypridle.enable = lib.mkEnableOption "hypridle configuration";
         };
       };
 
@@ -149,7 +151,9 @@
           wofi.enable = lib.mkDefault true;
           waybar.enable = lib.mkDefault true;
           swaync.enable = lib.mkDefault true;
-          hyprlock .enable = lib.mkDefault true;
+          hyprlock.enable = lib.mkDefault true;
+          cliphist.enable = lib.mkDefault true;
+          hypridle.enable = lib.mkDefault true;
         };
       };
 
