@@ -4,15 +4,16 @@
       enable = true;
 
       settings = {
-        direction = "float";
-        # size = 70;
+        # I have an ultrawide so it makes sense
+        direction = "vertical";
+        size = 70;
       };
     };
 
     keymaps = [
       {
         mode = [ "t" "n" ];
-        key = "<leader>tt";
+        key = "<leader>n";
         # key = "<C-n>";
         action = "<cmd>ToggleTerm fish<CR>";
       }
