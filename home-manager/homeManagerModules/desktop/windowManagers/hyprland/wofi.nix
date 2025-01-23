@@ -7,6 +7,7 @@ in
 
   home.packages = with pkgs; lib.mkIf cfg.enable [
     wofi-emoji
+    wofi-power-menu
   ];
 
   programs.wofi = lib.mkIf cfg.enable {

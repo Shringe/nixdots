@@ -4,10 +4,17 @@ let
 in
 {
   hardware = lib.mkIf cfg.enable {
-    graphics.enable = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+
+      extraPackages = with pkgs; [
+        rocmPackages.clr
+      ];
+    };
 
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
       modesetting.enable = true;
 
       powerManagement = {
@@ -15,7 +22,7 @@ in
         # finegrained = true;
       }; 
 
-      open = false;
+      open = true;
 
       nvidiaSettings = true;
     };
@@ -23,7 +30,7 @@ in
 
   # Once the package gets merged into nixpkgs
   environment.systemPackages = lib.mkIf cfg.enable [
-    # pkgs.nvidia_oc
+    pkgs.nvidia_oc
   ];
 
   services.xserver.videoDrivers = lib.mkIf cfg.enable [ "nvidia" ];

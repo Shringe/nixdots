@@ -28,6 +28,13 @@
     # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 
+  fileSystems."/mnt/Emulation" = { 
+    device = "/dev/disk/by-uuid/33109eb5-d91f-4d54-ad7f-a8d04f418f70";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" ];
+    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
