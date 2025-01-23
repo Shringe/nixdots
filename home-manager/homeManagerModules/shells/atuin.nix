@@ -7,6 +7,10 @@ in
     enable = true;
     settings = {
       key_path = config.sops.secrets.atuin_key.path;
+      enter_accept = true;
+
+      style = "compact";
+      inline_height = 20;
     };
   };
 

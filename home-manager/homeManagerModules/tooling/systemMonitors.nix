@@ -5,6 +5,7 @@ in
 {
   programs = lib.mkIf cfg.enable {
     htop.enable = true;
+    cava.enable = true;
     fastfetch.enable = true;
 
     btop = {

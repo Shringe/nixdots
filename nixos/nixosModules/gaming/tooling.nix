@@ -8,6 +8,11 @@ in
     pkgs.gamemode
     pkgs.mangohud
     pkgs.gamescope
+    pkgs.lutris
+    pkgs.vulkan-tools
+    pkgs.wine
+    pkgs.wine64
+
     # pkgs.protonhax
     pkgs.discord
     pkgs.pulsemixer

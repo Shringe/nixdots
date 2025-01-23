@@ -15,9 +15,14 @@
     ./llm
     ./themes
     ./packages
+    ./printing
   ];
 
   options.nixosModules = {
+    printing = {
+      enable = lib.mkEnableOption "Printer configuration";
+    };
+
     themes = {
       enable = lib.mkEnableOption "Nixos theming";
       stylix.enable = lib.mkEnableOption "Stylix theming";

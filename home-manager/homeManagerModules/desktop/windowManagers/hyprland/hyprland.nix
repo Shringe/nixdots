@@ -28,9 +28,19 @@ in
         # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
+      # Mouse
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+      ];
+
+      # Repeating
+      bindr = [
+        ",XF86AudioRaiseVolume,exec,media-control volume_up"
+        ",XF86AudioLowerVolume,exec,media-control volume_down"
+
+        "CTRL,XF86AudioRaiseVolume,exec,media-control mic_up"
+        "CTRL,XF86AudioLowerVolume,exec,media-control mic_down"
       ];
 
       bind = [
@@ -40,11 +50,7 @@ in
         ",XF86AudioPlay,exec,media-control play_pause"
         ",XF86AudioNext,exec,media-control next"
         ",XF86AudioPrev,exec,media-control prev"
-        ",XF86AudioRaiseVolume,exec,media-control volume_up"
-        ",XF86AudioLowerVolume,exec,media-control volume_down"
         ",XF86AudioMute,exec,media-control volume_mute"
-        "CTRL,XF86AudioRaiseVolume,exec,media-control mic_up"
-        "CTRL,XF86AudioLowerVolume,exec,media-control mic_down"
         "CTRL,XF86AudioMute,exec,media-control mic_mute"
 
         # Applications
@@ -57,6 +63,7 @@ in
         # Wofi
         "$mod, s, exec, wofi --show drun"
 
+        "$mod, x, exec, wofi-power-menu"
         "$mod, c, exec, wofi-emoji"
         "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
