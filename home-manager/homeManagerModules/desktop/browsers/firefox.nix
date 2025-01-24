@@ -31,8 +31,8 @@
         ];
         search = {
           force = true;
-          default = "SearXNG";
-          order = [ "SearXNG" ];
+          default = "SearBe";
+          order = [ "SearBe" "SearFYI" ];
           engines = {
             "Nix Packages" = {
               urls = [{
@@ -45,7 +45,20 @@
               icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
               definedAliases = [ "@np" ];
             };
-            "SearXNG" = {
+
+            "SearBe" = {
+              urls = [{
+                template = "https://searx.be/search?q={searchTerms}";
+                params = [
+                  { name = "type"; value = "engines"; }
+                  { name = "query"; value = "{searchTerms}"; }
+                ];
+              }];
+              # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+              definedAliases = [ "@sxb" ];
+            };
+
+            "SeekFYI" = {
               urls = [{
                 template = "https://seek.fyi/search?q={searchTerms}";
                 params = [
@@ -54,7 +67,7 @@
                 ];
               }];
               # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@sx" ];
+              definedAliases = [ "@sxf" ];
             };
           };
         };

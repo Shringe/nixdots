@@ -22,7 +22,8 @@ in
       "$d2" = "DP-1";
 
       exec-once = [
-        "waybar"
+        # "waybar"
+        "systemctl --user start waybar"
         # "swaync"
 
         # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"

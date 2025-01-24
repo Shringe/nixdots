@@ -3,10 +3,6 @@ let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.waybar;
 in
 {
-  home.packages = with pkgs; lib.mkIf cfg.enable [
-    fira-sans
-  ];
-
   programs.waybar = lib.mkIf cfg.enable {
     enable = true;
     
@@ -40,6 +36,23 @@ in
         disable-scroll = true;
         all-outputs = false;
       };
+
+      # "hyprland/workspaces" = {
+      #   disable-scroll = true;
+      #   all-outputs = false;
+      #   format = "{icon}";
+      #   "format-icons" = {
+      #     "1" = "";
+      #     "2" = "";
+      #     "3" = "";
+      #     "4" = "";
+      #     "5" = "";
+      #     "6" = "";
+      #     urgent = "";
+      #     focused = "";
+      #     default = "";
+      #   };
+      # };
 
       "hyprland/window" = {
         icon = true;
@@ -81,31 +94,13 @@ in
         # };
       };
 
-      #
-      # "hyprland/workspaces" = {
-      #   disable-scroll = true;
-      #   all-outputs = false;
-      #   format = "{icon}";
-      #   "format-icons" = {
-      #     "1:web" = "";
-      #     "2:code" = "";
-      #     "3:term" = "";
-      #     "4:work" = "";
-      #     "5:music" = "";
-      #     "6:docs" = "";
-      #     urgent = "";
-      #     focused = "";
-      #     default = "";
-      #   };
-      # };
-
       tray = {
-        spacing = 10;
+        spacing = 5;
       };
 
       clock = {
         "format" = " {:%a %d %b  %I:%M %p}";
-        "format-alt" = "{:%Y-%m-%d}";
+        # "format-alt" = "{:%Y-%m-%d}";
       };
 
       cpu = {
