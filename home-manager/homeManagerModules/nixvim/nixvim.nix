@@ -60,6 +60,32 @@
         action = "<C-\\><C-n>";
         options.silent = true;
       }
+
+      {
+        mode = "n";
+        key = "<leader><Up>";
+        options.silent = true;
+        action = "<cmd>wincmd k<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader><Down>";
+        options.silent = true;
+        action = "<cmd>wincmd j<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader><Left>";
+        options.silent = true;
+        action = "<cmd>wincmd h<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader><Right>";
+        options.silent = true;
+        action = "<cmd>wincmd l<CR>";
+      }
+
       {
         mode = "n";
         key = "<leader>k";
