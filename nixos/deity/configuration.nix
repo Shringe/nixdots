@@ -10,8 +10,11 @@
       ./disko.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  hardware.enableAllFirmware = true;
 
   nixosModules = {
+    bluetooth.enable = true;
+
     themes = {
       enable = true;
     };

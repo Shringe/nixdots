@@ -6,6 +6,8 @@ in
   home.packages = with pkgs; lib.mkIf cfg.enable [
     hyprsunset
     xdg-desktop-portal-hyprland
+
+    blueman
   ];
 
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {
@@ -22,8 +24,9 @@ in
       "$d2" = "DP-1";
 
       exec-once = [
-        # "waybar"
-        "systemctl --user start waybar"
+        "waybar"
+        # "systemctl --user start waybar"
+        # "systemctl --user start "
         # "swaync"
 
         # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"

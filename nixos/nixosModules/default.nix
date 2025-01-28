@@ -16,9 +16,14 @@
     ./themes
     ./packages
     ./printing
+    ./bluetooth
   ];
 
   options.nixosModules = {
+    bluetooth = {
+      enable = lib.mkEnableOption "Bluetooth configuration";
+    };
+
     printing = {
       enable = lib.mkEnableOption "Printer configuration";
     };
