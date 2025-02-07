@@ -5,7 +5,6 @@ in
 {
   home.packages = with pkgs; lib.mkIf cfg.enable [
     hyprsunset
-    hyprshot
     xdg-desktop-portal-hyprland
 
     blueman
@@ -52,7 +51,6 @@ in
         # Hyprland
         "$mod CTRL, q, exit"
 
-        ", PRINT, exec, hyprshot -m region"
         ",XF86AudioPlay,exec,media-control play_pause"
         ",XF86AudioNext,exec,media-control next"
         ",XF86AudioPrev,exec,media-control prev"
@@ -133,7 +131,7 @@ in
       };
 
       monitor = [
-        "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10"
+        "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 2"
         "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, transform, 1, vrr, 1"
       ];
 
