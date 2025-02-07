@@ -13,35 +13,39 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/078765c3-8a88-4092-aadf-bf5554d106bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/@" ];
+    };
 
-  fileSystems."/mnt/Steam/Main" = { 
-    device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
-    fsType = "btrfs";
-    options = [ "subvol=_steam/main" "noatime" "nofail" ];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/739C-C548";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
-  fileSystems."/mnt/Steam/libraries/SSD1" = { 
-    device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
-    fsType = "btrfs";
-    options = [ "subvol=_steam/library" "compress=zstd" "noatime" "nofail" ];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
-  };
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/078765c3-8a88-4092-aadf-bf5554d106bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/@home" ];
+    };
 
-  fileSystems."/mnt/Emulation" = { 
-    device = "/dev/disk/by-uuid/33109eb5-d91f-4d54-ad7f-a8d04f418f70";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" ];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
-  };
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/078765c3-8a88-4092-aadf-bf5554d106bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/@nix" ];
+    };
 
-  fileSystems."/mnt/Music" = { 
-    device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music"];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
-  };
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/078765c3-8a88-4092-aadf-bf5554d106bb";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" "subvol=_active/log" ];
+    };
 
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/06008e84-2997-4ebd-a5ee-ac9fea8364bf"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
