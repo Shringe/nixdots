@@ -13,18 +13,18 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
-    bluetooth.enable = true;
+    # bluetooth.enable = true;
 
     themes = {
       enable = true;
     };
 
-    llm = {
-      gpt4all = {
-        enable = true;
-        cuda = true;
-      };
-    };
+    # llm = {
+    #   gpt4all = {
+    #     enable = true;
+    #     cuda = true;
+    #   };
+    # };
 
     boot.enable = true;
 
@@ -35,21 +35,21 @@
       };
     };
 
-    kanata = {
-      enable = true;
-      variant = "wide";
-    };
+    # kanata = {
+    #   enable = true;
+    #   variant = "wide";
+    # };
 
-    gaming = {
-      optimizations.enable = true;
-      tooling.enable = true;
-      steam.enable = true;
-      games.enable = true;
-    };
+    # gaming = {
+    #   optimizations.enable = true;
+    #   tooling.enable = true;
+    #   steam.enable = true;
+    #   games.enable = true;
+    # };
 
-    openrgb.enable = true;
+    # openrgb.enable = true;
 
-    drivers.nvidia.enable = true;
+    # drivers.nvidia.enable = true;
 
     users = {
       shringed.enable = true;
@@ -78,14 +78,12 @@
     };
   };
 
-  programs.adb.enable = true;
-
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
-    };
-  };
+  # services.displayManager.ly = {
+  #   enable = true;
+  #   settings = {
+  #     animation = "matrix";
+  #   };
+  # };
 
   services.pipewire = {
     enable = true;

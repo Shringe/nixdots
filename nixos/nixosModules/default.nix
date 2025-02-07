@@ -103,6 +103,7 @@
       games = {
         enable = lib.mkEnableOption "All other games";
         prismlauncher.enable = lib.mkEnableOption "prismlauncer configuration";
+        roblox.enable = lib.mkEnableOption "Roblox";
       };
     };
   };
@@ -127,6 +128,7 @@
       # };
       games = lib.mkIf config.nixosModules.gaming.games.enable {
         prismlauncher.enable = lib.mkDefault true;
+        roblox.enable = lib.mkDefault true;
       };
     };
   };

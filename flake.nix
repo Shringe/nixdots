@@ -3,9 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
 	
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=v0.5.2";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       # inputs.nixpkgs.follows = "nixpkgs";
@@ -62,6 +65,14 @@
         inherit pkgs;
       };
       nixosConfigurations = {
+        vesper = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system inputs pkgs; };
+          modules = [ 
+            ./nixos/vesper/configuration.nix 
+            ./nixos/nixosModules
+          ];
+        };
+
         deity = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs pkgs; };
           modules = [ 

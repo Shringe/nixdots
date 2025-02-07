@@ -56,6 +56,12 @@
     };
 
     desktop = {
+      music = {
+        enable = lib.mkEnableOption "Music and music player";
+        cmus.enable = lib.mkEnableOption "cmus configuration";
+        termusic.enable = lib.mkEnableOption "termusic configuration";
+      };
+
       email = {
         enable = lib.mkEnableOption "Email setup";
         thunderbird.enable = lib.mkEnableOption "Thunderbird";
@@ -140,6 +146,11 @@
     };
 
     desktop = {
+      music = lib.mkIf config.homeManagerModules.desktop.music.enable {
+        # cmus.enable = lib.mkDefault true;
+        termusic.enable = lib.mkDefault true;
+      };
+
       email = lib.mkIf config.homeManagerModules.desktop.email.enable {
         thunderbird.enable = lib.mkDefault true;
       };
