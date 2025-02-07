@@ -11,7 +11,6 @@
     theming.enable = true;
     nixvim.enable = true;
     desktop = {
-      music.enable = true;
       browsers.enable = true;
       terminals.enable = true;
       terminals.alacritty.enable = true;
