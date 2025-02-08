@@ -25,12 +25,12 @@ in
 
       exec-once = [
         "waybar"
-        # "systemctl --user start waybar"
-        # "systemctl --user start "
-        # "swaync"
-
-        # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      ];
+        "hyprpaper"
+        "swaync"
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
+        # "hypridle"
+     ];
 
       # Mouse
       bindm = [
