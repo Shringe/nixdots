@@ -31,7 +31,19 @@ in
   # Once the package gets merged into nixpkgs
   environment.systemPackages = lib.mkIf cfg.enable [
     pkgs.nvidia_oc
+    pkgs.steam-run
   ];
+
+  systemd.services.nvidia_oc = lib.mkIf cfg.enable {
+    description = "NVIDIA Overclocking Service";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.steam-run}/bin/steam-run ${pkgs.nvidia_oc}/bin/nvidia_oc set --index 0 --power-limit 242000 --freq-offset 115 --mem-offset 2600";
+      User = "root";
+      Restart = "on-failure";
+    };
+  };
 
   services.xserver.videoDrivers = lib.mkIf cfg.enable [ "nvidia" ];
 }
