@@ -56,6 +56,9 @@
     };
 
     desktop = {
+      kdeconnect = {
+        enable = lib.mkEnableOption "Kdeconnect";
+      };
       discord = {
         enable = lib.mkEnableOption "Discord configuration";
       };

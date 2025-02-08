@@ -7,5 +7,6 @@
     ./email
     ./discord
     ./music
+    ./kdeconnect
   ];
 }
