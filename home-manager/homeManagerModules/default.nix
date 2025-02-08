@@ -56,6 +56,15 @@
     };
 
     desktop = {
+      discord = {
+        enable = lib.mkEnableOption "Discord configuration";
+      };
+
+      music = {
+        enable = lib.mkEnableOption "Music players";
+        termusic.enable = lib.mkEnableOption "Termusic";
+      };
+
       email = {
         enable = lib.mkEnableOption "Email setup";
         thunderbird.enable = lib.mkEnableOption "Thunderbird";
@@ -140,6 +149,14 @@
     };
 
     desktop = {
+      discord = {
+        
+      };
+
+      music = lib.mkIf config.homeManagerModules.desktop.music.enable {
+        termusic.enable = lib.mkDefault true;
+      };
+
       email = lib.mkIf config.homeManagerModules.desktop.email.enable {
         thunderbird.enable = lib.mkDefault true;
       };

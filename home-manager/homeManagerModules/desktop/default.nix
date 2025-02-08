@@ -5,5 +5,7 @@
     ./terminals
     ./windowManagers
     ./email
+    ./discord
+    ./music
   ];
 }
