@@ -12,11 +12,11 @@
     nixvim.enable = true;
     desktop = {
       # discord.enable = true;
+      kdeconnect.enable = true;
       music.enable = true;
       browsers.enable = true;
       terminals.enable = true;
       terminals.alacritty.enable = true;
-      terminals.ghostty.enable = true;
       office.enable = true;
       windowManagers = {
         enable = true;
