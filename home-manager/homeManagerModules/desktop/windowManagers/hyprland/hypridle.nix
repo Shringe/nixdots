@@ -5,6 +5,7 @@ in
 {
   home.packages = with pkgs; lib.mkIf cfg.enable [
     brightnessctl
+    hypridle
   ];
 
   services.hypridle = lib.mkIf cfg.enable {
