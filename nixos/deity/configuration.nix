@@ -13,6 +13,11 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    firewall = {
+      enable = true;
+      kdeconnect.enable = true;
+    };
+
     bluetooth.enable = true;
 
     themes = {
