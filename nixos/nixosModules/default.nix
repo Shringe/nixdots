@@ -17,9 +17,15 @@
     ./packages
     ./printing
     ./bluetooth
+    ./firewall
   ];
 
   options.nixosModules = {
+    firewall = {
+      enable = lib.mkEnableOption "Enables firewall";
+      kdeconnect.enable = lib.mkEnableOption "Enables kdeconnect firewall ports";
+    };
+
     bluetooth = {
       enable = lib.mkEnableOption "Bluetooth configuration";
     };
