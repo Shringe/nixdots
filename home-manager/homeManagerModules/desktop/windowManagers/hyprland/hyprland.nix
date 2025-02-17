@@ -5,6 +5,7 @@ in
 {
   home.packages = with pkgs; lib.mkIf cfg.enable [
     hyprsunset
+    hyprpolkitagent
     xdg-desktop-portal-hyprland
 
     blueman
@@ -24,12 +25,13 @@ in
       "$d2" = "DP-1";
 
       exec-once = [
-        "waybar"
         "hyprpaper"
         "swaync"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         # "hypridle"
+        "systemctl --user start hyprpolkitagent"
+        "waybar"
      ];
 
       # Mouse

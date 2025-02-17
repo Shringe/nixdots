@@ -4,6 +4,9 @@ pkgs.mkShell {
     fish
     bash
     tmux
+    btop
+    htop
+    acpi
 
     git
     vim
@@ -11,6 +14,9 @@ pkgs.mkShell {
     kanata
 
     xorg.xev
+
+    gparted
+    parted
 
     disko
     util-linux

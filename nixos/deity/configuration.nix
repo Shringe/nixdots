@@ -13,6 +13,8 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    vpn.enable = true;
+
     firewall = {
       enable = true;
       kdeconnect.enable = true;
