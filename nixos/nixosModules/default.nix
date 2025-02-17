@@ -18,9 +18,15 @@
     ./printing
     ./bluetooth
     ./firewall
+    ./vpn
   ];
 
   options.nixosModules = {
+    vpn = {
+      enable = lib.mkEnableOption "Preferred vpn";
+      nordvpn.enable = lib.mkEnableOption "nordvpn";
+    };
+
     firewall = {
       enable = lib.mkEnableOption "Enables firewall";
       kdeconnect.enable = lib.mkEnableOption "Enables kdeconnect firewall ports";
@@ -114,6 +120,10 @@
   };
 
   config.nixosModules = {
+    vpn = lib.mkIf config.nixosModules.vpn.enable {
+      nordvpn.enable = true;
+    };
+
     themes = lib.mkIf config.nixosModules.themes.enable {
       stylix.enable = true;
     };

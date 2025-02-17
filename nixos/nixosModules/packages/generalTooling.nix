@@ -6,5 +6,6 @@
     ffmpeg
     unzip
     unrar
+    gparted
   ];
 }
