@@ -10,4 +10,6 @@ in
     initialPassword = "123";
     # hashedPasswordFile = config.sops.secrets."user_passwords/shringed".path;
   };
+
+  services.udev.extraRules = ''SUBSYSTEM=="usb", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="3000", MODE="0666"'';
 }
