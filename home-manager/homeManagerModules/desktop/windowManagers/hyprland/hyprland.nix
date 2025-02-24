@@ -133,7 +133,7 @@ in
       };
 
       monitor = [
-        "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 2"
+        "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10"
         "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, transform, 1, vrr, 1"
       ];
 
