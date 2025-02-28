@@ -6,6 +6,7 @@ in
   home.packages = with pkgs; lib.mkIf cfg.enable [
     hyprsunset
     hyprpolkitagent
+    hyprshot
     xdg-desktop-portal-hyprland
 
     blueman
@@ -52,6 +53,7 @@ in
       bind = [
         # Hyprland
         "$mod CTRL, q, exit"
+        ", Print, exec, hyprshot --mode region"
 
         ",XF86AudioPlay,exec,media-control play_pause"
         ",XF86AudioNext,exec,media-control next"
