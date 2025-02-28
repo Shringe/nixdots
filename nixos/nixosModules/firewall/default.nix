@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./kdeconnect.nix
+    ./yuzu.nix
   ];
 
   config = lib.mkIf cfg.enable {

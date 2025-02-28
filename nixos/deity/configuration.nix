@@ -18,6 +18,7 @@
     firewall = {
       enable = true;
       kdeconnect.enable = true;
+      yuzu.enable = true;
     };
 
     bluetooth.enable = true;
@@ -48,6 +49,9 @@
     };
 
     gaming = {
+      emulators = {
+        switch.enable = true;
+      };
       optimizations.enable = true;
       tooling.enable = true;
       steam.enable = true;
