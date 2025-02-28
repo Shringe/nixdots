@@ -35,6 +35,13 @@
     # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 
+  fileSystems."/mnt/Shows" = { 
+    device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_shows"];
+    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
+  };
+
   fileSystems."/mnt/Music" = { 
     device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
     fsType = "btrfs";

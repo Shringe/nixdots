@@ -30,6 +30,7 @@
     firewall = {
       enable = lib.mkEnableOption "Enables firewall";
       kdeconnect.enable = lib.mkEnableOption "Enables kdeconnect firewall ports";
+      yuzu.enable = lib.mkEnableOption "Enables yuzu LAN firewall ports";
     };
 
     bluetooth = {
@@ -106,6 +107,13 @@
     gaming = {
       tooling.enable = lib.mkEnableOption "Extra tooling";
 
+      emulators = {
+        switch = {
+          enable = lib.mkEnableOption "Switch emulator";
+          torzu.enable = lib.mkEnableOption "A switch emulator";
+        };
+      };
+
       optimizations = {
         enable = lib.mkEnableOption "Full optimizations";
       };
@@ -138,6 +146,11 @@
     };
 
     gaming = {
+      emulators = {
+        switch = lib.mkIf config.nixosModules.gaming.emulators.switch.enable {
+          torzu.enable = lib.mkDefault true;
+        };
+      };
 
       # optimizations = lib.mkDefault config.nixosModules.gaming.optimizations.enable {
       # };
