@@ -19,9 +19,18 @@
     ./bluetooth
     ./firewall
     ./vpn
+    ./jellyfin
   ];
 
   options.nixosModules = {
+    jellyfin = {
+      enable = lib.mkEnableOption "Jellyfin";
+      client.enable = lib.mkEnableOption "Jellyfin client";
+      server = {
+        enable = lib.mkEnableOption "Jellyfin hosting";
+      };
+    };
+
     vpn = {
       enable = lib.mkEnableOption "Preferred vpn";
       nordvpn.enable = lib.mkEnableOption "nordvpn";
@@ -128,12 +137,16 @@
   };
 
   config.nixosModules = {
+    jellyfin = lib.mkIf config.nixosModules.jellyfin.enable {
+      client.enable = lib.mkDefault true;
+    };
+
     vpn = lib.mkIf config.nixosModules.vpn.enable {
-      nordvpn.enable = true;
+      nordvpn.enable = lib.mkDefault true;
     };
 
     themes = lib.mkIf config.nixosModules.themes.enable {
-      stylix.enable = true;
+      stylix.enable = lib.mkDefault true;
     };
 
     boot = lib.mkIf config.nixosModules.boot.enable {

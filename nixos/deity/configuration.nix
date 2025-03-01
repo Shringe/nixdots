@@ -13,6 +13,11 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    jellyfin = {
+      enable = true;
+      server.enable = true;
+    };
+
     vpn.enable = true;
 
     firewall = {
