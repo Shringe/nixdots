@@ -46,16 +46,10 @@
     options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music" ];
   };
 
-  fileSystems."/mnt/server/Emulation" = { 
+  fileSystems."/mnt/server" = { 
     device = "/dev/disk/by-uuid/04346207-351b-4696-94bd-e0b93d4b8d9c";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=Emulation" ];
-  };
-
-  fileSystems."/mnt/server/Media" = { 
-    device = "/dev/disk/by-uuid/04346207-351b-4696-94bd-e0b93d4b8d9c";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=Media" ];
+    options = [ "compress=zstd" "noatime" "nofail" ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

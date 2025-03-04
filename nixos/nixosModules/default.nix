@@ -21,9 +21,15 @@
     ./vpn
     ./jellyfin
     ./wireguard
+    # ./seafile
+    ./filebrowser
   ];
 
   options.nixosModules = {
+    filebrowser = {
+      enable = lib.mkEnableOption "filebrowser web interface";
+    };
+
     wireguard = {
       enable = lib.mkEnableOption "wireguard ";
       client.enable = lib.mkEnableOption "wireguard client";
