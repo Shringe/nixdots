@@ -13,6 +13,8 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    homepage.enable = true;
+
     filebrowser = {
       enable = true;
     };
