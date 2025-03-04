@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.nixosModules.filebrowser;
-  directory = "/mnt/server";
-  ip = "192.168.0.165";
-  port = 8080;
 in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
@@ -11,8 +8,8 @@ in {
     ];
 
     networking.firewall = {
-      allowedTCPPorts = [ port ];
-      allowedUDPPorts = [ port ];
+      allowedTCPPorts = [ cfg.port ];
+      allowedUDPPorts = [ cfg.port ];
     };
 
     # Used for filebrowser mutability
@@ -29,10 +26,10 @@ in {
       serviceConfig = {
         ExecStart = ''
           ${pkgs.filebrowser}/bin/filebrowser \
-            --root ${directory} \
-            --address ${ip} \
-            --port ${toString port} \
-            --database ${directory}/filebrowser.db \
+            --root ${cfg.directory} \
+            --address ${cfg.ip} \
+            --port ${toString cfg.port} \
+            --database ${cfg.directory}/filebrowser.db \
             --disable-exec
         '';
         Restart = "always";

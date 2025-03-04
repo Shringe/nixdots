@@ -12,7 +12,9 @@ in
 
     services.jellyfin = {
       enable = true;
-      openFirewall = true;
+      # openFirewall = true;
     };
+
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }
