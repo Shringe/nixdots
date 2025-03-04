@@ -29,10 +29,33 @@
   options.nixosModules = {
     homepage = {
       enable = lib.mkEnableOption "Homepage dashboard";
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 47020;
+      };
+
+      ip = lib.mkOption {
+        type = lib.types.string;
+        default = "192.168.0.165";
+      };
     };
 
     filebrowser = {
       enable = lib.mkEnableOption "filebrowser web interface";
+      port = lib.mkOption {
+        type = lib.types.int;
+        default = 47060;
+      };
+
+      ip = lib.mkOption {
+        type = lib.types.string;
+        default = "192.168.0.165";
+      };
+
+      directory = lib.mkOption {
+        type = lib.types.string;
+        default = "/mnt/server";
+      };
     };
 
     wireguard = {
@@ -40,6 +63,20 @@
       client.enable = lib.mkEnableOption "wireguard client";
       server = {
         enable = lib.mkEnableOption "wireguard hosting";
+        port = lib.mkOption {
+          type = lib.types.int;
+          default = 47000;
+        };
+
+        private_ip = lib.mkOption {
+          type = lib.types.string;
+          default = "10.100.0";
+        };
+
+        interface = lib.mkOption {
+          type = lib.types.string;
+          default = "enp42s0";
+        };
       };
     };
 
@@ -48,6 +85,10 @@
       client.enable = lib.mkEnableOption "Jellyfin client";
       server = {
         enable = lib.mkEnableOption "Jellyfin hosting";
+        port = lib.mkOption {
+          type = lib.types.int;
+          default = 47040;
+        };
       };
     };
 

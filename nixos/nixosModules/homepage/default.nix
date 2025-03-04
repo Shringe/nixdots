@@ -1,12 +1,12 @@
 { config, lib, ... }:
 let
   cfg = config.nixosModules.homepage;
-  ip = "http://192.168.0.165";
+  ip = "http://${cfg.ip}";
 in {
   config = lib.mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;
-      openFirewall = true;
+      listenPort = cfg.port;
 
       settings = {
         background = {
@@ -21,18 +21,20 @@ in {
             {
               "Jellyfin" = {
                 description = "Media streaming";
-                href = "${ip}:8096";
+                href = "${ip}:${toString config.nixosModules.jellyfin.server.port}";
               };
             }
             {
               "Filebrowser" = {
                 description = "Cloud storage and file sharing";
-                href = "${ip}:8080";
+                href = "${ip}:${toString config.nixosModules.filebrowser.port}";
               };
             }
           ];
         }
       ];
     };
+
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }
