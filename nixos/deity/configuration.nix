@@ -13,6 +13,11 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    wireguard = {
+      enable = true;
+      server.enable = true;
+    };
+
     jellyfin = {
       enable = true;
       server.enable = true;

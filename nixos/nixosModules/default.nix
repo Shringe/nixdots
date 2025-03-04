@@ -20,9 +20,18 @@
     ./firewall
     ./vpn
     ./jellyfin
+    ./wireguard
   ];
 
   options.nixosModules = {
+    wireguard = {
+      enable = lib.mkEnableOption "wireguard ";
+      client.enable = lib.mkEnableOption "wireguard client";
+      server = {
+        enable = lib.mkEnableOption "wireguard hosting";
+      };
+    };
+
     jellyfin = {
       enable = lib.mkEnableOption "Jellyfin";
       client.enable = lib.mkEnableOption "Jellyfin client";
@@ -137,6 +146,10 @@
   };
 
   config.nixosModules = {
+    wireguard = lib.mkIf config.nixosModules.wireguard.enable {
+      client.enable = lib.mkDefault true;
+    };
+
     jellyfin = lib.mkIf config.nixosModules.jellyfin.enable {
       client.enable = lib.mkDefault true;
     };
