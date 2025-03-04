@@ -32,7 +32,8 @@ in {
             --root ${directory} \
             --address ${ip} \
             --port ${toString port} \
-            --database ${directory}/filebrowser.db
+            --database ${directory}/filebrowser.db \
+            --disable-exec
         '';
         Restart = "always";
         User = "filebrowser";
