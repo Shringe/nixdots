@@ -32,23 +32,31 @@
     device = "/dev/disk/by-uuid/33109eb5-d91f-4d54-ad7f-a8d04f418f70";
     fsType = "btrfs";
     options = [ "compress=zstd" "noatime" "nofail" ];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 
   fileSystems."/mnt/Shows" = { 
     device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_shows"];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_shows" ];
   };
 
   fileSystems."/mnt/Music" = { 
     device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music"];
-    # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music" ];
   };
 
+  fileSystems."/mnt/server/Emulation" = { 
+    device = "/dev/disk/by-uuid/04346207-351b-4696-94bd-e0b93d4b8d9c";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=Emulation" ];
+  };
+
+  fileSystems."/mnt/server/Media" = { 
+    device = "/dev/disk/by-uuid/04346207-351b-4696-94bd-e0b93d4b8d9c";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=Media" ];
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
