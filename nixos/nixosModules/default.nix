@@ -23,9 +23,14 @@
     ./wireguard
     # ./seafile
     ./filebrowser
+    ./homepage
   ];
 
   options.nixosModules = {
+    homepage = {
+      enable = lib.mkEnableOption "Homepage dashboard";
+    };
+
     filebrowser = {
       enable = lib.mkEnableOption "filebrowser web interface";
     };
