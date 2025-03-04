@@ -13,6 +13,10 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    filebrowser = {
+      enable = true;
+    };
+
     wireguard = {
       enable = true;
       server.enable = true;
