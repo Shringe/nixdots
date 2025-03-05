@@ -33,6 +33,10 @@ in
             publicKey = "ltDO0r/WvwS8fnNa+zyiK5xEa1ZqSHLvtyrkIiUubn4=";
             allowedIPs = [ "${cfg.private_ip}.2/32" ];
           }
+          { # K
+            publicKey = "3HSS1loEZSCGjfqOLm/dyZpPfwzT31wKvw8Ygrl5czE=";
+            allowedIPs = [ "${cfg.private_ip}.3/32" ];
+          }
         ];
       };
     };
