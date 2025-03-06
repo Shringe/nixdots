@@ -6,6 +6,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       jellyfin-media-player
+      jellyfin-tui
     ];
   };
 }

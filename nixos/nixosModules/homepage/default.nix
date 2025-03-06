@@ -17,17 +17,41 @@ in {
 
       services = [
         {
-          "Main" = [
+          "Yarr!" = [
             {
+              "File Browser" = {
+                description = "Cloud storage and file sharing";
+                href = "${ip}:${toString config.nixosModules.filebrowser.port}";
+              };
+            }
+            {
+              "Uptime Kuma" = {
+                description = "Server status monitor";
+                href = "${ip}:${toString config.nixosModules.uptimeKuma.port}";
+              };
+            }
+            {
+              "Router Settings" = {
+                description = "Networking admin panel";
+                href = "http://192.168.0.1";
+              };
+            }
+            { 
               "Jellyfin" = {
                 description = "Media streaming";
                 href = "${ip}:${toString config.nixosModules.jellyfin.server.port}";
               };
             }
             {
-              "Filebrowser" = {
-                description = "Cloud storage and file sharing";
-                href = "${ip}:${toString config.nixosModules.filebrowser.port}";
+              "Automatic Ripping Machine" = {
+                description = "Automatically rips DVDs, Blue-Rays, and CDs";
+                href = "${ip}:${toString config.nixosModules.docker.automaticrippingmachine.port}";
+              };
+            }
+            {
+              "Lidarr" = {
+                description = "Music management";
+                href = "${ip}:${toString config.nixosModules.arrs.lidarr.port}";
               };
             }
           ];
