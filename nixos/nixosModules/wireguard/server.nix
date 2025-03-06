@@ -1,9 +1,28 @@
 { config, lib, pkgs, ... }:
+with lib;
 let
   cfg = config.nixosModules.wireguard.server;
 in
 {
-  config = lib.mkIf cfg.enable {
+  options.nixosModules.wireguard.server = {
+    enable = mkEnableOption "wireguard hosting";
+    port = mkOption {
+      type = types.int;
+      default = 443;
+    };
+
+    private_ip = mkOption {
+      type = types.string;
+      default = "10.100.0";
+    };
+
+    interface = mkOption {
+      type = types.string;
+      default = "enp42s0";
+    };
+  };
+
+  config = mkIf cfg.enable {
     networking = {
       nat = {
         enable = true;

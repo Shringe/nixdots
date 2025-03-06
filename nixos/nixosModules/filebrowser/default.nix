@@ -7,10 +7,7 @@ in {
       filebrowser
     ];
 
-    networking.firewall = {
-      allowedTCPPorts = [ cfg.port ];
-      allowedUDPPorts = [ cfg.port ];
-    };
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     # Used for filebrowser mutability
     users.users.filebrowser = {

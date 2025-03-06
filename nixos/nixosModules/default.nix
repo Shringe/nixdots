@@ -24,9 +24,25 @@
     # ./seafile
     ./filebrowser
     ./homepage
+    ./docker
+
+    # These define their own options and config
+    ./uptimeKuma
+    ./arrs
   ];
 
   options.nixosModules = {
+    docker = {
+      enable = lib.mkEnableOption "Docker configuration";
+      automaticrippingmachine = {
+        enable = lib.mkEnableOption "automaticrippingmachine";
+        port = lib.mkOption {
+          type = lib.types.int;
+          default = 8080;
+        };
+      };
+    };
+
     homepage = {
       enable = lib.mkEnableOption "Homepage dashboard";
       port = lib.mkOption {
@@ -55,28 +71,6 @@
       directory = lib.mkOption {
         type = lib.types.string;
         default = "/mnt/server";
-      };
-    };
-
-    wireguard = {
-      enable = lib.mkEnableOption "wireguard ";
-      client.enable = lib.mkEnableOption "wireguard client";
-      server = {
-        enable = lib.mkEnableOption "wireguard hosting";
-        port = lib.mkOption {
-          type = lib.types.int;
-          default = 47000;
-        };
-
-        private_ip = lib.mkOption {
-          type = lib.types.string;
-          default = "10.100.0";
-        };
-
-        interface = lib.mkOption {
-          type = lib.types.string;
-          default = "enp42s0";
-        };
       };
     };
 
@@ -198,10 +192,6 @@
   };
 
   config.nixosModules = {
-    wireguard = lib.mkIf config.nixosModules.wireguard.enable {
-      client.enable = lib.mkDefault true;
-    };
-
     jellyfin = lib.mkIf config.nixosModules.jellyfin.enable {
       client.enable = lib.mkDefault true;
     };

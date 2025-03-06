@@ -13,6 +13,21 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    arrs = {
+      lidarr.enable = true;
+    };
+
+    uptimeKuma = {
+      enable = true;
+    };
+
+    docker = {
+      enable = true;
+      automaticrippingmachine = {
+        enable = true;
+      };
+    };
+
     homepage.enable = true;
 
     filebrowser = {
