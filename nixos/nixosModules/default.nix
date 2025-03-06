@@ -20,14 +20,15 @@
     ./firewall
     ./vpn
     ./jellyfin
-    ./wireguard
     # ./seafile
     ./filebrowser
     ./homepage
     ./docker
 
     # These define their own options and config
+    ./wireguard
     ./uptimeKuma
+    ./adblock
     ./arrs
   ];
 

@@ -36,6 +36,12 @@ in {
                 href = "http://192.168.0.1";
               };
             }
+            {
+              "AdGuard Home" = {
+                description = "Network-Wide Ad Blocker";
+                href = "${ip}:${toString config.nixosModules.adblock.adguard.ports.webui}";
+              };
+            }
             { 
               "Jellyfin" = {
                 description = "Media streaming";
