@@ -13,6 +13,8 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    adblock.enable = true;
+
     arrs = {
       lidarr.enable = true;
     };
@@ -47,7 +49,7 @@
     vpn.enable = true;
 
     firewall = {
-      enable = true;
+      # enable = true;
       kdeconnect.enable = true;
       yuzu.enable = true;
     };
