@@ -8,15 +8,15 @@ in {
     enable = mkEnableOption "Blocky adblocker";
     ports = {
       dns = mkOption {
-        type = types.int;
+        type = types.ports;
         default = 53;
       };
       http = mkOption {
-        type = types.int;
+        type = types.ports;
         default = 4000;
       };
       tls = mkOption {
-        type = types.int;
+        type = types.ports;
         default = 853;
       };
     };

@@ -7,7 +7,7 @@ in
   options.nixosModules.wireguard.server = {
     enable = mkEnableOption "wireguard hosting";
     port = mkOption {
-      type = types.int;
+      type = types.port;
       default = 443;
     };
 

@@ -15,8 +15,16 @@
   nixosModules = {
     adblock.enable = true;
 
+    ssh = {
+      server.enable = true;
+    };
+
+    torrent.qbittorrent.enable = true;
+
     arrs = {
       lidarr.enable = true;
+      sonarr.enable = true;
+      prowlarr.enable = true;
     };
 
     uptimeKuma = {
@@ -49,7 +57,7 @@
     vpn.enable = true;
 
     firewall = {
-      # enable = true;
+      enable = true;
       kdeconnect.enable = true;
       yuzu.enable = true;
     };

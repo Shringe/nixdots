@@ -20,19 +20,19 @@ in {
           "Yarr!" = [
             {
               "File Browser" = {
-                description = "Cloud storage and file sharing";
+                description = "Cloud Storage and File Sharing";
                 href = "${ip}:${toString config.nixosModules.filebrowser.port}";
               };
             }
             {
               "Uptime Kuma" = {
-                description = "Server status monitor";
+                description = "Server Status Monitor";
                 href = "${ip}:${toString config.nixosModules.uptimeKuma.port}";
               };
             }
             {
               "Router Settings" = {
-                description = "Networking admin panel";
+                description = "Networking Admin Panel";
                 href = "http://192.168.0.1";
               };
             }
@@ -43,8 +43,14 @@ in {
               };
             }
             { 
+              "Jellyseerr" = {
+                description = "Media Requests";
+                href = "${ip}:${toString config.nixosModules.jellyfin.jellyseerr.port}";
+              };
+            }
+            { 
               "Jellyfin" = {
-                description = "Media streaming";
+                description = "Media Streaming";
                 href = "${ip}:${toString config.nixosModules.jellyfin.server.port}";
               };
             }
@@ -56,8 +62,26 @@ in {
             }
             {
               "Lidarr" = {
-                description = "Music management";
+                description = "Music Management";
                 href = "${ip}:${toString config.nixosModules.arrs.lidarr.port}";
+              };
+            }
+            {
+              "Sonarr" = {
+                description = "TV Show Management";
+                href = "${ip}:${toString config.nixosModules.arrs.sonarr.port}";
+              };
+            }
+            {
+              "Prowlarr" = {
+                description = "Indexer Management";
+                href = "${ip}:${toString config.nixosModules.arrs.prowlarr.port}";
+              };
+            }
+            {
+              "qBittorrent" = {
+                description = "Torrent and Download Client";
+                href = "${ip}:${toString config.nixosModules.torrent.qbittorrent.port}";
               };
             }
           ];

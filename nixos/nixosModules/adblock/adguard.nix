@@ -8,11 +8,11 @@ in {
 
     ports = {
       webui = mkOption {
-        type = types.int;
+        type = types.port;
         default = 47120;
       };
       dns = mkOption {
-        type = types.int;
+        type = types.port;
         default = 47100;
       };
     };
@@ -55,7 +55,7 @@ in {
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_24.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt"
+          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt" # fix
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_50.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_51.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt"

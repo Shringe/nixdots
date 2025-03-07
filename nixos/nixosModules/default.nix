@@ -30,6 +30,8 @@
     ./uptimeKuma
     ./adblock
     ./arrs
+    ./torrent
+    ./ssh
   ];
 
   options.nixosModules = {
@@ -38,7 +40,7 @@
       automaticrippingmachine = {
         enable = lib.mkEnableOption "automaticrippingmachine";
         port = lib.mkOption {
-          type = lib.types.int;
+          type = lib.types.port;
           default = 8080;
         };
       };
@@ -47,7 +49,7 @@
     homepage = {
       enable = lib.mkEnableOption "Homepage dashboard";
       port = lib.mkOption {
-        type = lib.types.int;
+        type = lib.types.port;
         default = 47020;
       };
 
@@ -60,7 +62,7 @@
     filebrowser = {
       enable = lib.mkEnableOption "filebrowser web interface";
       port = lib.mkOption {
-        type = lib.types.int;
+        type = lib.types.port;
         default = 47060;
       };
 
@@ -72,18 +74,6 @@
       directory = lib.mkOption {
         type = lib.types.string;
         default = "/mnt/server";
-      };
-    };
-
-    jellyfin = {
-      enable = lib.mkEnableOption "Jellyfin";
-      client.enable = lib.mkEnableOption "Jellyfin client";
-      server = {
-        enable = lib.mkEnableOption "Jellyfin hosting";
-        port = lib.mkOption {
-          type = lib.types.int;
-          default = 47040;
-        };
       };
     };
 
