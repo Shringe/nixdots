@@ -6,7 +6,7 @@ in {
   options.nixosModules.uptimeKuma = {
     enable = mkEnableOption "Status monitor";
     port = mkOption {
-      type = types.int;
+      type = types.port;
       default = 47080;
     };
 
