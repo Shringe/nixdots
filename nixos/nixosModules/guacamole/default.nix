@@ -3,8 +3,13 @@ with lib;
 let
   cfg = config.nixosModules.guacamole;
 in {
-  options.nixosModulet.guacamole = {
+  options.nixosModules.guacamole = {
     enable = mkEnableOption "Guacamole web interface";
+
+    host = mkOption {
+      type = types.string;
+      default = "192.168.0.165";
+    };
 
     port = mkOption {
       type = types.port;
@@ -16,6 +21,9 @@ in {
     services.guacamole-server = {
       enable = true;
       port = cfg.port;
+      host = cfg.host;
     };
+
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

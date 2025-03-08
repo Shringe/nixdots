@@ -31,6 +31,12 @@ in {
               };
             }
             {
+              "Guacamole" = {
+                description = "OpenSSH Web Client";
+                href = "${ip}:${toString config.nixosModules.guacamole.port}";
+              };
+            }
+            {
               "Router Settings" = {
                 description = "Networking Admin Panel";
                 href = "http://192.168.0.1";
