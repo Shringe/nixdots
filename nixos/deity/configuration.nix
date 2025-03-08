@@ -14,6 +14,7 @@
 
   nixosModules = {
     adblock.enable = true;
+    guacamole.enable = true;
 
     ssh = {
       server.enable = true;
