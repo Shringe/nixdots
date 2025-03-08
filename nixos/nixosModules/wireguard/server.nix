@@ -56,6 +56,10 @@ in
             publicKey = "3HSS1loEZSCGjfqOLm/dyZpPfwzT31wKvw8Ygrl5czE=";
             allowedIPs = [ "${cfg.private_ip}.3/32" ];
           }
+          { # Sam PC
+            publicKey = "7V6HsDx5pYjQMht9Wq2uFZuw3OPfICZIiIPcfhcyM3U=";
+            allowedIPs = [ "${cfg.private_ip}.4/32" ];
+          }
         ];
       };
     };
