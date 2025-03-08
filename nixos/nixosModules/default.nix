@@ -32,6 +32,7 @@
     ./arrs
     ./torrent
     ./ssh
+    ./guacamole
   ];
 
   options.nixosModules = {
