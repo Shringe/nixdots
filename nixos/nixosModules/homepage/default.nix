@@ -73,6 +73,12 @@ in {
               };
             }
             {
+              "Radarr" = {
+                description = "Movie Show Management";
+                href = "${ip}:${toString config.nixosModules.arrs.radarr.port}";
+              };
+            }
+            {
               "Sonarr" = {
                 description = "TV Show Management";
                 href = "${ip}:${toString config.nixosModules.arrs.sonarr.port}";

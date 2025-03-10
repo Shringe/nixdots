@@ -25,7 +25,7 @@ in {
 
       serviceConfig = {
         Type = "exec";
-        # User = "qbtuser";
+        User = "jsparrow";
         ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.port}";
       };
       wantedBy = [ "multi-user.target" ];

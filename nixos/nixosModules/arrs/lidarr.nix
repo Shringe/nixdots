@@ -15,6 +15,7 @@ in {
     networking.firewall.allowedTCPPorts = [ cfg.port ];
     services.lidarr = {
       enable = true;
+      user = "jsparrow";
       settings = {
         server.port = cfg.port;
       };

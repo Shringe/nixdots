@@ -26,6 +26,7 @@
       lidarr.enable = true;
       sonarr.enable = true;
       prowlarr.enable = true;
+      radarr.enable = true;
     };
 
     uptimeKuma = {
