@@ -60,6 +60,10 @@ in
             publicKey = "7V6HsDx5pYjQMht9Wq2uFZuw3OPfICZIiIPcfhcyM3U=";
             allowedIPs = [ "${cfg.private_ip}.4/32" ];
           }
+          { # My laptop
+            publicKey = "D3qbFvDBUdQ1jJhvS2zUhiyi7hxikS4Y0PgLYUYkp3I=";
+            allowedIPs = [ "${cfg.private_ip}.5/32" ];
+          }
         ];
       };
     };
