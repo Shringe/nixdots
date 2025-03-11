@@ -55,6 +55,12 @@ in {
               };
             }
             { 
+              "Ombi" = {
+                description = "All-In-One Media Requests Hub";
+                href = "${ip}:${toString config.nixosModules.ombi.port}";
+              };
+            }
+            { 
               "Jellyfin" = {
                 description = "Media Streaming";
                 href = "${ip}:${toString config.nixosModules.jellyfin.server.port}";

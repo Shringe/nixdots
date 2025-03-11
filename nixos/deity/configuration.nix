@@ -15,6 +15,7 @@
   nixosModules = {
     adblock.enable = true;
     # guacamole.enable = true;
+    ombi.enable = true;
 
     ssh = {
       server.enable = true;
@@ -27,6 +28,7 @@
       sonarr.enable = true;
       prowlarr.enable = true;
       radarr.enable = true;
+      # flaresolverr.enable = true;
     };
 
     uptimeKuma = {
@@ -53,6 +55,7 @@
 
     jellyfin = {
       enable = true;
+      jellyseerr.enable = true;
       server.enable = true;
     };
 

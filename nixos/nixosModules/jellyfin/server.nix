@@ -14,7 +14,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixosModules.jellyfin.jellyseerr.enable = mkDefault true;
+    nixosModules.jellyfin.jellyseerr.enable = mkDefault false;
 
     environment.systemPackages = with pkgs; [
       jellyfin
