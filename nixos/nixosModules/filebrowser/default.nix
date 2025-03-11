@@ -2,6 +2,24 @@
 let
   cfg = config.nixosModules.filebrowser;
 in {
+  options.nixosModules.filebrowser = {
+    enable = lib.mkEnableOption "filebrowser web interface";
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 47060;
+    };
+
+    ip = lib.mkOption {
+      type = lib.types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
+    directory = lib.mkOption {
+      type = lib.types.string;
+      default = "/mnt/server";
+    };
+  };
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       filebrowser
