@@ -13,9 +13,17 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ cfg.port ];
+
+    # users.users.prowlarr = {
+    #   isSystemUser = true;
+    #   group = "prowlarr";
+    #   extraGroups = [ "qbittorrent" ];
+    # };
+
+    # users.groups.prowlarr = { };
+
     services.prowlarr = {
       enable = true;
-      user = "jsparrow";
       settings = {
         server.port = cfg.port;
       };

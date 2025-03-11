@@ -13,9 +13,21 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ cfg.port ];
+
+    sops.secrets."user_passwords/radarr".neededForUsers = true;
+    users.users.radarr = {
+      isSystemUser = true;
+      group = "radarr";
+      hashedPasswordFile = config.sops.secrets."user_passwords/radarr".path;
+      extraGroups = [ "qbittorrent" ];
+    };
+
+    users.groups.radarr = { };
+
     services.radarr = {
       enable = true;
-      user = "jsparrow";
+      user = "radarr";
+      group = "radarr";
       settings = {
         server.port = cfg.port;
       };

@@ -18,6 +18,15 @@ in {
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
+    sops.secrets."user_passwords/qbittorrent".neededForUsers = true;
+    users.users.qbittorrent = {
+      isNormalUser = true;
+      group = "qbittorrent";
+      hashedPasswordFile = config.sops.secrets."user_passwords/qbittorrent".path;
+    };
+
+    users.groups.qbittorrent = {};
+
     systemd.services.qbittorrent = {
       description = "qBittorrent-nox service";
       wants = [ "network-online.target" ];
@@ -25,9 +34,11 @@ in {
 
       serviceConfig = {
         Type = "exec";
-        User = "jsparrow";
+        User = "qbittorrent";
+        Group = "qbittorrent";
         ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.port}";
       };
+
       wantedBy = [ "multi-user.target" ];
     };
   };
