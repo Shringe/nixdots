@@ -3,6 +3,19 @@ let
   cfg = config.nixosModules.homepage;
   ip = "http://${cfg.ip}";
 in {
+  options.nixosModules.homepage = {
+    enable = lib.mkEnableOption "Homepage dashboard";
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 47020;
+    };
+
+    ip = lib.mkOption {
+      type = lib.types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+  };
+
   config = lib.mkIf cfg.enable {
     services.homepage-dashboard = {
       enable = true;

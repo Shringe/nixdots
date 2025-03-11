@@ -21,8 +21,6 @@
     ./vpn
     ./jellyfin
     # ./seafile
-    ./filebrowser
-    ./homepage
     ./docker
 
     # These define their own options and config
@@ -34,6 +32,10 @@
     ./ssh
     ./guacamole
     ./ombi
+    ./shell
+    ./info
+    ./homepage
+    ./filebrowser
   ];
 
   options.nixosModules = {
@@ -45,37 +47,6 @@
           type = lib.types.port;
           default = 8080;
         };
-      };
-    };
-
-    homepage = {
-      enable = lib.mkEnableOption "Homepage dashboard";
-      port = lib.mkOption {
-        type = lib.types.port;
-        default = 47020;
-      };
-
-      ip = lib.mkOption {
-        type = lib.types.string;
-        default = "192.168.0.165";
-      };
-    };
-
-    filebrowser = {
-      enable = lib.mkEnableOption "filebrowser web interface";
-      port = lib.mkOption {
-        type = lib.types.port;
-        default = 47060;
-      };
-
-      ip = lib.mkOption {
-        type = lib.types.string;
-        default = "192.168.0.165";
-      };
-
-      directory = lib.mkOption {
-        type = lib.types.string;
-        default = "/mnt/server";
       };
     };
 

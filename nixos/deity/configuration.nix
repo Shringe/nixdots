@@ -13,6 +13,10 @@
   hardware.enableAllFirmware = true;
 
   nixosModules = {
+    info.system  = {
+      ips.local = "192.168.0.165";
+    };
+
     adblock.enable = true;
     # guacamole.enable = true;
     ombi.enable = true;

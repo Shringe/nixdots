@@ -19,7 +19,7 @@ in {
 
     dns = mkOption {
       type = types.string;
-      default = "192.168.0.165";
+      default = config.nixosModules.info.system.ips.local;
     };
 
     host = mkOption {
