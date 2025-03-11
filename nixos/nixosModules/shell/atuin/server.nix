@@ -15,8 +15,9 @@ in {
   config = mkIf cfg.enable {
     services.atuin = {
       enable = true;
-      host = config.nixosModules.info.ips.local;
+      host = config.nixosModules.info.system.ips.local;
       port = cfg.port;
+      openRegistration = true;
       openFirewall = true;
     };
   };
