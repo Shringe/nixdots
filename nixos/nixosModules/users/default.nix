@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   imports = [
     ./shringe.nix
@@ -5,8 +6,9 @@
   ];
 
 
+  sops.secrets."user_passwords/root".neededForUsers = true;
   users = {
-    # mutableUsers = false;
+    mutableUsers = false;
 
     groups = {
       nixdots = {};
@@ -14,7 +16,7 @@
     };
 
     users.root = {
-      initialPassword = "123";
+      hashedPasswordFile = config.sops.secrets."user_passwords/root".path;
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH4ApgoaedJkfYAoaNsK1Zx7EikM8mIwkUNpGnn/wU1W"
       ];

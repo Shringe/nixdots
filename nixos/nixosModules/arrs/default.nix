@@ -1,8 +1,3 @@
-{ config, lib, ... }:
-with lib;
-let
-  cfg = config.nixosModules.arrs;
-in
 {
   imports = [
     ./lidarr.nix
@@ -10,11 +5,4 @@ in
     ./prowlarr.nix
     ./radarr.nix
   ];
-
-  config = mkIf cfg.enable {
-    users.users.jsparrow = {
-      isSystemUser = true;
-      initialPassword = "123";
-    };
-  };
 }

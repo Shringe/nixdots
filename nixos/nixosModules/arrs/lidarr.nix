@@ -13,9 +13,21 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ cfg.port ];
+
+    sops.secrets."user_passwords/lidarr".neededForUsers = true;
+    users.users.lidarr = {
+      isSystemUser = true;
+      group = "lidarr";
+      hashedPasswordFile = config.sops.secrets."user_passwords/lidarr".path;
+      extraGroups = [ "qbittorrent" ];
+    };
+
+    users.groups.lidarr = { };
+
     services.lidarr = {
       enable = true;
-      user = "jsparrow";
+      user = "lidarr";
+      group = "lidarr";
       settings = {
         server.port = cfg.port;
       };
