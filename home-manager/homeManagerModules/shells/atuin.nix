@@ -1,4 +1,4 @@
-{ inputs, lib, config, ... }:
+{ lib, config, ... }:
 let
   cfg = config.homeManagerModules.shells.atuin;
 in
@@ -7,6 +7,7 @@ in
     enable = true;
     settings = {
       key_path = config.sops.secrets.atuin_key.path;
+      sync_address = "http://192.168.0.165:47200";
       enter_accept = true;
 
       style = "compact";

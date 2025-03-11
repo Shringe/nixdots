@@ -17,6 +17,10 @@
       ips.local = "192.168.0.165";
     };
 
+    shell = {
+      atuin.server.enable = true;
+    };
+
     adblock.enable = true;
     # guacamole.enable = true;
     ombi.enable = true;
