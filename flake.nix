@@ -52,6 +52,7 @@
         ];
 
         config.allowUnfree = true;
+        config.allowBroken = true;
         # config.allowUnfreePredicate = true;
       };
       pkgs-stable = import nixpkgs-stable {

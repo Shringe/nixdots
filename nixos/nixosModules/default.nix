@@ -33,6 +33,7 @@
     ./torrent
     ./ssh
     ./guacamole
+    ./ombi
   ];
 
   options.nixosModules = {
