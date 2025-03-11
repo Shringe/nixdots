@@ -22,7 +22,8 @@ in {
       ports = [ cfg.port ];
 
       settings = {
-        PasswordAuthentication = true;
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
       };
     };
 
