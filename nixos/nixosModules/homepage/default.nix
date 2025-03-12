@@ -112,7 +112,7 @@ in {
             {
               "qBittorrent" = {
                 description = "Torrent and Download Client";
-                href = "${ip}:${toString config.nixosModules.torrent.qbittorrent.port}";
+                href = "http://${config.nixosModules.torrent.qbittorrent.ips.webui}:${toString config.nixosModules.torrent.qbittorrent.ports.webui}";
               };
             }
           ];
