@@ -3,8 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+
+    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 	
     disko = {
       url = "github:nix-community/disko";

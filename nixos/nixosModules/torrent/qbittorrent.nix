@@ -5,9 +5,23 @@ let
 in {
   options.nixosModules.torrent.qbittorrent = {
     enable = mkEnableOption "qBittorrent";
-    port = mkOption {
-      type = types.port;
-      default = 43080;
+    ports = {
+      webui = mkOption {
+        type = types.port;
+        default = 43080;
+      };
+
+      traffic = mkOption {
+        type = types.port;
+        default = 16403;
+      };
+    };
+
+    ips = {
+      webui = mkOption {
+        type = types.string;
+        default = "192.168.15.1";
+      };
     };
   };
 
@@ -16,7 +30,8 @@ in {
       qbittorrent
     ];
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = [ cfg.ports.webui cfg.ports.traffic ];
+    networking.firewall.allowedUDPPorts = [ cfg.ports.traffic ];
 
     sops.secrets."user_passwords/qbittorrent".neededForUsers = true;
     users.users.qbittorrent = {
@@ -36,10 +51,15 @@ in {
         Type = "exec";
         User = "qbittorrent";
         Group = "qbittorrent";
-        ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.port}";
+        ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.ports.webui}";
       };
 
       wantedBy = [ "multi-user.target" ];
+
+      vpnConfinement = {
+        enable = true;
+        vpnNamespace = "airvpn";
+      };
     };
   };
 }
