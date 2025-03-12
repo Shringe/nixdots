@@ -32,11 +32,11 @@
     torrent.qbittorrent.enable = true;
 
     arrs = {
-      # lidarr.enable = true;
-      # sonarr.enable = true;
-      # prowlarr.enable = true;
-      # radarr.enable = true;
-      # flaresolverr.enable = true;
+      lidarr.enable = true;
+      sonarr.enable = true;
+      prowlarr.enable = true;
+      radarr.enable = true;
+      flaresolverr.enable = true;
     };
 
     uptimeKuma = {
