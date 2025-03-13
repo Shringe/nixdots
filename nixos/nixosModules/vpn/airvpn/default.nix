@@ -18,13 +18,13 @@ in {
       wireguardConfigFile = config.sops.secrets."wireguard/airvpn".path;
       accessibleFrom = [
         "192.168.0.0/24"
-        "192.168.0.165"
       ];
 
       portMappings = [
         {
           from = config.nixosModules.torrent.qbittorrent.ports.webui;
           to = config.nixosModules.torrent.qbittorrent.ports.webui;
+          protocol = "tcp";
         }
       ];
 

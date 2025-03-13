@@ -2,6 +2,7 @@
 let
   cfg = config.nixosModules.homepage;
   ip = "http://${cfg.ip}";
+  vpnIp = "http://${cfg.vpnIp}";
 in {
   options.nixosModules.homepage = {
     enable = lib.mkEnableOption "Homepage dashboard";
@@ -11,6 +12,11 @@ in {
     };
 
     ip = lib.mkOption {
+      type = lib.types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
+    vpnIp = lib.mkOption {
       type = lib.types.string;
       default = config.nixosModules.info.system.ips.local;
     };
@@ -88,25 +94,25 @@ in {
             {
               "Lidarr" = {
                 description = "Music Management";
-                href = "${ip}:${toString config.nixosModules.arrs.lidarr.port}";
+                href = "${vpnIp}:${toString config.nixosModules.arrs.lidarr.port}";
               };
             }
             {
               "Radarr" = {
                 description = "Movie Show Management";
-                href = "${ip}:${toString config.nixosModules.arrs.radarr.port}";
+                href = "${vpnIp}:${toString config.nixosModules.arrs.radarr.port}";
               };
             }
             {
               "Sonarr" = {
                 description = "TV Show Management";
-                href = "${ip}:${toString config.nixosModules.arrs.sonarr.port}";
+                href = "${vpnIp}:${toString config.nixosModules.arrs.sonarr.port}";
               };
             }
             {
               "Prowlarr" = {
                 description = "Indexer Management";
-                href = "${ip}:${toString config.nixosModules.arrs.prowlarr.port}";
+                href = "${vpnIp}:${toString config.nixosModules.arrs.prowlarr.port}";
               };
             }
             {
