@@ -37,6 +37,7 @@
       prowlarr.enable = true;
       radarr.enable = true;
       flaresolverr.enable = true;
+      vpn.enable = true;
     };
 
     uptimeKuma = {
