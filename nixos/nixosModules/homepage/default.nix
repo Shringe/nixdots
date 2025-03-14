@@ -50,6 +50,12 @@ in {
               };
             }
             {
+              "Gatus" = {
+                description = "Better Server Status Monitor";
+                href = "${ip}:${toString config.nixosModules.monitors.gatus.port}";
+              };
+            }
+            {
               "Guacamole" = {
                 description = "OpenSSH Web Client";
                 href = "${ip}:${toString config.nixosModules.guacamole.port}";

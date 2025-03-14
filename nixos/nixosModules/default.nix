@@ -37,6 +37,7 @@
     ./homepage
     ./filebrowser
     ./caldav
+    ./monitors
   ];
 
   options.nixosModules = {

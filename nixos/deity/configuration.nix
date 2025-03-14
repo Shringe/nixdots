@@ -17,6 +17,10 @@
       ips.local = "192.168.0.165";
     };
 
+    monitors = {
+      gatus.enable = true;
+    };
+
     caldav.enable = true;
 
     shell = {
@@ -38,7 +42,7 @@
       sonarr.enable = true;
       prowlarr.enable = true;
       radarr.enable = true;
-      flaresolverr.enable = true;
+      # flaresolverr.enable = true;
       vpn.enable = true;
     };
 
