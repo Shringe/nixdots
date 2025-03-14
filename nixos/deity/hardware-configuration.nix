@@ -17,39 +17,39 @@
   fileSystems."/mnt/Steam/Main" = { 
     device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
     fsType = "btrfs";
-    options = [ "subvol=_steam/main" "noatime" ];
+    options = [ "subvol=_steam/main" "noatime" "nofail" ];
     # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 
   fileSystems."/mnt/Steam/libraries/SSD1" = { 
     device = "/dev/disk/by-uuid/b04355b7-75c9-4c88-9893-536188b2a77a";
     fsType = "btrfs";
-    options = [ "subvol=_steam/library" "compress=zstd" "noatime" ];
+    options = [ "subvol=_steam/library" "compress=zstd" "noatime" "nofail" ];
     # options = [ "subvol=_steam/main" "noatime" "uid=1000" "gid=989" "umask=755" ];
   };
 
   fileSystems."/mnt/Emulation" = { 
     device = "/dev/disk/by-uuid/33109eb5-d91f-4d54-ad7f-a8d04f418f70";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" ];
+    options = [ "compress=zstd" "noatime" "nofail" ];
   };
 
   fileSystems."/mnt/Shows" = { 
     device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "subvol=_media/_shows" ];
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_shows" ];
   };
 
   fileSystems."/mnt/Music" = { 
     device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "subvol=_media/_personal/music" ];
+    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music" ];
   };
 
   fileSystems."/mnt/server" = { 
     device = "/dev/disk/by-uuid/04346207-351b-4696-94bd-e0b93d4b8d9c";
     fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" ];
+    options = [ "compress=zstd" "noatime" "nofail" ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
