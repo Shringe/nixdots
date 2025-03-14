@@ -12,11 +12,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-
     services.flaresolverr = {
       enable = true;
       port = cfg.port;
+      openFirewall = true;
     };
   };
 }
