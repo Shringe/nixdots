@@ -17,6 +17,8 @@
       ips.local = "192.168.0.165";
     };
 
+    caldav.enable = true;
+
     shell = {
       atuin.server.enable = true;
     };
