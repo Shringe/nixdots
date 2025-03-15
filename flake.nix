@@ -50,6 +50,17 @@
 
         overlays = [
           inputs.nur.overlays.default
+
+          (self: super: {
+            mpv = super.mpv.override {
+              scripts = with self.mpvScripts; [ 
+                mpris 
+                dynamic-crop
+                thumbfast
+                quack
+              ];
+            };
+          })
         ];
 
         config.allowUnfree = true;
