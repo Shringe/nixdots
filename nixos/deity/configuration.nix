@@ -17,6 +17,9 @@
       ips.local = "192.168.0.165";
     };
 
+    players.mpv.enable = true;
+    players.mpv.scripts.enable = false;
+
     monitors = {
       gatus.enable = true;
     };
