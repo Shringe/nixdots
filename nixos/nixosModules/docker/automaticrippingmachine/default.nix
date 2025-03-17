@@ -1,11 +1,28 @@
 { config, lib, pkgs, ... }:
+with lib;
 let
   cfg = config.nixosModules.docker.automaticrippingmachine;
 in {
-  config = lib.mkIf cfg.enable {
+  options.nixosModules.docker.automaticrippingmachine = {
+    description = mkOption {
+      type = types.string;
+      default = "Automatically rips DVDs, Blu-rays, and CDs";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "cd.svg";
+    };
+  };
+
+  config = mkIf cfg.enable {
     users.users.arm = {
       isNormalUser = true;
-      initialPassword = "123";
       extraGroups = [ "docker" ];
     };
 

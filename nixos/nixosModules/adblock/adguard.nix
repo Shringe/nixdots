@@ -26,6 +26,22 @@ in {
       type = types.string;
       default = "0.0.0.0";
     };
+
+    description = mkOption {
+      type = types.string;
+      default = "Network-Wide Ad Blocker";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.dns}:${toString cfg.ports.webui}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      # default = ../themes/icons/adguard-home.svg;
+      default = "apps-adguard.svg";
+    };
   };
 
   config = mkIf cfg.enable {

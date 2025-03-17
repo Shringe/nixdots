@@ -11,6 +11,21 @@ in
       type = types.port;
       default = 47140;
     };
+
+    description = mkOption {
+      type = types.string;
+      default = "Media Requests";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "jellyseerr.svg";
+    };
   };
 
   config = mkIf cfg.enable {

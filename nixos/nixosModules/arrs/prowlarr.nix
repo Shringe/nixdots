@@ -5,9 +5,30 @@ let
 in {
   options.nixosModules.arrs.prowlarr = {
     enable = mkEnableOption "Prowlarr Indexer Management";
+
+    ip = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
     port = mkOption {
       type = types.port;
       default = 43060;
+    };
+
+    description = mkOption {
+      type = types.string;
+      default = "Indexer Management";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ip}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "prowlarr.svg";
     };
   };
 
