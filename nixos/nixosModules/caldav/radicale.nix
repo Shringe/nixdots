@@ -15,6 +15,16 @@ in {
       type = types.port;
       default =  47220;
     };
+
+    description = mkOption {
+      type = types.string;
+      default = "Caldav and Carddav server";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ip}:${toString cfg.port}";
+    };
   };
 
   config = mkIf cfg.enable {

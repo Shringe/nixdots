@@ -11,6 +11,21 @@ in
       type = types.port;
       default = 47180;
     };
+
+    description = mkOption {
+      type = types.string;
+      default = "All-In-One Media Requests Hub";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "film-reel.svg";
+    };
   };
 
   config = mkIf cfg.enable {

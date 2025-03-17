@@ -2,8 +2,6 @@
 with lib;
 let
   cfg = config.nixosModules.monitors.gatus;
-  ip = "http://${cfg.ip}";
-  vpnIp = "http://${cfg.vpnIp}";
 in {
   options.nixosModules.monitors.gatus = {
     enable = mkEnableOption "Gatus server status monitor";
@@ -13,14 +11,19 @@ in {
       default = 47240;
     };
 
-    ip = lib.mkOption {
-      type = lib.types.string;
-      default = config.nixosModules.homepage.ip;
+    description = mkOption {
+      type = types.string;
+      default = "Better Server Status Monitor";
     };
 
-    vpnIp = lib.mkOption {
-      type = lib.types.string;
-      default = config.nixosModules.homepage.vpnIp;
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "gatus.svg";
     };
   };
 
@@ -29,152 +32,136 @@ in {
       enable = true;
       openFirewall = true;
 
-      settings = {
+      settings = with config.nixosModules; {
         web.port = cfg.port;
 
         endpoints = [
           {
             name = "Radicale";
-            url = "${ip}:${toString config.nixosModules.caldav.radicale.port}";
+            url = caldav.radicale.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Jellyfin";
-            url = "${ip}:${toString config.nixosModules.jellyfin.server.port}";
+            url = jellyfin.server.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "File Browser";
-            url = "${ip}:${toString config.nixosModules.filebrowser.port}";
+            url = filebrowser.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Uptime Kuma";
-            url = "${ip}:${toString config.nixosModules.uptimeKuma.port}";
+            url = uptimeKuma.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Gatus";
-            url = "${ip}:${toString config.nixosModules.monitors.gatus.port}";
+            url = monitors.gatus.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Guacamole";
-            url = "${ip}:${toString config.nixosModules.guacamole.port}";
+            url = guacamole.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "AdGuard Home";
-            url = "${ip}:${toString config.nixosModules.adblock.adguard.ports.webui}";
+            url = adblock.adguard.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Jellyseerr";
-            url = "${ip}:${toString config.nixosModules.jellyfin.jellyseerr.port}";
+            url = jellyfin.jellyseerr.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Ombi";
-            url = "${ip}:${toString config.nixosModules.ombi.port}";
+            url = ombi.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Automatic Ripping Machine";
-            url = "${ip}:${toString config.nixosModules.docker.automaticrippingmachine.port}";
+            url = docker.automaticrippingmachine.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.ip}"
             ];
           }
           {
             name = "Lidarr";
-            url = "${vpnIp}:${toString config.nixosModules.arrs.lidarr.port}";
+            url = arrs.lidarr.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.vpnIp}"
             ];
           }
           {
             name = "Radarr";
-            url = "${vpnIp}:${toString config.nixosModules.arrs.radarr.port}";
+            url = arrs.radarr.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.vpnIp}"
             ];
           }
           {
             name = "Sonarr";
-            url = "${vpnIp}:${toString config.nixosModules.arrs.sonarr.port}";
+            url = arrs.sonarr.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.vpnIp}"
             ];
           }
           {
             name = "Prowlarr";
-            url = "${vpnIp}:${toString config.nixosModules.arrs.prowlarr.port}";
+            url = arrs.prowlarr.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.vpnIp}"
             ];
           }
           {
             name = "Flaresolverr";
-            url = "${vpnIp}:${toString config.nixosModules.arrs.flaresolverr.port}";
+            url = arrs.flaresolverr.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.vpnIp}"
             ];
           }
           {
             name = "qBittorrent";
-            url = "http://${config.nixosModules.torrent.qbittorrent.ips.webui}:${toString config.nixosModules.torrent.qbittorrent.ports.webui}";
+            url = torrent.qbittorrent.url;
             interval = "30m";
             conditions = [
               "[STATUS] == 200"
-              "[IP] == ${cfg.vpnIp}"
             ];
           }
         ];

@@ -2,13 +2,20 @@
 with lib;
 let
   cfg = config.nixosModules.arrs.vpn;
+  ip = "192.168.15.1";
 in {
   options.nixosModules.arrs.vpn = {
     enable = mkEnableOption "Confines *arrs to a vpn";
   };
 
   config = mkIf cfg.enable {
-    nixosModules.homepage.vpnIp = "192.168.15.1";
+    nixosModules.arrs = {
+      lidarr.ip = ip;
+      sonarr.ip = ip;
+      radarr.ip = ip;
+      prowlarr.ip = ip;
+      flaresolverr.ip = ip;
+    };
     
     vpnNamespaces.airvpn.portMappings = [
       {

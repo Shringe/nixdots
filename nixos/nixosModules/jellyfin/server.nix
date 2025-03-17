@@ -11,6 +11,21 @@ in
       type = types.port;
       default = 47040;
     };
+
+    description = mkOption {
+      type = types.string;
+      default = "Media Streaming";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "jellyfin.svg";
+    };
   };
 
   config = mkIf cfg.enable {

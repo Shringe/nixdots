@@ -8,12 +8,27 @@ in {
 
     host = mkOption {
       type = types.string;
-      default = config.nixosModules.info.ips.local;
+      default = config.nixosModules.info.system.ips.local;
     };
 
     port = mkOption {
       type = types.port;
       default = 47160;
+    };
+
+    description = mkOption {
+      type = types.string;
+      default = "OpenSSH Web Client";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.host}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "apache.svg";
     };
   };
 

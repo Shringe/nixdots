@@ -5,9 +5,30 @@ let
 in {
   options.nixosModules.arrs.lidarr = {
     enable = mkEnableOption "Lidarr music management";
+
+    ip = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
     port = mkOption {
       type = types.port;
       default = 43020;
+    };
+
+    description = mkOption {
+      type = types.string;
+      default = "Music Management";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ip}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "lidarr.svg";
     };
   };
 

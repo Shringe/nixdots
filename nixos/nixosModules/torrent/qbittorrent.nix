@@ -23,6 +23,21 @@ in {
         default = "192.168.15.1";
       };
     };
+
+    description = mkOption {
+      type = types.string;
+      default = "Torrent and Download Client";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ips.webui}:${toString cfg.ports.webui}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "qbittorrent.svg";
+    };
   };
 
   config = mkIf cfg.enable {

@@ -5,9 +5,25 @@ let
 in {
   options.nixosModules.arrs.flaresolverr = {
     enable = mkEnableOption "Flaresolverr Cloudflare";
+
+    ip = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
     port = mkOption {
       type = types.port;
       default = 43120;
+    };
+
+    description = mkOption {
+      type = types.string;
+      default = "Bypasses Cloudflare Protection";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ip}:${toString cfg.port}";
     };
   };
 

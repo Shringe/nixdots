@@ -5,9 +5,30 @@ let
 in {
   options.nixosModules.arrs.radarr = {
     enable = mkEnableOption "Sonarr TV Show Management";
+
+    ip = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
     port = mkOption {
       type = types.port;
       default = 43100;
+    };
+
+    description = mkOption {
+      type = types.string;
+      default = "Movie Management";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ip}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "radarr.svg";
     };
   };
 

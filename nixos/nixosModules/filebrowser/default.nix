@@ -1,26 +1,42 @@
 { config, lib, pkgs, ... }:
+with lib;
 let
   cfg = config.nixosModules.filebrowser;
 in {
   options.nixosModules.filebrowser = {
-    enable = lib.mkEnableOption "filebrowser web interface";
-    port = lib.mkOption {
-      type = lib.types.port;
+    enable = mkEnableOption "filebrowser web interface";
+    port = mkOption {
+      type = types.port;
       default = 47060;
     };
 
-    ip = lib.mkOption {
-      type = lib.types.string;
+    ip = mkOption {
+      type = types.string;
       default = config.nixosModules.info.system.ips.local;
     };
 
-    directory = lib.mkOption {
-      type = lib.types.string;
+    directory = mkOption {
+      type = types.string;
       default = "/mnt/server";
+    };
+
+    description = mkOption {
+      type = types.string;
+      default = "Cloud Storage and Filesharing";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.ip}:${toString cfg.port}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "filebrowser.svg";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       filebrowser
     ];
