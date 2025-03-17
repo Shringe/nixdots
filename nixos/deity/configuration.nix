@@ -18,7 +18,6 @@
     };
 
     players.mpv.enable = true;
-    players.mpv.scripts.enable = false;
 
     monitors = {
       gatus.enable = true;
