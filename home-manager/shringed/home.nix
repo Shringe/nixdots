@@ -75,6 +75,8 @@
 
     meslo-lgs-nf
     jetbrains-mono
+
+    flatpak
   ];
 
   home.sessionVariables = {
