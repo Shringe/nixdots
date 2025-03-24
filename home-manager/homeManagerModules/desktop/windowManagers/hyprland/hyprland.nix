@@ -10,6 +10,8 @@ in
     xdg-desktop-portal-hyprland
 
     blueman
+
+    wayland-protocols
   ];
 
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {
@@ -134,6 +136,10 @@ in
         no_break_fs_vrr = true;
       };
 
+      render = {
+        explicit_sync = 0;
+      };
+
       monitor = [
         "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 2"
         "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, transform, 1, vrr, 1"
@@ -154,7 +160,7 @@ in
 
       windowrulev2 = [
         "workspace 7, class:discord"
-        "workspace 9, class:steam"
+        # "workspace 9, class:steam"
       ];
 
       decoration = {
