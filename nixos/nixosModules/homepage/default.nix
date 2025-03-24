@@ -35,9 +35,13 @@ in {
       settings = {
         background = {
           image = "/images/wallpaper.png";
+          blur = "sm";
+          saturate = 75;
+          brightness = 75;
         };
 
-        color = "zinc";
+        # color = "indigo";
+        color = "red";
       };
 
       widgets = [
