@@ -23,6 +23,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."wireguard/server" = {};
+
     networking = {
       nat = {
         enable = true;
@@ -44,8 +46,7 @@ in
           ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.private_ip}.0/24 -o ${cfg.interface} -j MASQUERADE
         '';
 
-        privateKeyFile = "/root/wireguard-keys/privatekey";
-        generatePrivateKeyFile = true;
+        privateKeyFile = config.sops.secrets."wireguard/server".path;
 
         peers = [
           { # My phone

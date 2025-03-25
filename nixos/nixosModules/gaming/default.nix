@@ -5,5 +5,6 @@
     ./steam.nix
     ./optimizations.nix
     ./tooling.nix
+    ./servers
   ];
 }
