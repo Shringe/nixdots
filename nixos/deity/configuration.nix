@@ -23,7 +23,7 @@
       gatus.enable = true;
     };
 
-    caldav.enable = true;
+    # caldav.enable = true;
 
     shell = {
       atuin.server.enable = true;
@@ -115,9 +115,14 @@
     };
 
     gaming = {
+      servers = {
+        # ase.Gatsby.enable = true;
+      };
+
       emulators = {
         switch.enable = true;
       };
+
       optimizations.enable = true;
       tooling.enable = true;
       steam.enable = true;
