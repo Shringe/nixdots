@@ -5,16 +5,6 @@ let
 in {
   options.nixosModules.gaming.servers.steam = {
     enable = mkEnableOption "Sets up steam user for SteamCMD servers";
-
-    uid = mkOption {
-      type = types.int;
-      default = 7777;
-    };
-
-    gid = mkOption {
-      type = types.int;
-      default = 7777;
-    };
   };
 
   config = mkIf cfg.enable {
@@ -25,16 +15,12 @@ in {
     ];
 
     users = {
-      groups.steam = {
-        gid = cfg.gid;
-      };
+      groups.steam = {};
 
       users.steam = {
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets."user_passwords/steam".path;
         group = "steam";
-        extraGroups = [ "docker" ];
-        uid = cfg.uid;
       };
     };
   };

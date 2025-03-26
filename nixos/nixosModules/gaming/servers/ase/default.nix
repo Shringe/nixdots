@@ -112,6 +112,8 @@ in {
 
   # Module implementation
   config = mkIf cfg.enable {
+    nixosModules.gaming.servers.steam.enable = true;
+
     # System configuration
     boot.kernel.sysctl = {
       # Enable user namespaces for Steam
@@ -119,16 +121,6 @@ in {
       # Increase maximum file handles
       "fs.file-max" = 100000;
     };
-
-    # User and group configuration
-    users.users.${cfg.user} = {
-      isSystemUser = true;
-      group = cfg.user;
-      home = "/home/${cfg.user}";
-      createHome = true;
-    };
-
-    users.groups.${cfg.user} = {};
 
     # System resource limits
     security.pam.loginLimits = [
@@ -154,28 +146,28 @@ in {
 
       # Server preparation script
       preStart = ''
-        # Create required directories
-        mkdir -p "/home/${cfg.user}/.steam"
-        mkdir -p "/home/${cfg.user}/.local/share/Steam"
-        mkdir -p "${cfg.serverDir}"
+        # # Create required directories
+        # mkdir -p "/home/${cfg.user}/.steam"
+        # mkdir -p "/home/${cfg.user}/.local/share/Steam"
+        # mkdir -p "${cfg.serverDir}"
 
-        # Set directory permissions
-        chown -R ${cfg.user}:${cfg.user} "/home/${cfg.user}/.steam"
-        chown -R ${cfg.user}:${cfg.user} "/home/${cfg.user}/.local"
-        chown -R ${cfg.user}:${cfg.user} "${cfg.serverDir}"
+        # # Set directory permissions
+        # chown -R ${cfg.user}:${cfg.user} "/home/${cfg.user}/.steam"
+        # chown -R ${cfg.user}:${cfg.user} "/home/${cfg.user}/.local"
+        # chown -R ${cfg.user}:${cfg.user} "${cfg.serverDir}"
 
-        # Initialize Steam
-        HOME="/home/${cfg.user}" ${pkgs.steam-run}/bin/steam-run ${pkgs.steamcmd}/bin/steamcmd +quit || true
+        # # Initialize Steam
+        # HOME="/home/${cfg.user}" ${pkgs.steam-run}/bin/steam-run ${pkgs.steamcmd}/bin/steamcmd +quit || true
 
-        # Install/Update ARK Server
-        HOME="/home/${cfg.user}" ${pkgs.steam-run}/bin/steam-run ${pkgs.steamcmd}/bin/steamcmd \
-          +force_install_dir "${cfg.serverDir}" \
-          +login anonymous \
-          +app_update 376030 validate \
-          +quit
+        # # Install/Update ARK Server
+        # HOME="/home/${cfg.user}" ${pkgs.steam-run}/bin/steam-run ${pkgs.steamcmd}/bin/steamcmd \
+        #   +force_install_dir "${cfg.serverDir}" \
+        #   +login anonymous \
+        #   +app_update 376030 validate \
+        #   +quit
 
-        # Update permissions after installation
-        chown -R ${cfg.user}:${cfg.user} "${cfg.serverDir}"
+        # # Update permissions after installation
+        # chown -R ${cfg.user}:${cfg.user} "${cfg.serverDir}"
       '';
 
       # Service runtime configuration
@@ -199,14 +191,14 @@ in {
           ?ServerCrosshair=${cfg.ServerCrosshair}\
           ?AllowThirdPersonPlayer=${cfg.AllowThirdPersonPlayer}\
           ?ShowMapPlayerLocation=${cfg.ShowMapPlayerLocation}\
-          ?ServerPVE=${cfg.ServerPVE}\
-          ?ModIds=${cfg.mods}" \
+          ?ServerPVE=${cfg.ServerPVE}" \
           -server \
           -log \
           -servergamelog \
           -crossplay \
           -automanagedmods \
-          -NoBattlEye
+          -NoBattlEye \
+          -preventhybernation
         '';
 
         # Service restart configuration
