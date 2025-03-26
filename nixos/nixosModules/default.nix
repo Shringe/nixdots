@@ -39,6 +39,7 @@
     ./caldav
     ./monitors
     ./players
+    ./drives
   ];
 
   options.nixosModules = {
