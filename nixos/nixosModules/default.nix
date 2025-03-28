@@ -40,7 +40,6 @@
     ./monitors
     ./players
     ./drives
-    ./nginx
     ./caddy
   ];
 
