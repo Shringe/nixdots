@@ -15,14 +15,28 @@ in {
 
     services.caddy = {
       enable = true;
-      virtualHosts = {
+      virtualHosts = with config.nixosModules; {
         "files.deamicis.top" = {
           useACMEHost = "deamicis.top";
           extraConfig = ''
-            reverse_proxy http://66.208.98.226:47060
+            reverse_proxy ${filebrowser.url}
           '';
         };
-      };
+
+        "ssh.deamicis.top" = {
+          useACMEHost = "deamicis.top";
+          extraConfig = ''
+            reverse_proxy = ${info.system.ips.local}:${toString ssh.server.port}
+          '';
+        };
+
+        # "jellyfin.deamicis.top" = {
+        #   useACMEHost = "deamicis.top";
+        #   extraConfig = ''
+        #     reverse_proxy ${jellyfin.server.url}
+        #   '';
+        # };
+     };
     };
 
     security.acme = {
