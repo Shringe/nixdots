@@ -40,6 +40,8 @@
     ./monitors
     ./players
     ./drives
+    ./nginx
+    ./caddy
   ];
 
   options.nixosModules = {
