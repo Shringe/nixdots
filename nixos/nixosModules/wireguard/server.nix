@@ -8,7 +8,7 @@ in
     enable = mkEnableOption "wireguard hosting";
     port = mkOption {
       type = types.port;
-      default = 443;
+      default = 47000;
     };
 
     private_ip = mkOption {

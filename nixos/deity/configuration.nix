@@ -17,6 +17,10 @@
       ips.local = "192.168.0.165";
     };
 
+    caddy = {
+      enable = true;
+    };
+
     players.mpv.enable = true;
 
     monitors = {
