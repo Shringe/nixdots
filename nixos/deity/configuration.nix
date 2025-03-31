@@ -17,10 +17,6 @@
       ips.local = "192.168.0.165";
     };
 
-    nextcloud = {
-      enable = true;
-    };
-
     reverseProxy = {
       enable = true;
     };

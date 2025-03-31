@@ -36,6 +36,13 @@ in {
           '';
         };
 
+        "cloud.${cfg.domain}" = {
+          useACMEHost = cfg.domain;
+          extraConfig = ''
+            reverse_proxy = http://127.0.0.1:8082
+          '';
+        };
+
         # "jellyfin.${cfg.domain}" = {
         #   useACMEHost = "${cfg.domain}";
         #   extraConfig = ''
