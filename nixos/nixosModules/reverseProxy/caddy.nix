@@ -1,9 +1,10 @@
+
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.caddy;
+  cfg = config.nixosModules.reverseProxy.caddy;
 in {
-  options.nixosModules.caddy = {
+  options.nixosModules.reverseProxy.caddy = {
     enable = mkEnableOption "Caddy";
 
     domain = mkOption {
