@@ -1,10 +1,11 @@
+
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.caddy;
+  cfg = config.nixosModules.reverseProxy.nginx;
 in {
-  options.nixosModules.caddy = {
-    enable = mkEnableOption "Caddy";
+  options.nixosModules.reverseProxy.nginx = {
+    enable = mkEnableOption "Nginx";
 
     domain = mkOption {
       type = types.string;
@@ -13,26 +14,30 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
-    sops.secrets = {
-      "ssl/porkbun" = {};
-    };
-
-    services.caddy = {
+    services.nginx = {
       enable = true;
+
+      recommendedTlsSettings = true;
+      recommendedOptimisation = true;
+      recommendedProxySettings = true;
+
       virtualHosts = with config.nixosModules; {
         "files.${cfg.domain}" = {
           useACMEHost = cfg.domain;
-          extraConfig = ''
-            reverse_proxy ${filebrowser.url}
-          '';
+          onlySSL = true;
+
+          locations."/" = {
+            proxyPass = filebrowser.url;
+          };
         };
 
         "ssh.${cfg.domain}" = {
           useACMEHost = cfg.domain;
-          extraConfig = ''
-            reverse_proxy = ${info.system.ips.local}:${toString ssh.server.port}
-          '';
+          onlySSL = true;
+
+          locations."/" = {
+            proxyPass = "${info.system.ips.local}:${toString ssh.server.port}";
+          };
         };
 
         # "jellyfin.${cfg.domain}" = {
@@ -44,6 +49,6 @@ in {
      };
     };
 
-    users.users.caddy.extraGroups = [ "acme" ];
+    users.users.nginx.extraGroups = [ "acme" ];
   };
 }

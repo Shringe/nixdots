@@ -40,7 +40,9 @@
     ./monitors
     ./players
     ./drives
-    ./caddy
+    # ./caddy
+    ./nextcloud
+    ./reverseProxy
   ];
 
   options.nixosModules = {
