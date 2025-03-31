@@ -1,18 +1,21 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
+with lib;
 let
   cfg = config.homeManagerModules.gaming.mangohud;
 in
 {
-  programs.mangohud = lib.mkIf cfg.enable {
-    enable = true;
-    enableSessionWide = false;
+  config = mkIf cfg.enable {
+    programs.mangohud = {
+      enable = true;
+      enableSessionWide = false;
 
-    settings = {
-      preset = 3;
-
-      no_display = true;
-      wine = true;
-      toggle_hud = "Shift_L + F12";
+      settings = {
+        # preset = 4;
+        fps_value = "60,175";
+        full = true;
+        no_display = true;
+        toggle_hud = "Shift_L + F12";
+      };
     };
   };
 }

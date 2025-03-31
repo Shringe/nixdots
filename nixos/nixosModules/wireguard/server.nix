@@ -24,6 +24,22 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets."wireguard/server" = {};
+    environment.systemPackages = with pkgs; [
+      (writeShellApplication {
+        name = "wgnew";
+        runtimeInputs = [
+          bash
+          openssl
+          wireguard-tools
+        ];
+
+        text = ''
+          #!/usr/bin/env bash
+          preshared=$(openssl rand -base64 32)
+          echo "$preshared"
+        '';
+      })
+    ];
 
     networking = {
       nat = {
@@ -65,6 +81,10 @@ in
             publicKey = "D3qbFvDBUdQ1jJhvS2zUhiyi7hxikS4Y0PgLYUYkp3I=";
             allowedIPs = [ "${cfg.private_ip}.5/32" ];
           }
+          # { # Preshared my phone
+          #   publicKey = 
+          #   allowedIPs = [ "${cfg.private_ip}.6/32" ];
+          # }
         ];
       };
     };
