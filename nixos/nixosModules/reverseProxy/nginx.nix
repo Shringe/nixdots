@@ -40,6 +40,15 @@ in {
           };
         };
 
+        "cloud.${cfg.domain}" = {
+          useACMEHost = cfg.domain;
+          onlySSL = true;
+
+          locations."/" = {
+            proxyPass = "http://${config.nixosModules.nextcloud.host}:8082";
+          };
+        };
+
         # "jellyfin.${cfg.domain}" = {
         #   useACMEHost = "${cfg.domain}";
         #   extraConfig = ''

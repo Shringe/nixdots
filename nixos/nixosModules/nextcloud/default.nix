@@ -5,6 +5,11 @@ let
 in {
   options.nixosModules.nextcloud = {
     enable = mkEnableOption "Nextcloud hosting";
+
+    host = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -12,12 +17,26 @@ in {
       "nextcloud/passwords/admin" = {};
     };
 
+    users.users.nextcloud.extraGroups = ["users"];
+    services.nginx.virtualHosts."cloud.${config.nixosModules.reverseProxy.domain}".listen = [ { addr = cfg.host; port = 8082; } ];
+
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud29;
-      hostName = "localhost";
-      config.adminpassFile = config.sops.secrets."nextcloud/passwords/admin".path;
-      config.dbtype = "sqlite";
+      package = pkgs.nextcloud31;
+      hostName = "cloud.${config.nixosModules.reverseProxy.domain}";
+      database.createLocally = true;
+      # configureRedis = true;
+
+      config = {
+        adminuser = "nextcloud";
+        adminpassFile = config.sops.secrets."nextcloud/passwords/admin".path;
+        dbtype = "mysql";
+        config_is_read_only = true;
+      };
+
+      settings = {
+        trusted_proxies = [ cfg.host ];
+      };
     };
   };
 }
