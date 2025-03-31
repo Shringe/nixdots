@@ -6,12 +6,14 @@
   home.username = "shringed";
   home.homeDirectory = "/home/shringed";
 
+  nixpkgs.config.allowUnfree = true;
+
   homeManagerModules = {
     tooling.enable = true;
     theming.enable = true;
     nixvim.enable = true;
     desktop = {
-      # discord.enable = true;
+      discord.enable = true;
       kdeconnect.enable = true;
       music.enable = true;
       browsers.enable = true;
