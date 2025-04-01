@@ -21,8 +21,8 @@ in {
 
   config = mkIf cfg.enable {
     nixosModules.reverseProxy = {
-      nginx.enable = mkDefault true;
-      # caddy.enable = mkDefault true;
+      # nginx.enable = mkDefault true;
+      caddy.enable = mkDefault true;
       acme.enable = mkDefault true;
     };
   };

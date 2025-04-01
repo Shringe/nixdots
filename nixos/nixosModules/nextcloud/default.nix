@@ -31,7 +31,7 @@ in {
         adminuser = "nextcloud";
         adminpassFile = config.sops.secrets."nextcloud/passwords/admin".path;
         dbtype = "mysql";
-        config_is_read_only = true;
+        # config_is_read_only = true;
       };
 
       settings = {

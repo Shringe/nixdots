@@ -86,6 +86,13 @@ in {
               icon = "/icons/${icon}";
             };
           }
+          {
+            "Radicale" = with caldav.radicale; {
+              description = description;
+              href = url;
+              icon = "/icons/${icon}";
+            };
+          }
         ];}
 
         { "Server Health" = [
