@@ -39,10 +39,11 @@
     ./caldav
     ./monitors
     ./players
-    ./drives
     # ./caddy
     ./nextcloud
     ./reverseProxy
+    ./drives
+    ./album
   ];
 
   options.nixosModules = {
