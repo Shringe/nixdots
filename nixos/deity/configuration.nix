@@ -27,7 +27,7 @@
       gatus.enable = true;
     };
 
-    # caldav.enable = true;
+    caldav.enable = true;
 
     shell = {
       atuin.server.enable = true;

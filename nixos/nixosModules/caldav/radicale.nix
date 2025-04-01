@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.caldav.radicale;
@@ -13,7 +13,7 @@ in {
 
     port = mkOption {
       type = types.port;
-      default =  47220;
+      default = 47220;
     };
 
     description = mkOption {
@@ -25,11 +25,22 @@ in {
       type = types.string;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
+
+    icon = mkOption {
+      type = types.string;
+      default = "radicale.svg";
+    };
   };
 
   config = mkIf cfg.enable {
-    # sops.secrets."caldav/radicale/server" = {};
+    sops.secrets."radicale/users" = {
+      owner = config.users.users.radicale.name;
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
+    environment.systemPackages = with pkgs; [
+      apacheHttpd
+    ];
 
     services.radicale = {
       enable = true;
@@ -38,14 +49,34 @@ in {
           hosts = [ "${cfg.ip}:${toString cfg.port}" ];
         };
 
-        # auth = {
-        #   type = "htpasswd";
-        #   # htpasswd_filename = config.sops.secrets."caldav/radicale/server".path;
-        #   # htpasswd_filename = "/tmp/radicale";
-        #   # htpasswd_filename = "/etc/radicale/users";
-        #   htpasswd_encryption = "bcrypt";
-        # };
+        auth = {
+          type = "htpasswd";
+          # sudo -u radicale htpasswd -bB /var/lib/radicale/users <username> <newpassword>
+          htpasswd_filename = config.sops.secrets."radicale/users".path;
+          htpasswd_encryption = "bcrypt";
+        };
+
+        storage.filesystem_folder = "/var/lib/radicale/collections";
+
+        web = {                                                                                            
+          type = "radicale_infcloud";
+          # The weird spacing here is on purpose to hack the INI formatter...
+          infcloud_config = ''
+            globalInterfaceLanguage = "en_US";
+                            globalTimeZone = "America/Chicago";
+          '';                                         
+        };          
       };
     };
+
+    systemd.services.radicale.environment.PYTHONPATH = 
+      let    
+        python = pkgs.python3.withPackages (ps: with ps; [
+          radicale_infcloud
+          pytz                                                                                             
+          setuptools  
+        ]);
+      in
+      "${python}/${pkgs.python3.sitePackages}";
   };
 }
