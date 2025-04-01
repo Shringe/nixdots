@@ -8,7 +8,7 @@ in {
 
     port = mkOption {
       type = types.port;
-      default = 5253;
+      default = 22;
     };
 
     enableFail2ban = mkEnableOption "Fail2ban SSH";
