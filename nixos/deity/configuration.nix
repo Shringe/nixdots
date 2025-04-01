@@ -17,6 +17,8 @@
       ips.local = "192.168.0.165";
     };
 
+    album.immich.enable = true;
+
     reverseProxy = {
       enable = true;
     };

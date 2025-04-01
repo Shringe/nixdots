@@ -93,6 +93,13 @@ in {
               icon = "/icons/${icon}";
             };
           }
+          {
+            "Immich" = with album.immich; {
+              description = description;
+              href = url;
+              icon = "/icons/${icon}";
+            };
+          }
         ];}
 
         { "Server Health" = [
