@@ -78,6 +78,16 @@ in {
       ];
  
       services = with config.nixosModules; [
+        { "Social" = [
+          {
+            "Ollama" = with llm.ollama.webui; { 
+              description = description;
+              href = url;
+              icon = "/icons/${icon}";
+            };
+          }
+        ];}
+
         { "Files and Documents" = [
           {
             "File Browser" = with filebrowser; { 
