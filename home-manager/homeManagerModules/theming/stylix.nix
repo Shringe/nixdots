@@ -18,6 +18,7 @@ in
         nixvim.enable = false;
         mangohud.enable = false;
         firefox.profileNames = [ "default" ];
+        kde.enable = false;
       };
 
       fonts = {

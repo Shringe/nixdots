@@ -39,7 +39,7 @@ in {
 
     icon = mkOption {
       type = types.string;
-      # default = ../themes/icons/adguard-home.svg;
+      # default = "adguard-home.svg";
       default = "apps-adguard.svg";
     };
   };

@@ -11,6 +11,21 @@ in {
       default = false;
     };
 
+    host = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
+    port = mkOption {
+      type = types.port;
+      default = 47300;
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.host}:${toString cfg.port}";
+    };
+
     webui = {
       enable = mkEnableOption "Web frontend";
 
@@ -21,7 +36,22 @@ in {
 
       port = mkOption {
         type = types.port;
-        default = 47300;
+        default = 47320;
+      };
+
+      description = mkOption {
+        type = types.string;
+        default = "Local LLMs";
+      };
+
+      icon = mkOption {
+        type = types.string;
+        default = "ollama.svg";
+      };
+
+      url = mkOption {
+        type = types.string;
+        default = "http://${cfg.webui.host}:${toString cfg.webui.port}";
       };
     };
   };
@@ -31,15 +61,19 @@ in {
       ollama = {
         enable = true;
         openFirewall = true;
+        host = cfg.host;
+        port = cfg.port;
+
         acceleration = mkIf cfg.enableCuda "cuda";
 
-        loadModels = [ "llama3.1" ];
+        loadModels = [ "llama3.1" "qwen2.5-coder" "codellama" "qwen2.5-coder:14b" "gemma3" "deepseek-r1" ];
       };
 
       nextjs-ollama-llm-ui = mkIf cfg.webui.enable {
         enable = true;
         hostname = cfg.webui.host;
         port = cfg.webui.port;
+        ollamaUrl = cfg.url;
       };
     };
 
