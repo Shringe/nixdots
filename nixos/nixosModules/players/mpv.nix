@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstablePkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.players.mpv;
@@ -9,7 +9,7 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      mpv
+      unstablePkgs.mpv
     ];
   };
 }

@@ -1,9 +1,9 @@
 {
-  description = "First flake";
+  description = "Master flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 	
@@ -50,7 +50,7 @@
   outputs = { self, nixpkgs, nixpkgs-stable, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
+      unstablePkgs = import nixpkgs {
         inherit system;
 
         overlays = [
@@ -69,37 +69,43 @@
         ];
 
         config.allowUnfree = true;
-        config.allowBroken = true;
-        # config.allowUnfreePredicate = true;
+        # config.allowBroken = true;
       };
-      pkgs-stable = import nixpkgs-stable {
+
+      stablePkgs = import nixpkgs-stable {
         inherit system;
+        config.allowUnfree = true;
       };
+
+      # Default pkgs
+      pkgs = unstablePkgs;
     in {
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
       };
-      nixosConfigurations = {
-        deity = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system inputs pkgs; };
+
+      nixosConfigurations = with nixpkgs.lib; {
+        deity = nixosSystem {
+          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs; };
           modules = [ 
             ./nixos/deity/configuration.nix 
             ./nixos/nixosModules
           ];
         };
 
-        luminum = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit system inputs pkgs; };
+        luminum = nixosSystem {
+          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs; };
           modules = [ 
             ./nixos/luminum/configuration.nix 
             ./nixos/nixosModules
           ];
         };
       };
-      homeConfigurations = {
-        shringed = inputs.home-manager.lib.homeManagerConfiguration {
+
+      homeConfigurations = with inputs.home-manager.lib; {
+        shringed = homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs pkgs-stable; };
+          extraSpecialArgs = { inherit inputs stablePkgs unstablePkgs; };
           modules = [ 
             ./home-manager/shringed/home.nix 
             ./home-manager/homeManagerModules
@@ -107,9 +113,9 @@
           ];
         };
 
-        shringe = inputs.home-manager.lib.homeManagerConfiguration {
+        shringe = homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs pkgs-stable; };
+          extraSpecialArgs = { inherit inputs stablePkgs unstablePkgs; };
           modules = [ 
             ./home-manager/shringe/home.nix 
             ./home-manager/homeManagerModules

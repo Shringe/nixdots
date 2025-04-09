@@ -13,7 +13,7 @@ in
 
     wayland-protocols
     waybar
-    kdeconnect
+    plasma5Packages.kdeconnect-kde
   ];
 
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {

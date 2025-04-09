@@ -101,7 +101,7 @@
 
     llm = {
       ollama = {
-        # enable = true;
+        enable = true;
         enableCuda = true;
         webui.enable =true;
       };
