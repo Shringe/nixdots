@@ -76,6 +76,7 @@
       windowManagers = {
         enable = lib.mkEnableOption "Preferred window manager";
         qtile.enable = lib.mkEnableOption "qtile";
+        sway.enable = lib.mkEnableOption "sway";
         hyprland = {
           enable = lib.mkEnableOption "Hyprland configuration";
           hyprpaper.enable = lib.mkEnableOption "hyprpaper configuration";

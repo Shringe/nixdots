@@ -101,14 +101,14 @@
 
     llm = {
       ollama = {
-        enable = true;
+        # enable = true;
         enableCuda = true;
         webui.enable =true;
       };
 
       gpt4all = {
-        enable = true;
-        cuda = true;
+        # enable = true;
+        # cuda = true;
       };
     };
 
@@ -118,6 +118,7 @@
       windowManagers = {
         qtile.enable = true;
         hyprland.enable = true;
+        sway.enable = true;
       };
     };
 

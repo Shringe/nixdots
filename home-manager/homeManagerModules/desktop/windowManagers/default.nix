@@ -2,5 +2,6 @@
   imports = [
     ./qtile
     ./hyprland
+    ./sway
   ];
 }

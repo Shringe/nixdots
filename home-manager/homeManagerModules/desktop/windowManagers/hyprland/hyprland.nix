@@ -12,6 +12,8 @@ in
     blueman
 
     wayland-protocols
+    waybar
+    kdeconnect
   ];
 
   wayland.windowManager.hyprland = lib.mkIf cfg.enable {
@@ -35,6 +37,7 @@ in
         # "hypridle"
         "systemctl --user start hyprpolkitagent"
         "waybar"
+        "kdeconnect-indicator"
      ];
 
       # Mouse

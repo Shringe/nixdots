@@ -24,6 +24,7 @@
         enable = true;
         qtile.enable = true;
         hyprland.enable = true;
+        sway.enable = true;
       };
       email.enable = true;
     };

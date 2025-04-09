@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs-stable, ... }:
 with lib;
 let
   cfg = config.nixosModules.llm.ollama;
@@ -63,6 +63,7 @@ in {
         openFirewall = true;
         host = cfg.host;
         port = cfg.port;
+        # package = pkgs-stable.ollama;
 
         acceleration = mkIf cfg.enableCuda "cuda";
 
