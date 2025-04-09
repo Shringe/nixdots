@@ -9,7 +9,7 @@ in
   ];
 
   services.hypridle = lib.mkIf cfg.enable {
-    enable = true;
+    # enable = true;
 
     settings = {
       general = {

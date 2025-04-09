@@ -4,7 +4,7 @@ let
 in
 {
   programs.waybar = lib.mkIf cfg.enable {
-    enable = true;
+    # enable = true;
     
     settings.primary = {
       layer = "top";
