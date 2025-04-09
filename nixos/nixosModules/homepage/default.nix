@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, stablePkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.homepage;
 
-  fixedPaths = pkgs.homepage-dashboard.overrideAttrs (oldAttrs: {
+  fixedPaths = stablePkgs.homepage-dashboard.overrideAttrs (oldAttrs: {
     postInstall = ''
       mkdir -p $out/share/homepage/public/images
       ln -s ${cfg.wallpaper} $out/share/homepage/public/images/wallpaper.png

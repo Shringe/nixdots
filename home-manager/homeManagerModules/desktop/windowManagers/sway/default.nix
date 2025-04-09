@@ -7,7 +7,7 @@ in {
     homeManagerModules.desktop.terminals.alacritty.enable = mkDefault true;
 
     home.packages = with pkgs; [
-      kdeconnect
+     plasma5Packages.kdeconnect-kde
     ];
 
     wayland.windowManager.sway = {

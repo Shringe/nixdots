@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, unstablePkgs, ... }:
   let
     lock-false = {
       Value = false;
@@ -11,25 +11,25 @@
   in
 {
   config = lib.mkIf config.homeManagerModules.desktop.browsers.firefox.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "languagetool"
-      ];
     programs.firefox =  {
       enable = true;
       languagePacks = [ "en-US" ];
       profiles.default = {
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          ublock-origin
-          vimium
-          canvasblocker
-          privacy-badger
-          return-youtube-dislikes
-          bitwarden
-          new-tab-override
+        extensions = {
+          packages = with unstablePkgs.nur.repos.rycee.firefox-addons; [
+            ublock-origin
+            vimium
+            canvasblocker
+            privacy-badger
+            return-youtube-dislikes
+            bitwarden
+            new-tab-override
+            darkreader
+            youtube-shorts-block
+            languagetool
+          ];
+        };
 
-          languagetool
-        ];
         search = {
           force = true;
           default = "SearBe";

@@ -1,4 +1,4 @@
-{ config, lib, pkgs,... }:
+{ config, lib, pkgs, unstablePkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.drivers.nvidia;
@@ -32,7 +32,7 @@ in
 
     # Once the package gets merged into nixpkgs
     environment.systemPackages = [
-      pkgs.nvidia_oc
+      unstablePkgs.nvidia_oc
       pkgs.steam-run
     ];
 
@@ -41,7 +41,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.steam-run}/bin/steam-run ${pkgs.nvidia_oc}/bin/nvidia_oc set --index 0 --power-limit 242000 --freq-offset 115 --mem-offset 2600";
+        ExecStart = "${pkgs.steam-run}/bin/steam-run ${unstablePkgs.nvidia_oc}/bin/nvidia_oc set --index 0 --power-limit 242000 --freq-offset 115 --mem-offset 2600";
         User = "root";
         Restart = "on-failure";
       };

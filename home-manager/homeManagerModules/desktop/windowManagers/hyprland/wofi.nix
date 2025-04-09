@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstablePkgs, ... }:
 let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.wofi;
 in
@@ -7,7 +7,7 @@ in
 
   home.packages = with pkgs; lib.mkIf cfg.enable [
     wofi-emoji
-    wofi-power-menu
+    unstablePkgs.wofi-power-menu
   ];
 
   programs.wofi = lib.mkIf cfg.enable {

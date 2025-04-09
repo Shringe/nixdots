@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, unstablePkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.arrs.lidarr;
@@ -49,6 +49,7 @@ in {
       enable = true;
       user = "lidarr";
       group = "lidarr";
+
       settings = {
         server.port = cfg.port;
       };
