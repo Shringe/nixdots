@@ -1,0 +1,21 @@
+[menu.shutdown]
+cmd = "poweroff"
+
+[menu.reboot]
+cmd = "reboot"
+
+[menu.suspend]
+enabled = "false"
+
+[menu.hibernate]
+title = "Hibernar"
+enabled = "false"
+
+[menu.logout]
+title = "logout"
+cmd = "swaymsg exit"
+
+[menu.lock-screen]
+title = "Bloquear pantalla"
+requires_confirmation = "false"
+enabled = "false"

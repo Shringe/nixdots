@@ -16,6 +16,9 @@
       source = ./dunst;
       recursive = true;
     };
+    "wofi-power-menu" = {
+      source = ./wofi-power-menu;
+    };
   };
 
   # home.file = {
