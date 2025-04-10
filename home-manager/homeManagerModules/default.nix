@@ -24,7 +24,8 @@
 
       wallpaper = lib.mkOption {
         type = lib.types.str;
-        default = "catppuccin_tux_3840x2160.png";
+        # default = "catppuccin_tux_3840x2160.png";
+        default = "grassmastersword_3440x1440.png";
       };
 
       stylix = {
@@ -76,7 +77,6 @@
       windowManagers = {
         enable = lib.mkEnableOption "Preferred window manager";
         qtile.enable = lib.mkEnableOption "qtile";
-        sway.enable = lib.mkEnableOption "sway";
         hyprland = {
           enable = lib.mkEnableOption "Hyprland configuration";
           hyprpaper.enable = lib.mkEnableOption "hyprpaper configuration";
