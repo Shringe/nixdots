@@ -33,6 +33,7 @@
         colorScheme = lib.mkOption {
           type = lib.types.str;
           default = "catppuccin-mocha";
+          # default = "everforest";
           description = "What .yaml theme to use.";
         };
       };
