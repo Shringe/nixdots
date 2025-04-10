@@ -6,6 +6,7 @@ let
 in {
   imports = [
     ./waybar.nix
+    ./swaylogout.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.sway = {
@@ -32,10 +33,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    homeManagerModules.desktop.terminals.alacritty.enable = mkDefault true;
+    homeManagerModules.desktop = {
+      terminals.alacritty.enable = mkDefault true;
+
+      windowManagers.sway = {
+        waybar.enable = mkDefault true;
+        # swaylogout.enable = mkDefault true;
+      };
+    };
 
     home.packages = with pkgs; [
-     plasma5Packages.kdeconnect-kde
+      plasma5Packages.kdeconnect-kde
+      wofi-power-menu
     ];
 
     home.sessionVariables = {
@@ -88,7 +97,7 @@ in {
           "${mod}+Return" = "exec ${terminal}";
           "${mod}+s" = "exec ${menu}";
           "${mod}+r" = "exec firefox";
-          "${mod}+x" = "exec wofi-power-menu";
+          "${mod}+x" = "exec wofi-power-menu --config ~/.config/wofi-power-menu/sway.toml";
           "${mod}+c" = "exec wofi-emoji";
           "${mod}+d" = "exec cliphist list | wofi --dmenu | cliphist decode | wl-copy";
 
