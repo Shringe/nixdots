@@ -52,8 +52,8 @@ in {
         menu = "wofi --show drun";
 
         left = "n";
-        up = "e";
-        down = "i";
+        down = "e";
+        up = "i";
         right = "o";
 
         # # As to not override all default keybindings
@@ -157,8 +157,6 @@ in {
         };
 
         startup = [
-          # Launch Firefox on start
-          { command = "firefox"; }
           { command = "waybar"; }
           { command = "kdeconnect-indicator"; }
         ];
@@ -176,6 +174,15 @@ in {
         window = {
           titlebar = false;
           border = cfg.proportions.border;
+        };
+
+        floating = {
+          titlebar = false;
+          criteria = [
+            { window_role = "pop-up"; }
+            { window_role = "About"; }
+            { title = "MainPicker"; }
+          ];
         };
 
         input = {
