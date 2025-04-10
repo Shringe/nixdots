@@ -14,11 +14,15 @@ in
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${config.homeManagerModules.theming.stylix.colorScheme}.yaml";
       image = ./wallpapers/${config.homeManagerModules.theming.wallpaper};
 
+      # Skews auto-generated themes
+      polarity = "dark";
+
       targets = {
         nixvim.enable = false;
         mangohud.enable = false;
         firefox.profileNames = [ "default" ];
-        kde.enable = false;
+        kde.enable = true;
+        qt.enable = true;
       };
 
       fonts = {
