@@ -1,11 +1,23 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.homeManagerModules.desktop.windowManagers.sway.waybar;
-in
-{
-  options.homeManagerModules.desktop.windowManagers.sway.waybar = {
-    enable = mkEnableOption "sway waybar";
+  cfg = config.homeManagerModules.desktop.windowManagers.utils.waybar.matte;
+
+  # color definitions
+  active     = config.lib.stylix.colors.base0D;
+  highlight  = config.lib.stylix.colors.base07;
+  text       = config.lib.stylix.colors.base05;
+  # text       = config.lib.stylix.colors.base07;
+  background = config.lib.stylix.colors.base00;
+  widget     = config.lib.stylix.colors.base02;
+in {
+  options.homeManagerModules.desktop.windowManagers.utils.waybar.matte = {
+    enable = mkEnableOption "Sleek waybar config";
+
+    wm = mkOption {
+      type = types.string;
+      default = config.homeManagerModules.desktop.windowManagers.utils.waybar.wm;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -15,22 +27,23 @@ in
       settings.primary = {
         layer = "top";
         position = "top";
-        height = 22;
+        height = 24;
 
         modules-left = [ 
           "battery" 
           "cpu" 
           "memory" 
           "privacy"
-          "sway/window"
+          "${cfg.wm}/window"
         ];
 
         modules-center = [ 
-          "sway/workspaces" 
+          "${cfg.wm}/workspaces" 
         ];
 
         modules-right = [ 
           "tray" 
+          # "cava"
           "custom/hyprsunset"
           "pulseaudio" 
           "network" 
@@ -38,12 +51,34 @@ in
           "clock" 
         ];
 
-        "sway/workspaces" = {
+        "cava" = {
+          framerate = 30;
+          autosens = 1;
+          sensitivity = 50;
+          bars = 14;
+          lower_cutoff_freq = 50;
+          higher_cutoff_freq = 10000;
+          method = "pulse";
+          source = "auto";
+          stereo = true;
+          reverse = false;
+          bar_delimiter = 0;
+          monstercat = false;
+          waves = false;
+          noise_reduction = 0.77;
+          input_delay = 2;
+          format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+          actions = {
+            on-click-right = "mode";
+          };
+        };
+
+        "${cfg.wm}/workspaces" = {
           disable-scroll = true;
           all-outputs = false;
         };
 
-        # "sway/workspaces" = {
+        # "${cfg.wm}/workspaces" = {
         #   disable-scroll = true;
         #   all-outputs = false;
         #   format = "{icon}";
@@ -60,7 +95,7 @@ in
         #   };
         # };
 
-        "sway/window" = {
+        "${cfg.wm}/window" = {
           icon = true;
         };
 
@@ -78,10 +113,10 @@ in
             dnd-inhibited-none = "";
           };
           return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "swaync-client -t -sw";
-          on-click-right = "swaync-client -d -sw";
+          exec-if = "which ${cfg.wm}nc-client";
+          exec = "${cfg.wm}nc-client -swb";
+          on-click = "${cfg.wm}nc-client -t -sw";
+          on-click-right = "${cfg.wm}nc-client -d -sw";
           escape = true;
         };
 
@@ -161,13 +196,13 @@ in
         }
 
         window#waybar {
-            background: #${config.lib.stylix.colors.base00};
-            color: #${config.lib.stylix.colors.base05};
+            background: #${background};
+            color: #${text};
         }
 
         #window {
             font-weight: bold;
-            color: #${config.lib.stylix.colors.base05};
+            color: #${text};
         }
         /*
         #workspaces {
@@ -176,41 +211,40 @@ in
 
         #workspaces button {
             padding: 0 5px;
-            color: #${config.lib.stylix.colors.base03};
+            color: #${widget};
         }
 
         #workspaces button.focused {
-            color: #${config.lib.stylix.colors.base0E};
+            color: #${text};
         }
 
         #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset {
             padding: 0 3px;
-            color: #${config.lib.stylix.colors.base05};
+            background: #${widget};
+            color: #${text};
             margin: 0 2px;
 
             font-weight: bold;
         }
 
         #custom-notification {
-            background: #${config.lib.stylix.colors.base07};
-            color: #${config.lib.stylix.colors.base01};
         }
 
         #custom-hyprsunset {
-
+            margin: 0 0px;
         }
 
         #clock {
             font-weight: bold;
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base06};
+            color: #${text};
+            background: #${widget};
         }
 
         #battery {
         }
 
         #battery icon {
-            color: #${config.lib.stylix.colors.base08};
+            color: #${widget};
         }
 
         #battery.charging {
@@ -224,7 +258,7 @@ in
         }
 
         #battery.warning:not(.charging) {
-            color: #${config.lib.stylix.colors.base05};
+            color: #${text};
             animation-name: blink;
             animation-duration: 0.5s;
             animation-timing-function: linear;
@@ -233,36 +267,25 @@ in
         }
 
         #cpu {
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base08};
         }
 
         #memory {
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base09};
         }
 
         #network {
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base0C};
         }
 
         #network.disconnected {
-            background: #${config.lib.stylix.colors.base0A};
-            color: #${config.lib.stylix.colors.base01};
         }
 
         #pulseaudio {
-            background: #${config.lib.stylix.colors.base0B};
-            color: #${config.lib.stylix.colors.base01};
         }
 
         #pulseaudio.muted {
-            background: #${config.lib.stylix.colors.base0A};
-            color: #${config.lib.stylix.colors.base01};
         }
 
         #tray {
+            margin: 0 0px;
         }
       '';
     };
