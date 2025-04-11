@@ -5,7 +5,6 @@ let
   mod = config.wayland.windowManager.sway.config.modifier;
 in {
   imports = [
-    ./waybar.nix
     ./swaylogout.nix
   ];
 
@@ -36,8 +35,10 @@ in {
     homeManagerModules.desktop = {
       terminals.alacritty.enable = mkDefault true;
 
-      windowManagers.sway = {
-        waybar.enable = mkDefault true;
+      windowManagers.utils = {
+        waybar.colorful.enable = mkDefault true;
+        # waybar.matte.enable = mkDefault true;
+
         # swaylogout.enable = mkDefault true;
       };
     };
@@ -73,6 +74,13 @@ in {
         #   "floating_modifier ${mod}" = "normal";
         #   "bindsym ${mod}+Shift+c" = "reload";
         # };
+
+        startup = [
+          { command = "waybar"; }
+          { command = "kdeconnect-indicator"; }
+          { command = "wl-paste --type text --watch cliphist store"; }
+          { command = "wl-paste --type image --watch cliphist store"; }
+        ];
 
         bars = [];
 
@@ -164,11 +172,6 @@ in {
           # Resize mode
           "${mod}+f" = "mode resize";
         };
-
-        startup = [
-          { command = "waybar"; }
-          { command = "kdeconnect-indicator"; }
-        ];
 
         gaps = {
           # bottom = cfg.proportions.gaps;

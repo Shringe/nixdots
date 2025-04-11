@@ -26,7 +26,6 @@
         hyprland.enable = true;
         hyprland.waybar.enable = false;
         sway.enable = true;
-        sway.waybar.enable = true;
       };
       email.enable = true;
     };
