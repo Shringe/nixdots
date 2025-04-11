@@ -225,7 +225,13 @@ in
         }
 
         #custom-hyprsunset {
+          margin: 0 0px;
+          padding: 0 4px;
+        }
 
+        #tray {
+          margin: 0 0px;
+          padding: 0 0px;
         }
 
         #clock {
@@ -288,9 +294,6 @@ in
         #pulseaudio.muted {
             background: #${config.lib.stylix.colors.base0A};
             color: #${config.lib.stylix.colors.base01};
-        }
-
-        #tray {
         }
       '';
     };
