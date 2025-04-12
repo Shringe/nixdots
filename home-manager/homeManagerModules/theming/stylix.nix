@@ -12,7 +12,7 @@ in
       enable = true;
 
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${config.homeManagerModules.theming.stylix.colorScheme}.yaml";
-      image = ./wallpapers/${config.homeManagerModules.theming.wallpaper};
+      image = ./../../../assets/wallpapers/${config.homeManagerModules.theming.wallpaper};
 
       # Skews auto-generated themes
       polarity = "dark";

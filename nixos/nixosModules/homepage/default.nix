@@ -7,7 +7,7 @@ let
     postInstall = ''
       mkdir -p $out/share/homepage/public/images
       ln -s ${cfg.wallpaper} $out/share/homepage/public/images/wallpaper.png
-      ln -s ${../themes/icons} $out/share/homepage/public/icons
+      ln -s ${../../../assets/icons} $out/share/homepage/public/icons
     '';
   });
 in {
@@ -21,7 +21,7 @@ in {
 
     wallpaper = mkOption {
       type = types.path;
-      default = ../themes/wallpapers/TerribleFate.png;
+      default = ../../../assets/wallpapers/TerribleFate.png;
     };
   };
 
