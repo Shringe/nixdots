@@ -36,34 +36,42 @@ in
 
         modules-right = [ 
           "tray" 
-          # "cava"
           "custom/hyprsunset"
+          "cava"
           "pulseaudio" 
           "network" 
           "custom/notification"
           "clock" 
         ];
 
+        "privacy" = {
+          modules = [
+            { type = "screenshare"; }
+            # { type = "audio-in"; } Disabled because it constantly detects the monitoring of the cava widget
+          ];
+        };
+
         "cava" = {
           framerate = 30;
           autosens = 1;
-          sensitivity = 50;
-          bars = 14;
-          lower_cutoff_freq = 50;
-          higher_cutoff_freq = 10000;
-          method = "pulse";
+          # sensitivity = 50;
+          bars = 12;
+          # lower_cutoff_freq = 50;
+          # higher_cutoff_freq = 10000;
+          # method = "pulse";
+          method = "pipewire";
           source = "auto";
           stereo = true;
           reverse = false;
           bar_delimiter = 0;
-          monstercat = false;
-          waves = false;
-          noise_reduction = 0.77;
-          input_delay = 2;
+          # monstercat = true;
+          # waves = false;
+          # noise_reduction = 0.77;
+          # input_delay = 2;
           format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
-          actions = {
-            on-click-right = "mode";
-          };
+          # actions = {
+          #   on-click-right = "mode";
+          # };
         };
 
         "${cfg.wm}/workspaces" = {
@@ -286,9 +294,19 @@ in
             color: #${config.lib.stylix.colors.base01};
         }
 
-        #pulseaudio {
+        #pulseaudio, #cava {
             background: #${config.lib.stylix.colors.base0B};
             color: #${config.lib.stylix.colors.base01};
+        }
+
+        #pulseaudio {
+            ; margin: 0 2px;
+            ; padding: 0 3px;
+        }
+
+        #cava {
+            margin: 0 0px;
+            ; padding: 0 3px;
         }
 
         #pulseaudio.muted {
