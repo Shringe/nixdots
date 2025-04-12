@@ -110,6 +110,7 @@ with lib;
 
       loaders = {
         systemd-boot.enable = mkEnableOption "systemd-boot";
+        grub.enable = mkEnableOption "grub";
       };
 
       displayManagers = {
@@ -201,8 +202,8 @@ with lib;
     };
 
     boot = mkIf config.nixosModules.boot.enable {
-      loaders.systemd-boot.enable = mkDefault true;
-      # displayManagers.ly.enable = mkDefault true;
+      loaders.grub.enable = mkDefault true;
+      loaders.systemd-boot.enable = mkDefault false;
       displayManagers.lightdm.enable = mkDefault true;
     };
 

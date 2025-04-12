@@ -10,7 +10,7 @@ in {
       greeters.slick = {
         enable = true;
         extraConfig = ''
-          clock-format=" {:%a %d %b  %I:%M %p}"
+          clock-format="%a %d %b %I:%M %p"
         '';
       };
     };
