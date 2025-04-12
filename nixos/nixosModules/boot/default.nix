@@ -1,5 +1,6 @@
 {
   imports = [
-    ./systemd-boot.nix
+    ./loaders
+    ./displayManagers
   ];
 }

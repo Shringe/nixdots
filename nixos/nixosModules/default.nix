@@ -1,4 +1,5 @@
-{ config, lib, ... }:
+{ config,  lib, ... }:
+with lib;
 {
   imports = [
     ./kanata
@@ -48,154 +49,179 @@
 
   options.nixosModules = {
     docker = {
-      enable = lib.mkEnableOption "Docker configuration";
+      enable = mkEnableOption "Docker configuration";
       automaticrippingmachine = {
-        enable = lib.mkEnableOption "automaticrippingmachine";
-        port = lib.mkOption {
-          type = lib.types.port;
+        enable = mkEnableOption "automaticrippingmachine";
+        port = mkOption {
+          type = types.port;
           default = 8080;
         };
       };
     };
 
     vpn = {
-      enable = lib.mkEnableOption "Preferred vpn";
-      nordvpn.enable = lib.mkEnableOption "nordvpn";
+      enable = mkEnableOption "Preferred vpn";
+      nordvpn.enable = mkEnableOption "nordvpn";
     };
 
     firewall = {
-      enable = lib.mkEnableOption "Enables firewall";
-      kdeconnect.enable = lib.mkEnableOption "Enables kdeconnect firewall ports";
-      yuzu.enable = lib.mkEnableOption "Enables yuzu LAN firewall ports";
+      enable = mkEnableOption "Enables firewall";
+      kdeconnect.enable = mkEnableOption "Enables kdeconnect firewall ports";
+      yuzu.enable = mkEnableOption "Enables yuzu LAN firewall ports";
     };
 
     bluetooth = {
-      enable = lib.mkEnableOption "Bluetooth configuration";
+      enable = mkEnableOption "Bluetooth configuration";
     };
 
     printing = {
-      enable = lib.mkEnableOption "Printer configuration";
+      enable = mkEnableOption "Printer configuration";
     };
 
-    themes = {
-      enable = lib.mkEnableOption "Nixos theming";
-      stylix.enable = lib.mkEnableOption "Stylix theming";
+    theming = {
+      enable = lib.mkEnableOption "enable theming";
+
+      wallpaper = lib.mkOption {
+        type = lib.types.str;
+        # default = "catppuccin_tux_3840x2160.png";
+        default = "grassmastersword_3440x1440.png";
+      };
+
+      stylix = {
+        enable = lib.mkEnableOption "Enable theming with stylix";
+        colorScheme = lib.mkOption {
+          type = lib.types.str;
+          default = "catppuccin-mocha";
+          # default = "everforest";
+          description = "What .yaml theme to use.";
+        };
+      };
     };
 
     llm = {
       gpt4all = {
-        enable = lib.mkEnableOption "Default gpt4all";
-        cuda = lib.mkEnableOption "Use Cuda";
+        enable = mkEnableOption "Default gpt4all";
+        cuda = mkEnableOption "Use Cuda";
       };
     };
 
     boot = {
-      enable = lib.mkEnableOption "Default boot configuration";
-      systemd-boot.enable = lib.mkEnableOption "systemd-boot";
+      enable = mkEnableOption "Default boot configuration";
+
+      loaders = {
+        systemd-boot.enable = mkEnableOption "systemd-boot";
+      };
+
+      displayManagers = {
+        ly.enable = mkEnableOption "Ly";
+        lightdm.enable = mkEnableOption "Ly";
+      };
     };
 
     openrgb = {
-      enable = lib.mkEnableOption "OpenRGB";
+      enable = mkEnableOption "OpenRGB";
     };
 
     drivers = {
-      nvidia.enable = lib.mkEnableOption "Nvidia drivers";
+      nvidia.enable = mkEnableOption "Nvidia drivers";
     };
 
     mouse = {
-      main.enable = lib.mkEnableOption "Proper mouse settings.";
+      main.enable = mkEnableOption "Proper mouse settings.";
     };
 
     users = {
-      shringe.enable = lib.mkEnableOption "Laptop user";
-      shringed.enable = lib.mkEnableOption "Desktop user";
+      shringe.enable = mkEnableOption "Laptop user";
+      shringed.enable = mkEnableOption "Desktop user";
     };
 
     desktop = {
       windowManagers = {
-        qtile.enable = lib.mkEnableOption "Qtile dependencies";
-        hyprland.enable = lib.mkEnableOption "hyprland setup";
+        qtile.enable = mkEnableOption "Qtile dependencies";
+        hyprland.enable = mkEnableOption "hyprland setup";
       };
     };
 
     kanata = {
-      enable = lib.mkEnableOption "Enables full kanata keyboard configuration";
-      variant = lib.mkOption {
-        type = lib.types.str;
+      enable = mkEnableOption "Enables full kanata keyboard configuration";
+      variant = mkOption {
+        type = types.str;
         default = "main";
         description = "What .kbd file to use. Options can be found in ./kanata/";
       };
     };
 
     wireless = {
-      enable = lib.mkEnableOption "Enables wireless connections";
+      enable = mkEnableOption "Enables wireless connections";
       fixes = {
-        unblockWlan.enable = lib.mkEnableOption "Automatically unblocks wlan on startup";
+        unblockWlan.enable = mkEnableOption "Automatically unblocks wlan on startup";
       };
     };
 
     battery = {
-      enable = lib.mkEnableOption "Enables default battey conscience power management";
-      tooling.enable = lib.mkEnableOption "Enables tooling.";
-      powerManagement.enable = lib.mkEnableOption "Enables power conservation";
+      enable = mkEnableOption "Enables default battey conscience power management";
+      tooling.enable = mkEnableOption "Enables tooling.";
+      powerManagement.enable = mkEnableOption "Enables power conservation";
     };
 
     gaming = {
-      tooling.enable = lib.mkEnableOption "Extra tooling";
+      tooling.enable = mkEnableOption "Extra tooling";
 
       emulators = {
         switch = {
-          enable = lib.mkEnableOption "Switch emulator";
-          torzu.enable = lib.mkEnableOption "A switch emulator";
+          enable = mkEnableOption "Switch emulator";
+          torzu.enable = mkEnableOption "A switch emulator";
         };
       };
 
       optimizations = {
-        enable = lib.mkEnableOption "Full optimizations";
+        enable = mkEnableOption "Full optimizations";
       };
       steam = {
-        enable = lib.mkEnableOption "Steam configuration";
+        enable = mkEnableOption "Steam configuration";
       };
       games = {
-        enable = lib.mkEnableOption "All other games";
-        prismlauncher.enable = lib.mkEnableOption "prismlauncer configuration";
+        enable = mkEnableOption "All other games";
+        prismlauncher.enable = mkEnableOption "prismlauncer configuration";
       };
     };
   };
 
   config.nixosModules = {
-    jellyfin = lib.mkIf config.nixosModules.jellyfin.enable {
-      client.enable = lib.mkDefault true;
+    jellyfin = mkIf config.nixosModules.jellyfin.enable {
+      client.enable = mkDefault true;
     };
 
-    vpn = lib.mkIf config.nixosModules.vpn.enable {
-      nordvpn.enable = lib.mkDefault true;
+    vpn = mkIf config.nixosModules.vpn.enable {
+      nordvpn.enable = mkDefault true;
     };
 
-    themes = lib.mkIf config.nixosModules.themes.enable {
-      stylix.enable = lib.mkDefault true;
+    theming = mkIf config.nixosModules.theming.enable {
+      stylix.enable = mkDefault true;
     };
 
-    boot = lib.mkIf config.nixosModules.boot.enable {
-      systemd-boot.enable = lib.mkDefault true;
+    boot = mkIf config.nixosModules.boot.enable {
+      loaders.systemd-boot.enable = mkDefault true;
+      # displayManagers.ly.enable = mkDefault true;
+      displayManagers.lightdm.enable = mkDefault true;
     };
 
-    battery = lib.mkIf config.nixosModules.battery.enable {
-      tooling.enable = lib.mkDefault true;
-      powerManagement.enable = lib.mkDefault true;
+    battery = mkIf config.nixosModules.battery.enable {
+      tooling.enable = mkDefault true;
+      powerManagement.enable = mkDefault true;
     };
 
     gaming = {
       emulators = {
-        switch = lib.mkIf config.nixosModules.gaming.emulators.switch.enable {
-          torzu.enable = lib.mkDefault true;
+        switch = mkIf config.nixosModules.gaming.emulators.switch.enable {
+          torzu.enable = mkDefault true;
         };
       };
 
-      # optimizations = lib.mkDefault config.nixosModules.gaming.optimizations.enable {
+      # optimizations = mkDefault config.nixosModules.gaming.optimizations.enable {
       # };
-      games = lib.mkIf config.nixosModules.gaming.games.enable {
-        prismlauncher.enable = lib.mkDefault true;
+      games = mkIf config.nixosModules.gaming.games.enable {
+        prismlauncher.enable = mkDefault true;
       };
     };
   };

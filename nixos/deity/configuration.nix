@@ -95,7 +95,7 @@
 
     bluetooth.enable = true;
 
-    themes = {
+    theming = {
       enable = true;
     };
 
@@ -170,13 +170,6 @@
     enable = true;
     xkb = {
       layout = "us";
-    };
-  };
-
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
     };
   };
 
