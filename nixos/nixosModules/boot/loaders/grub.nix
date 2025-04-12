@@ -8,8 +8,9 @@ in
       enable = true;
       efiSupport = true;
       device = "nodev";
+      efiInstallAsRemovable = true;
     };
 
-    efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = false;
   };
 }
