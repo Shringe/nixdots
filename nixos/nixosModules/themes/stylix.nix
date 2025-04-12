@@ -18,6 +18,8 @@ in
       polarity = "dark";
 
       targets = {
+        grub.enable = true;
+        grub.useWallpaper = true;
         # nixvim.enable = false;
         # mangohud.enable = false;
         # firefox.profileNames = [ "default" ];
