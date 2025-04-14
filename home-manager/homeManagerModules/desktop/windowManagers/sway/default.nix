@@ -207,9 +207,17 @@ in {
         output = {
           HDMI-A-1 = {
             mode = "3440x1440@175Hz";
+            pos = "2560 0";
             allow_tearing = "yes";
             adaptive_sync = "yes";
+            render_bit_depth = "10";
+          };
 
+          DP-1 = {
+            mode = "2560x1440@165Hz";
+            pos = "0 0";
+            # allow_tearing = "yes";
+            adaptive_sync = "yes";
             render_bit_depth = "10";
           };
         };
