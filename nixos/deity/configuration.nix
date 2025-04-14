@@ -19,7 +19,10 @@
 
     album.immich.enable = true;
 
-    matrix.conduit.enable = true;
+    social = {
+      jitsi.enable = true;
+      matrix.conduit.enable = true;
+    };
 
     reverseProxy = {
       enable = true;

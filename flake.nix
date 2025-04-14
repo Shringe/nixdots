@@ -68,6 +68,10 @@
           })
         ];
 
+        config.permittedInsecurePackages = [
+          "jitsi-meet-1.0.8043"
+        ];
+
         config.allowUnfree = true;
         # config.allowBroken = true;
       };

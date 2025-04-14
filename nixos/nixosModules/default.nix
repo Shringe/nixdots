@@ -46,7 +46,7 @@ with lib;
     ./drives
     ./album
     ./maintenance
-    ./matrix
+    ./social
   ];
 
   options.nixosModules = {
