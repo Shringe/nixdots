@@ -45,6 +45,7 @@ with lib;
     ./reverseProxy
     ./drives
     ./album
+    ./maintenance
   ];
 
   options.nixosModules = {
