@@ -3,6 +3,9 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.sway;
   mod = config.wayland.windowManager.sway.config.modifier;
+
+  displ1 = "HDMI-A-1";
+  displ2 = "DP-1";
 in {
   imports = [
     ./swaylogout.nix
@@ -82,6 +85,29 @@ in {
           { command = "wl-paste --type image --watch cliphist store"; }
         ];
 
+        workspaceOutputAssign = [
+          { output = displ1; workspace = "1"; }
+          { output = displ1; workspace = "2"; }
+          { output = displ1; workspace = "3"; }
+          { output = displ1; workspace = "4"; }
+          { output = displ1; workspace = "5"; }
+          { output = displ1; workspace = "6"; }
+          { output = displ1; workspace = "7"; }
+          { output = displ1; workspace = "8"; }
+          { output = displ1; workspace = "9"; }
+          { output = displ1; workspace = "10"; }
+          { output = displ2; workspace = "11"; }
+          { output = displ2; workspace = "12"; }
+          { output = displ2; workspace = "13"; }
+          { output = displ2; workspace = "14"; }
+          { output = displ2; workspace = "15"; }
+          { output = displ2; workspace = "16"; }
+          { output = displ2; workspace = "17"; }
+          { output = displ2; workspace = "18"; }
+          { output = displ2; workspace = "19"; }
+          { output = displ2; workspace = "20"; }
+        ];
+
         bars = [];
 
         keybindings = with config.wayland.windowManager.sway.config; {
@@ -154,6 +180,31 @@ in {
           "${mod}+Shift+9" = "move container to workspace number 9";
           "${mod}+Shift+0" = "move container to workspace number 10";
 
+          # Extra workspaces (11–20)
+          # Switch to workspace
+          "${mod}+Control+1" = "workspace number 11";
+          "${mod}+Control+2" = "workspace number 12";
+          "${mod}+Control+3" = "workspace number 13";
+          "${mod}+Control+4" = "workspace number 14";
+          "${mod}+Control+5" = "workspace number 15";
+          "${mod}+Control+6" = "workspace number 16";
+          "${mod}+Control+7" = "workspace number 17";
+          "${mod}+Control+8" = "workspace number 18";
+          "${mod}+Control+9" = "workspace number 19";
+          "${mod}+Control+0" = "workspace number 20";
+
+          # Move container to workspace
+          "${mod}+Control+Shift+1" = "move container to workspace number 11";
+          "${mod}+Control+Shift+2" = "move container to workspace number 12";
+          "${mod}+Control+Shift+3" = "move container to workspace number 13";
+          "${mod}+Control+Shift+4" = "move container to workspace number 14";
+          "${mod}+Control+Shift+5" = "move container to workspace number 15";
+          "${mod}+Control+Shift+6" = "move container to workspace number 16";
+          "${mod}+Control+Shift+7" = "move container to workspace number 17";
+          "${mod}+Control+Shift+8" = "move container to workspace number 18";
+          "${mod}+Control+Shift+9" = "move container to workspace number 19";
+          "${mod}+Control+Shift+0" = "move container to workspace number 20";
+
           # Layout controls
           "${mod}+h" = "splith";
           "${mod}+comma" = "splitv";
@@ -205,7 +256,7 @@ in {
         };
 
         output = {
-          HDMI-A-1 = {
+          "${displ1}" = {
             mode = "3440x1440@175Hz";
             pos = "2560 0";
             allow_tearing = "yes";
@@ -213,7 +264,7 @@ in {
             render_bit_depth = "10";
           };
 
-          DP-1 = {
+          "${displ2}" = {
             mode = "2560x1440@165Hz";
             pos = "0 0";
             # allow_tearing = "yes";
