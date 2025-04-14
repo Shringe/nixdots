@@ -53,6 +53,7 @@ in
 
         "cava" = {
           framerate = 30;
+          hide_on_silence = true;
           autosens = 1;
           # sensitivity = 50;
           bars = 12;
