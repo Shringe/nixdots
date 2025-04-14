@@ -19,6 +19,8 @@
 
     album.immich.enable = true;
 
+    matrix.conduit.enable = true;
+
     reverseProxy = {
       enable = true;
     };
