@@ -1,9 +1,9 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.matrix.conduit;
+  cfg = config.nixosModules.social.matrix.conduit;
 in {
-  options.nixosModules.matrix.conduit = {
+  options.nixosModules.social.matrix.conduit = {
     enable = mkEnableOption "Matrix conduit server";
 
     host = mkOption {

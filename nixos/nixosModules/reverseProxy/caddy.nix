@@ -39,7 +39,7 @@ in {
         "matrix.${cfg.domain}" = {
           useACMEHost = cfg.domain;
           extraConfig = ''
-            reverse_proxy = ${info.system.ips.local}:${toString matrix.conduit.port}
+            reverse_proxy = ${info.system.ips.local}:${toString social.matrix.conduit.port}
           '';
         };
 

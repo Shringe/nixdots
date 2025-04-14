@@ -1,0 +1,6 @@
+{
+  imports = [
+    ./matrix
+    ./jitsi.nix
+  ];
+}
