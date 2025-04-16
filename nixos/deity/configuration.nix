@@ -18,6 +18,7 @@
     };
 
     album.immich.enable = true;
+    backups.btrbk.enable = true;
 
     social = {
       jitsi.enable = true;
