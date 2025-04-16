@@ -11,18 +11,10 @@ in {
     services.btrbk = {
       # Option not needed
       # enable = true;
-      instances = {
-        "home" = {
-          onCalendar = "hourly";
-          settings = {
-            # timestamp_format = "long";
-            snapshot_preserve_min = "2w";
-            snapshot_preserve = "4w";
 
-            subvolume = "/defvol/root/_active/@home";
-            snapshot_dir = "/defvol/root/_snapshots/@home";
-          };
-        };
+      # Instances moved to respective nixos/nixosModules/drives/
+      instances = {
+
       };
     };
   };

@@ -7,5 +7,6 @@
     unzip
     unrar
     gparted
+    tree
   ];
 }
