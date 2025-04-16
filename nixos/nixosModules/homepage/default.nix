@@ -26,11 +26,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    sops.secrets."homepage" = {};
+
     services.homepage-dashboard = {
       enable = true;
       listenPort = cfg.port;
       openFirewall = true;
       package = fixedPaths;
+      environmentFile = config.sops.secrets."homepage".path;
 
       settings = {
         background = {
@@ -108,6 +111,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "immich";
+                url = url;
+                key = "{{HOMEPAGE_VAR_IMMICH}}";
+              };
             };
           }
         ];}
@@ -149,6 +157,10 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "adguard";
+                url = url;
+              };
             };
           }
         ];}
@@ -159,6 +171,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "jellyseerr";
+                url = url;
+                key = "{{HOMEPAGE_VAR_JELLYSEERR}}";
+              };
             };
           }
           {
@@ -173,6 +190,13 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "jellyfin";
+                url = url;
+                key = "{{HOMEPAGE_VAR_JELLYFIN}}";
+                enableBlocks = true;
+                expandOneStreamToTwoRows = false;
+              };
             };
           }
         ];}
