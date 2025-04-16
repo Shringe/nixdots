@@ -60,8 +60,21 @@
                     mountpoint = "/var/log";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
+
+                  "/_snapshots/@" = {
+                    mountpoint = "/";
+                  };
+                  "/_snapshots/@home" = {
+                    mountpoint = "/home";
+                  };
+                  "/_snapshots/@nix" = {
+                   mountpoint = "/nix";
+                  };
+                  "/_snapshots/log" = {
+                    mountpoint = "/var/log";
+                  };
                 };
-	      };
+              };
             };
           };
         };

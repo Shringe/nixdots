@@ -47,6 +47,7 @@ with lib;
     ./album
     ./maintenance
     ./social
+    ./backups
   ];
 
   options.nixosModules = {

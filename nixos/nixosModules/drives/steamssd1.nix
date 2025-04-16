@@ -1,5 +1,11 @@
 {
   fileSystems = { 
+    "/defvol/steamssd1" = {
+      device = "/dev/disk/by-label/steamssd1";
+      fsType = "btrfs";
+      options = [ "noatime" "nofail" ];
+    };
+
     "/mnt/Steam/Main" = {
       device = "/dev/disk/by-label/steamssd1";
       fsType = "btrfs";

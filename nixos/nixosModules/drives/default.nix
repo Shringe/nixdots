@@ -3,5 +3,6 @@
   imports = [
     ./smedia1.nix
     ./steamssd1.nix
+    ./root.nix
   ];
 }
