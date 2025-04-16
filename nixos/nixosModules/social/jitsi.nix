@@ -15,7 +15,7 @@ in {
       nginx.enable = false;
       caddy.enable = true;
       excalidraw.enable = true;
-      secureDomain.enable = true;
+      secureDomain.enable = false;
     };
   };
 }
