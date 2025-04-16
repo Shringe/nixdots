@@ -40,7 +40,7 @@ in {
 
       openFirewall = true;
       redis.enable = true;
-      # mediaLocation = "/mnt/server/Album/immich";
+      mediaLocation = "/mnt/server/Album/immich";
     };
   };
 }
