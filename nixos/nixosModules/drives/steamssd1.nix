@@ -19,6 +19,12 @@
         fsType = "btrfs";
         options = [ "subvol=_steam/library" "compress=zstd" "noatime" "nofail" ];
       };
+
+      "/mnt/Saves" = { 
+        device = "/dev/disk/by-label/steamssd1";
+        fsType = "btrfs";
+        options = [ "subvol=Saves" "compress=zstd" "noatime" "nofail" ];
+      };
     };
 
     services.btrbk.instances = lib.mkIf config.nixosModules.backups.btrbk.enable {
@@ -41,6 +47,17 @@
 
           subvolume = "/defvol/steamssd1/_steam/library";
           snapshot_dir = "/defvol/steamssd1/_snapshots/library";
+        };
+      };
+
+      "steamssd1_Saves" = {
+        onCalendar = "daily";
+        settings = {
+          snapshot_preserve_min = "2w";
+          snapshot_preserve = "4w";
+
+          subvolume = "/defvol/steamssd1/Saves";
+          snapshot_dir = "/defvol/steamssd1/_snapshots/Saves";
         };
       };
     };
