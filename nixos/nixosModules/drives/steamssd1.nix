@@ -51,7 +51,7 @@
       };
 
       "steamssd1_Saves" = {
-        onCalendar = "daily";
+        onCalendar = "hourly";
         settings = {
           snapshot_preserve_min = "2w";
           snapshot_preserve = "4w";
