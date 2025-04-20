@@ -115,6 +115,7 @@ in {
                 type = "immich";
                 url = url;
                 key = "{{HOMEPAGE_VAR_IMMICH}}";
+                version = 2;
               };
             };
           }
@@ -183,6 +184,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "ombi";
+                url = url;
+                key = "{{HOMEPAGE_VAR_OMBI}}";
+              };
             };
           }
           {
@@ -214,6 +220,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "lidarr";
+                url = url;
+                key = "{{HOMEPAGE_VAR_LIDARR}}";
+              };
             };
           }
           {
@@ -221,6 +232,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "radarr";
+                url = url;
+                key = "{{HOMEPAGE_VAR_RADARR}}";
+              };
             };
           }
           {
@@ -228,6 +244,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "sonarr";
+                url = url;
+                key = "{{HOMEPAGE_VAR_SONARR}}";
+              };
             };
           }
           {
@@ -235,6 +256,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "prowlarr";
+                url = url;
+                key = "{{HOMEPAGE_VAR_PROWLARR}}";
+              };
             };
           }
           {
@@ -242,6 +268,13 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "qbittorrent";
+                url = url;
+                username = "{{HOMEPAGE_VAR_QBITTORRENT_USER}}";
+                password = "{{HOMEPAGE_VAR_QBITTORRENT_PASS}}";
+                enableLeechProgress=true;
+              };
             };
           }
         ];} 

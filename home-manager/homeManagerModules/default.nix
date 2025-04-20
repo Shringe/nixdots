@@ -182,6 +182,7 @@
       office = lib.mkIf config.homeManagerModules.desktop.office.enable {
         libreoffice.enable = lib.mkDefault true;
         pdf.enable = lib.mkDefault true;
+        gimp.enable = lib.mkDefault true;
       };
 
       browsers = lib.mkIf config.homeManagerModules.desktop.browsers.enable {
