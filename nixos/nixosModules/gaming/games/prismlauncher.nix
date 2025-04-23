@@ -9,6 +9,7 @@ in
 
       jdks = [
         jdk21
+        jdk17
         graalvm-ce
         graalvm-oracle
         # graalvmPackages
