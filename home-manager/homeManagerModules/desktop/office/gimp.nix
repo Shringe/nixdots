@@ -1,4 +1,4 @@
-{ conig, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.office.gimp;
