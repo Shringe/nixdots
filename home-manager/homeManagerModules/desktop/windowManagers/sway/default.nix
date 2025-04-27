@@ -10,6 +10,7 @@ in {
   imports = [
     ./swaylogout.nix
     ./swaylock.nix
+    ./swayidle.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.sway = {
@@ -40,6 +41,7 @@ in {
       terminals.alacritty.enable = mkDefault true;
 
       windowManagers.sway.swaylock.enable = mkDefault true;
+      windowManagers.sway.swayidle.enable = mkDefault true;
 
       windowManagers.utils = {
         waybar.colorful.enable = mkDefault true;
