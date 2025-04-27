@@ -32,7 +32,7 @@ in {
 
         timeout = 3;
         timeout-low = 2;
-        timeout-critical = 0;
+        timeout-critical = 5;
 
         fit-to-screen = false;
         control-center-width = 500;
@@ -93,36 +93,36 @@ in {
               }
               {
                 label = "󰌾";
-                command = "$HOME/.config/hypr/scripts/lock-session.sh";
+                command = "${pkgs.swaylock}/bin/swaylock";
               }
               {
                 label = "󰍃";
-                command = "hyprctl dispatch exit";
+                command = "${pkgs.sway}/bin/swaymsg exit";
               }
               {
                 label = "󰤄";
                 command = "systemctl suspend";
               }
-              {
-                label = "󰕾";
-                command = "swayosd-client --output-volume mute-toggle";
-              }
-              {
-                label = "󰍬";
-                command = "swayosd-client --input-volume mute-toggle";
-              }
-              {
-                label = "󰖩";
-                command = "$HOME/.local/bin/shved/rofi-menus/wifi-menu.sh";
-              }
-              {
-                label = "󰂯";
-                command = "blueman-manager";
-              }
-              {
-                label = "";
-                command = "obs";
-              }
+              # {
+              #   label = "󰕾";
+              #   command = "swayosd-client --output-volume mute-toggle";
+              # }
+              # {
+              #   label = "󰍬";
+              #   command = "swayosd-client --input-volume mute-toggle";
+              # }
+              # {
+              #   label = "󰖩";
+              #   command = "$HOME/.local/bin/shved/rofi-menus/wifi-menu.sh";
+              # }
+              # {
+              #   label = "󰂯";
+              #   command = "blueman-manager";
+              # }
+              # {
+              #   label = "";
+              #   command = "obs";
+              # }
             ];
           };
         };
@@ -234,7 +234,7 @@ in {
         }
 
         .blank-window {
-            background: alpha(black, 0.1);
+            background: alpha(black, 0.2);
         }
 
         .widget-title {
