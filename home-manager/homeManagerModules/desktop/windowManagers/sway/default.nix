@@ -43,6 +43,7 @@ in {
         # waybar.matte.enable = mkDefault true;
 
         # swaylogout.enable = mkDefault true;
+        swaync.enable = mkDefault true;
       };
     };
 
@@ -96,6 +97,7 @@ in {
           { output = displ1; workspace = "8"; }
           { output = displ1; workspace = "9"; }
           { output = displ1; workspace = "10"; }
+
           { output = displ2; workspace = "11"; }
           { output = displ2; workspace = "12"; }
           { output = displ2; workspace = "13"; }

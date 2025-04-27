@@ -1,4 +1,5 @@
-{ lib, config, ... }:
+{ config, lib, ... }:
+with lib;
 {
   imports = [
     ./desktop
@@ -15,23 +16,23 @@
   # Defines all options for homeManagerModules
   options.homeManagerModules = {
     tooling = {
-      enable = lib.mkEnableOption "Enable all";
-      systemMonitors.enable = lib.mkEnableOption "systemMonitors";
+      enable = mkEnableOption "Enable all";
+      systemMonitors.enable = mkEnableOption "systemMonitors";
     };
 
     theming = {
-      enable = lib.mkEnableOption "enable theming";
+      enable = mkEnableOption "enable theming";
 
-      wallpaper = lib.mkOption {
-        type = lib.types.str;
+      wallpaper = mkOption {
+        type = types.str;
         # default = "catppuccin_tux_3840x2160.png";
         default = "grassmastersword_3440x1440.png";
       };
 
       stylix = {
-        enable = lib.mkEnableOption "Enable theming with stylix";
-        colorScheme = lib.mkOption {
-          type = lib.types.str;
+        enable = mkEnableOption "Enable theming with stylix";
+        colorScheme = mkOption {
+          type = types.str;
           default = "catppuccin-mocha";
           # default = "everforest";
           description = "What .yaml theme to use.";
@@ -40,117 +41,117 @@
     };
 
     gaming = {
-      enable = lib.mkEnableOption "All gaming settings";
-      mangohud.enable = lib.mkEnableOption "Mangohud configuration";
+      enable = mkEnableOption "All gaming settings";
+      mangohud.enable = mkEnableOption "Mangohud configuration";
     };
 
     sops = {
-      enable = lib.mkEnableOption "Generate sops keys";
+      enable = mkEnableOption "Generate sops keys";
     };
 
     scripts = {
-      enable = lib.mkEnableOption "packages shell scriptss";
+      enable = mkEnableOption "packages shell scriptss";
     };
 
     nixvim = {
-      enable = lib.mkEnableOption "Nixvim configuration";
-      optimizations = lib.mkEnableOption "Applies expiremental performance optimizations";
+      enable = mkEnableOption "Nixvim configuration";
+      optimizations = mkEnableOption "Applies expiremental performance optimizations";
     };
 
     desktop = {
       kdeconnect = {
-        enable = lib.mkEnableOption "Kdeconnect";
+        enable = mkEnableOption "Kdeconnect";
       };
       discord = {
-        enable = lib.mkEnableOption "Discord configuration";
+        enable = mkEnableOption "Discord configuration";
       };
 
       music = {
-        enable = lib.mkEnableOption "Music players";
-        termusic.enable = lib.mkEnableOption "Termusic";
+        enable = mkEnableOption "Music players";
+        termusic.enable = mkEnableOption "Termusic";
       };
 
       email = {
-        enable = lib.mkEnableOption "Email setup";
-        thunderbird.enable = lib.mkEnableOption "Thunderbird";
+        enable = mkEnableOption "Email setup";
+        thunderbird.enable = mkEnableOption "Thunderbird";
       };
 
       windowManagers = {
-        enable = lib.mkEnableOption "Preferred window manager";
-        qtile.enable = lib.mkEnableOption "qtile";
+        enable = mkEnableOption "Preferred window manager";
+        qtile.enable = mkEnableOption "qtile";
         hyprland = {
-          enable = lib.mkEnableOption "Hyprland configuration";
-          hyprpaper.enable = lib.mkEnableOption "hyprpaper configuration";
-          wofi.enable = lib.mkEnableOption "Wofi configuration";
-          waybar.enable = lib.mkEnableOption "Waybar configuration";
-          swaync.enable = lib.mkEnableOption "Swaync configuration";
-          hyprlock.enable = lib.mkEnableOption "hyprlock configuration";
-          cliphist.enable = lib.mkEnableOption "cliphist configuration";
-          hypridle.enable = lib.mkEnableOption "hypridle configuration";
+          enable = mkEnableOption "Hyprland configuration";
+          hyprpaper.enable = mkEnableOption "hyprpaper configuration";
+          wofi.enable = mkEnableOption "Wofi configuration";
+          waybar.enable = mkEnableOption "Waybar configuration";
+          swaync.enable = mkEnableOption "Swaync configuration";
+          hyprlock.enable = mkEnableOption "hyprlock configuration";
+          cliphist.enable = mkEnableOption "cliphist configuration";
+          hypridle.enable = mkEnableOption "hypridle configuration";
         };
       };
 
       terminals = {
-        enable = lib.mkEnableOption "Default terminal";
-        ghostty.enable = lib.mkEnableOption "Ghostty config";
-        wezterm.enable = lib.mkEnableOption "Wezterm configuration";
-        alacritty.enable = lib.mkEnableOption "Alacritty configuration";
+        enable = mkEnableOption "Default terminal";
+        ghostty.enable = mkEnableOption "Ghostty config";
+        wezterm.enable = mkEnableOption "Wezterm configuration";
+        alacritty.enable = mkEnableOption "Alacritty configuration";
       };
 
       office = {
-        enable = lib.mkEnableOption "Office suite";
-        libreoffice.enable = lib.mkEnableOption "Libreoffice";
-        pdf.enable = lib.mkEnableOption "pdf suite";
+        enable = mkEnableOption "Office suite";
+        libreoffice.enable = mkEnableOption "Libreoffice";
+        pdf.enable = mkEnableOption "pdf suite";
       };
 
       browsers = {
-        enable = lib.mkEnableOption "Enables preferred browser module";
-        firefox.enable = lib.mkEnableOption "Firefox";
+        enable = mkEnableOption "Enables preferred browser module";
+        firefox.enable = mkEnableOption "Firefox";
       };
     };
 
 
     shells = {
-      enable = lib.mkEnableOption "Enable all shells and shell configuration"; 
+      enable = mkEnableOption "Enable all shells and shell configuration"; 
       fish = {
-        enable = lib.mkEnableOption "Enables fish configuration";
-        atuin = lib.mkEnableOption "atuin configuration";
+        enable = mkEnableOption "Enables fish configuration";
+        atuin = mkEnableOption "atuin configuration";
       };
       bash = {
-        enable = lib.mkEnableOption "Enables bash configuration";
-        atuin = lib.mkEnableOption "atuin configuration";
+        enable = mkEnableOption "Enables bash configuration";
+        atuin = mkEnableOption "atuin configuration";
       };
-      aliases.enable = lib.mkEnableOption "Enables aliases";
-      atuin.enable = lib.mkEnableOption "Enables atuin configuration and integration"; 
-      tmux.enable = lib.mkEnableOption "Enables tmux configuration and integration"; 
+      aliases.enable = mkEnableOption "Enables aliases";
+      atuin.enable = mkEnableOption "Enables atuin configuration and integration"; 
+      tmux.enable = mkEnableOption "Enables tmux configuration and integration"; 
     };
 
     dotfiles = {
-      enable = lib.mkEnableOption "link dotfiles";
-      # qtile.installDependencies = lib.mkEnableOption "Install Qtile dotfiles dependencies";
+      enable = mkEnableOption "link dotfiles";
+      # qtile.installDependencies = mkEnableOption "Install Qtile dotfiles dependencies";
     };
   };
 
   # Defines default options for homeManagerModules
   config.homeManagerModules = {
-    tooling = lib.mkIf config.homeManagerModules.tooling.enable {
-      systemMonitors.enable = lib.mkDefault true;
+    tooling = mkIf config.homeManagerModules.tooling.enable {
+      systemMonitors.enable = mkDefault true;
     };
 
-    theming = lib.mkIf config.homeManagerModules.theming.enable {
-      stylix.enable = lib.mkDefault true;
+    theming = mkIf config.homeManagerModules.theming.enable {
+      stylix.enable = mkDefault true;
     };
 
-    gaming = lib.mkIf config.homeManagerModules.gaming.enable {
-      mangohud.enable = lib.mkDefault true;
+    gaming = mkIf config.homeManagerModules.gaming.enable {
+      mangohud.enable = mkDefault true;
     };
 
     scripts = {
-      # enable = lib.mk
+      # enable = mk
     };
 
-    nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
-      optimizations = lib.mkDefault true;
+    nixvim = mkIf config.homeManagerModules.nixvim.enable {
+      optimizations = mkDefault true;
     };
 
     desktop = {
@@ -158,58 +159,59 @@
         
       };
 
-      music = lib.mkIf config.homeManagerModules.desktop.music.enable {
-        termusic.enable = lib.mkDefault true;
+      music = mkIf config.homeManagerModules.desktop.music.enable {
+        termusic.enable = mkDefault true;
+        supersonic.enable = mkDefault true;
       };
 
-      email = lib.mkIf config.homeManagerModules.desktop.email.enable {
-        thunderbird.enable = lib.mkDefault true;
+      email = mkIf config.homeManagerModules.desktop.email.enable {
+        thunderbird.enable = mkDefault true;
       };
 
-      windowManagers = lib.mkIf config.homeManagerModules.desktop.windowManagers.enable {
+      windowManagers = mkIf config.homeManagerModules.desktop.windowManagers.enable {
         hyprland = {
-          enable = lib.mkDefault true;
-          hyprpaper.enable = lib.mkDefault true;
-          wofi.enable = lib.mkDefault true;
-          waybar.enable = lib.mkDefault true;
-          swaync.enable = lib.mkDefault true;
-          hyprlock.enable = lib.mkDefault true;
-          cliphist.enable = lib.mkDefault true;
-          hypridle.enable = lib.mkDefault true;
+          enable = mkDefault true;
+          hyprpaper.enable = mkDefault true;
+          wofi.enable = mkDefault true;
+          waybar.enable = mkDefault true;
+          swaync.enable = mkDefault true;
+          hyprlock.enable = mkDefault true;
+          cliphist.enable = mkDefault true;
+          hypridle.enable = mkDefault true;
         };
       };
 
-      office = lib.mkIf config.homeManagerModules.desktop.office.enable {
-        libreoffice.enable = lib.mkDefault true;
-        pdf.enable = lib.mkDefault true;
-        gimp.enable = lib.mkDefault true;
+      office = mkIf config.homeManagerModules.desktop.office.enable {
+        libreoffice.enable = mkDefault true;
+        pdf.enable = mkDefault true;
+        gimp.enable = mkDefault true;
       };
 
-      browsers = lib.mkIf config.homeManagerModules.desktop.browsers.enable {
-        firefox.enable = lib.mkDefault true;
+      browsers = mkIf config.homeManagerModules.desktop.browsers.enable {
+        firefox.enable = mkDefault true;
       };
 
-      terminals = lib.mkIf config.homeManagerModules.desktop.terminals.enable {
-        wezterm.enable = lib.mkDefault true;
+      terminals = mkIf config.homeManagerModules.desktop.terminals.enable {
+        wezterm.enable = mkDefault true;
       };
     };
 
-    shells = lib.mkIf config.homeManagerModules.shells.enable {
+    shells = mkIf config.homeManagerModules.shells.enable {
       fish = {
-        enable = lib.mkDefault true;
-        atuin = lib.mkDefault true;
+        enable = mkDefault true;
+        atuin = mkDefault true;
       };
       bash = {
-        enable = lib.mkDefault true;
-        atuin = lib.mkDefault true;
+        enable = mkDefault true;
+        atuin = mkDefault true;
       };
-      aliases.enable = lib.mkDefault true;
-      atuin.enable = lib.mkDefault true; 
-      tmux.enable = lib.mkDefault true;
+      aliases.enable = mkDefault true;
+      atuin.enable = mkDefault true; 
+      tmux.enable = mkDefault true;
     };
 
     dotfiles = {
-      # enable = lib.mkDefault true;
+      # enable = mkDefault true;
     };
   };
 }

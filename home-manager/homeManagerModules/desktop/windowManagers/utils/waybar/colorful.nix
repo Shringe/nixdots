@@ -115,10 +115,10 @@ in
             dnd-inhibited-none = "";
           };
           return-type = "json";
-          exec-if = "which ${cfg.wm}nc-client";
-          exec = "${cfg.wm}nc-client -swb";
-          on-click = "${cfg.wm}nc-client -t -sw";
-          on-click-right = "${cfg.wm}nc-client -d -sw";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
           escape = true;
         };
 

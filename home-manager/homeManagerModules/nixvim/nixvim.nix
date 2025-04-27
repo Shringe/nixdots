@@ -17,6 +17,7 @@
       friendly-snippets.enable = true;
       nvim-surround.enable = true;
       gitsigns.enable = true;
+      colorizer.enable = true;
     };
 
     autoCmd = [
