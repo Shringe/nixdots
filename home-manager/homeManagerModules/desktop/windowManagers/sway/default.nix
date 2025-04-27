@@ -9,6 +9,7 @@ let
 in {
   imports = [
     ./swaylogout.nix
+    ./swaylock.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.sway = {
@@ -37,6 +38,8 @@ in {
   config = mkIf cfg.enable {
     homeManagerModules.desktop = {
       terminals.alacritty.enable = mkDefault true;
+
+      windowManagers.sway.swaylock.enable = mkDefault true;
 
       windowManagers.utils = {
         waybar.colorful.enable = mkDefault true;
