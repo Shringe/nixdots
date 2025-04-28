@@ -48,6 +48,7 @@ with lib;
     ./maintenance
     ./social
     ./backups
+    ./kavita
   ];
 
   options.nixosModules = {
