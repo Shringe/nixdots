@@ -205,6 +205,18 @@ in {
               };
             };
           }
+          {
+            "Kavita" = with kavita; {
+              description = description;
+              href = url;
+              icon = "/icons/${icon}";
+              widget = {
+                type = "kavita";
+                url = url;
+                key = "{{HOMEPAGE_VAR_KAVITA}}";
+              };
+            };
+          }
         ];}
 
         { "Yarr!" = [

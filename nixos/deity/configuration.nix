@@ -23,6 +23,7 @@
 
     album.immich.enable = true;
     backups.btrbk.enable = true;
+    kavita.enable = true;
 
     social = {
       jitsi.enable = true;
