@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.waybar.colorful;
@@ -14,6 +14,21 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      (writeShellApplication {
+        name = "nordstatus";
+
+        text = ''
+          #!/usr/bin/env sh
+          if nordvpn status | grep -q 'Status: Connected'; then
+            nordvpn status | awk -F': ' '/Country:/ {print $2}'
+          else
+            echo "Off"
+          fi
+        '';
+      })
+    ];
+
     programs.waybar = {
       enable = true;
       
@@ -27,6 +42,7 @@ in
           "cpu" 
           "memory" 
           "privacy"
+          "custom/nordvpn"
           "${cfg.wm}/mode"
           "${cfg.wm}/window"
         ];
@@ -100,6 +116,14 @@ in
 
         "${cfg.wm}/window" = {
           icon = true;
+        };
+
+        "custom/nordvpn" = {
+          format = "VPN: {}";
+          interval = 5;
+          exec = "nordstatus";
+          on-click = "nordvpn connect";
+          on-click-right = "nordvpn disconnect";
         };
 
         "custom/notification" = {
@@ -191,52 +215,57 @@ in
 
       style = with config.lib.stylix.colors; ''
         * {
-            border: none;
-            border-radius: 0;
-            font-family: "JetBrains Mono";
-            font-size: 14px;
-            min-height: 0;
+          border: none;
+          border-radius: 0;
+          font-family: "JetBrains Mono";
+          font-size: 14px;
+          min-height: 0;
         }
 
         window#waybar {
-            background: #${base00};
-            color: #${base05};
+          background: #${base00};
+          color: #${base05};
         }
 
         #window {
-            font-weight: bold;
-            color: #${base05};
+          font-weight: bold;
+          color: #${base05};
         }
         /*
         #workspaces {
-            padding: 0 5px;
+          padding: 0 5px;
         */
 
         #workspaces button {
-            padding: 0 5px;
-            color: #${base03};
+          padding: 0 5px;
+          color: #${base03};
         }
 
         #workspaces button.focused {
-            color: #${base0E};
+          color: #${base0E};
         }
 
-        #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset, #mode {
-            padding: 0 3px;
-            color: #${base05};
-            margin: 0 2px;
+        #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset, #mode, #custom-nordvpn {
+          padding: 0 3px;
+          color: #${base05};
+          margin: 0 2px;
 
-            font-weight: bold;
+          font-weight: bold;
+        }
+
+        #custom-nordvpn {
+          color: #${base01};
+          background: #${base07};
         }
 
         #mode {
-            color: #${base01};
-            background: #${base0F};
+          color: #${base01};
+          background: #${base0F};
         }
 
         #custom-notification {
-            background: #${base07};
-            color: #${base01};
+          background: #${base07};
+          color: #${base01};
         }
 
         #custom-hyprsunset {
@@ -250,75 +279,75 @@ in
         }
 
         #clock {
-            font-weight: bold;
-            color: #${base01};
-            background: #${base06};
+          font-weight: bold;
+          color: #${base01};
+          background: #${base06};
         }
 
         #battery {
         }
 
         #battery icon {
-            color: #${base08};
+          color: #${base08};
         }
 
         #battery.charging {
         }
 
         @keyframes blink {
-            to {
-                background-color: #ffffff;
-                color: #${base01};
-            }
+          to {
+            background-color: #ffffff;
+            color: #${base01};
+          }
         }
 
         #battery.warning:not(.charging) {
-            color: #${base05};
-            animation-name: blink;
-            animation-duration: 0.5s;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: alternate;
+          color: #${base05};
+          animation-name: blink;
+          animation-duration: 0.5s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
         }
 
         #cpu {
-            color: #${base01};
-            background: #${base08};
+          color: #${base01};
+          background: #${base08};
         }
 
         #memory {
-            color: #${base01};
-            background: #${base09};
+          color: #${base01};
+          background: #${base09};
         }
 
         #network {
-            color: #${base01};
-            background: #${base0C};
+          color: #${base01};
+          background: #${base0C};
         }
 
         #network.disconnected {
-            background: #${base0A};
-            color: #${base01};
+          background: #${base0A};
+          color: #${base01};
         }
 
         #pulseaudio, #cava {
-            background: #${base0B};
-            color: #${base01};
+          background: #${base0B};
+          color: #${base01};
         }
 
         #pulseaudio {
-            ; margin: 0 2px;
-            ; padding: 0 3px;
+          ; margin: 0 2px;
+          ; padding: 0 3px;
         }
 
         #cava {
-            margin: 0 0px;
-            ; padding: 0 3px;
+          margin: 0 0px;
+          ; padding: 0 3px;
         }
 
         #pulseaudio.muted {
-            background: #${base0A};
-            color: #${base01};
+          background: #${base0A};
+          color: #${base01};
         }
       '';
     };
