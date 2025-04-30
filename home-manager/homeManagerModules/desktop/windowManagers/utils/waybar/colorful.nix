@@ -27,6 +27,7 @@ in
           "cpu" 
           "memory" 
           "privacy"
+          "${cfg.wm}/mode"
           "${cfg.wm}/window"
         ];
 
@@ -188,7 +189,7 @@ in
         };
       };
 
-      style = ''
+      style = with config.lib.stylix.colors; ''
         * {
             border: none;
             border-radius: 0;
@@ -198,13 +199,13 @@ in
         }
 
         window#waybar {
-            background: #${config.lib.stylix.colors.base00};
-            color: #${config.lib.stylix.colors.base05};
+            background: #${base00};
+            color: #${base05};
         }
 
         #window {
             font-weight: bold;
-            color: #${config.lib.stylix.colors.base05};
+            color: #${base05};
         }
         /*
         #workspaces {
@@ -213,24 +214,29 @@ in
 
         #workspaces button {
             padding: 0 5px;
-            color: #${config.lib.stylix.colors.base03};
+            color: #${base03};
         }
 
         #workspaces button.focused {
-            color: #${config.lib.stylix.colors.base0E};
+            color: #${base0E};
         }
 
-        #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset {
+        #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset, #${cfg.wm}-mode {
             padding: 0 3px;
-            color: #${config.lib.stylix.colors.base05};
+            color: #${base05};
             margin: 0 2px;
 
             font-weight: bold;
         }
 
+        #${cfg.wm}-mode {
+            color: #${base01};
+            background: #${base0F};
+        }
+
         #custom-notification {
-            background: #${config.lib.stylix.colors.base07};
-            color: #${config.lib.stylix.colors.base01};
+            background: #${base07};
+            color: #${base01};
         }
 
         #custom-hyprsunset {
@@ -245,15 +251,15 @@ in
 
         #clock {
             font-weight: bold;
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base06};
+            color: #${base01};
+            background: #${base06};
         }
 
         #battery {
         }
 
         #battery icon {
-            color: #${config.lib.stylix.colors.base08};
+            color: #${base08};
         }
 
         #battery.charging {
@@ -262,12 +268,12 @@ in
         @keyframes blink {
             to {
                 background-color: #ffffff;
-                color: #${config.lib.stylix.colors.base01};
+                color: #${base01};
             }
         }
 
         #battery.warning:not(.charging) {
-            color: #${config.lib.stylix.colors.base05};
+            color: #${base05};
             animation-name: blink;
             animation-duration: 0.5s;
             animation-timing-function: linear;
@@ -276,28 +282,28 @@ in
         }
 
         #cpu {
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base08};
+            color: #${base01};
+            background: #${base08};
         }
 
         #memory {
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base09};
+            color: #${base01};
+            background: #${base09};
         }
 
         #network {
-            color: #${config.lib.stylix.colors.base01};
-            background: #${config.lib.stylix.colors.base0C};
+            color: #${base01};
+            background: #${base0C};
         }
 
         #network.disconnected {
-            background: #${config.lib.stylix.colors.base0A};
-            color: #${config.lib.stylix.colors.base01};
+            background: #${base0A};
+            color: #${base01};
         }
 
         #pulseaudio, #cava {
-            background: #${config.lib.stylix.colors.base0B};
-            color: #${config.lib.stylix.colors.base01};
+            background: #${base0B};
+            color: #${base01};
         }
 
         #pulseaudio {
@@ -311,8 +317,8 @@ in
         }
 
         #pulseaudio.muted {
-            background: #${config.lib.stylix.colors.base0A};
-            color: #${config.lib.stylix.colors.base01};
+            background: #${base0A};
+            color: #${base01};
         }
       '';
     };
