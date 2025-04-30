@@ -221,7 +221,7 @@ in
             color: #${base0E};
         }
 
-        #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset, #${cfg.wm}-mode {
+        #clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode, #custom-notification, #custom-hyprsunset, #mode {
             padding: 0 3px;
             color: #${base05};
             margin: 0 2px;
@@ -229,7 +229,7 @@ in
             font-weight: bold;
         }
 
-        #${cfg.wm}-mode {
+        #mode {
             color: #${base01};
             background: #${base0F};
         }
