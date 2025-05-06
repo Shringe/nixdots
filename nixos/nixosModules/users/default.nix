@@ -8,7 +8,7 @@
 
   sops.secrets."user_passwords/root".neededForUsers = true;
   users = {
-    mutableUsers = false;
+    mutableUsers = true;
 
     groups = {
       nixdots = {};
