@@ -6,7 +6,9 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
-	
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     disko = {
       url = "github:nix-community/disko";
       # inputs.nixpkgs.follows = "nixpkgs";
