@@ -41,7 +41,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.steam-run}/bin/steam-run ${unstablePkgs.nvidia_oc}/bin/nvidia_oc set --index 0 --power-limit 242000 --freq-offset 115 --mem-offset 2600";
+        ExecStart = "${pkgs.steam-run}/bin/steam-run ${unstablePkgs.nvidia_oc}/bin/nvidia_oc set --index 0 --power-limit 242000 --freq-offset 112 --mem-offset 2600";
         User = "root";
         Restart = "on-failure";
       };
