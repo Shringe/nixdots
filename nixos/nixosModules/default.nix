@@ -49,6 +49,7 @@ with lib;
     ./social
     ./backups
     ./kavita
+    # ./groceries
   ];
 
   options.nixosModules = {
