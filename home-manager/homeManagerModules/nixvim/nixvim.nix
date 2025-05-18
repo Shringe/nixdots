@@ -53,6 +53,7 @@
     globals = {
       mapleader = " ";
     };
+
 # vim.api.nvim_set_keymap(  't'  ,  '<Leader><ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
     keymaps = [
       {# Esc in terminal mode
