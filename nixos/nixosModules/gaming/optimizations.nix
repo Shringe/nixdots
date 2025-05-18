@@ -46,9 +46,23 @@ in {
     };
 
     environment.sessionVariables = {
+      # Equivalent to Nvidia low-latency mode
       __GL_MaxFramesAllowed = "1";
     };
 
-    programs.gamemode.enable = true;
+    programs.gamemode = {
+      enable = true;
+      enableRenice = true;
+      settings = {
+        general = {
+          renice = 10;
+        };
+
+        custom = {
+          start = "${pkgs.sway}/bin/swaymsg output HDMI-A-1 adaptive_sync on";
+          end = "${pkgs.sway}/bin/swaymsg output HDMI-A-1 adaptive_sync off";
+        };
+      };
+    };
   };
 }
