@@ -32,7 +32,7 @@ in
 
     # Once the package gets merged into nixpkgs
     environment.systemPackages = [
-      unstablePkgs.nvidia_oc
+      pkgs.nvidia_oc
       pkgs.steam-run
     ];
 

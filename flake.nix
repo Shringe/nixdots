@@ -2,8 +2,9 @@
   description = "Master flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
@@ -49,10 +50,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-old, ... }@inputs:
     let
       system = "x86_64-linux";
-      unstablePkgs = import nixpkgs {
+      unstablePkgs = import nixpkgs-unstable {
         inherit system;
 
         overlays = [
@@ -78,13 +79,38 @@
         # config.allowBroken = true;
       };
 
-      stablePkgs = import nixpkgs-stable {
+      stablePkgs = import nixpkgs {
         inherit system;
+
+        overlays = [
+          inputs.nur.overlays.default
+
+          (self: super: {
+            mpv = super.mpv.override {
+              scripts = with self.mpvScripts; [ 
+                mpris 
+                dynamic-crop
+                thumbfast
+                quack
+              ];
+            };
+          })
+        ];
+
+        config.permittedInsecurePackages = [
+          "jitsi-meet-1.0.8043"
+        ];
+
         config.allowUnfree = true;
+        # config.allowBroken = true;
+      };
+
+      oldPkgs = import nixpkgs-old {
+        inherit system;
       };
 
       # Default pkgs
-      pkgs = unstablePkgs;
+      pkgs = stablePkgs;
     in {
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
@@ -92,7 +118,7 @@
 
       nixosConfigurations = with nixpkgs.lib; {
         deity = nixosSystem {
-          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs; };
+          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs oldPkgs; };
           modules = [ 
             ./nixos/deity/configuration.nix 
             ./nixos/nixosModules
@@ -100,7 +126,7 @@
         };
 
         luminum = nixosSystem {
-          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs; };
+          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs oldPkgs; };
           modules = [ 
             ./nixos/luminum/configuration.nix 
             ./nixos/nixosModules

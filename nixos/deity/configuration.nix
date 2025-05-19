@@ -151,7 +151,7 @@
       };
 
       emulators = {
-        switch.enable = true;
+        # switch.enable = true;
       };
 
       optimizations.enable = true;

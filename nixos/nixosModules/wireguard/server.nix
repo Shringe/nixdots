@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, oldPkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.wireguard.server;
