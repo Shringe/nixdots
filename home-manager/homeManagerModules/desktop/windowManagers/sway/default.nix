@@ -54,6 +54,7 @@ in {
 
         # swaylogout.enable = mkDefault true;
         swaync.enable = mkDefault true;
+        mpvpaper.enable = mkDefault true;
       };
     };
 
