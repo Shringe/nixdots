@@ -24,6 +24,7 @@
     album.immich.enable = true;
     backups.btrbk.enable = true;
     kavita.enable = true;
+    groceries.tandoor.enable = true;
 
     social = {
       jitsi.enable = true;
