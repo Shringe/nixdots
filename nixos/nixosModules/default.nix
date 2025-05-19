@@ -209,7 +209,7 @@ with lib;
     boot = mkIf config.nixosModules.boot.enable {
       loaders.grub.enable = mkDefault true;
       loaders.systemd-boot.enable = mkDefault false;
-      displayManagers.lightdm.enable = mkDefault true;
+      displayManagers.ly.enable = mkDefault true;
     };
 
     battery = mkIf config.nixosModules.battery.enable {
