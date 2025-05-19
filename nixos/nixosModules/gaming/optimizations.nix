@@ -1,4 +1,4 @@
-{ lib, inputs, config, pkgs, ... }:
+{ lib, inputs, config, pkgs, unstablePkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.gaming.optimizations;
@@ -42,7 +42,7 @@ in {
       tmp.useTmpfs = true;
 
       # kernelPackages = pkgs.linuxKernel.kernels.linux_zen;
-      kernelPackages = pkgs.linuxPackages_zen;
+      kernelPackages = unstablePkgs.linuxPackages_zen;
     };
 
     environment.sessionVariables = {

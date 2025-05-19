@@ -11,7 +11,7 @@ config = {
   window_background_opacity = 0.8,
 
   -- fixes rendering issues
-  front_end = "WebGpu",
+  -- front_end = "WebGpu",
 
   window_padding = {
     left = 0,
