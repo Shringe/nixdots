@@ -39,6 +39,7 @@ in {
   config = mkIf cfg.enable {
     homeManagerModules.desktop = {
       terminals.alacritty.enable = mkDefault true;
+      terminals.wezterm.enable = mkDefault true;
 
       windowManagers.sway.swaylock.enable = mkDefault true;
       windowManagers.sway.swayidle.enable = mkDefault true;
@@ -67,7 +68,7 @@ in {
       swaynag.enable = true;
       config = rec {
         modifier = "Mod4";
-        terminal = "alacritty"; 
+        terminal = "wezterm"; 
         menu = "wofi --show drun";
 
         left = "n";
