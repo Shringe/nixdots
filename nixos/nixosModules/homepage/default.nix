@@ -89,6 +89,13 @@ in {
               icon = "/icons/${icon}";
             };
           }
+          {
+            "Tandoor" = with groceries.tandoor; {
+              description = description;
+              href = url;
+              icon = "/icons/${icon}";
+            };
+          }
         ];}
 
         { "Files and Documents" = [

@@ -27,24 +27,12 @@ in {
 
     icon = mkOption {
       type = types.string;
-      default = "filebrowser.svg";
+      default = "tandoor-recipes.svg";
     };
   };
 
   config = mkIf cfg.enable {
     services = {
-      homepage-dashboard.services = [
-        { "Social" = [
-          {
-            "Tandoor" = {
-              description = cfg.description;
-              href = url;
-              icon = "/icons/${icon}";
-            };
-          }
-        ];}
-      ];
-
       tandoor-recipes = {
         enable = true;
         address = cfg.ip;
