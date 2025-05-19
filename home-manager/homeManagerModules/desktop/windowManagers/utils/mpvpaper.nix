@@ -39,7 +39,7 @@ in {
 
       wallpaper = mkOption {
         type = types.path;
-        default = ../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece.mp4;
+        default = ../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_2560x1440.mp4;
       };
     };
   };

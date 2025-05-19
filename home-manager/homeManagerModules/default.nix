@@ -26,7 +26,8 @@ with lib;
       wallpaper = mkOption {
         type = types.str;
         # default = "catppuccin_tux_3840x2160.png";
-        default = "grassmastersword_3440x1440.png";
+        # default = "grassmastersword_3440x1440.png";
+        default = "video/Luffy-On-The-Beach-One-Piece.png";
       };
 
       stylix = {
