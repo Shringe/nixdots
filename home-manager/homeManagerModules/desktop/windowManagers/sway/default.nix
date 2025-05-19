@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstablePkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.sway;
@@ -15,6 +15,10 @@ in {
 
   options.homeManagerModules.desktop.windowManagers.sway = {
     enable = lib.mkEnableOption "sway configuration";
+    enableSwayFx = mkOption {
+      type = types.bool;
+      default = true;
+    };
 
     proportions = {
       gaps = {
@@ -64,6 +68,16 @@ in {
 
     wayland.windowManager.sway = {
       enable = true;
+
+      # SwayFX config
+      package = mkIf cfg.enableSwayFx unstablePkgs.swayfx;
+      checkConfig = mkIf cfg.enableSwayFx false;
+      extraConfig = mkIf cfg.enableSwayFx ''
+        corner_radius 12
+        blur enable
+        blur_passes 2
+        shadows on
+      '';
 
       swaynag.enable = true;
       config = rec {
