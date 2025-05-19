@@ -2,7 +2,7 @@
   description = "Master flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
