@@ -3,16 +3,19 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.mpvpaper;
 
-  f = order: "${pkgs.mpvpaper}/bin/mpvpaper -p -o 'no-audio loop' ${order.display} ${order.wallpaper}";
+  f = order: "${pkgs.mpvpaper}/bin/mpvpaper -p -o 'no-audio loop --gpu-api=vulkan hwdec=auto' ${order.display} ${order.wallpaper}";
   g = order: {
     Unit = {
       Description = "Mpvpaper video wallpaper for display a specific display.";
     };
     Install = {
-      WantedBy = [ "default.target" ];
+      WantedBy = [ "sway-session.target" ];
     };
     Service = {
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
       ExecStart = (f order);
+      Restart = "on-failure";
+      RestartSec = "3s";
     };
   };
 in {
