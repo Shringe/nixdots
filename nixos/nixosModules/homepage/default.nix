@@ -94,6 +94,11 @@ in {
               description = description;
               href = url;
               icon = "/icons/${icon}";
+              widget = {
+                type = "tandoor";
+                url = url;
+                key = "{{HOMEPAGE_VAR_IMMICH}}";
+              };
             };
           }
         ];}

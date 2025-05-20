@@ -10,7 +10,8 @@ in
     ];
 
     services.cliphist = lib.mkIf cfg.enable {
-      # enable = true;
+      enable = true;
+      systemdTargets = ["sway-session.target"];
       allowImages = true;
 
       extraOptions = [

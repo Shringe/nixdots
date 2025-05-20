@@ -19,8 +19,6 @@ in {
         positionX = "right";
         positionY = "top";
 
-        layer = "overlay";
-
         control-center-margin-top = 10;
         control-center-margin-bottom = 10;
         control-center-margin-right = 10;
@@ -128,17 +126,17 @@ in {
         };
       };
 
-      style = with config.lib.stylix.colors; ''
-        @define-color cc-bg              #${base00};
-        @define-color noti-bg            #${base02};
-        @define-color noti-bg-darker     #${base01};
-        @define-color text-color         #${base05};
-        @define-color text-color-alt     #${base05};
-        @define-color accent             #${base0E};
-        @define-color accent-hover       #${base0D};
-        @define-color border-color       #${base07};
-        @define-color dnd-bg             #${base02};
-        @define-color dnd-checked-bg     #${base0A};
+      style = with config.lib.stylix.colors.withHashtag; with config.stylix.opacity; ''
+        @define-color cc-bg              alpha(${base00}, ${toString desktop});
+        @define-color noti-bg            alpha(${base02}, ${toString desktop});
+        @define-color noti-bg-darker     alpha(${base01}, ${toString desktop});
+        @define-color text-color         alpha(${base05}, ${toString desktop});
+        @define-color text-color-alt     alpha(${base05}, ${toString desktop});
+        @define-color accent             alpha(${base0E}, ${toString desktop});
+        @define-color accent-hover       alpha(${base0D}, ${toString desktop});
+        @define-color border-color       alpha(${base07}, ${toString desktop});
+        @define-color dnd-bg             alpha(${base02}, ${toString desktop});
+        @define-color dnd-checked-bg     alpha(${base0A}, ${toString desktop});
 
         * {
             font-family: JetBrainsMono NFP;
@@ -189,10 +187,13 @@ in {
 
         .notification-action {
             color: @text-color-alt;
-            border: 2px solid @border-color;
             border-top: none;
             border-radius: 0px;
             background: @cc-bg;
+        }
+
+        .blank-window {
+            background: transparent;
         }
 
         .notification-default-action:hover,
@@ -231,10 +232,6 @@ in {
 
         .control-center-list-placeholder {
             opacity: .5;
-        }
-
-        .blank-window {
-            background: alpha(black, 0.2);
         }
 
         .widget-title {

@@ -6,6 +6,7 @@ in {
   imports = [
     ./colorful.nix
     ./matte.nix
+    ./transparent.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.utils.waybar = {

@@ -29,7 +29,7 @@ in {
 
         outer = mkOption {
           type = types.int;
-          default = 3;
+          default = 1;
         };
       };
 
@@ -41,26 +41,38 @@ in {
   };
 
   config = mkIf cfg.enable {
+    stylix.opacity = mkIf cfg.enableSwayFx {
+      desktop = 0.88;
+    };
+
     homeManagerModules.desktop = {
       terminals.alacritty.enable = mkDefault true;
       terminals.wezterm.enable = mkDefault true;
 
-      windowManagers.sway.swaylock.enable = mkDefault true;
-      windowManagers.sway.swayidle.enable = mkDefault true;
+      windowManagers = {
+        sway = {
+          swayidle.enable = mkDefault true;
+          swaylock.enable = mkDefault true;
+        };
 
-      windowManagers.utils = {
-        waybar.colorful.enable = mkDefault true;
-        # waybar.matte.enable = mkDefault true;
+        utils = {
+          waybar = {
+            enable = mkDefault true;
+            transparent.enable = mkIf cfg.enableSwayFx true;
+            colorful.enable = mkIf cfg.enableSwayFx false;
+          };
 
-        # swaylogout.enable = mkDefault true;
-        swaync.enable = mkDefault true;
-        mpvpaper.enable = mkDefault true;
+          # swaylogout.enable = mkDefault true;
+          swaync.enable = mkDefault true;
+          mpvpaper.enable = mkDefault true;
+        };
       };
     };
 
     home.packages = with pkgs; [
       plasma5Packages.kdeconnect-kde
       wofi-power-menu
+      playerctl
     ];
 
     home.sessionVariables = {
@@ -69,6 +81,7 @@ in {
 
     wayland.windowManager.sway = {
       enable = true;
+      systemd.enable = true;
 
       # SwayFX config
       package = mkIf cfg.enableSwayFx unstablePkgs.swayfx;
@@ -77,7 +90,26 @@ in {
         corner_radius 12
         blur enable
         blur_passes 2
-        shadows on
+        shadows enable
+
+        set $opacity ${toString config.stylix.opacity.desktop}
+        for_window [app_id="wofi"] floating enable, sticky enable
+        for_window [floating] opacity $opacity
+
+        layer_effects "waybar" {
+          blur enable;
+          blur_xray enable;
+          blur_ignore_transparent enable;
+          shadows disable;
+          corner_radius 0;
+        }
+
+        layer_effects "swaync-control-center" {
+          blur enable;
+          blur_ignore_transparent enable;
+          shadows disable;
+          corner_radius 0;
+        }
       '';
 
       swaynag.enable = true;
@@ -101,10 +133,12 @@ in {
         # };
 
         startup = [
+          # { command = "wl-paste --type text --watch cliphist store"; }
+          # { command = "wl-paste --type image --watch cliphist store"; }
           { command = "waybar"; }
           { command = "kdeconnect-indicator"; }
-          { command = "wl-paste --type text --watch cliphist store"; }
-          { command = "wl-paste --type image --watch cliphist store"; }
+          { command = "systemctl --user restart primary_mpvpaper"; always = true; }
+          { command = "systemctl --user restart secondaryHorizontal_mpvpaper"; always = true; }
         ];
 
         workspaceOutputAssign = [
@@ -141,6 +175,8 @@ in {
           "${mod}+Shift+q" = "d the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 
           # Media
+          "XF86AudioPlay" = "exec playerctl play-pause";
+
           "Print" = "exec grim";
           "--locked XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "--locked XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
@@ -248,13 +284,13 @@ in {
         };
 
         gaps = {
-          # bottom = cfg.proportions.gaps;
-          # top = cfg.proportions.gaps;
-          # left = cfg.proportions.gaps;
-          # right = cfg.proportions.gaps;
+          bottom = cfg.proportions.gaps.outer;
+          top = 0;
+          left = cfg.proportions.gaps.outer;
+          right = cfg.proportions.gaps.outer;
 
           inner = cfg.proportions.gaps.inner;
-          outer = cfg.proportions.gaps.outer; 
+          # outer = cfg.proportions.gaps.outer; 
         };
 
         window = {
@@ -283,7 +319,7 @@ in {
             mode = "3440x1440@175Hz";
             pos = "2560 0";
             allow_tearing = "yes";
-            adaptive_sync = "yes";
+            adaptive_sync = "no";
             render_bit_depth = "10";
           };
 
@@ -291,7 +327,7 @@ in {
             mode = "2560x1440@165Hz";
             pos = "0 0";
             # allow_tearing = "yes";
-            adaptive_sync = "yes";
+            adaptive_sync = "no";
             render_bit_depth = "10";
           };
         };

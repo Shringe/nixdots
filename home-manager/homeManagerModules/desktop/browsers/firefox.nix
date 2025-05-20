@@ -13,6 +13,7 @@
   config = lib.mkIf config.homeManagerModules.desktop.browsers.firefox.enable {
     programs.firefox =  {
       enable = true;
+      package = unstablePkgs.firefox;
       languagePacks = [ "en-US" ];
       profiles.default = {
         extensions = {

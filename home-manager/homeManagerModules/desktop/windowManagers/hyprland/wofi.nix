@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstablePkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.wofi;
 in
@@ -7,19 +7,19 @@ in
 
   home.packages = with pkgs; lib.mkIf cfg.enable [
     wofi-emoji
-    unstablePkgs.wofi-power-menu
+    wofi-power-menu
   ];
 
   programs.wofi = lib.mkIf cfg.enable {
     enable = true;
     settings = {
       allow_images = true;
-      hide_scroll=true;
-      normal_window=true;
-      insensitive=true;
+      hide_scroll = true;
+      normal_window = true;
+      insensitive = true;
       width = 800;
       height = 650;
-      no_actions=true;
+      no_actions = true;
     };
 
     style = ''
@@ -29,8 +29,8 @@ in
       @define-color bg2 #${config.lib.stylix.colors.base00};
 
       * {
-          font-family: 'CaskaydiaCove Nerd Font mono';
-          font-size: 14px;
+          font-family: "JetBrains";
+          font-size: 16px;
        }
 
        /* Window */

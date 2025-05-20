@@ -30,6 +30,7 @@
         bashls.enable = true;
         nixd.enable = true;
         lua_ls.enable = true;
+        cssls.enable = true;
       };
     };
     keymaps = [
