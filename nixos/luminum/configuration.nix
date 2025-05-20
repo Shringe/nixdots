@@ -11,7 +11,9 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixosModules = {
-    desktop.qtile.enable = true;
+    theming.enable = true;
+    desktop.windowManagers.sway.enable = true;
+    vpn.enable = true;
 
     wireless = {
       enable = true;
@@ -23,6 +25,7 @@
       variant = "wide";
     };
     gaming = {
+      optimizations.enable = true;
       steam.enable = true;
       games.enable = true;
     };

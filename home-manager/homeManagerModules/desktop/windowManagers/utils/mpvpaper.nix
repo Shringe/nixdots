@@ -45,12 +45,25 @@ in {
         default = ../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_2560x1440.mp4;
       };
     };
+
+    laptop = {
+      display = mkOption {
+        type = types.str;
+        default = "eDP-1";
+      };
+
+      wallpaper = mkOption {
+        type = types.path;
+        default = ../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_2560x1440.mp4;
+      };
+    };
   };
 
   config = mkIf cfg.enable {
     systemd.user.services = {
       primary_mpvpaper = (g cfg.primary);
       secondaryHorizontal_mpvpaper = (g cfg.secondaryHorizontal);
+      laptop_mpvpaper = (g cfg.laptop);
     };
   };
 }

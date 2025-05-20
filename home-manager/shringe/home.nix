@@ -7,17 +7,20 @@
   home.homeDirectory = "/home/shringe";
 
   homeManagerModules = {
+    theming.enable = true;
     nixvim.enable = true;
     desktop = {
       office.enable = true;
       browsers.enable = true;
       terminals.enable = true;
+      windowManagers.sway.enable = true;
     };
-    shells.enable = true;
     scripts.enable = true;
     dotfiles.enable = true;
     sops.enable = true;
-    wm.enable = true;
+
+    # For unknown reason silently fails symling generation
+    shells.enable = false;
   };
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
