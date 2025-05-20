@@ -2,6 +2,7 @@
 with lib;
 {
   imports = [
+    ./greetd
     ./ly.nix
     ./lightdm.nix
   ];
