@@ -32,6 +32,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
     services = {
       tandoor-recipes = {
         enable = true;
