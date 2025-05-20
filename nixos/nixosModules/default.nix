@@ -89,7 +89,8 @@ with lib;
       wallpaper = lib.mkOption {
         type = lib.types.str;
         # default = "catppuccin_tux_3840x2160.png";
-        default = "grassmastersword_3440x1440.png";
+        # default = "grassmastersword_3440x1440.png";
+        default = "video/Luffy-On-The-Beach-One-Piece.png";
       };
 
       stylix = {
@@ -121,6 +122,7 @@ with lib;
       displayManagers = {
         ly.enable = mkEnableOption "Ly";
         lightdm.enable = mkEnableOption "Ly";
+        greetd.enable = mkEnableOption "Ly";
       };
     };
 
@@ -209,7 +211,7 @@ with lib;
     boot = mkIf config.nixosModules.boot.enable {
       loaders.grub.enable = mkDefault true;
       loaders.systemd-boot.enable = mkDefault false;
-      displayManagers.ly.enable = mkDefault true;
+      displayManagers.greetd.enable = mkDefault true;
     };
 
     battery = mkIf config.nixosModules.battery.enable {

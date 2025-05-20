@@ -84,7 +84,7 @@ in {
       systemd.enable = true;
 
       # SwayFX config
-      package = mkIf cfg.enableSwayFx unstablePkgs.swayfx;
+      package = mkIf cfg.enableSwayFx pkgs.swayfx;
       checkConfig = mkIf cfg.enableSwayFx false;
       extraConfig = mkIf cfg.enableSwayFx ''
         corner_radius 12
@@ -137,8 +137,8 @@ in {
           # { command = "wl-paste --type image --watch cliphist store"; }
           { command = "waybar"; }
           { command = "kdeconnect-indicator"; }
-          { command = "systemctl --user restart primary_mpvpaper"; always = true; }
-          { command = "systemctl --user restart secondaryHorizontal_mpvpaper"; always = true; }
+          # { command = "systemctl --user start primary_mpvpaper"; always = true; }
+          # { command = "systemctl --user start secondaryHorizontal_mpvpaper"; always = true; }
         ];
 
         workspaceOutputAssign = [

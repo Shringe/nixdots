@@ -1,0 +1,18 @@
+output "*" {
+  bg /nix/store/l9yd1x54fv1zc4vgg9dxdhzkijws6fvs-Luffy-On-The-Beach-One-Piece.png fill
+}
+
+output "DP-1" {
+  adaptive_sync no
+  mode 2560x1440@165Hz
+  pos 0 0
+  render_bit_depth 10
+}
+
+output "HDMI-A-1" {
+  adaptive_sync no
+  allow_tearing yes
+  mode 3440x1440@175Hz
+  pos 2560 0
+  render_bit_depth 10
+}

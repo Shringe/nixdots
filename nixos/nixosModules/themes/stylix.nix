@@ -50,6 +50,7 @@ in
 
       opacity = {
         terminal = 0.88;
+        desktop = 0.88;
       };
     };
   };

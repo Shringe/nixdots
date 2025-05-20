@@ -25,7 +25,9 @@ in {
     # enable sway window manager
     programs.sway = {
       enable = true;
+      package = pkgs.swayfx;
       wrapperFeatures.gtk = true;
+      extraOptions = [ "--unsupported-gpu" ];
     };
   };
 }
