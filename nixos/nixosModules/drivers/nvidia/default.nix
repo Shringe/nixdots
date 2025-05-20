@@ -34,6 +34,7 @@ in
     environment.systemPackages = [
       pkgs.nvidia_oc
       pkgs.steam-run
+      nvtopPackages.full
     ];
 
     systemd.services.nvidia_oc = {

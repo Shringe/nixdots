@@ -1,4 +1,4 @@
-{ config, lib, pkgs-stable, ... }:
+{ config, lib, ... }:
 let
   cfg = config.homeManagerModules.desktop.terminals.wezterm;
 in

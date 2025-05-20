@@ -55,6 +55,10 @@ in {
           swaylock.enable = mkDefault true;
         };
 
+        hyprland = {
+          wofi.enable = mkDefault true;
+        };
+
         utils = {
           waybar = {
             enable = mkDefault true;
@@ -308,10 +312,10 @@ in {
         };
 
         input = {
-          "*" = {
-            pointer_accel = "-0.675";
-            accel_profile = "flat";
-          };
+          # "*" = {
+          #   pointer_accel = "-0.675";
+          #   accel_profile = "flat";
+          # };
         };
 
         output = {

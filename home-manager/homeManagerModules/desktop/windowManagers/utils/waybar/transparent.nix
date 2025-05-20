@@ -2,6 +2,18 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.waybar.transparent;
+  nordstatus = (pkgs.writeShellApplication {
+    name = "nordstatus";
+
+    text = ''
+      #!/usr/bin/env sh
+      if nordvpn status | grep -q 'Status: Connected'; then
+        nordvpn status | awk -F': ' '/Country:/ {print $2}'
+      else
+        echo "Off"
+      fi
+    '';
+  });
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.waybar.transparent = {
@@ -20,21 +32,6 @@ in
       colorful.enable = mkForce false;
       matte.enable = mkForce false;
     };
-
-    home.packages = with pkgs; [
-      (writeShellApplication {
-        name = "nordstatus";
-
-        text = ''
-          #!/usr/bin/env sh
-          if nordvpn status | grep -q 'Status: Connected'; then
-            nordvpn status | awk -F': ' '/Country:/ {print $2}'
-          else
-            echo "Off"
-          fi
-        '';
-      })
-    ];
 
     programs.waybar = {
       enable = true;
@@ -139,7 +136,7 @@ in
         "custom/nordvpn" = {
           format = "VPN: {}";
           interval = 5;
-          exec = "nordstatus";
+          exec = "${nordstatus}/bin/nordstatus";
           on-click = "nordvpn connect";
           on-click-right = "nordvpn disconnect";
         };
@@ -167,8 +164,8 @@ in
 
         "custom/hyprsunset" = {
           # interval = "once";
-          on-click = "pidof hyprsunset || hyprsunset -t 2600";
-          on-click-right = "pkill hyprsunset";
+          on-click = "pidof gammastep || gammastep -O 3200";
+          on-click-right = "pkill gammastep";
           # signal = 1;
           # return-type = "json";
           format = "🌙";
@@ -343,8 +340,8 @@ in
           border-radius: 0px;
         }
 
-        #battery icon {
-          color: @b08;
+        #battery {
+          color: @b0D;
         }
 
         #custom-nordvpn {
