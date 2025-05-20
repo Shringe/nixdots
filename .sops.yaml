@@ -1,8 +1,9 @@
 keys:
   - &hosts:
     # - &luminum age1ws3dyg036d3sjtxvfwt006hpcn8gd85xtyzae8fv33dptl4dg4dsmafsvl
-    - &luminum age1ws3dyg036d3sjtxvfwt006hpcn8gd85xtyzae8fv33dptl4dg4dsmafsvl
+    # - &luminum age1ws3dyg036d3sjtxvfwt006hpcn8gd85xtyzae8fv33dptl4dg4dsmafsvl
     - &deity age15lktf23xyjmjsc3u43nkze4t9u8qjeqcfmtypq85m84fvvqzjczs8p4ezj
+    - &luminum age15lktf23xyjmjsc3u43nkze4t9u8qjeqcfmtypq85m84fvvqzjczs8p4ezj
   - &users:
     # - &shringe age1fg0x99x8f0uxvtswget0alvk4g59tqx28vffke24l0hct45vgdwqgwe7wy
     - &shringe age15lfna9r6dnlqmc890u2dqn5uxpmfktqfedyxh0q4xumkgvxlrevq9aylte
