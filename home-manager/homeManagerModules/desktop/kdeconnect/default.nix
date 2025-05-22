@@ -1,12 +1,13 @@
 { config, lib, ... }:
+with lib;
 let
   cfg = config.homeManagerModules.desktop.kdeconnect;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     services.kdeconnect = {
       enable = true;
-      indicator = true;
+      indicator = mkDefault false;
     };
   };
 }

@@ -170,16 +170,7 @@ with lib;
       };
 
       windowManagers = mkIf config.homeManagerModules.desktop.windowManagers.enable {
-        hyprland = {
-          enable = mkDefault true;
-          hyprpaper.enable = mkDefault true;
-          wofi.enable = mkDefault true;
-          waybar.enable = mkDefault true;
-          swaync.enable = mkDefault true;
-          hyprlock.enable = mkDefault true;
-          cliphist.enable = mkDefault true;
-          hypridle.enable = mkDefault true;
-        };
+        sway.enable = mkDefault true;
       };
 
       office = mkIf config.homeManagerModules.desktop.office.enable {

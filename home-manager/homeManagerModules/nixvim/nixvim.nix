@@ -5,9 +5,22 @@
     ./optimizations.nix
   ];
 
+  programs.neovide = lib.mkIf config.homeManagerModules.nixvim.enable {
+    enable = true;
+  };
+
+  programs.lazygit = lib.mkIf config.homeManagerModules.nixvim.enable {
+    enable = true;
+  };
+
+  programs.lf = lib.mkIf config.homeManagerModules.nixvim.enable {
+    enable = true;
+  };
+
   programs.nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
     enable = true;
     colorschemes.catppuccin.enable = true;
+    # colorschemes.tokyonight.enable = true;
 
     # Simple plugins
     plugins = {

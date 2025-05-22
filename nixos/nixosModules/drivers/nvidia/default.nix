@@ -31,9 +31,9 @@ in
     };
 
     # Once the package gets merged into nixpkgs
-    environment.systemPackages = [
-      pkgs.nvidia_oc
-      pkgs.steam-run
+    environment.systemPackages = with pkgs; [
+      nvidia_oc
+      steam-run
       nvtopPackages.full
     ];
 

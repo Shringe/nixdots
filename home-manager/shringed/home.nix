@@ -22,15 +22,12 @@
       office.enable = true;
       windowManagers = {
         enable = true;
-        qtile.enable = true;
-        hyprland.enable = true;
-        hyprland.waybar.enable = false;
         sway.enable = true;
       };
       email.enable = true;
     };
 
-    shells.enable = true;
+    shells.enable = false;
     scripts.enable = true;
     dotfiles.enable = true;
     sops.enable = true;

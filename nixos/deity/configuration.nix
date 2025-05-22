@@ -126,6 +126,12 @@
 
     boot = {
       enable = true;
+      displayManagers = {
+        ly.enable = true;
+        # Fails to load swayfx
+        greetd.enable = false;
+      };
+
       loaders = {
         grub.enable = false;
         systemd-boot.enable = true;
@@ -169,6 +175,17 @@
     };
 
     mouse.main.enable = true;
+  };
+
+  boot = {
+    loader.systemd-boot.memtest86.enable = true;
+    extraModulePackages = with config.boot.kernelPackages; [
+      zenpower
+    ];
+  };
+
+  programs.nix-ld = {
+    enable = true;
   };
 
 

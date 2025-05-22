@@ -5,6 +5,8 @@ let
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.swayfx}/bin/swaymsg exit"
     exec ${pkgs.mpvpaper}/bin/mpvpaper -p -o "no-audio loop --gpu-api=vulkan hwdec=auto" eDP-1 "${../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_1920x1080.mp4}";
+    exec ${pkgs.mpvpaper}/bin/mpvpaper -p -o "no-audio loop --gpu-api=vulkan hwdec=auto" DP-1 "${../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_2560x1440.mp4}";
+    exec ${pkgs.mpvpaper}/bin/mpvpaper -p -o "no-audio loop --gpu-api=vulkan hwdec=auto" HDMI-A-1 "${../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_3440x1440.mp4}";
 
     corner_radius 12
     blur enable
@@ -59,10 +61,6 @@ in {
       enable = true;
     };
 
-    # environment.etc."greetd/environments".text = ''
-    #   sway
-    #   fish
-    #   bash
-    # '';
+    environment.etc."greetd/sway".source = swayConfig;
   };
 }
