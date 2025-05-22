@@ -138,12 +138,7 @@ in {
         # };
 
         startup = [
-          # { command = "wl-paste --type text --watch cliphist store"; }
-          # { command = "wl-paste --type image --watch cliphist store"; }
-          # { command = "waybar"; }
-          # { command = "kdeconnect-indicator"; }
-          # { command = "systemctl --user start primary_mpvpaper"; always = true; }
-          # { command = "systemctl --user start secondaryHorizontal_mpvpaper"; always = true; }
+          { command = "kdeconnect-indicator"; }
         ];
 
         workspaceOutputAssign = [
@@ -312,10 +307,10 @@ in {
         };
 
         input = {
-          # "*" = {
-          #   pointer_accel = "-0.675";
-          #   accel_profile = "flat";
-          # };
+          "type:pointer" = {
+            pointer_accel = "-0.675";
+            accel_profile = "flat";
+          };
         };
 
         output = {
