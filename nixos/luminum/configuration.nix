@@ -32,6 +32,14 @@
     users = {
       shringe.enable = true;
     };
+
+    boot = {
+      enable = true;
+      loaders = {
+        grub.enable = false;
+        systemd-boot.enable = true;
+      };
+    };
   };
 
   boot = {
@@ -59,12 +67,6 @@
     enable = true;
     xkb = {
       layout = "us";
-    };
-  };
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "matrix";
     };
   };
 

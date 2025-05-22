@@ -12,6 +12,7 @@
     desktop = {
       office.enable = true;
       browsers.enable = true;
+      kdeconnect.enable = true;
       terminals.enable = true;
       windowManagers.sway.enable = true;
     };

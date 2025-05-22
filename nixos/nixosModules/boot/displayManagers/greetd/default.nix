@@ -3,11 +3,12 @@ with lib;
 let 
   cfg = config.nixosModules.boot.displayManagers.greetd; 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "${pkgs.greetd.regreet}/bin/regreet; swaymsg exit"
+    exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.swayfx}/bin/swaymsg exit"
+    exec ${pkgs.mpvpaper}/bin/mpvpaper -p -o "no-audio loop --gpu-api=vulkan hwdec=auto" eDP-1 "${../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_1920x1080.mp4}";
 
     corner_radius 12
     blur enable
-    blur_passes 2
+    blur_passes 8
     shadows enable
 
     gaps inner 3
@@ -19,6 +20,12 @@ let
     input "*" {
       accel_profile flat
       pointer_accel -0.675
+    }
+
+    output "eDP-1" {
+      mode 1920x1080@60Hz
+      pos 0 0
+      render_bit_depth 10
     }
 
     output "DP-1" {
@@ -41,6 +48,7 @@ in {
     services.greetd = {
       enable = true;
       settings = {
+        vt = 2;
         default_session = {
           command = "${pkgs.swayfx}/bin/sway --unsupported-gpu --config ${swayConfig}";
         };

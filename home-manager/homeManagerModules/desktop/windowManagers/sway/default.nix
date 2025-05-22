@@ -57,6 +57,7 @@ in {
 
         hyprland = {
           wofi.enable = mkDefault true;
+          cliphist.enable = mkDefault true;
         };
 
         utils = {
@@ -74,9 +75,9 @@ in {
     };
 
     home.packages = with pkgs; [
-      plasma5Packages.kdeconnect-kde
-      wofi-power-menu
-      playerctl
+      # plasma5Packages.kdeconnect-kde
+      # wofi-power-menu
+      # playerctl
     ];
 
     home.sessionVariables = {
@@ -139,8 +140,8 @@ in {
         startup = [
           # { command = "wl-paste --type text --watch cliphist store"; }
           # { command = "wl-paste --type image --watch cliphist store"; }
-          { command = "waybar"; }
-          { command = "kdeconnect-indicator"; }
+          # { command = "waybar"; }
+          # { command = "kdeconnect-indicator"; }
           # { command = "systemctl --user start primary_mpvpaper"; always = true; }
           # { command = "systemctl --user start secondaryHorizontal_mpvpaper"; always = true; }
         ];
@@ -175,7 +176,6 @@ in {
           # Window Manager
           # "floating_modifier ${mod}" = "normal";
           "${mod}+w" = "kill";
-          "${mod}+Shift+Alt+Control+c" = "reload";
           "${mod}+Shift+q" = "d the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 
           # Media
@@ -332,6 +332,12 @@ in {
             pos = "0 0";
             # allow_tearing = "yes";
             adaptive_sync = "no";
+            render_bit_depth = "10";
+          };
+
+          "eDP-1" = {
+            mode = "1920x1080@60Hz";
+            pos = "0 0";
             render_bit_depth = "10";
           };
         };

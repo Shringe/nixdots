@@ -11,12 +11,21 @@ in {
     services.swayidle = {
       enable = true;
 
+      events = [
+        { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -f"; }
+      ];
+
       timeouts = [
-        { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock"; }
+        { timeout = 330; command = "${pkgs.swaylock}/bin/swaylock -f"; }
         {
-          timeout = 330;
+          timeout = 300;
           command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
           resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+        }
+        {
+          timeout = 180;
+          command = "${pkgs.brightnessctl}/bin/brightnessctl s 80%-";
+          resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl s 80%+";        
         }
       ];
     };
