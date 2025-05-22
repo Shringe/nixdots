@@ -5,8 +5,8 @@ in
 {
   config = lib.mkIf cfg.enable {
     services.kdeconnect = {
-      # enable = true;
-      # indicator = true;
+      enable = true;
+      indicator = true;
     };
   };
 }

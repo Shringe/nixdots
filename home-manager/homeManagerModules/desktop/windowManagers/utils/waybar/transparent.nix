@@ -35,6 +35,10 @@ in
 
     programs.waybar = {
       enable = true;
+      systemd = {
+        enable = true;
+        target = "sway-session.target";
+      };
       
       settings.primary = {
         layer = "top";
@@ -42,9 +46,9 @@ in
         height = 20;
 
         modules-left = [ 
-          "battery" 
           "cpu" 
           "memory" 
+          "battery" 
           "privacy"
           "custom/nordvpn"
           "${cfg.wm}/mode"
@@ -164,13 +168,13 @@ in
 
         "custom/hyprsunset" = {
           # interval = "once";
-          on-click = "pidof gammastep || gammastep -O 3200";
+          on-click = "pidof gammastep || ${pkgs.gammastep}/bin/gammastep -O 3200";
           on-click-right = "pkill gammastep";
           # signal = 1;
           # return-type = "json";
           format = "🌙";
           # tooltip-format = "hyprsunset: {alt}";
-          tooltip-format = "Enable hyprsunset";
+          tooltip-format = "Enable blue-light-filter.";
           # format-icons = {
           #   # off = "☀️";
           #   # on = "🌙";

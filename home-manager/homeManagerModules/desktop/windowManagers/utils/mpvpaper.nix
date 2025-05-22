@@ -12,10 +12,8 @@ let
       WantedBy = [ "sway-session.target" ];
     };
     Service = {
-      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+      # ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
       ExecStart = (f order);
-      Restart = "on-failure";
-      RestartSec = "3s";
     };
   };
 in {
@@ -54,7 +52,7 @@ in {
 
       wallpaper = mkOption {
         type = types.path;
-        default = ../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_2560x1440.mp4;
+        default = ../../../../../assets/wallpapers/video/Luffy-On-The-Beach-One-Piece_1920x1080.mp4;
       };
     };
   };
