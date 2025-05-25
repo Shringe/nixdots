@@ -201,7 +201,7 @@ with lib;
     };
 
     vpn = mkIf config.nixosModules.vpn.enable {
-      nordvpn.enable = mkDefault true;
+      nordvpn.enabled = mkDefault true;
     };
 
     theming = mkIf config.nixosModules.theming.enable {

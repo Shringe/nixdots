@@ -223,7 +223,9 @@
     sessionVariables = {
       NH_FLAKE="/nixdots";
     };
-    systemPackages = with pkgs; [
+    systemPackages = with pkgs; with config.shared.packages; [
+      nordvpn
+      
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       wget
       git

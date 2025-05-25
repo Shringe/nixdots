@@ -2,13 +2,15 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.waybar.transparent;
+  nordvpn = "${config.shared.packages.nordvpn}/bin/nordvpn";
+
   nordstatus = (pkgs.writeShellApplication {
     name = "nordstatus";
 
     text = ''
       #!/usr/bin/env sh
-      if nordvpn status | grep -q 'Status: Connected'; then
-        nordvpn status | awk -F': ' '/Country:/ {print $2}'
+      if ${nordvpn} status | ${pkgs.gnugrep}/bin/grep -q 'Status: Connected'; then
+        ${nordvpn} status | ${pkgs.gawk}/bin/awk -F': ' '/Country:/ {print $2}'
       else
         echo "Off"
       fi
@@ -141,8 +143,8 @@ in
           format = "VPN: {}";
           interval = 5;
           exec = "${nordstatus}/bin/nordstatus";
-          on-click = "nordvpn connect";
-          on-click-right = "nordvpn disconnect";
+          on-click = "${nordvpn} connect";
+          on-click-right = "${nordvpn} disconnect";
         };
 
         "custom/notification" = {
@@ -159,17 +161,17 @@ in
             dnd-inhibited-none = "";
           };
           return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "swaync-client -t -sw";
-          on-click-right = "swaync-client -d -sw";
+          exec-if = "${pkgs.coreutils}/bin/which swaync-client";
+          exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
+          on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+          on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
           escape = true;
         };
 
         "custom/hyprsunset" = {
           # interval = "once";
-          on-click = "pidof gammastep || ${pkgs.gammastep}/bin/gammastep -O 3200";
-          on-click-right = "pkill gammastep";
+          on-click = "${pkgs.procps}/bin/pidof gammastep || ${pkgs.gammastep}/bin/gammastep -O 3200";
+          on-click-right = "${pkgs.procps}/bin/pkill gammastep";
           # signal = 1;
           # return-type = "json";
           format = "🌙";

@@ -122,6 +122,7 @@
           modules = [ 
             ./nixos/deity/configuration.nix 
             ./nixos/nixosModules
+            ./shared
           ];
         };
 
@@ -130,6 +131,7 @@
           modules = [ 
             ./nixos/luminum/configuration.nix 
             ./nixos/nixosModules
+            ./shared
           ];
         };
       };
@@ -142,6 +144,7 @@
             ./home-manager/shringed/home.nix 
             ./home-manager/homeManagerModules
             inputs.nixvim.homeManagerModules.nixvim
+            ./shared
           ];
         };
 
@@ -152,6 +155,7 @@
             ./home-manager/shringe/home.nix 
             ./home-manager/homeManagerModules
             inputs.nixvim.homeManagerModules.nixvim
+            ./shared
           ];
         };
       };
