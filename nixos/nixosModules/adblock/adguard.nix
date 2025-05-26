@@ -2,6 +2,9 @@
 with lib;
 let
   cfg = config.nixosModules.adblock.adguard;
+
+  # Creates a custom filtering name for the reverse proxy
+  rp = subDomain: "${config.nixosModules.info.system.ips.local} ${subDomain}.${config.nixosModules.reverseProxy.domain}";
 in {
   options.nixosModules.adblock.adguard = {
     enable = mkEnableOption "Adguard dns";
@@ -72,6 +75,20 @@ in {
           ];
         };
 
+        user_rules = [
+          (rp "jellyfin")
+          (rp "tandoor")
+          (rp "dash")
+          (rp "kavita")
+          (rp "jellyseerr")
+          (rp "gatus")
+          (rp "adguard")
+          (rp "immich")
+          (rp "radicale")
+          (rp "ollama")
+          (rp "router")
+        ];
+
         filtering = {
           protection_enabled = true;
           filtering_enabled = true;
@@ -92,7 +109,7 @@ in {
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_54.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_55.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_56.txt"
+          # "https://adguardteam.github.io/HostlistsRegistry/assets/filter_56.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_59.txt"
           "https://adguardteam.github.io/HostlistsRegistry/assets/filter_61.txt"
         ];
