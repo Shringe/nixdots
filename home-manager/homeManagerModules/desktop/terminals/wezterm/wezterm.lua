@@ -4,7 +4,7 @@ local config = {}
 config = {
   default_prog = { "/usr/bin/env", "fish" },
 
-  -- font = wezterm.font("JetBrains Mono"),
+  font = wezterm.font("JetBrains Mono"),
   -- font_size = 16,
   enable_tab_bar = false,
   -- window_decorations
