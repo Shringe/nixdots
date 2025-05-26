@@ -171,7 +171,7 @@
           "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
           
-          "browser.startup.homepage" = "http://192.168.0.165:47020";
+          "browser.startup.homepage" = "https://dash.deamicis.top";
         };
       };
     };

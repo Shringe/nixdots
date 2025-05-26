@@ -37,7 +37,7 @@ in {
 
         # Private
         "jellyfin.${d}" = (rp jellyfin.server.url);
-        "home.${d}" = (rp homepage.url);
+        "dash.${d}" = (rp homepage.url);
         "tandoor.${d}" = (rp groceries.tandoor.url);
         "kavita.${d}" = (rp kavita.url);
         "gatus.${d}" = (rp monitors.gatus.url);
