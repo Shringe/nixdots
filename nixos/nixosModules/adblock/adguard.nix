@@ -37,6 +37,11 @@ in {
       default = "http://${cfg.dns}:${toString cfg.ports.webui}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://adguard.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       # default = "adguard-home.svg";

@@ -30,6 +30,11 @@ in {
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://files.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "filebrowser.svg";

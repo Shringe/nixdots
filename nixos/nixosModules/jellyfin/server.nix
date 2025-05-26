@@ -22,6 +22,11 @@ in
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://jellyfin.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "jellyfin.svg";
