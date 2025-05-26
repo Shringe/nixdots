@@ -21,6 +21,11 @@ in {
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://kavita.${config.nixosModules.reverseProxy.domain}";
+    };
+
     description = mkOption {
       type = types.string;
       default = "Ebook and Comics Manager";

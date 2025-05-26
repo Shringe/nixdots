@@ -49,7 +49,7 @@
 
     adblock.enable = true;
     # guacamole.enable = true;
-    ombi.enable = true;
+    # ombi.enable = true;
 
     ssh = {
       server.enable = true;
@@ -66,16 +66,16 @@
       vpn.enable = true;
     };
 
-    uptimeKuma = {
-      enable = true;
-    };
+    # uptimeKuma = {
+    #   enable = true;
+    # };
 
-    docker = {
-      enable = true;
-      automaticrippingmachine = {
-        enable = true;
-      };
-    };
+    # docker = {
+    #   enable = true;
+    #   automaticrippingmachine = {
+    #     enable = true;
+    #   };
+    # };
 
     homepage.enable = true;
 

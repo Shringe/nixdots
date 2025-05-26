@@ -26,6 +26,11 @@ in {
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://immich.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "immich.svg";

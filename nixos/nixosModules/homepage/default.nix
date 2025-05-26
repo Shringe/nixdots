@@ -23,6 +23,11 @@ in {
       type = types.path;
       default = ../../../assets/wallpapers/TerribleFate.png;
     };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -85,18 +90,18 @@ in {
           {
             "Ollama" = with llm.ollama.webui; { 
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
             };
           }
           {
             "Tandoor" = with groceries.tandoor; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "tandoor";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_IMMICH}}";
               };
             };
@@ -107,25 +112,25 @@ in {
           {
             "File Browser" = with filebrowser; { 
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
             };
           }
           {
             "Radicale" = with caldav.radicale; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
             };
           }
           {
             "Immich" = with album.immich; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "immich";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_IMMICH}}";
                 version = 2;
               };
@@ -134,45 +139,45 @@ in {
         ];}
 
         { "Server Health" = [
-          {
-            "Uptime Kuma" = with uptimeKuma; {
-              description = description;
-              href = url;
-              icon = "/icons/${icon}";
-            };
-          }
+          # {
+          #   "Uptime Kuma" = with uptimeKuma; {
+          #     description = description;
+          #     href = url;
+          #     icon = "/icons/${icon}";
+          #   };
+          # }
           {
             "Gatus" = with monitors.gatus; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
             };
           }
         ];}
 
         { "Administrator" = [
-          {
-            "Guacamole" = with guacamole; {
-              description = description;
-              href = url;
-              icon = "/icons/${icon}";
-            };
-          }
+          # {
+          #   "Guacamole" = with guacamole; {
+          #     description = description;
+          #     href = url;
+          #     icon = "/icons/${icon}";
+          #   };
+          # }
           {
             "Router Settings" = { 
               description = "Networking Admin Panel";
-              href = "http://192.168.0.1";
+              href = "https://router.${config.nixosModules.reverseProxy.domain}";
               icon = "/icons/router.svg";
             };
           }
           {
             "AdGuard Home" = with adblock.adguard; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "adguard";
-                url = url;
+                url = furl;
               };
             };
           }
@@ -182,35 +187,35 @@ in {
           {
             "Jellyseerr" = with jellyfin.jellyseerr; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "jellyseerr";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_JELLYSEERR}}";
               };
             };
           }
-          {
-            "Ombi" = with ombi; {
-              description = description;
-              href = url;
-              icon = "/icons/${icon}";
-              widget = {
-                type = "ombi";
-                url = url;
-                key = "{{HOMEPAGE_VAR_OMBI}}";
-              };
-            };
-          }
+          # {
+          #   "Ombi" = with ombi; {
+          #     description = description;
+          #     href = url;
+          #     icon = "/icons/${icon}";
+          #     widget = {
+          #       type = "ombi";
+          #       url = url;
+          #       key = "{{HOMEPAGE_VAR_OMBI}}";
+          #     };
+          #   };
+          # }
           {
             "Jellyfin" = with jellyfin.server; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "jellyfin";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_JELLYFIN}}";
                 enableBlocks = true;
                 expandOneStreamToTwoRows = false;
@@ -220,11 +225,11 @@ in {
           {
             "Kavita" = with kavita; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "kavita";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_KAVITA}}";
               };
             };
@@ -232,13 +237,13 @@ in {
         ];}
 
         { "Yarr!" = [
-          {
-            "Automatic Ripping Machine" = with docker.automaticrippingmachine; {
-              description = description;
-              href = url;
-              icon = "/icons/${icon}";
-            };
-          }
+          # {
+          #   "Automatic Ripping Machine" = with docker.automaticrippingmachine; {
+          #     description = description;
+          #     href = url;
+          #     icon = "/icons/${icon}";
+          #   };
+          # }
           {
             "Lidarr" = with arrs.lidarr; {
               description = description;

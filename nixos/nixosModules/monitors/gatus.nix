@@ -2,6 +2,15 @@
 with lib;
 let
   cfg = config.nixosModules.monitors.gatus;
+
+  watch = name: url: {
+    name = name;
+    url = url;
+    interval = "30m";
+    conditions = [
+      "[STATUS] == 200"
+    ];
+  };
 in {
   options.nixosModules.monitors.gatus = {
     enable = mkEnableOption "Gatus server status monitor";
@@ -21,6 +30,11 @@ in {
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://gatus.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "gatus.svg";
@@ -36,134 +50,28 @@ in {
         web.port = cfg.port;
 
         endpoints = [
-          {
-            name = "Radicale";
-            url = caldav.radicale.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Jellyfin";
-            url = jellyfin.server.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "File Browser";
-            url = filebrowser.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Uptime Kuma";
-            url = uptimeKuma.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Gatus";
-            url = monitors.gatus.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Guacamole";
-            url = guacamole.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "AdGuard Home";
-            url = adblock.adguard.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Jellyseerr";
-            url = jellyfin.jellyseerr.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Ombi";
-            url = ombi.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Automatic Ripping Machine";
-            url = docker.automaticrippingmachine.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Lidarr";
-            url = arrs.lidarr.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Radarr";
-            url = arrs.radarr.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Sonarr";
-            url = arrs.sonarr.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Prowlarr";
-            url = arrs.prowlarr.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "Flaresolverr";
-            url = arrs.flaresolverr.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
-          {
-            name = "qBittorrent";
-            url = torrent.qbittorrent.url;
-            interval = "30m";
-            conditions = [
-              "[STATUS] == 200"
-            ];
-          }
+          (watch "Radicale" caldav.radicale.furl)
+          (watch "Jellyfin" jellyfin.server.furl)
+          (watch "File Browser" filebrowser.furl)
+          # (watch "Uptime Kuma" uptimeKuma.furl)
+          (watch "Gatus" monitors.gatus.furl)
+          # (watch "Guacamole" guacamole.furl)
+          (watch "AdGuard Home" adblock.adguard.furl)
+          (watch "Jellyseerr" jellyfin.jellyseerr.furl)
+          # (watch "Ombi" ombi.furl)
+          (watch "Kavita" kavita.furl)
+          (watch "Tandoor" groceries.tandoor.furl)
+          (watch "Immich" album.immich.furl)
+          (watch "Ollama" llm.ollama.webui.furl)
+          (watch "Router" "https://router.${config.nixosModules.reverseProxy.domain}")
+
+          # (watch "Automatic Ripping Machine" docker.automaticrippingmachine.url)
+          (watch "Lidarr" arrs.lidarr.url)
+          (watch "Radarr" arrs.radarr.url)
+          (watch "Sonarr" arrs.sonarr.url)
+          (watch "Prowlarr" arrs.prowlarr.url)
+          # (watch "Flaresolverr" arrs.flaresolverr.url)
+          (watch "qBittorrent" torrent.qbittorrent.url)
         ];
       };
     };

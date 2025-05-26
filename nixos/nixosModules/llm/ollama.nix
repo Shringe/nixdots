@@ -53,6 +53,11 @@ in {
         type = types.string;
         default = "http://${cfg.webui.host}:${toString cfg.webui.port}";
       };
+
+      furl = mkOption {
+        type = types.string;
+        default = "https://ollama.${config.nixosModules.reverseProxy.domain}";
+      };
     };
   };
 
