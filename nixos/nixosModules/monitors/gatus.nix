@@ -63,7 +63,6 @@ in {
           (watch "Tandoor" groceries.tandoor.furl)
           (watch "Immich" album.immich.furl)
           (watch "Ollama" llm.ollama.webui.furl)
-          (watch "Router" "https://router.${config.nixosModules.reverseProxy.domain}")
 
           # (watch "Automatic Ripping Machine" docker.automaticrippingmachine.url)
           (watch "Lidarr" arrs.lidarr.url)

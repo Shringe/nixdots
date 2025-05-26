@@ -7,6 +7,7 @@ let
     postInstall = ''
       mkdir -p $out/share/homepage/public/images
       ln -s ${cfg.wallpaper} $out/share/homepage/public/images/wallpaper.png
+      ln -s ${cfg.logo} $out/share/homepage/public/images/logo.png
       ln -s ${../../../assets/icons} $out/share/homepage/public/icons
     '';
   });
@@ -22,6 +23,11 @@ in {
     wallpaper = mkOption {
       type = types.path;
       default = ../../../assets/wallpapers/TerribleFate.png;
+    };
+
+    logo = mkOption {
+      type = types.path;
+      default = ../../../assets/icons/majora.png;
     };
 
     url = mkOption {
@@ -47,6 +53,8 @@ in {
           saturate = 75;
           brightness = 75;
         };
+
+        favicon = "/images/logo.png";
 
         # color = "indigo";
         color = "red";
@@ -102,7 +110,7 @@ in {
               widget = {
                 type = "tandoor";
                 url = furl;
-                key = "{{HOMEPAGE_VAR_IMMICH}}";
+                key = "{{HOMEPAGE_VAR_TANDOOR}}";
               };
             };
           }
@@ -151,6 +159,10 @@ in {
               description = description;
               href = furl;
               icon = "/icons/${icon}";
+              widget = {
+                type = "gatus";
+                url = furl;
+              };
             };
           }
         ];}
@@ -302,7 +314,6 @@ in {
                 url = url;
                 username = "{{HOMEPAGE_VAR_QBITTORRENT_USER}}";
                 password = "{{HOMEPAGE_VAR_QBITTORRENT_PASS}}";
-                enableLeechProgress=true;
               };
             };
           }
