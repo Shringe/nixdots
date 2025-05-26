@@ -42,7 +42,6 @@ in {
     services.homepage-dashboard = {
       enable = true;
       listenPort = cfg.port;
-      openFirewall = true;
       package = fixedPaths;
       environmentFile = config.sops.secrets."homepage".path;
 

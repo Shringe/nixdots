@@ -44,7 +44,6 @@ in {
   config = mkIf cfg.enable {
     services.gatus = {
       enable = true;
-      openFirewall = true;
 
       settings = with config.nixosModules; {
         web.port = cfg.port;

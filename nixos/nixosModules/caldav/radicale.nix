@@ -42,7 +42,6 @@ in {
       owner = config.users.users.radicale.name;
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
     environment.systemPackages = with pkgs; [
       apacheHttpd
     ];

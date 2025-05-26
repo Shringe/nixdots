@@ -39,7 +39,6 @@ in {
 
   config = mkIf cfg.enable {
     sops.secrets."kavita" = {};
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     services.kavita = {
       enable = true;

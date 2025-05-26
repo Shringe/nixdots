@@ -1,4 +1,4 @@
-{ config, lib, pkgs-stable, ... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.nixosModules.llm.ollama;
@@ -82,7 +82,5 @@ in {
         ollamaUrl = cfg.url;
       };
     };
-
-    networking.firewall.allowedTCPPorts = mkIf cfg.webui.enable [ cfg.webui.port ];
   };
 }

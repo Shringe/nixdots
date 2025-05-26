@@ -45,7 +45,5 @@ in
     services.jellyfin = {
       enable = true;
     };
-
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }
