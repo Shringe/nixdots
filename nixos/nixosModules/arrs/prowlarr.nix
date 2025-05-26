@@ -26,6 +26,11 @@ in {
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://prowlarr.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "prowlarr.svg";
@@ -33,8 +38,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-
     # users.users.prowlarr = {
     #   isSystemUser = true;
     #   group = "prowlarr";
