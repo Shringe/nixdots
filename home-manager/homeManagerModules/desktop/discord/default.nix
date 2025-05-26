@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    inputs.nixcord.homeManagerModules.nixcord
+    inputs.nixcord.homeModules.nixcord
   ];
 
   config = mkIf cfg.enable {
