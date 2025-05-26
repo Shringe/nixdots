@@ -258,11 +258,11 @@ in {
           {
             "Lidarr" = with arrs.lidarr; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "lidarr";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_LIDARR}}";
               };
             };
@@ -270,11 +270,11 @@ in {
           {
             "Radarr" = with arrs.radarr; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "radarr";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_RADARR}}";
               };
             };
@@ -282,11 +282,11 @@ in {
           {
             "Sonarr" = with arrs.sonarr; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "sonarr";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_SONARR}}";
               };
             };
@@ -294,11 +294,11 @@ in {
           {
             "Prowlarr" = with arrs.prowlarr; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "prowlarr";
-                url = url;
+                url = furl;
                 key = "{{HOMEPAGE_VAR_PROWLARR}}";
               };
             };
@@ -306,11 +306,11 @@ in {
           {
             "qBittorrent" = with torrent.qbittorrent; {
               description = description;
-              href = url;
+              href = furl;
               icon = "/icons/${icon}";
               widget = {
                 type = "qbittorrent";
-                url = url;
+                url = furl;
                 username = "{{HOMEPAGE_VAR_QBITTORRENT_USER}}";
                 password = "{{HOMEPAGE_VAR_QBITTORRENT_PASS}}";
               };

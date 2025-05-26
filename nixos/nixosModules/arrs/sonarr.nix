@@ -26,6 +26,11 @@ in {
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://sonarr.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "sonarr.svg";
@@ -33,8 +38,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-
     sops.secrets."user_passwords/sonarr".neededForUsers = true;
     users.users.sonarr = {
       isSystemUser = true;

@@ -26,6 +26,11 @@ in {
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
+    furl = mkOption {
+      type = types.string;
+      default = "https://lidarr.${config.nixosModules.reverseProxy.domain}";
+    };
+
     icon = mkOption {
       type = types.string;
       default = "lidarr.svg";
@@ -33,8 +38,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-
     sops.secrets."user_passwords/lidarr".neededForUsers = true;
     users.users.lidarr = {
       isSystemUser = true;

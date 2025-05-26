@@ -87,6 +87,11 @@ in {
           (rp "radicale")
           (rp "ollama")
           (rp "router")
+          (rp "lidarr")
+          (rp "radarr")
+          (rp "sonarr")
+          (rp "prowlarr")
+          (rp "torrent")
         ];
 
         filtering = {

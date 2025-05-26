@@ -47,6 +47,11 @@ in {
         "radicale.${d}" = (rp caldav.radicale.url);
         "ollama.${d}" = (rp llm.ollama.webui.url);
         "router.${d}" = (rp "http://192.168.0.1");
+        "lidarr.${d}" = (rp arrs.lidarr.url);
+        "radarr.${d}" = (rp arrs.radarr.url);
+        "sonarr.${d}" = (rp arrs.sonarr.url);
+        "prowlarr.${d}" = (rp arrs.prowlarr.url);
+        "torrent.${d}" = (rp torrent.qbittorrent.url);
       };
     };
 
