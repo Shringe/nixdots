@@ -116,7 +116,6 @@ in {
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.ports.webui ];
     networking.firewall.allowedUDPPorts = [ 53 ];
   };
 }

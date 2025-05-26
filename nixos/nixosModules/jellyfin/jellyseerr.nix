@@ -38,7 +38,5 @@ in
       enable = true;
       port = cfg.port;
     };
-
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }

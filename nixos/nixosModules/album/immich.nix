@@ -43,7 +43,6 @@ in {
       host = cfg.host;
       port = cfg.port;
 
-      openFirewall = true;
       redis.enable = true;
       mediaLocation = "/mnt/server/Album/immich";
     };
