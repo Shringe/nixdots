@@ -1,13 +1,13 @@
-{ pkgs, config, lib, ... }:
+{ unstablePkgs, config, lib, ... }:
 let
   cfg = config.nixosModules.gaming.games.prismlauncher;
 in
 {
-  environment.systemPackages = with pkgs; lib.mkIf cfg.enable [
-    (prismlauncher.override {
+  environment.systemPackages = lib.mkIf cfg.enable [
+    (unstablePkgs.prismlauncher.override {
       gamemodeSupport = true;
 
-      jdks = [
+      jdks = with unstablePkgs; [
         jdk21
         jdk17
         graalvm-ce
