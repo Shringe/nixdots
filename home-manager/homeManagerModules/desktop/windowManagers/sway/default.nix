@@ -103,7 +103,7 @@ in {
 
         layer_effects "waybar" {
           blur enable;
-          blur_xray enable;
+          corner_radius 8;
           blur_ignore_transparent enable;
           shadows disable;
           corner_radius 0;
