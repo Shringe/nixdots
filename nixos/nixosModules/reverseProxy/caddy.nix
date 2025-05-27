@@ -65,6 +65,7 @@ in {
         "sonarr.${d}" = (rp arrs.sonarr.url);
         "prowlarr.${d}" = (rp arrs.prowlarr.url);
         "torrent.${d}" = (rp torrent.qbittorrent.url);
+        "flaresolverr.${d}" = (rp arrs.flaresolverr.url);
       };
     };
 

@@ -71,6 +71,7 @@ in {
           # (watch "Flaresolverr" arrs.flaresolverr.url)
           (watch "qBittorrent" torrent.qbittorrent.url)
           (watch "Authelia" authelia.furl)
+          (watch "Flaresolverr" arrs.flaresolverr.url)
         ];
       };
     };
