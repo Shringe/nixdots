@@ -25,6 +25,7 @@
     backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
+    authelia.enable = true;
 
     social = {
       jitsi.enable = true;

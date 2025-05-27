@@ -50,6 +50,7 @@ with lib;
     ./backups
     ./kavita
     ./groceries
+    ./authelia
   ];
 
   options.nixosModules = {

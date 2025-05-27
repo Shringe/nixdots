@@ -11,6 +11,18 @@ let
       reverse_proxy ${url}
     '';
   };
+
+  rps = url: {
+    useACMEHost = d;
+    extraConfig = ''
+      forward_auth :${toString config.nixosModules.authelia.port} {
+          uri /api/authz/forward-auth
+          copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+      }
+
+      reverse_proxy ${url}
+    '';
+  };
 in {
   options.nixosModules.reverseProxy.caddy = {
     enable = mkEnableOption "Caddy";
@@ -31,9 +43,10 @@ in {
       enable = true;
       virtualHosts = with config.nixosModules; {
         # Public
-        "files.${d}" = (rp filebrowser.url);
+        "files.${d}" = (rps filebrowser.url);
         "ssh.${d}" = (rp "${info.system.ips.local}:${toString ssh.server.port}");
         "matrix.${d}" = (rp "${info.system.ips.local}:${toString social.matrix.conduit.port}");
+        # "auth.${d}" = (rp "${info.system.ips.local}:${toString authelia.port}");
 
         # Private
         "jellyfin.${d}" = (rp jellyfin.server.url);

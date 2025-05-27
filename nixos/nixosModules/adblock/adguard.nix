@@ -92,6 +92,7 @@ in {
           (rp "sonarr")
           (rp "prowlarr")
           (rp "torrent")
+          (rp "auth")
         ];
 
         filtering = {
