@@ -9,13 +9,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.jitsi-meet = {
-      enable = true;
-      hostName = "jitsi.deamicis.top";
-      nginx.enable = false;
-      caddy.enable = true;
-      excalidraw.enable = true;
-      secureDomain.enable = false;
+    services = {
+      jitsi-meet = {
+        enable = true;
+        hostName = "jitsi.deamicis.top";
+        nginx.enable = false;
+        caddy.enable = true;
+        excalidraw.enable = true;
+        secureDomain.enable = false;
+      };
     };
   };
 }

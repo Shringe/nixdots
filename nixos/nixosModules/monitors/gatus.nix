@@ -70,6 +70,7 @@ in {
           (watch "Prowlarr" arrs.prowlarr.url)
           # (watch "Flaresolverr" arrs.flaresolverr.url)
           (watch "qBittorrent" torrent.qbittorrent.url)
+          (watch "Authelia" authelia.furl)
         ];
       };
     };
