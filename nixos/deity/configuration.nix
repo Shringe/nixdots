@@ -113,11 +113,11 @@
     };
 
     llm = {
-      # ollama = {
-      #   enable = true;
-      #   enableCuda = true;
-      #   webui.enable =true;
-      # };
+      ollama = {
+        enable = true;
+        enableCuda = true;
+        webui.enable = true;
+      };
 
       gpt4all = {
         # enable = true;
