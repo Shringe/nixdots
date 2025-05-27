@@ -57,22 +57,42 @@ in {
       enable = true;
       port = cfg.ports.webui;
       host = cfg.host;
+      mutableSettings = false;
 
       settings = {
         dns = {
           upstream_dns = [
-            "1.0.0.1"
-            "1.0.0.2"
-            "1.1.1.2"
-            "8.8.8.8"
-            "9.9.9.9"
-            "208.67.222.222"
-            "208.67.220.220"
-            "208.67.222.220"
-            "208.67.220.222"
-            "4.2.2.1"
-            "4.2.2.2"
+            "https://dns.quad9.net/dns-query"
+            "tls://dns.quad9.net"
           ];
+
+          # fallback_dns = [
+          #   "8.8.8.8"
+          #   "9.9.9.9"
+          # ];
+
+          bootstrap_dns = [
+            "9.9.9.9"
+            "149.112.112.112"
+          ];
+
+          # Disables ipv6
+          aaaa_disabled = true;
+
+          upstream_mode = "parallel";
+          cache_optimistic = true;
+          ratelimit = 0;
+          enable_dnssec = true;
+        };
+
+        querylog = {
+          enabled = true;
+          interval = "1h";
+        };
+
+        statistics = {
+          enabled = true;
+          interval = "1h";
         };
 
         user_rules = [
