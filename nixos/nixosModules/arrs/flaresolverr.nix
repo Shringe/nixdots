@@ -31,7 +31,6 @@ in {
     services.flaresolverr = {
       enable = true;
       port = cfg.port;
-      openFirewall = true;
     };
   };
 }
