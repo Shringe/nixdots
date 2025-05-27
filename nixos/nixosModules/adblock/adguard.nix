@@ -83,16 +83,17 @@ in {
           cache_optimistic = true;
           ratelimit = 0;
           enable_dnssec = true;
+          anonymize_client_ip = true;
         };
 
         querylog = {
           enabled = true;
-          interval = "1h";
+          interval = "6h";
         };
 
         statistics = {
           enabled = true;
-          interval = "1h";
+          interval = "6h";
         };
 
         user_rules = [
