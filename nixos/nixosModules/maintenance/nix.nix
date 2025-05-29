@@ -65,7 +65,7 @@ in {
     nix = {
       optimise = {
         automatic = true;
-        dates = "weekly";
+        dates = [ "weekly" ];
         randomizedDelaySec = "45min";
       };
 
