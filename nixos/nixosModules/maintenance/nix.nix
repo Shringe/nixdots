@@ -9,10 +9,17 @@ in {
       default = true;
       description = "Enables maintenance and auto-updates on the nix store";
     };
+
+    enableAutoUpgrade = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Auto updates for NixOS";
+    };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      # Deprecated for now
       (writeShellApplication {
         name = "nix-maintenance";
         runtimeInputs = [
@@ -54,5 +61,33 @@ in {
   #
   #     wantedBy = [ "multi-user.target" ];
   #   };
+
+    nix = {
+      optimise = {
+        automatic = true;
+        dates = "weekly";
+        randomizedDelaySec = "45min";
+      };
+
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+        randomizedDelaySec = "45min";
+      };
+    };
+
+    system.autoUpgrade = mkIf cfg.enableAutoUpgrade {
+      enable = true;
+      flake = inputs.self.outPath;
+      flags = [
+        "--update-input"
+        "nixpkgs"
+        "--print-build-logs"
+      ];
+
+      dates = "weekly";
+      randomizedDelaySec = "45min";
+    };
   };
 }
