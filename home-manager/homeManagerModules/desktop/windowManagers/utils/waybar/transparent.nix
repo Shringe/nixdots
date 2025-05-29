@@ -229,8 +229,8 @@ in
             car = "";
             default = [ "" "" ];
           };
-          "on-click" = "pavucontrol";
-          "on-click-right" = "media-control volume_mute";
+          "on-click" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ off";
+          "on-click-right" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ on";
         };
       };
 
