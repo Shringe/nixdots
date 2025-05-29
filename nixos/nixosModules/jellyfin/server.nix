@@ -35,6 +35,7 @@ in
 
   config = mkIf cfg.enable {
     nixosModules.jellyfin.jellyseerr.enable = mkDefault false;
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     environment.systemPackages = with pkgs; [
       jellyfin
