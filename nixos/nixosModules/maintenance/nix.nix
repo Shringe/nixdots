@@ -63,17 +63,15 @@ in {
   #   };
 
     nix = {
-      optimise = {
-        automatic = true;
-        dates = [ "weekly" ];
-        randomizedDelaySec = "45min";
-      };
-
       gc = {
         automatic = true;
-        dates = "weekly";
+        dates = "Sat 02:00";
         options = "--delete-older-than 30d";
-        randomizedDelaySec = "45min";
+      };
+
+      optimise = {
+        automatic = true;
+        dates = [ "Sat 04:00" ];
       };
     };
 
@@ -86,8 +84,7 @@ in {
         "--print-build-logs"
       ];
 
-      dates = "weekly";
-      randomizedDelaySec = "45min";
+      dates = "Sat";
     };
   };
 }
