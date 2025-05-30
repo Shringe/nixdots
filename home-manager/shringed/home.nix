@@ -54,6 +54,8 @@
   # environment.
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    brave
+
     #neovim
     protonup
     fish
@@ -67,7 +69,7 @@
     git 
     atuin
     picom
-    chromium
+    ungoogled-chromium
     qutebrowser
     btop
     font-awesome
