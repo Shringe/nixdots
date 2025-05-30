@@ -8,6 +8,8 @@ pkgs.mkShell {
     htop
     acpi
 
+    compose2nix
+
     git
     vim
     ranger

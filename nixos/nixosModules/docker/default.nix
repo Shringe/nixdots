@@ -7,16 +7,13 @@ in {
     ./romm
   ];
 
-  # Depricated
   config = lib.mkIf cfg.enable {
     virtualisation.docker = {
       enable = true;
       storageDriver = "btrfs";
-
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
+      autoPrune.enable = true;
     };
+
+    virtualisation.oci-containers.backend = "docker";
   };
 }

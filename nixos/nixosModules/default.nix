@@ -51,6 +51,7 @@ with lib;
     ./kavita
     ./groceries
     ./authelia
+    ./linkwarden
   ];
 
   options.nixosModules = {

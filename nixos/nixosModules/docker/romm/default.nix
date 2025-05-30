@@ -44,14 +44,6 @@ in {
       "romm/db" = {};
     };
 
-    # Runtime
-    virtualisation.docker = {
-      enable = true;
-      autoPrune.enable = true;
-    };
-
-    virtualisation.oci-containers.backend = "docker";
-
     # Containers
     virtualisation.oci-containers.containers."romm" = {
       image = "rommapp/romm:latest";
@@ -90,6 +82,7 @@ in {
       extraOptions = [
         "--network-alias=romm"
         "--network=romm_default"
+        "--pull=newer"
       ];
     };
 
@@ -147,6 +140,7 @@ in {
         "--health-timeout=5s"
         "--network-alias=romm-db"
         "--network=romm_default"
+        "--pull=newer"
       ];
     };
 
