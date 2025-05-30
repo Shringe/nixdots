@@ -72,11 +72,6 @@
     # };
 
     docker = {
-      enable = false;
-      automaticrippingmachine = {
-        enable = false;
-      };
-
       romm.enable = true;
     };
 

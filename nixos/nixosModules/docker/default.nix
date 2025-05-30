@@ -7,6 +7,7 @@ in {
     ./romm
   ];
 
+  # Depricated
   config = lib.mkIf cfg.enable {
     virtualisation.docker = {
       enable = true;

@@ -245,6 +245,17 @@ in {
               };
             };
           }
+          {
+            "RomM" = with docker.romm; {
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
+              widget = {
+                type = "romm";
+                url = furl;
+              };
+            };
+          }
         ];}
 
         { "Yarr!" = [
