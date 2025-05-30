@@ -71,12 +71,14 @@
     #   enable = true;
     # };
 
-    # docker = {
-    #   enable = true;
-    #   automaticrippingmachine = {
-    #     enable = true;
-    #   };
-    # };
+    docker = {
+      enable = false;
+      automaticrippingmachine = {
+        enable = false;
+      };
+
+      romm.enable = true;
+    };
 
     homepage.enable = true;
 

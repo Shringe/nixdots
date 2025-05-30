@@ -116,6 +116,7 @@ in {
           (rp "auth")
           (rp "flaresolverr")
           (rp "atuin")
+          (rp "romm")
         ];
 
         filtering = {
