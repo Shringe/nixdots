@@ -66,6 +66,7 @@ in {
         "prowlarr.${d}" = (rp arrs.prowlarr.url);
         "torrent.${d}" = (rp torrent.qbittorrent.url);
         "flaresolverr.${d}" = (rp arrs.flaresolverr.url);
+        "atuin.${d}" = (rp shell.atuin.server.url);
       };
     };
 
