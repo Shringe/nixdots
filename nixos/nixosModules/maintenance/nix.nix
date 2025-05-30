@@ -6,13 +6,13 @@ in {
   options.nixosModules.maintenance.nix = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Enables maintenance and auto-updates on the nix store";
     };
 
     enableAutoUpgrade = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Auto updates for NixOS";
     };
   };
