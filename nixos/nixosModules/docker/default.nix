@@ -4,6 +4,7 @@ let
 in {
   imports = [
     ./automaticrippingmachine
+    ./romm
   ];
 
   config = lib.mkIf cfg.enable {
