@@ -43,7 +43,7 @@ in {
       enable = true;
       virtualHosts = with config.nixosModules; {
         # Public
-        "files.${d}" = (rps filebrowser.url);
+        "files.${d}" = (rp filebrowser.url);
         "ssh.${d}" = (rp "${info.system.ips.local}:${toString ssh.server.port}");
         "matrix.${d}" = (rp "${info.system.ips.local}:${toString social.matrix.conduit.port}");
         # "auth.${d}" = (rp "${info.system.ips.local}:${toString authelia.port}");
