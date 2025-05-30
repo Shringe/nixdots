@@ -117,6 +117,7 @@ in {
           (rp "flaresolverr")
           (rp "atuin")
           (rp "romm")
+          (rp "linkwarden")
         ];
 
         filtering = {

@@ -68,6 +68,7 @@ in {
         "flaresolverr.${d}" = (rp arrs.flaresolverr.url);
         "atuin.${d}" = (rp shell.atuin.server.url);
         "romm.${d}" = (rp docker.romm.url);
+        "linkwarden.${d}" = (rp linkwarden.url);
       };
     };
 

@@ -71,7 +71,10 @@
     #   enable = true;
     # };
 
+    linkwarden.enable = true;
+
     docker = {
+      enable = true;
       romm.enable = true;
     };
 

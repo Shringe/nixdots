@@ -68,12 +68,12 @@ in {
           (watch "Radarr" arrs.radarr.url)
           (watch "Sonarr" arrs.sonarr.url)
           (watch "Prowlarr" arrs.prowlarr.url)
-          # (watch "Flaresolverr" arrs.flaresolverr.url)
           (watch "qBittorrent" torrent.qbittorrent.url)
           (watch "Authelia" authelia.furl)
           (watch "Flaresolverr" arrs.flaresolverr.url)
           (watch "Atuin" shell.atuin.server.furl)
           (watch "RomM" docker.romm.furl)
+          (watch "Linkwarden" linkwarden.furl)
         ];
       };
     };
