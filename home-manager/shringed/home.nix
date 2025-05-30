@@ -27,7 +27,7 @@
       email.enable = true;
     };
 
-    shells.enable = false;
+    shells.enable = true;
     scripts.enable = true;
     dotfiles.enable = true;
     sops.enable = true;

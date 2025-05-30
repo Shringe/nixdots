@@ -115,6 +115,7 @@ in {
           (rp "torrent")
           (rp "auth")
           (rp "flaresolverr")
+          (rp "atuin")
         ];
 
         filtering = {

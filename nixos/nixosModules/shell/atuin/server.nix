@@ -10,6 +10,16 @@ in {
       type = types.port;
       default = 47200;
     };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    furl = mkOption {
+      type = types.string;
+      default = "https://atuin.${config.nixosModules.reverseProxy.domain}";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -18,7 +28,7 @@ in {
       host = config.nixosModules.info.system.ips.local;
       port = cfg.port;
       openRegistration = true;
-      openFirewall = true;
+      # openFirewall = true;
     };
   };
 }
