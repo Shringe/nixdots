@@ -48,7 +48,7 @@ in {
       port = cfg.port;
       secretsFile = config.sops.secrets."linkwarden".path;
 
-      enableRegistration = mkDefault false;
+      enableRegistration = true;
     };
   };
 }
