@@ -73,6 +73,7 @@ in {
           (watch "Authelia" authelia.furl)
           (watch "Flaresolverr" arrs.flaresolverr.url)
           (watch "Atuin" shell.atuin.server.furl)
+          (watch "RomM" docker.romm.furl)
         ];
       };
     };
