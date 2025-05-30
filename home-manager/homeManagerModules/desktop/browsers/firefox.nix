@@ -27,6 +27,7 @@
             new-tab-override
             darkreader
             youtube-shorts-block
+            linkwarden
             languagetool
           ];
         };
