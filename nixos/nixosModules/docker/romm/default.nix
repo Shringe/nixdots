@@ -82,7 +82,6 @@ in {
       extraOptions = [
         "--network-alias=romm"
         "--network=romm_default"
-        "--pull=newer"
       ];
     };
 
@@ -140,7 +139,6 @@ in {
         "--health-timeout=5s"
         "--network-alias=romm-db"
         "--network=romm_default"
-        "--pull=newer"
       ];
     };
 

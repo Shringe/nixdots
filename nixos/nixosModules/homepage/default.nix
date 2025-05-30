@@ -256,6 +256,18 @@ in {
               };
             };
           }
+          {
+            "Linkwarden" = with linkwarden; {
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
+              widget = {
+                type = "linkwarden";
+                url = furl;
+                key = "{{HOMEPAGE_VAR_LINKWARDEN}}";
+              };
+            };
+          }
         ];}
 
         { "Yarr!" = [
