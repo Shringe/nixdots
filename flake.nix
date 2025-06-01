@@ -16,8 +16,8 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nur = {
@@ -31,8 +31,8 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nixvim = {
@@ -134,7 +134,7 @@
 
       homeConfigurations = with inputs.home-manager.lib; {
         shringed = homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = unstablePkgs;
           extraSpecialArgs = { inherit inputs stablePkgs unstablePkgs; };
           modules = [ 
             ./home-manager/shringed/home.nix 

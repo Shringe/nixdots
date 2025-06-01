@@ -1,7 +1,8 @@
-{ lib, config, ... }:
+# { lib, config, ... }:
 {
   imports = [
     ./firefox.nix
+    ./chromium.nix
   ];
 
   options = {

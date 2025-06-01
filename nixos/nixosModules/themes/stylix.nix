@@ -20,6 +20,7 @@ in
       targets = {
         grub.enable = true;
         grub.useWallpaper = true;
+        chromium.enable = false;
         # nixvim.enable = false;
         # mangohud.enable = false;
         # firefox.profileNames = [ "default" ];

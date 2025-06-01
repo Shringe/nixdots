@@ -34,16 +34,16 @@
     };
 
     autoCmd = [
-      { # Makes _ a valid wordbreak in rust
-        command = "set iskeyword-=_";
-        event = [
-          "BufNewFile"
-          "BufRead"
-        ];
-        pattern = [
-          "*.rs"
-        ];
-      }
+      # { # Makes _ a valid wordbreak in rust
+      #   command = "set iskeyword-=_";
+      #   event = [
+      #     "BufNewFile"
+      #     "BufRead"
+      #   ];
+      #   pattern = [
+      #     "*.rs"
+      #   ];
+      # }
       { # Associates .kbd(kanata config) files with lisp
         command = "setfiletype lisp";
         event = [
