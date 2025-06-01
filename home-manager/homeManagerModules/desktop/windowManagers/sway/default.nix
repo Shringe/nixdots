@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstablePkgs, ... }:
+{ config, lib, unstablePkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.sway;
@@ -74,7 +74,7 @@ in {
       };
     };
 
-    home.packages = with pkgs; [
+    home.packages = with unstablePkgs; [
       # plasma5Packages.kdeconnect-kde
       # wofi-power-menu
       # playerctl
@@ -89,7 +89,7 @@ in {
       systemd.enable = true;
 
       # SwayFX config
-      package = mkIf cfg.enableSwayFx pkgs.swayfx;
+      package = mkIf cfg.enableSwayFx unstablePkgs.swayfx;
       checkConfig = mkIf cfg.enableSwayFx false;
       extraConfig = mkIf cfg.enableSwayFx ''
         corner_radius 12
@@ -100,6 +100,7 @@ in {
         set $opacity ${toString config.stylix.opacity.desktop}
         for_window [app_id="wofi"] floating enable, sticky enable
         for_window [floating] opacity $opacity
+        for_window [app_id="com.github.iwalton3.jellyfin-media-player"] inhibit_idle visible
 
         layer_effects "waybar" {
           blur enable;
@@ -188,7 +189,7 @@ in {
           # Applications
           "${mod}+Return" = "exec ${terminal}";
           "${mod}+s" = "exec ${menu}";
-          "${mod}+r" = "exec firefox";
+          "${mod}+r" = "exec chromium";
           "${mod}+x" = "exec wofi-power-menu --config ~/.config/wofi-power-menu/sway.toml";
           "${mod}+c" = "exec wofi-emoji";
           "${mod}+d" = "exec cliphist list | wofi --dmenu | cliphist decode | wl-copy";

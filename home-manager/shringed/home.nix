@@ -17,6 +17,7 @@
       kdeconnect.enable = true;
       music.enable = true;
       browsers.enable = true;
+      browsers.chromium.enable = true;
       terminals.enable = true;
       terminals.alacritty.enable = true;
       office.enable = true;
@@ -54,8 +55,6 @@
   # environment.
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    brave
-
     #neovim
     protonup
     fish
@@ -69,7 +68,6 @@
     git 
     atuin
     picom
-    ungoogled-chromium
     qutebrowser
     btop
     font-awesome

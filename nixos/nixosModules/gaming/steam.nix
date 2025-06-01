@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, unstablePkgs, ... }:
 let
   cfg = config.nixosModules.gaming.steam;
 in
@@ -16,7 +16,7 @@ in
     gamescope.enable = true;
     steam = {
       enable = true;
-      extraCompatPackages = with pkgs; [
+      extraCompatPackages = with unstablePkgs; [
         proton-ge-bin
       ];
       # gamescopeSession.enable = true;
