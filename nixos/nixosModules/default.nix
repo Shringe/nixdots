@@ -52,6 +52,7 @@ with lib;
     ./groceries
     ./authelia
     ./linkwarden
+    ./gps
   ];
 
   options.nixosModules = {

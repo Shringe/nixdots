@@ -102,13 +102,6 @@ in {
             };
           }
           {
-            "OurShoppingList" = with docker.ourshoppinglist; { 
-              description = description;
-              href = furl;
-              icon = "/icons/${icon}";
-            };
-          }
-          {
             "Tandoor" = with groceries.tandoor; {
               description = description;
               href = furl;
@@ -118,6 +111,20 @@ in {
                 url = furl;
                 key = "{{HOMEPAGE_VAR_TANDOOR}}";
               };
+            };
+          }
+          {
+            "OurShoppingList" = with docker.ourshoppinglist; { 
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
+            };
+          }
+          {
+            "Traccar" = with gps.traccar; { 
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
             };
           }
         ];}
