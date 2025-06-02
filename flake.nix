@@ -2,9 +2,11 @@
   description = "Master flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
@@ -106,7 +108,7 @@
       };
 
       # Default pkgs
-      pkgs = stablePkgs;
+      pkgs = unstablePkgs;
     in {
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
@@ -134,7 +136,7 @@
 
       homeConfigurations = with inputs.home-manager.lib; {
         shringed = homeManagerConfiguration {
-          pkgs = unstablePkgs;
+          inherit pkgs;
           extraSpecialArgs = { inherit inputs stablePkgs unstablePkgs; };
           modules = [ 
             ./home-manager/shringed/home.nix 
