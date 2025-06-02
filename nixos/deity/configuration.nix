@@ -76,6 +76,7 @@
     docker = {
       enable = true;
       romm.enable = true;
+      ourshoppinglist.enable = true;
     };
 
     homepage.enable = true;

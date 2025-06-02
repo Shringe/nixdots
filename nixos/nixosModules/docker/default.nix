@@ -5,6 +5,7 @@ in {
   imports = [
     ./automaticrippingmachine
     ./romm
+    ./ourshoppinglist
   ];
 
   config = lib.mkIf cfg.enable {

@@ -69,6 +69,7 @@ in {
         "atuin.${d}" = (rp shell.atuin.server.url);
         "romm.${d}" = (rp docker.romm.url);
         "linkwarden.${d}" = (rp linkwarden.url);
+        "ourshoppinglist.${d}" = (rp docker.ourshoppinglist.url);
       };
     };
 
