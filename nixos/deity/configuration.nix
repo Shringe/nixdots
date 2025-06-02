@@ -25,7 +25,7 @@
     backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
-    authelia.enable = true;
+    authelia.enable = false;
 
     social = {
       jitsi.enable = true;
@@ -128,7 +128,8 @@
     boot = {
       enable = true;
       displayManagers = {
-        ly.enable = true;
+        lightdm.enable = false;
+        ly.enable = false;
         # Fails to load swayfx
         greetd.enable = false;
       };
@@ -203,6 +204,8 @@
     font = "Lat2-Terminus16";
     useXkbConfig = true; # use xkb.options in tty.
   };
+
+  services.xserver.displayManager.lightdm.enable = false;
 
   # Enable the X11 windowing system.
   services.xserver = {

@@ -211,9 +211,9 @@ with lib;
     };
 
     boot = mkIf config.nixosModules.boot.enable {
-      loaders.grub.enable = mkDefault true;
-      loaders.systemd-boot.enable = mkDefault false;
-      displayManagers.greetd.enable = mkDefault true;
+      loaders.grub.enable = mkDefault false;
+      loaders.systemd-boot.enable = mkDefault true;
+      displayManagers.greetd.enable = mkDefault false;
     };
 
     battery = mkIf config.nixosModules.battery.enable {

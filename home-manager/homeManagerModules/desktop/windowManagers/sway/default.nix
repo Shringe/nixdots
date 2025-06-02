@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.sway;
+  mpvpaper = config.homeManagerModules.desktop.windowManagers.utils.mpvpaper;
   mod = config.wayland.windowManager.sway.config.modifier;
 
   displ1 = "HDMI-A-1";
@@ -140,6 +141,21 @@ in {
 
         startup = [
           { command = "kdeconnect-indicator"; }
+
+          (mkIf mpvpaper.primary.enable {
+            always = true;
+            command = "systemctl --user restart mpvpaper_primary";
+          })
+
+          (mkIf mpvpaper.secondary.enable {
+            always = true;
+            command = "systemctl --user restart mpvpaper_secondary";
+          })
+
+          (mkIf mpvpaper.laptop.enable {
+            always = true;
+            command = "systemctl --user restart mpvpaper_laptop";
+          })
         ];
 
         workspaceOutputAssign = [
@@ -189,7 +205,7 @@ in {
           # Applications
           "${mod}+Return" = "exec ${terminal}";
           "${mod}+s" = "exec ${menu}";
-          "${mod}+r" = "exec chromium";
+          "${mod}+r" = "exec firefox";
           "${mod}+x" = "exec wofi-power-menu --config ~/.config/wofi-power-menu/sway.toml";
           "${mod}+c" = "exec wofi-emoji";
           "${mod}+d" = "exec cliphist list | wofi --dmenu | cliphist decode | wl-copy";

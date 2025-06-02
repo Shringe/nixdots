@@ -9,10 +9,10 @@ let
       Description = "Mpvpaper video wallpaper for display a specific display.";
     };
     Install = {
-      WantedBy = [ "sway-session.target" ];
+      # WantedBy = [ "sway-session.target" ];
     };
     Service = {
-      # ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
       ExecStart = (f order);
     };
   };
@@ -21,6 +21,7 @@ in {
     enable = mkEnableOption "Mpvpaper video wallpapers";
 
     primary = {
+      enable = mkEnableOption "primary";
       display = mkOption {
         type = types.str;
         default = "HDMI-A-1";
@@ -32,7 +33,8 @@ in {
       };
     };
 
-    secondaryHorizontal = {
+    secondary = {
+      enable = mkEnableOption "secondary";
       display = mkOption {
         type = types.str;
         default = "DP-1";
@@ -45,6 +47,7 @@ in {
     };
 
     laptop = {
+      enable = mkEnableOption "laptop";
       display = mkOption {
         type = types.str;
         default = "eDP-1";
@@ -59,9 +62,9 @@ in {
 
   config = mkIf cfg.enable {
     systemd.user.services = {
-      primary_mpvpaper = (g cfg.primary);
-      secondaryHorizontal_mpvpaper = (g cfg.secondaryHorizontal);
-      laptop_mpvpaper = (g cfg.laptop);
+      mpvpaper_primary = (g cfg.primary);
+      mpvpaper_secondary = (g cfg.secondary);
+      mpvpaper_laptop = (g cfg.laptop);
     };
   };
 }
