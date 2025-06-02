@@ -24,6 +24,10 @@
       windowManagers = {
         enable = true;
         sway.enable = true;
+        utils.mpvpaper = {
+          primary.enable = true;
+          secondary.enable = true;
+        };
       };
       email.enable = true;
     };
