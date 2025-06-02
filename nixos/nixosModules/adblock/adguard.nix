@@ -118,6 +118,7 @@ in {
           (rp "atuin")
           (rp "romm")
           (rp "linkwarden")
+          (rp "ourshoppinglist")
         ];
 
         filtering = {

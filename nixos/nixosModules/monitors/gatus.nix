@@ -74,6 +74,7 @@ in {
           (watch "Atuin" shell.atuin.server.furl)
           (watch "RomM" docker.romm.furl)
           (watch "Linkwarden" linkwarden.furl)
+          (watch "OurShoppingList" docker.ourshoppinglist.furl)
         ];
       };
     };

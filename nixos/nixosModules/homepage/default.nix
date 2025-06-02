@@ -102,6 +102,13 @@ in {
             };
           }
           {
+            "OurShoppingList" = with docker.ourshoppinglist; { 
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
+            };
+          }
+          {
             "Tandoor" = with groceries.tandoor; {
               description = description;
               href = furl;
