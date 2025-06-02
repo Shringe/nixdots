@@ -21,6 +21,8 @@
       ips.local = "192.168.0.165";
     };
 
+    gps.traccar.enable = true;
+
     album.immich.enable = true;
     backups.btrbk.enable = true;
     kavita.enable = true;
