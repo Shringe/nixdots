@@ -119,7 +119,7 @@
           specialArgs = { inherit system inputs stablePkgs unstablePkgs oldPkgs; };
           modules = [ 
             {
-              nix.settings.system-features = [ "gccarch-znzer3" ];
+              nix.settings.system-features = [ "gccarch-znver3" ];
 
               nixpkgs = {
                 hostPlatform = {
