@@ -125,7 +125,7 @@
                 hostPlatform = {
                   system = "x86_64-linux";
                   # gcc = {
-                  #   arch = "znzer3";
+                  #   arch = "znver3";
                   #   tune = "znver3";
                   #   abi = "64";
                   # };
