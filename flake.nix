@@ -116,8 +116,72 @@
 
       nixosConfigurations = with nixpkgs.lib; {
         deity = nixosSystem {
-          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs oldPkgs; };
+          specialArgs = { inherit system inputs stablePkgs unstablePkgs oldPkgs; };
           modules = [ 
+            {
+              nix.settings.system-features = [ "gccarch-znzer3" ];
+
+              nixpkgs = {
+                hostPlatform = {
+                  system = "x86_64-linux";
+                  # gcc = {
+                  #   arch = "znzer3";
+                  #   tune = "znver3";
+                  #   abi = "64";
+                  # };
+                };
+
+                config = {
+                  allowUnfree = true;
+
+                  # Cuda takes forever to build
+                  cudaSupport = mkForce false;
+                };
+              };
+
+              # Ensure maximum build performance
+              powerManagement.cpuFreqGovernor = "performance";
+
+              # For running the build in the backround
+              environment.systemPackages = with pkgs; [
+                zellij
+              ];
+
+              # Disable long or broken builds for now
+              nixosModules = {
+                album.immich.enable = mkForce false;
+                social.jitsi.enable = mkForce false;
+
+                gaming = {
+                  games.enable = mkForce false;
+                  steam.enable = mkForce false;
+                };
+
+                openrgb.enable = mkForce false;
+
+                torrent.qbittorrent.enable = mkForce false;
+                arrs = {
+                  lidarr.enable = mkForce false;
+                  sonarr.enable = mkForce false;
+                  prowlarr.enable = mkForce false;
+                  radarr.enable = mkForce false;
+                  flaresolverr.enable = mkForce false;
+                  vpn.enable = mkForce false;
+                };
+
+                llm = {
+                  ollama.enable = mkForce false;
+                };
+
+                docker = {
+                  enable = mkForce false;
+                  romm.enable = mkForce false;
+                  ourshoppinglist.enable = mkForce false;
+                };
+
+                groceries.tandoor.enable = mkForce false;
+              };
+            }
             ./nixos/deity/configuration.nix 
             ./nixos/nixosModules
             ./shared

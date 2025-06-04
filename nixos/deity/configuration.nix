@@ -109,8 +109,6 @@
       yuzu.enable = true;
     };
 
-    bluetooth.enable = true;
-
     theming = {
       enable = true;
     };
@@ -145,8 +143,6 @@
 
     desktop = {
       windowManagers = {
-        qtile.enable = true;
-        hyprland.enable = true;
         sway.enable = true;
       };
     };
