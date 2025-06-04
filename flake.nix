@@ -124,11 +124,11 @@
               nixpkgs = {
                 hostPlatform = {
                   system = "x86_64-linux";
-                  # gcc = {
-                  #   arch = "znver3";
-                  #   tune = "znver3";
-                  #   abi = "64";
-                  # };
+                  gcc = {
+                    arch = "znver3";
+                    tune = "znver3";
+                    abi = "64";
+                  };
                 };
 
                 config = {
