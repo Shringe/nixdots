@@ -210,7 +210,7 @@
                   allowUnfree = true;
 
                   # Cuda takes forever to build
-                  cudaSupport = mkForce false;
+                  # cudaSupport = mkForce false;
                 };
               };
 
@@ -221,6 +221,72 @@
               environment.systemPackages = with pkgs; [
                 # For running the build in the backround
                 zellij
+
+                (writeShellApplication {
+                  name = "watchBuild";
+                  runtimeInputs = [
+                    zellij
+                    gnugrep
+                    coreutils
+                    nh
+                    # neovim
+                    fish
+                    lazygit
+                  ];
+
+                  text = ''
+                    sessions=$(zellij list-sessions || echo "failed")
+                    name="watchBuild"
+                    layout="${writeText "watchBuildLayout" ''
+                      layout {
+                          default_tab_template {
+                              // the default zellij tab-bar and status bar plugins
+                              pane size=1 borderless=true {
+                                  plugin location="zellij:tab-bar"
+                              }
+                              children
+                              pane size=1 borderless=true {
+                                  plugin location="zellij:status-bar"
+                              }
+                          }
+
+                          tab split_direction="vertical" {
+                            pane command="nh" {
+                              args "os" "switch"
+                            }
+                            pane size=60 split_direction="horizontal" {
+                              pane command="watch" {
+                                args "-n" "10" "optAnalyze"
+                              }
+                              pane command="fish"
+                            }
+                          }
+
+                          tab cwd="/nixdots" {
+                            pane command="nvim" {
+                              args "flake.nix"
+                            }
+                          }
+
+                          tab cwd="/nixdots" {
+                            pane command="lazygit"
+                          }
+
+                          tab {
+                            pane command="fish"
+                          }
+                      }
+                    ''}"
+
+                    if echo "$sessions" | grep -q "$name"; then
+                      echo "Attaching to existing session"
+                      zellij attach "$name"
+                    else
+                      echo "Creating new session"
+                      zellij --session "$name" --new-session-with-layout "$layout"
+                    fi
+                  '';
+                })
 
                 # To make sure optimizations are being applied
                 (writeShellApplication {
@@ -301,7 +367,7 @@
                 };
 
                 llm = {
-                  ollama.enable = mkForce false;
+                  # ollama.enable = mkForce false;
                 };
 
                 docker = {
