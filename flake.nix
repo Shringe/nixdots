@@ -165,8 +165,7 @@
                     nodejs_22 = unstablePkgs.nodejs_22;
                     nodejs_24 = unstablePkgs.nodejs_24;
                     nodejs-slim = unstablePkgs.nodejs-slim;
-                    vulkan-tools = unstablePkgs.vulkan-tools;
-                    # kdePackages.akonadi = unstablePkgs.kdePackages.akonadi;
+                    # vulkan-tools = unstablePkgs.vulkan-tools;
                     kdePackages = unstablePkgs.kdePackages;
                     libsForQt5 = unstablePkgs.libsForQt5;
                     udisks = unstablePkgs.udisks;
@@ -181,7 +180,7 @@
                     libei = unstablePkgs.libei;
                     jdk = unstablePkgs.jdk;
                     orca = unstablePkgs.orca;
-                    rocmPackages = unstablePkgs.rocmPackages;
+                    # rocmPackages = unstablePkgs.rocmPackages;
                     openblas = unstablePkgs.openblas;
                     prisma = unstablePkgs.prisma;
                     ffmpeg = unstablePkgs.ffmpeg;
@@ -229,7 +228,7 @@
 
                 openrgb.enable = mkForce false;
 
-                torrent.qbittorrent.enable = mkForce false;
+                # torrent.qbittorrent.enable = mkForce false;
                 arrs = {
                   lidarr.enable = mkForce false;
                   sonarr.enable = mkForce false;
