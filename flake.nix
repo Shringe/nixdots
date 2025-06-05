@@ -131,6 +131,74 @@
                   };
                 };
 
+                overlays = [
+                  (final: prev: {
+                    # Broken native builds
+                    spidermonkey_91 = unstablePkgs.spidermonkey_91;
+                    spidermonkey_115 = unstablePkgs.spidermonkey_115;
+                    spidermonkey_128 = unstablePkgs.spidermonkey_128;
+                    speexdsp = unstablePkgs.speexdsp;
+                    nototools = unstablePkgs.nototools;
+                    libsecret = unstablePkgs.libsecret;
+
+                    # It seems these pull in 32bit dependencies which really struggle to build
+                    wine = unstablePkgs.wine;
+                    pipewire = unstablePkgs.pipewire;
+                    steam-run = unstablePkgs.steam-run;
+
+                    # python312 = unstablePkgs.python312;
+                    # python312 = prev.python312.override {
+                    #   packageOverrides = pyFinal: pyPrev: {
+                    #     numpy = unstablePkgs.python312Packages.numpy;
+                    #   };
+                    # };
+
+                    # Take forever to compile
+                    postgresql = unstablePkgs.postgresql;
+                    gfortran = unstablePkgs.gfortran;
+                    lutris = unstablePkgs.lutris;
+                    xdg-desktop-portal-gtk = unstablePkgs.xdg-desktop-portal-gtk;
+                    gparted = unstablePkgs.gparted;
+                    ghc = unstablePkgs.ghc;
+                    haskell = unstablePkgs.haskell;
+                    nodejs_20 = unstablePkgs.nodejs_20;
+                    nodejs_22 = unstablePkgs.nodejs_22;
+                    nodejs_24 = unstablePkgs.nodejs_24;
+                    nodejs-slim = unstablePkgs.nodejs-slim;
+                    vulkan-tools = unstablePkgs.vulkan-tools;
+                    # kdePackages.akonadi = unstablePkgs.kdePackages.akonadi;
+                    kdePackages = unstablePkgs.kdePackages;
+                    libsForQt5 = unstablePkgs.libsForQt5;
+                    udisks = unstablePkgs.udisks;
+                    ranger = unstablePkgs.ranger;
+                    jellyfin-web = unstablePkgs.jellyfin-web;
+                    wine64 = unstablePkgs.wine64;
+                    mpv = unstablePkgs.mpv;
+                    gamescope = unstablePkgs.llvm;
+                    discord = unstablePkgs.discord;
+                    wlroots = unstablePkgs.wlroots;
+                    wlroots_0_18 = unstablePkgs.wlroots_0_18;
+                    libei = unstablePkgs.libei;
+                    jdk = unstablePkgs.jdk;
+                    orca = unstablePkgs.orca;
+                    rocmPackages = unstablePkgs.rocmPackages;
+                    openblas = unstablePkgs.openblas;
+                    prisma = unstablePkgs.prisma;
+                    ffmpeg = unstablePkgs.ffmpeg;
+                    flatpak = unstablePkgs.flatpak;
+                    kavita = unstablePkgs.kavita;
+                    adguardhome = unstablePkgs.adguardhome;
+                    remarshal = unstablePkgs.remarshal;
+                    remarshal_0_17 = unstablePkgs.remarshal_0_17;
+                    gcr = unstablePkgs.gcr;
+                    flac = unstablePkgs.flac;
+                    zint = unstablePkgs.zint;
+                    jellyseerr = unstablePkgs.jellyseerr;
+                    noto-fonts-color-emoji = unstablePkgs.noto-fonts-color-emoji;
+                    pinentry-qt = unstablePkgs.pinentry-qt;
+                  })
+                ];
+
                 config = {
                   allowUnfree = true;
 
@@ -151,6 +219,8 @@
               nixosModules = {
                 album.immich.enable = mkForce false;
                 social.jitsi.enable = mkForce false;
+                social.matrix.conduit.enable = mkForce false;
+                caldav.radicale.enable = mkForce false;
 
                 gaming = {
                   games.enable = mkForce false;
