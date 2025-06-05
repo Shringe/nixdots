@@ -5,10 +5,13 @@ let
 in {
   options.nixosModules.social.jitsi = {
     enable = mkEnableOption "Jitsi hosting";
-    
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.config.permittedInsecurePackages = [
+      "jitsi-meet-1.0.8043"
+    ];
+
     services = {
       jitsi-meet = {
         enable = true;

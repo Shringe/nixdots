@@ -140,6 +140,12 @@
                     speexdsp = unstablePkgs.speexdsp;
                     nototools = unstablePkgs.nototools;
                     libsecret = unstablePkgs.libsecret;
+                    valkey = unstablePkgs.valkey;
+                    chromedriver = unstablePkgs.chromedriver;
+                    dotnetCorePackages = unstablePkgs.dotnetCorePackages;
+                    liberfa = unstablePkgs.liberfa;
+                    immich-machine-learning = unstablePkgs.immich-machine-learning;
+                    postgresql_15 = unstablePkgs.postgresql_15;
 
                     # It seems these pull in 32bit dependencies which really struggle to build
                     wine = unstablePkgs.wine;
@@ -173,7 +179,6 @@
                     jellyfin-web = unstablePkgs.jellyfin-web;
                     wine64 = unstablePkgs.wine64;
                     mpv = unstablePkgs.mpv;
-                    gamescope = unstablePkgs.llvm;
                     discord = unstablePkgs.discord;
                     wlroots = unstablePkgs.wlroots;
                     wlroots_0_18 = unstablePkgs.wlroots_0_18;
@@ -195,6 +200,9 @@
                     jellyseerr = unstablePkgs.jellyseerr;
                     noto-fonts-color-emoji = unstablePkgs.noto-fonts-color-emoji;
                     pinentry-qt = unstablePkgs.pinentry-qt;
+                    chromium = unstablePkgs.chromium;
+                    opencv = unstablePkgs.opencv;
+                    redis = unstablePkgs.redis;
                   })
                 ];
 
@@ -208,34 +216,88 @@
 
               # Ensure maximum build performance
               powerManagement.cpuFreqGovernor = "performance";
+              swapDevices = mkForce [ ];
 
-              # For running the build in the backround
               environment.systemPackages = with pkgs; [
+                # For running the build in the backround
                 zellij
+
+                # To make sure optimizations are being applied
+                (writeShellApplication {
+                  name = "optAnalyze";
+                  runtimeInputs = [
+                    gnugrep
+                    gawk
+                    procps
+                    coreutils
+                  ];
+
+                  text = ''
+                    ARCH="znver3"
+
+                    function diskPercent {
+                      df "/nix/store" | awk '$NF == "/nix/store" { match($(NF-1), /([0-9]+)%/, m); print m[1] }'
+                    }
+
+                    function memPercent {
+                      free | awk '/Mem/{printf("RAM: %.0f%"), $3/$2*100} /buffers\/cache/{printf(", buffers: %.0f%"), $4/($3+$4)*100} /Swap/{printf("; swap: %.0f%"), $3/$2*100}'
+                    }
+
+                    function cpuPercent {
+                      vmstat 1 2 | awk 'END { print 100 - $15 }'
+                    }
+
+                    function hardwareStats {
+                      echo "Disk $(diskPercent)% || CPU $(cpuPercent)% || $(memPercent)"
+                    }
+
+                    function countGrep {
+                      num=$(pgrep -af . | grep -- "$1" | grep -o -- "$1" | wc -l)
+                      echo "Found $((num - 2)) processes building with \"$1\""
+                    }
+
+                    ftune="-mtune=$ARCH"
+                    fmarch="-march=$ARCH"
+
+                    tune="-mtune=generic"
+                    march="-march=x86"
+
+                    opt2="-O2"
+                    opt3="-O3"
+
+                    hardwareStats
+                    countGrep $ftune
+                    countGrep $fmarch
+                    countGrep $tune
+                    countGrep $march
+                    countGrep $opt2
+                    countGrep $opt3
+                  '';
+                })
               ];
 
               # Disable long or broken builds for now
               nixosModules = {
-                album.immich.enable = mkForce false;
-                social.jitsi.enable = mkForce false;
-                social.matrix.conduit.enable = mkForce false;
-                caldav.radicale.enable = mkForce false;
+                # album.immich.enable = mkForce false;
+                # social.jitsi.enable = mkForce false;
+                # social.matrix.conduit.enable = mkForce false;
+                # caldav.radicale.enable = mkForce false;
 
                 gaming = {
-                  games.enable = mkForce false;
-                  steam.enable = mkForce false;
+                  # games.enable = mkForce false;
+                  # steam.enable = mkForce false;
                 };
 
-                openrgb.enable = mkForce false;
+                # openrgb.enable = mkForce false;
 
                 # torrent.qbittorrent.enable = mkForce false;
                 arrs = {
-                  lidarr.enable = mkForce false;
-                  sonarr.enable = mkForce false;
-                  prowlarr.enable = mkForce false;
-                  radarr.enable = mkForce false;
-                  flaresolverr.enable = mkForce false;
-                  vpn.enable = mkForce false;
+                  # lidarr.enable = mkForce false;
+                  # sonarr.enable = mkForce false;
+                  # prowlarr.enable = mkForce false;
+                  # radarr.enable = mkForce false;
+                  # flaresolverr.enable = mkForce false;
+                  # vpn.enable = mkForce false;
                 };
 
                 llm = {
@@ -243,12 +305,12 @@
                 };
 
                 docker = {
-                  enable = mkForce false;
-                  romm.enable = mkForce false;
-                  ourshoppinglist.enable = mkForce false;
+                  # enable = mkForce false;
+                  # romm.enable = mkForce false;
+                  # ourshoppinglist.enable = mkForce false;
                 };
 
-                groceries.tandoor.enable = mkForce false;
+                # groceries.tandoor.enable = mkForce false;
               };
             }
             ./nixos/deity/configuration.nix 
