@@ -42,7 +42,7 @@ in {
       tmp.useTmpfs = true;
 
       # kernelPackages = pkgs.linuxKernel.kernels.linux_zen;
-      kernelPackages = unstablePkgs.linuxPackages_zen;
+      kernelPackages = pkgs.linuxPackages_zen;
     };
 
     environment.sessionVariables = {
