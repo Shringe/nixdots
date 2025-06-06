@@ -1,4 +1,4 @@
-{ config, lib, pkgs, unstablePkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.jellyfin.server;
@@ -37,7 +37,7 @@ in
     nixosModules.jellyfin.jellyseerr.enable = mkDefault false;
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    environment.systemPackages = with unstablePkgs; [
+    environment.systemPackages = with pkgs; [
       jellyfin
       jellyfin-web
       jellyfin-ffmpeg
@@ -45,7 +45,7 @@ in
 
     services.jellyfin = {
       enable = true;
-      package = unstablePkgs.jellyfin;
+      package = pkgs.jellyfin;
       openFirewall = true;
     };
   };

@@ -1,4 +1,4 @@
-{ lib, inputs, config, pkgs, unstablePkgs, ... }:
+{ lib, inputs, config, pkgs, ... }:
 with lib;
 let
   cfg = config.nixosModules.gaming.optimizations;
