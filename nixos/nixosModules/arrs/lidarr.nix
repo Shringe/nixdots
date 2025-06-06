@@ -1,4 +1,4 @@
-{ config, lib, unstablePkgs, ... }:
+{ config, lib, ... }:
 with lib;
 let
   cfg = config.nixosModules.arrs.lidarr;
