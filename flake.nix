@@ -118,19 +118,32 @@
       };
 
       nixosConfigurations = with nixpkgs.lib; {
-        deity = nixosSystem {
+        deity = 
+          let 
+            system = "x86_64-linux";
+            arch = "znver3";
+            abi = "64";
+
+            flake_directory = "/nixdots";
+            editor = "nvim";
+            shell = "fish";
+
+            optimize_builds = true;
+            disable_excess_functionality = true;
+          in 
+          nixosSystem {
           specialArgs = { inherit system inputs; };
           modules = [ 
             {
-              nix.settings.system-features = [ "gccarch-znver3" ];
+              nix.settings.system-features = [ "gccarch-${arch}" ];
 
               nixpkgs = {
-                hostPlatform = {
-                  system = "x86_64-linux";
+                hostPlatform = mkIf optimize_builds {
+                  system = system;
                   gcc = {
-                    arch = "znver3";
-                    tune = "znver3";
-                    abi = "64";
+                    arch = arch;
+                    tune = arch;
+                    abi = abi;
                   };
                 };
 
@@ -235,8 +248,6 @@
                     gnugrep
                     coreutils
                     nh
-                    # neovim
-                    fish
                     lazygit
                   ];
 
@@ -264,22 +275,22 @@
                               pane command="watch" {
                                 args "-n" "10" "optAnalyze"
                               }
-                              pane command="fish"
+                              pane command="${shell}"
                             }
                           }
 
-                          tab cwd="/nixdots" {
-                            pane command="nvim" {
+                          tab cwd="${flake_directory}" {
+                            pane command="${editor}" {
                               args "flake.nix"
                             }
                           }
 
-                          tab cwd="/nixdots" {
+                          tab cwd="${flake_directory}" {
                             pane command="lazygit"
                           }
 
                           tab {
-                            pane command="fish"
+                            pane command="${shell}"
                           }
                       }
                     ''}"
@@ -305,8 +316,6 @@
                   ];
 
                   text = ''
-                    ARCH="znver3"
-
                     function diskPercent {
                       df "/nix/store" | awk '$NF == "/nix/store" { match($(NF-1), /([0-9]+)%/, m); print m[1] }'
                     }
@@ -328,11 +337,11 @@
                       echo "Found $((num - 2)) processes building with \"$1\""
                     }
 
-                    ftune="-mtune=$ARCH"
-                    fmarch="-march=$ARCH"
+                    ftune="-mtune=${arch}"
+                    fmarch="-march=${arch}"
 
                     tune="-mtune=generic"
-                    march="-march=x86"
+                    march="-march=${system}"
 
                     opt2="-O2"
                     opt3="-O3"
@@ -349,7 +358,7 @@
               ];
 
               # Disable long or broken builds for now
-              nixosModules = {
+              nixosModules = mkIf disable_excess_functionality {
                 album.immich.enable = mkForce false;
                 social.jitsi.enable = mkForce false;
                 social.matrix.conduit.enable = mkForce false;
