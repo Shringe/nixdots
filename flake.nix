@@ -160,49 +160,52 @@
                     # };
 
                     # Take forever to compile
+                    # Libs
                     postgresql = unstablePkgs.postgresql;
                     gfortran = unstablePkgs.gfortran;
-                    lutris = unstablePkgs.lutris;
-                    xdg-desktop-portal-gtk = unstablePkgs.xdg-desktop-portal-gtk;
-                    gparted = unstablePkgs.gparted;
+                    # xdg-desktop-portal-gtk = unstablePkgs.xdg-desktop-portal-gtk;
                     ghc = unstablePkgs.ghc;
                     haskell = unstablePkgs.haskell;
-                    nodejs_20 = unstablePkgs.nodejs_20;
-                    nodejs_22 = unstablePkgs.nodejs_22;
-                    nodejs_24 = unstablePkgs.nodejs_24;
-                    nodejs-slim = unstablePkgs.nodejs-slim;
+                    # nodejs_20 = unstablePkgs.nodejs_20;
+                    # nodejs_22 = unstablePkgs.nodejs_22;
+                    # nodejs_24 = unstablePkgs.nodejs_24;
+                    # nodejs-slim = unstablePkgs.nodejs-slim;
                     # vulkan-tools = unstablePkgs.vulkan-tools;
-                    kdePackages = unstablePkgs.kdePackages;
-                    libsForQt5 = unstablePkgs.libsForQt5;
-                    udisks = unstablePkgs.udisks;
-                    ranger = unstablePkgs.ranger;
-                    jellyfin-web = unstablePkgs.jellyfin-web;
-                    wine64 = unstablePkgs.wine64;
-                    mpv = unstablePkgs.mpv;
-                    discord = unstablePkgs.discord;
                     wlroots = unstablePkgs.wlroots;
                     wlroots_0_18 = unstablePkgs.wlroots_0_18;
                     libei = unstablePkgs.libei;
                     jdk = unstablePkgs.jdk;
-                    orca = unstablePkgs.orca;
+                    # orca = unstablePkgs.orca;
                     # rocmPackages = unstablePkgs.rocmPackages;
-                    openblas = unstablePkgs.openblas;
+                    # openblas = unstablePkgs.openblas;
                     prisma = unstablePkgs.prisma;
-                    ffmpeg = unstablePkgs.ffmpeg;
-                    flatpak = unstablePkgs.flatpak;
-                    kavita = unstablePkgs.kavita;
-                    adguardhome = unstablePkgs.adguardhome;
+                    # ffmpeg = unstablePkgs.ffmpeg;
                     remarshal = unstablePkgs.remarshal;
                     remarshal_0_17 = unstablePkgs.remarshal_0_17;
                     gcr = unstablePkgs.gcr;
                     flac = unstablePkgs.flac;
                     zint = unstablePkgs.zint;
-                    jellyseerr = unstablePkgs.jellyseerr;
-                    noto-fonts-color-emoji = unstablePkgs.noto-fonts-color-emoji;
                     pinentry-qt = unstablePkgs.pinentry-qt;
-                    chromium = unstablePkgs.chromium;
                     opencv = unstablePkgs.opencv;
+                    libsForQt5 = unstablePkgs.libsForQt5;
+                    kdePackages = unstablePkgs.kdePackages;
+
+                    # Software
                     redis = unstablePkgs.redis;
+                    chromium = unstablePkgs.chromium;
+                    noto-fonts-color-emoji = unstablePkgs.noto-fonts-color-emoji;
+                    flatpak = unstablePkgs.flatpak;
+                    kavita = unstablePkgs.kavita;
+                    adguardhome = unstablePkgs.adguardhome;
+                    wine64 = unstablePkgs.wine64;
+                    mpv = unstablePkgs.mpv;
+                    lutris = unstablePkgs.lutris;
+                    jellyseerr = unstablePkgs.jellyseerr;
+                    jellyfin-web = unstablePkgs.jellyfin-web;
+                    discord = unstablePkgs.discord;
+                    udisks = unstablePkgs.udisks;
+                    ranger = unstablePkgs.ranger;
+                    gparted = unstablePkgs.gparted;
                   })
                 ];
 
@@ -344,39 +347,39 @@
 
               # Disable long or broken builds for now
               nixosModules = {
-                # album.immich.enable = mkForce false;
-                # social.jitsi.enable = mkForce false;
-                # social.matrix.conduit.enable = mkForce false;
-                # caldav.radicale.enable = mkForce false;
+                album.immich.enable = mkForce false;
+                social.jitsi.enable = mkForce false;
+                social.matrix.conduit.enable = mkForce false;
+                caldav.radicale.enable = mkForce false;
 
                 gaming = {
-                  # games.enable = mkForce false;
-                  # steam.enable = mkForce false;
+                  games.enable = mkForce false;
+                  steam.enable = mkForce false;
                 };
 
-                # openrgb.enable = mkForce false;
+                openrgb.enable = mkForce false;
 
-                # torrent.qbittorrent.enable = mkForce false;
+                torrent.qbittorrent.enable = mkForce false;
                 arrs = {
-                  # lidarr.enable = mkForce false;
-                  # sonarr.enable = mkForce false;
-                  # prowlarr.enable = mkForce false;
-                  # radarr.enable = mkForce false;
-                  # flaresolverr.enable = mkForce false;
-                  # vpn.enable = mkForce false;
+                  lidarr.enable = mkForce false;
+                  sonarr.enable = mkForce false;
+                  prowlarr.enable = mkForce false;
+                  radarr.enable = mkForce false;
+                  flaresolverr.enable = mkForce false;
+                  vpn.enable = mkForce false;
                 };
 
                 llm = {
-                  # ollama.enable = mkForce false;
+                  ollama.enable = mkForce false;
                 };
 
                 docker = {
-                  # enable = mkForce false;
-                  # romm.enable = mkForce false;
-                  # ourshoppinglist.enable = mkForce false;
+                  enable = mkForce false;
+                  romm.enable = mkForce false;
+                  ourshoppinglist.enable = mkForce false;
                 };
 
-                # groceries.tandoor.enable = mkForce false;
+                groceries.tandoor.enable = mkForce false;
               };
             }
             ./nixos/deity/configuration.nix 
