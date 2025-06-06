@@ -109,6 +109,9 @@
 
       # Default pkgs
       pkgs = unstablePkgs;
+
+      # No native optimizations, can be pulled from binary cache
+      genericPkgs = unstablePkgs;
     in {
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
@@ -116,7 +119,7 @@
 
       nixosConfigurations = with nixpkgs.lib; {
         deity = nixosSystem {
-          specialArgs = { inherit system inputs stablePkgs unstablePkgs oldPkgs; };
+          specialArgs = { inherit system inputs; };
           modules = [ 
             {
               nix.settings.system-features = [ "gccarch-znver3" ];
@@ -134,78 +137,78 @@
                 overlays = [
                   (final: prev: {
                     # Broken native builds
-                    spidermonkey_91 = unstablePkgs.spidermonkey_91;
-                    spidermonkey_115 = unstablePkgs.spidermonkey_115;
-                    spidermonkey_128 = unstablePkgs.spidermonkey_128;
-                    speexdsp = unstablePkgs.speexdsp;
-                    nototools = unstablePkgs.nototools;
-                    libsecret = unstablePkgs.libsecret;
-                    valkey = unstablePkgs.valkey;
-                    chromedriver = unstablePkgs.chromedriver;
-                    dotnetCorePackages = unstablePkgs.dotnetCorePackages;
-                    liberfa = unstablePkgs.liberfa;
-                    immich-machine-learning = unstablePkgs.immich-machine-learning;
-                    postgresql_15 = unstablePkgs.postgresql_15;
+                    spidermonkey_91 = genericPkgs.spidermonkey_91;
+                    spidermonkey_115 = genericPkgs.spidermonkey_115;
+                    spidermonkey_128 = genericPkgs.spidermonkey_128;
+                    speexdsp = genericPkgs.speexdsp;
+                    nototools = genericPkgs.nototools;
+                    libsecret = genericPkgs.libsecret;
+                    valkey = genericPkgs.valkey;
+                    chromedriver = genericPkgs.chromedriver;
+                    dotnetCorePackages = genericPkgs.dotnetCorePackages;
+                    liberfa = genericPkgs.liberfa;
+                    immich-machine-learning = genericPkgs.immich-machine-learning;
+                    postgresql_15 = genericPkgs.postgresql_15;
 
                     # It seems these pull in 32bit dependencies which really struggle to build
-                    wine = unstablePkgs.wine;
-                    pipewire = unstablePkgs.pipewire;
-                    steam-run = unstablePkgs.steam-run;
+                    wine = genericPkgs.wine;
+                    pipewire = genericPkgs.pipewire;
+                    steam-run = genericPkgs.steam-run;
 
-                    # python312 = unstablePkgs.python312;
+                    # python312 = genericPkgs.python312;
                     # python312 = prev.python312.override {
                     #   packageOverrides = pyFinal: pyPrev: {
-                    #     numpy = unstablePkgs.python312Packages.numpy;
+                    #     numpy = genericPkgs.python312Packages.numpy;
                     #   };
                     # };
 
                     # Take forever to compile
                     # Libs
-                    postgresql = unstablePkgs.postgresql;
-                    gfortran = unstablePkgs.gfortran;
-                    # xdg-desktop-portal-gtk = unstablePkgs.xdg-desktop-portal-gtk;
-                    ghc = unstablePkgs.ghc;
-                    haskell = unstablePkgs.haskell;
-                    # nodejs_20 = unstablePkgs.nodejs_20;
-                    # nodejs_22 = unstablePkgs.nodejs_22;
-                    # nodejs_24 = unstablePkgs.nodejs_24;
-                    # nodejs-slim = unstablePkgs.nodejs-slim;
-                    # vulkan-tools = unstablePkgs.vulkan-tools;
-                    wlroots = unstablePkgs.wlroots;
-                    wlroots_0_18 = unstablePkgs.wlroots_0_18;
-                    libei = unstablePkgs.libei;
-                    jdk = unstablePkgs.jdk;
-                    # orca = unstablePkgs.orca;
-                    # rocmPackages = unstablePkgs.rocmPackages;
-                    # openblas = unstablePkgs.openblas;
-                    prisma = unstablePkgs.prisma;
-                    # ffmpeg = unstablePkgs.ffmpeg;
-                    remarshal = unstablePkgs.remarshal;
-                    remarshal_0_17 = unstablePkgs.remarshal_0_17;
-                    gcr = unstablePkgs.gcr;
-                    flac = unstablePkgs.flac;
-                    zint = unstablePkgs.zint;
-                    pinentry-qt = unstablePkgs.pinentry-qt;
-                    opencv = unstablePkgs.opencv;
-                    libsForQt5 = unstablePkgs.libsForQt5;
-                    kdePackages = unstablePkgs.kdePackages;
+                    # postgresql = genericPkgs.postgresql;
+                    # gfortran = genericPkgs.gfortran;
+                    # ghc = genericPkgs.ghc;
+                    # haskell = genericPkgs.haskell;
+                    # xdg-desktop-portal-gtk = genericPkgs.xdg-desktop-portal-gtk;
+                    # nodejs_20 = genericPkgs.nodejs_20;
+                    # nodejs_22 = genericPkgs.nodejs_22;
+                    # nodejs_24 = genericPkgs.nodejs_24;
+                    # nodejs-slim = genericPkgs.nodejs-slim;
+                    # vulkan-tools = genericPkgs.vulkan-tools;
+                    # wlroots = genericPkgs.wlroots;
+                    # wlroots_0_18 = genericPkgs.wlroots_0_18;
+                    # libei = genericPkgs.libei;
+                    # jdk = genericPkgs.jdk;
+                    # orca = genericPkgs.orca;
+                    # rocmPackages = genericPkgs.rocmPackages;
+                    # openblas = genericPkgs.openblas;
+                    # prisma = genericPkgs.prisma;
+                    # ffmpeg = genericPkgs.ffmpeg;
+                    # remarshal = genericPkgs.remarshal;
+                    # remarshal_0_17 = genericPkgs.remarshal_0_17;
+                    # gcr = genericPkgs.gcr;
+                    # flac = genericPkgs.flac;
+                    # zint = genericPkgs.zint;
+                    # pinentry-qt = genericPkgs.pinentry-qt;
+                    # opencv = genericPkgs.opencv;
+                    # libsForQt5 = genericPkgs.libsForQt5;
+                    # kdePackages = genericPkgs.kdePackages;
 
                     # Software
-                    redis = unstablePkgs.redis;
-                    chromium = unstablePkgs.chromium;
-                    noto-fonts-color-emoji = unstablePkgs.noto-fonts-color-emoji;
-                    flatpak = unstablePkgs.flatpak;
-                    kavita = unstablePkgs.kavita;
-                    adguardhome = unstablePkgs.adguardhome;
-                    wine64 = unstablePkgs.wine64;
-                    mpv = unstablePkgs.mpv;
-                    lutris = unstablePkgs.lutris;
-                    jellyseerr = unstablePkgs.jellyseerr;
-                    jellyfin-web = unstablePkgs.jellyfin-web;
-                    discord = unstablePkgs.discord;
-                    udisks = unstablePkgs.udisks;
-                    ranger = unstablePkgs.ranger;
-                    gparted = unstablePkgs.gparted;
+                    redis = genericPkgs.redis;
+                    chromium = genericPkgs.chromium;
+                    noto-fonts-color-emoji = genericPkgs.noto-fonts-color-emoji;
+                    flatpak = genericPkgs.flatpak;
+                    kavita = genericPkgs.kavita;
+                    adguardhome = genericPkgs.adguardhome;
+                    wine64 = genericPkgs.wine64;
+                    mpv = genericPkgs.mpv;
+                    lutris = genericPkgs.lutris;
+                    jellyseerr = genericPkgs.jellyseerr;
+                    jellyfin-web = genericPkgs.jellyfin-web;
+                    discord = genericPkgs.discord;
+                    udisks = genericPkgs.udisks;
+                    ranger = genericPkgs.ranger;
+                    gparted = genericPkgs.gparted;
                   })
                 ];
 
