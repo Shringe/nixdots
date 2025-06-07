@@ -37,12 +37,6 @@ in
     nixosModules.jellyfin.jellyseerr.enable = mkDefault false;
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    environment.systemPackages = with pkgs; [
-      jellyfin
-      jellyfin-web
-      jellyfin-ffmpeg
-    ];
-
     services.jellyfin = {
       enable = true;
       package = pkgs.jellyfin;
