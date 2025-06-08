@@ -716,11 +716,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1749354153,
-        "narHash": "sha256-4KJcP94+uAAice6Uejqrzx4yv+HaZOLMyeAQTiypd9I=",
+        "lastModified": 1749409816,
+        "narHash": "sha256-eusBWAV0h4nh41W1mugcbkNo8xj48DF5UFkzhPU76a0=",
         "owner": "Shringe",
         "repo": "dwl",
-        "rev": "78feb0997d3ce7e9b06f49bdc45aa7a5fdbb131a",
+        "rev": "c16a65d763772e8585c5516e1ca3fd7b1b9f26dd",
         "type": "github"
       },
       "original": {
