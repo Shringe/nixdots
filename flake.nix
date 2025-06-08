@@ -8,6 +8,10 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    sdwl = {
+      url = "github:Shringe/dwl";
+    };
+
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -51,23 +55,26 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-old, ... }@inputs:
     let
       system = "x86_64-linux";
+
+      overlays = [
+        inputs.nur.overlays.default
+
+        (self: super: {
+          sdwl = inputs.sdwl.packages.${system}.default;
+
+          mpv = super.mpv.override {
+            scripts = with self.mpvScripts; [ 
+              mpris 
+              dynamic-crop
+              thumbfast
+              quack
+            ];
+          };
+        })
+      ];
+
       unstablePkgs = import nixpkgs-unstable {
-        inherit system;
-
-        overlays = [
-          inputs.nur.overlays.default
-
-          (self: super: {
-            mpv = super.mpv.override {
-              scripts = with self.mpvScripts; [ 
-                mpris 
-                dynamic-crop
-                thumbfast
-                quack
-              ];
-            };
-          })
-        ];
+        inherit system overlays;
 
         config.permittedInsecurePackages = [
           "jitsi-meet-1.0.8043"
@@ -78,22 +85,7 @@
       };
 
       stablePkgs = import nixpkgs {
-        inherit system;
-
-        overlays = [
-          inputs.nur.overlays.default
-
-          (self: super: {
-            mpv = super.mpv.override {
-              scripts = with self.mpvScripts; [ 
-                mpris 
-                dynamic-crop
-                thumbfast
-                quack
-              ];
-            };
-          })
-        ];
+        inherit system overlays;
 
         config.permittedInsecurePackages = [
           "jitsi-meet-1.0.8043"
@@ -144,16 +136,16 @@
                   nix.settings.system-features = [ "gccarch-${arch}" ];
 
                   nixpkgs = {
-                    hostPlatform = mkIf optimize_builds {
+                    hostPlatform = {
                       system = system;
-                      gcc = {
+                      gcc = mkIf optimize_builds {
                         arch = arch;
                         tune = arch;
                         abi = abi;
                       };
                     };
 
-                    overlays = []
+                    overlays = overlays
                       ++ optionals (skip_optimizing_broken_builds) [
                         (final: prev: {
                           postgresql_15 = genericPkgs.postgresql_15;
@@ -183,6 +175,7 @@
                           flaresolverr = genericPkgs.flaresolverr;
                           immich-machine-learning = genericPkgs.immich-machine-learning;
                           jdk17 = genericPkgs.jdk17;
+                          jellyfin = genericPkgs.jellyfin;
                         })
                       ] ++ optionals (disable_broken_tests) [
                         (final: prev: {

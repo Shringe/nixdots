@@ -59,6 +59,7 @@
   # environment.
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
+    sdwl
     #neovim
     protonup
     fish
