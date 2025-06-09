@@ -94,23 +94,6 @@ in
           all-outputs = false;
         };
 
-        # "dwl/tags" = {
-        #   disable-scroll = true;
-        #   all-outputs = false;
-        #   format = "{icon}";
-        #   "format-icons" = {
-        #     "1" = "";
-        #     "2" = "";
-        #     "3" = "";
-        #     "4" = "";
-        #     "5" = "";
-        #     "6" = "";
-        #     urgent = "";
-        #     focused = "";
-        #     default = "";
-        #   };
-        # };
-
         "dwl/window" = {
           format = "{layout} => {title}";
           icon = true;
@@ -147,18 +130,10 @@ in
         };
 
         "custom/gammastep" = {
-          # interval = "once";
           on-click = "${pkgs.procps}/bin/pidof gammastep || ${pkgs.gammastep}/bin/gammastep -O 3200";
           on-click-right = "${pkgs.procps}/bin/pkill gammastep";
-          # signal = 1;
-          # return-type = "json";
           format = "🌙";
-          # tooltip-format = "gammastep: {alt}";
           tooltip-format = "Enable gammastep";
-          # format-icons = {
-          #   # off = "☀️";
-          #   # on = "🌙";
-          # };
         };
 
         tray = {
