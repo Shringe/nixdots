@@ -1,5 +1,6 @@
 {
   imports = [
+    ./dwl
     ./utils
     ./qtile
     ./hyprland

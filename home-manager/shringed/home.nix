@@ -24,10 +24,12 @@
       windowManagers = {
         enable = true;
         sway.enable = true;
+        sway.enableSwayFx = false;
         utils.mpvpaper = {
-          primary.enable = true;
-          secondary.enable = true;
+          primary.enable = false;
+          secondary.enable = false;
         };
+        dwl.enable = true;
       };
       email.enable = true;
     };
@@ -59,7 +61,6 @@
   # environment.
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    sdwl
     #neovim
     protonup
     fish

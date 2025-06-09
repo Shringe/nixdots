@@ -20,7 +20,7 @@ in {
 
   config = mkIf cfg.enable {
     homeManagerModules.desktop.windowManagers.utils.waybar = {
-      colorful.enable = mkDefault true;
+      # colorful.enable = mkDefault true;
     };
   };
 }
