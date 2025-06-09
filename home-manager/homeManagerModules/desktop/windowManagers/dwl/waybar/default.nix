@@ -5,6 +5,7 @@ let
 in {
   imports = [
     ./colorful.nix
+    ./matte.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl.waybar = {
@@ -14,8 +15,8 @@ in {
     };
 
     variant = mkOption {
-      type = types.enum [ "colorful" ];
-      default = "colorful";
+      type = types.enum [ "colorful" "matte" ];
+      default = "matte";
     };
   };
 }
