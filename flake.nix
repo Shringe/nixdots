@@ -8,7 +8,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    sdwl = {
+    dwl = {
       url = "github:Shringe/dwl";
     };
 
@@ -60,7 +60,7 @@
         inputs.nur.overlays.default
 
         (self: super: {
-          sdwl = inputs.sdwl.packages.${system}.default;
+          dwl = inputs.dwl.packages.${system}.default;
 
           mpv = super.mpv.override {
             scripts = with self.mpvScripts; [ 
