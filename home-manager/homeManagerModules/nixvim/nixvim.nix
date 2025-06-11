@@ -3,19 +3,8 @@
   imports = [
     ./extra-plugins
     ./optimizations.nix
+    ./extra.nix
   ];
-
-  programs.neovide = lib.mkIf config.homeManagerModules.nixvim.enable {
-    enable = true;
-  };
-
-  programs.lazygit = lib.mkIf config.homeManagerModules.nixvim.enable {
-    enable = true;
-  };
-
-  programs.lf = lib.mkIf config.homeManagerModules.nixvim.enable {
-    enable = true;
-  };
 
   programs.nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
     enable = true;

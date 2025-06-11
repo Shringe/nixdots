@@ -138,52 +138,55 @@
                   nixpkgs = {
                     hostPlatform = {
                       system = system;
-                      gcc = mkIf optimize_builds {
+                      gcc = {
                         arch = arch;
                         tune = arch;
                         abi = abi;
                       };
                     };
 
-                    overlays = overlays
-                      ++ optionals (skip_optimizing_broken_builds) [
-                        (final: prev: {
-                          postgresql_15 = genericPkgs.postgresql_15;
-                          dotnetCorePackages = genericPkgs.dotnetCorePackages;
+                    overlays = [
+                      (final: prev: {
+                        postgresql_15 = genericPkgs.postgresql_15;
+                        dotnetCorePackages = genericPkgs.dotnetCorePackages;
+
+                        # speexdsp = genericPkgs.speexdsp;
+                        # nototools = genericPkgs.nototools;
+                        # libsecret = genericPkgs.libsecret;
+                        # valkey = genericPkgs.valkey;
+                        # chromedriver = genericPkgs.chromedriver;
+                        # liberfa = genericPkgs.liberfa;
+                        # It seems these pull in 32bit dependencies which really struggle to build
+                        wine = genericPkgs.wine;
+                        pipewire = genericPkgs.pipewire;
+                        steam-run = genericPkgs.steam-run;
+                        lutris = genericPkgs.lutris;
 
 
-                          # speexdsp = genericPkgs.speexdsp;
-                          # nototools = genericPkgs.nototools;
-                          # libsecret = genericPkgs.libsecret;
-                          # valkey = genericPkgs.valkey;
-                          # chromedriver = genericPkgs.chromedriver;
-                          # liberfa = genericPkgs.liberfa;
-                        })
-                      ] ++ optionals (skip_optimizing_32bit_builds) [
-                        (final: prev: {
-                          # It seems these pull in 32bit dependencies which really struggle to build
-                          wine = genericPkgs.wine;
-                          pipewire = genericPkgs.pipewire;
-                          steam-run = genericPkgs.steam-run;
-                          lutris = genericPkgs.lutris;
-                        })
-                      ] ++ optionals (skip_optimizing_large_builds) [
-                        (final: prev: {
-                          # Mostly QtWebEngine
-                          jellyfin-media-player = genericPkgs.jellyfin-media-player;
-                          kdePackages = genericPkgs.kdePackages;
-                          flaresolverr = genericPkgs.flaresolverr;
-                          immich-machine-learning = genericPkgs.immich-machine-learning;
-                          jdk17 = genericPkgs.jdk17;
-                          jellyfin = genericPkgs.jellyfin;
-                        })
-                      ] ++ optionals (disable_broken_tests) [
-                        (final: prev: {
-                          libadwaita = prev.libadwaita.overrideAttrs (old: {
-                            doCheck = false;
-                          });
-                        })
-                      ];
+                        jellyfin-media-player = genericPkgs.jellyfin-media-player;
+                        kdePackages = genericPkgs.kdePackages;
+                        flaresolverr = genericPkgs.flaresolverr;
+                        # immich-machine-learning = genericPkgs.immich-machine-learning;
+                        # jdk17 = genericPkgs.jdk17;
+                        # jellyfin = genericPkgs.jellyfin;
+
+                        libadwaita = prev.libadwaita.overrideAttrs (old: {
+                          doCheck = false;
+                        });
+
+                        # numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
+                        #   disabledTests = oldAttrs.disabledTests ++ ["test_umath_accuracy" "TestAccuracy::test_validate_transcendentals" "test_validate_transcendentals"];
+                        # });
+
+                        python312 = prev.python312.override {
+                          packageOverrides = pyfinal: pyprev: {
+                            anyio = pyprev.anyio.overridePythonAttrs (oldAttrs: {
+                              disabledTests = oldAttrs.disabledTests ++ [ "test_handshake_fail" ];
+                            });
+                          };
+                        };
+                      })
+                    ];
 
 
                     config = {
@@ -318,41 +321,41 @@
                   ];
 
                   # Disable long or broken builds for now
-                  nixosModules = mkIf disable_excess_functionality {
-                    album.immich.enable = mkForce false;
-                    social.jitsi.enable = mkForce false;
-                    social.matrix.conduit.enable = mkForce false;
-                    caldav.radicale.enable = mkForce false;
-
-                    gaming = {
-                      games.enable = mkForce false;
-                      steam.enable = mkForce false;
-                    };
-
-                    openrgb.enable = mkForce false;
-
-                    torrent.qbittorrent.enable = mkForce false;
-                    arrs = {
-                      lidarr.enable = mkForce false;
-                      sonarr.enable = mkForce false;
-                      prowlarr.enable = mkForce false;
-                      radarr.enable = mkForce false;
-                      flaresolverr.enable = mkForce false;
-                      vpn.enable = mkForce false;
-                    };
-
-                    llm = {
-                      ollama.enable = mkForce false;
-                    };
-
-                    docker = {
-                      enable = mkForce false;
-                      romm.enable = mkForce false;
-                      ourshoppinglist.enable = mkForce false;
-                    };
-
-                    groceries.tandoor.enable = mkForce false;
-                  };
+                  # nixosModules = {
+                  #   album.immich.enable = mkForce false;
+                  #   social.jitsi.enable = mkForce false;
+                  #   social.matrix.conduit.enable = mkForce false;
+                  #   caldav.radicale.enable = mkForce false;
+                  #
+                  #   gaming = {
+                  #     games.enable = mkForce false;
+                  #     steam.enable = mkForce false;
+                  #   };
+                  #
+                  #   openrgb.enable = mkForce false;
+                  #
+                  #   torrent.qbittorrent.enable = mkForce false;
+                  #   arrs = {
+                  #     lidarr.enable = mkForce false;
+                  #     sonarr.enable = mkForce false;
+                  #     prowlarr.enable = mkForce false;
+                  #     radarr.enable = mkForce false;
+                  #     flaresolverr.enable = mkForce false;
+                  #     vpn.enable = mkForce false;
+                  #   };
+                  #
+                  #   llm = {
+                  #     ollama.enable = mkForce false;
+                  #   };
+                  #
+                  #   docker = {
+                  #     enable = mkForce false;
+                  #     romm.enable = mkForce false;
+                  #     ourshoppinglist.enable = mkForce false;
+                  #   };
+                  #
+                  #   groceries.tandoor.enable = mkForce false;
+                  # };
                 }
                 ./nixos/deity/configuration.nix 
                 ./nixos/nixosModules

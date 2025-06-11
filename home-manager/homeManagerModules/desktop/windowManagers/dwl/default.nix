@@ -11,6 +11,7 @@ let
       wl-clipboard
       swaynotificationcenter
       waybar
+      # kdeconnect
     ];
 
     text = ''
@@ -19,6 +20,9 @@ let
 
       wl-paste --watch cliphist store &
       swaync &
+
+      # sleep 2
+      # kdeconnect-indicator &
     '';
   };
 in {
