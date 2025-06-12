@@ -172,7 +172,7 @@ with lib;
       };
 
       windowManagers = mkIf config.homeManagerModules.desktop.windowManagers.enable {
-        sway.enable = mkDefault true;
+        # sway.enable = mkDefault true;
       };
 
       office = mkIf config.homeManagerModules.desktop.office.enable {

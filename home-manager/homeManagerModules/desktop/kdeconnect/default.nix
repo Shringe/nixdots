@@ -7,7 +7,7 @@ in
   config = mkIf cfg.enable {
     services.kdeconnect = {
       enable = true;
-      indicator = mkDefault false;
+      indicator = true;
     };
   };
 }
