@@ -10,7 +10,6 @@ let
 in {
   imports = [
     ./swaylogout.nix
-    ./swaylock.nix
     ./swayidle.nix
   ];
 
@@ -53,12 +52,6 @@ in {
       windowManagers = {
         sway = {
           swayidle.enable = mkDefault true;
-          swaylock.enable = mkDefault true;
-        };
-
-        hyprland = {
-          wofi.enable = mkDefault true;
-          cliphist.enable = mkDefault true;
         };
 
         utils = {
@@ -70,7 +63,10 @@ in {
 
           # swaylogout.enable = mkDefault true;
           swaync.enable = mkDefault true;
-          mpvpaper.enable = mkDefault true;
+          mpvpaper.enable = mkDefault cfg.enableSwayFx;
+          swaylock.enable = mkDefault true;
+          wofi.enable = mkDefault true;
+          cliphist.enable = mkDefault true;
         };
       };
     };

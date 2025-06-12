@@ -6,28 +6,19 @@ let
   autostartDwl = pkgs.writeShellApplication {
     name = "autostartDwl";
     runtimeInputs = with pkgs; [
-      swaybg
-      cliphist
-      wl-clipboard
-      swaynotificationcenter
-      waybar
-      # kdeconnect
+      dbus
     ];
 
     text = ''
-      swaybg --mode fill --image ${config.stylix.image} &
-      waybar &
-
-      wl-paste --watch cliphist store &
-      swaync &
-
-      # sleep 2
-      # kdeconnect-indicator &
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY NIXOS_OZONE_WL
+      systemctl --user start dwl-session.target
     '';
   };
 in {
   imports = [
     ./waybar
+    ./swayidle.nix
+    ./swaybg.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl = {
@@ -36,6 +27,12 @@ in {
 
   config = mkIf cfg.enable {
     stylix.opacity.terminal = mkForce 0.99;
+
+    homeManagerModules.desktop.windowManagers.utils = {
+      wofi.enable = true;
+      swaync.enable = true;
+      cliphist.enable = true;
+    };
 
     home.packages = with pkgs; [
       dwl
@@ -52,5 +49,15 @@ in {
         '';
       })
     ];
+
+    systemd.user.targets.dwl-session.Unit = {
+      Description = "dwl compositor session";
+      Documentation = [ "man:systemd.special(7)" ];
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [
+        "graphical-session-pre.target"
+      ];
+      After = [ "graphical-session-pre.target" ];
+    };
   };
 }

@@ -23,12 +23,6 @@
       office.enable = true;
       windowManagers = {
         enable = true;
-        sway.enable = true;
-        sway.enableSwayFx = false;
-        utils.mpvpaper = {
-          primary.enable = false;
-          secondary.enable = false;
-        };
         dwl.enable = true;
       };
       email.enable = true;
