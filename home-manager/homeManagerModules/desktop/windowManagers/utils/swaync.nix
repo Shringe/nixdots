@@ -3,17 +3,31 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.swaync;
   scripts = config.homeManagerModules.desktop.windowManagers.utils.scripts;
-
-  script = s: "${scripts.${s}}/bin/${s}";
 in {
   options.homeManagerModules.desktop.windowManagers.utils.swaync = {
     enable = mkEnableOption "Sway notification center";
   };
 
   config = mkIf cfg.enable {
+    stylix.targets.swaync.enable = false;
+
     home.packages = with pkgs; [
       swaynotificationcenter
     ];
+
+    systemd.user.services.swaync.Service.Environment = with pkgs; "PATH=$PATH:${makeBinPath [
+      coreutils
+      gammastep
+      procps
+      scripts.toggleGammastep
+      sway
+      swaylock
+    ]}";
+
+    #   coreutils
+    #   procps
+    #   gammastep
+    # ];
 
     services.swaync = mkIf cfg.enable {
       enable = true;
@@ -94,16 +108,26 @@ in {
               }
               {
                 label = "󰌾";
-                command = "${pkgs.swaylock}/bin/swaylock";
+                command = "swaylock";
               }
               {
                 label = "󰍃";
-                command = "${pkgs.sway}/bin/swaymsg exit";
+                command = "swaymsg exit";
               }
               {
                 label = "󰤄";
-                command = script "toggleGammastep";
+                type = "toggle";
+                active = false;
+                # command = script "toggleGammastep";
+                command = "[[ $SWAYNC_TOGGLE_STATE == true ]] && gammastep -O 3200 || pkill gammastep";
+                update-command = "[[ -n $(pidof gammastep) ]] && echo true || echo false";
+                # command = "echo test";
               }
+
+              # {
+              #   label = "󰤄";
+              #   command = script "toggleGammastep";
+              # }
               # {
               #   label = "󰕾";
               #   command = "swayosd-client --output-volume mute-toggle";
@@ -130,22 +154,42 @@ in {
       };
 
       style = with config.lib.stylix.colors.withHashtag; with config.stylix.opacity; ''
-        @define-color cc-bg              alpha(${base00}, ${toString desktop});
-        @define-color noti-bg            alpha(${base02}, ${toString desktop});
-        @define-color noti-bg-darker     alpha(${base01}, ${toString desktop});
-        @define-color text-color         alpha(${base05}, ${toString desktop});
-        @define-color text-color-alt     alpha(${base05}, ${toString desktop});
-        @define-color accent             alpha(${base0E}, ${toString desktop});
-        @define-color accent-hover       alpha(${base0D}, ${toString desktop});
-        @define-color border-color       alpha(${base07}, ${toString desktop});
-        @define-color dnd-bg             alpha(${base02}, ${toString desktop});
-        @define-color dnd-checked-bg     alpha(${base0A}, ${toString desktop});
+        @define-color base00 alpha(${base00}, ${toString desktop});
+        @define-color base01 alpha(${base01}, ${toString desktop});
+        @define-color base02 alpha(${base02}, ${toString desktop});
+        @define-color base03 alpha(${base03}, ${toString desktop});
+        @define-color base04 alpha(${base04}, ${toString desktop});
+        @define-color base05 alpha(${base05}, ${toString desktop});
+        @define-color base06 alpha(${base06}, ${toString desktop});
+        @define-color base07 alpha(${base07}, ${toString desktop});
+        @define-color base08 alpha(${base08}, ${toString desktop});
+        @define-color base09 alpha(${base09}, ${toString desktop});
+        @define-color base0A alpha(${base0A}, ${toString desktop});
+        @define-color base0B alpha(${base0B}, ${toString desktop});
+        @define-color base0C alpha(${base0C}, ${toString desktop});
+        @define-color base0D alpha(${base0D}, ${toString desktop});
+        @define-color base0E alpha(${base0E}, ${toString desktop});
+        @define-color base0F alpha(${base0F}, ${toString desktop});
+
+        @define-color cc-bg              @base00;
+        @define-color noti-bg            @base02;
+        @define-color noti-bg-darker     @base01;
+        @define-color text-color         @base05;
+        @define-color text-color-alt     @base05;
+        @define-color accent             @base0E;
+        @define-color accent-hover       @base0D;
+        @define-color border-color       @base07;
+        @define-color dnd-bg             @base02;
+        @define-color dnd-checked-bg     @base0A;
+        @define-color border             @base0D;
+
 
         * {
             font-family: JetBrainsMono NFP;
             font-weight: bold;
             font-size: 14px;
         }
+
 
         .control-center .notification-row:focus,
         .control-center .notification-row:hover {
@@ -162,6 +206,7 @@ in {
         .notification {
             background: transparent;
             margin: 0px;
+            border-radius: 0px;
         }
 
         .notification-content {
@@ -203,6 +248,18 @@ in {
         .notification-action:hover {
             color: @text-color-alt;
             background: @cc-bg;
+        }
+
+        .notification.low {
+            border: 2px solid @base0E;
+        }
+
+        .notification.normal {
+            border: 2px solid @base0D;
+        }
+
+        .notification.critical {
+            border: 2px solid @base08;
         }
 
         .summary {
@@ -296,7 +353,6 @@ in {
 
         .widget-mpris {
             color: @text-color;
-            background: @noti-bg-darker;
             padding: 5px 10px 0px 0px;
             margin: 5px 10px 5px 10px;
             border-radius: 0px;
@@ -309,6 +365,13 @@ in {
         .widget-mpris-player {
             padding: 5px 10px;
             margin: 10px;
+
+            background: @base01;
+            border: 1px solid @border;
+        }
+
+        .widget-mpris-player button:hover {
+            background: @accent-hover;
         }
 
         .widget-mpris-title {
@@ -344,6 +407,13 @@ in {
         .topbar-buttons>button {
             border: none;
             background: transparent;
+        }
+
+        .toggle:checked {
+            margin: 3px;
+            background: @accent-hover;
+            border-radius: 5px;
+            color: @text-color;
         }
       '';
     };
