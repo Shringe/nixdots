@@ -23,19 +23,19 @@ let
     '';
   };
 
-  leftArrow  = makeArrow "/";
-  rightArrow = makeArrow "/";
+  leftSeparator  = makeSeparator "/";
+  rightSeparator = makeSeparator "/";
 
-  makeArrow = s: {
+  makeSeparator = s: {
     format = s;
     tooltip = false;
   };
 
-  styleLarrow = n: styleArrow "l" n;
-  styleRarrow = n: styleArrow "r" n;
+  styleLeftSeparator = n: styleSeparator "left" n;
+  styleRightSeparator = n: styleSeparator "right" n;
 
-  styleArrow = d: n: ''
-    #custom-${d}arrow${toString n} {
+  styleSeparator = d: n: ''
+    #custom-${d}Separator${toString n} {
       font-size: 14px;
       font-weight: bold;
       color: @b04;
@@ -84,34 +84,34 @@ in {
 
         modules-left = [ 
           "dwl/tags" 
-          "custom/rarrow1"
+          "custom/leftSeparator1"
           "dwl/window"
-          "custom/rarrow2"
+          "custom/leftSeparator2"
         ];
 
         modules-center = [ 
         ];
 
         modules-right = [ 
-          "custom/larrow5"
+          "custom/rightSeparator5"
           "tray" 
           "privacy"
 
-          "custom/larrow4"
+          "custom/rightSeparator4"
           "mpris"
           "cava"
           "pulseaudio" 
 
-          "custom/larrow3"
+          "custom/rightSeparator3"
           "network" 
           "custom/nordvpn"
 
-          "custom/larrow2"
+          "custom/rightSeparator2"
           "battery" 
           "memory" 
           "cpu" 
 
-          "custom/larrow1"
+          "custom/rightSeparator1"
           "custom/notification"
           "clock" 
         ];
@@ -236,14 +236,14 @@ in {
           "on-click-right" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
         };
 
-        "custom/larrow1" = leftArrow;
-        "custom/larrow2" = leftArrow;
-        "custom/larrow3" = leftArrow;
-        "custom/larrow4" = leftArrow;
-        "custom/larrow5" = leftArrow;
-        "custom/rarrow1" = rightArrow;
-        "custom/rarrow2" = rightArrow;
-        "custom/rarrow3" = rightArrow;
+        "custom/leftSeparator1" = leftSeparator;
+        "custom/leftSeparator2" = leftSeparator;
+
+        "custom/rightSeparator1" = rightSeparator;
+        "custom/rightSeparator2" = rightSeparator;
+        "custom/rightSeparator3" = rightSeparator;
+        "custom/rightSeparator4" = rightSeparator;
+        "custom/rightSeparator5" = rightSeparator;
       };
 
       style = with config.lib.stylix.colors.withHashtag; with config.stylix.opacity; ''
@@ -398,15 +398,14 @@ in {
           animation-direction: alternate;
         }
 
-        ${styleLarrow 1}
-        ${styleLarrow 2}
-        ${styleLarrow 3}
-        ${styleLarrow 4}
-        ${styleLarrow 5}
+        ${styleLeftSeparator 1}
+        ${styleLeftSeparator 2}
 
-        ${styleRarrow 1}
-        ${styleRarrow 2}
-        ${styleRarrow 3}
+        ${styleRightSeparator 1}
+        ${styleRightSeparator 2}
+        ${styleRightSeparator 3}
+        ${styleRightSeparator 4}
+        ${styleRightSeparator 5}
       '';
     };
   };
