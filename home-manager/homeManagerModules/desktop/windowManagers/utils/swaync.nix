@@ -2,6 +2,9 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.swaync;
+  scripts = config.homeManagerModules.desktop.windowManagers.utils.scripts;
+
+  script = s: "${scripts.${s}}/bin/${s}";
 in {
   options.homeManagerModules.desktop.windowManagers.utils.swaync = {
     enable = mkEnableOption "Sway notification center";
@@ -99,7 +102,7 @@ in {
               }
               {
                 label = "󰤄";
-                command = "systemctl suspend";
+                command = script "toggleGammastep";
               }
               # {
               #   label = "󰕾";

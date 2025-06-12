@@ -91,11 +91,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1749678032,
-        "narHash": "sha256-OtgOGGTsTKX0Bqw/VzLVPouyxAtJch05twHlvxi6CN4=",
+        "lastModified": 1749696381,
+        "narHash": "sha256-NnYnv4i/hilP/HE+ro/j99ABsr2UbJvLKLop8zII+do=",
         "owner": "Shringe",
         "repo": "dwl",
-        "rev": "5077de9048b74274cec4ec875a226734812398ec",
+        "rev": "8d3b4b402b903dd5acb1aa4d6c6d6aead45d7fb1",
         "type": "github"
       },
       "original": {

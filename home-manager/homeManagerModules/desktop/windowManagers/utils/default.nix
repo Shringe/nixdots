@@ -6,5 +6,6 @@
     ./cliphist.nix
     ./wofi.nix
     ./swaylock.nix
+    ./scripts.nix
   ];
 }
