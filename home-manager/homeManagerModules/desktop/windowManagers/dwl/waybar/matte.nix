@@ -2,13 +2,13 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.waybar.matte;
-  nordvpn = "${config.shared.packages.nordvpn}/bin/nordvpn";
+  nordvpn = config.shared.packages.nordvpn;
 
   nordstatus = pkgs.writeShellApplication {
     name = "nordstatus";
 
     runtimeInputs = with pkgs; [
-      config.shared.packages.nordvpn
+      nordvpn
       gnugrep
       gawk
       coreutils
@@ -23,11 +23,7 @@ let
     '';
   };
 
-  # leftArrow  = makeArrow "\<|";
-  # rightArrow = makeArrow "|>";
-
   leftArrow  = makeArrow "/";
-  # rightArrow = makeArrow "\\";
   rightArrow = makeArrow "/";
 
   makeArrow = s: {
@@ -66,6 +62,16 @@ in {
   config = mkIf cfg.enable {
     stylix.targets.waybar.enable = false;
 
+    systemd.user.services.waybar.Service.Environment = with pkgs; mkForce "PATH=$PATH:${makeBinPath [
+      nordvpn
+      nordstatus
+      coreutils
+      procps
+      swaynotificationcenter
+      pavucontrol
+      pulseaudio
+    ]}";
+
     programs.waybar = {
       enable = true;
 
@@ -74,7 +80,7 @@ in {
       settings.primary = {
         layer = "top";
         position = "top";
-        height = 20;
+        height = 24;
 
         modules-left = [ 
           "dwl/tags" 
@@ -89,7 +95,6 @@ in {
         modules-right = [ 
           "custom/larrow5"
           "tray" 
-          "custom/gammastep"
           "privacy"
 
           "custom/larrow4"
@@ -155,9 +160,9 @@ in {
         "custom/nordvpn" = {
           format = "VPN: {}";
           interval = 5;
-          exec = "${nordstatus}/bin/nordstatus";
-          on-click = "${nordvpn} connect";
-          on-click-right = "${nordvpn} disconnect";
+          exec = "nordstatus";
+          on-click = "nordvpn connect";
+          on-click-right = "nordvpn disconnect";
         };
 
         "custom/notification" = {
@@ -174,18 +179,11 @@ in {
             dnd-inhibited-none = "";
           };
           return-type = "json";
-          exec-if = "${pkgs.coreutils}/bin/which swaync-client";
-          exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
-          on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
-          on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
           escape = true;
-        };
-
-        "custom/gammastep" = {
-          on-click = "${pkgs.procps}/bin/pidof gammastep || ${pkgs.gammastep}/bin/gammastep -O 3200";
-          on-click-right = "${pkgs.procps}/bin/pkill gammastep";
-          format = "🌙";
-          tooltip-format = "Enable gammastep";
         };
 
         tray = {
@@ -235,7 +233,7 @@ in {
             default = [ "" "" ];
           };
           "on-click" = "pavucontrol";
-          "on-click-right" = "media-control volume_mute";
+          "on-click-right" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
         };
 
         "custom/larrow1" = leftArrow;
@@ -358,11 +356,6 @@ in {
         #mode {
           color: @b01;
           background: @b0F;
-        }
-
-        #custom-gammastep {
-          margin-left: 0px;
-          padding-left: 2px;
         }
 
         #battery {
