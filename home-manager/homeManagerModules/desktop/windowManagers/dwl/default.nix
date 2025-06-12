@@ -2,18 +2,6 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl;
-
-  autostartDwl = pkgs.writeShellApplication {
-    name = "autostartDwl";
-    runtimeInputs = with pkgs; [
-      dbus
-    ];
-
-    text = ''
-      dbus-update-activation-environment --systemd WAYLAND_DISPLAY NIXOS_OZONE_WL
-      systemctl --user start dwl-session.target
-    '';
-  };
 in {
   imports = [
     ./waybar
@@ -39,13 +27,8 @@ in {
 
       (writeShellApplication {
         name = "sdwl";
-        runtimeInputs = [
-          dwl
-          autostartDwl
-        ];
-
         text = ''
-          dwl -s "autostartDwl"
+          ${pkgs.dwl}/bin/dwl -s "systemctl --user start dwl-session.target" ; systemctl --user stop dwl-session.target
         '';
       })
     ];
