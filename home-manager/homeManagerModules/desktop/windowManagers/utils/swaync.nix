@@ -17,17 +17,11 @@ in {
 
     systemd.user.services.swaync.Service.Environment = with pkgs; "PATH=$PATH:${makeBinPath [
       coreutils
-      gammastep
       procps
       scripts.toggleGammastep
       sway
       swaylock
     ]}";
-
-    #   coreutils
-    #   procps
-    #   gammastep
-    # ];
 
     services.swaync = mkIf cfg.enable {
       enable = true;
@@ -117,11 +111,7 @@ in {
               {
                 label = "󰤄";
                 type = "toggle";
-                active = false;
-                # command = script "toggleGammastep";
-                command = "[[ $SWAYNC_TOGGLE_STATE == true ]] && gammastep -O 3200 || pkill gammastep";
-                update-command = "[[ -n $(pidof gammastep) ]] && echo true || echo false";
-                # command = "echo test";
+                command = "toggleGammastep";
               }
 
               # {
