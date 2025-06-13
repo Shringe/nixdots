@@ -115,14 +115,14 @@
             system = "x86_64-linux";
             arch = "znver3";
             abi = "64";
-            cuda = true;
+            cuda = false;
 
             enable_build_utilities = true;
             flake_directory = "/nixdots";
             editor = "nvim";
             shell = "fish";
 
-            optimize_builds = true;
+            optimize_builds = false;
             skip_optimizing_broken_builds = true;
             skip_optimizing_32bit_builds = true;
             skip_optimizing_large_builds = true;
@@ -136,7 +136,7 @@
                   nix.settings.system-features = [ "gccarch-${arch}" ];
 
                   nixpkgs = {
-                    hostPlatform = {
+                    hostPlatform = mkIf optimize_builds {
                       system = system;
                       gcc = {
                         arch = arch;
@@ -145,7 +145,7 @@
                       };
                     };
 
-                    overlays = [
+                    overlays = mkIf optimize_builds [
                       (final: prev: {
                         postgresql_15 = genericPkgs.postgresql_15;
                         dotnetCorePackages = genericPkgs.dotnetCorePackages;
@@ -321,7 +321,7 @@
                   ];
 
                   # Disable long or broken builds for now
-                  # nixosModules = {
+                  nixosModules = {
                   #   album.immich.enable = mkForce false;
                   #   social.jitsi.enable = mkForce false;
                   #   social.matrix.conduit.enable = mkForce false;
@@ -344,9 +344,9 @@
                   #     vpn.enable = mkForce false;
                   #   };
                   #
-                  #   llm = {
-                  #     ollama.enable = mkForce false;
-                  #   };
+                    llm = {
+                      ollama.enable = mkForce false;
+                    };
                   #
                   #   docker = {
                   #     enable = mkForce false;
@@ -355,7 +355,7 @@
                   #   };
                   #
                   #   groceries.tandoor.enable = mkForce false;
-                  # };
+                  };
                 }
                 ./nixos/deity/configuration.nix 
                 ./nixos/nixosModules
