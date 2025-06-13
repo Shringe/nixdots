@@ -3,5 +3,6 @@
     ./libreoffice.nix
     ./zanthura.nix
     ./gimp.nix
+    ./joplin.nix
   ];
 }
