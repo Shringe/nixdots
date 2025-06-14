@@ -79,6 +79,7 @@
       enable = true;
       romm.enable = true;
       ourshoppinglist.enable = true;
+      wallos.enable = true;
     };
 
     homepage.enable = true;

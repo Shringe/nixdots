@@ -64,8 +64,8 @@ in {
         "linkwarden.${d}" = (rp linkwarden.url);
         "ourshoppinglist.${d}" = (rp docker.ourshoppinglist.url);
         "traccar.${d}" = (rp gps.traccar.url);
-        # "nextcloud.${d}" = (rp nextcloud.url);
-     };
+        "wallos.${d}" = (rp docker.wallos.url);
+      };
     };
 
     users.users.nginx.extraGroups = [ "acme" ];
