@@ -4,5 +4,6 @@
     ./zanthura.nix
     ./gimp.nix
     ./joplin.nix
+    ./feh.nix
   ];
 }
