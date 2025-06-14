@@ -135,6 +135,12 @@ in {
               description = description;
               href = furl;
               icon = "/icons/${icon}";
+              widget = {
+                type = "nextcloud";
+                url = furl;
+                username = "nextcloud";
+                password = "{{HOMEPAGE_VAR_NEXTCLOUD}}";
+              };
             };
           }
           {
