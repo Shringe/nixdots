@@ -75,6 +75,7 @@ in {
           (watch "RomM" docker.romm.furl)
           (watch "Linkwarden" linkwarden.furl)
           (watch "OurShoppingList" docker.ourshoppinglist.furl)
+          (watch "Nextcloud" nextcloud.furl)
         ];
       };
     };

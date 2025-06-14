@@ -87,6 +87,8 @@
       enable = true;
     };
 
+    nextcloud.enable = true;
+
     wireguard = {
       enable = true;
       server.enable = true;

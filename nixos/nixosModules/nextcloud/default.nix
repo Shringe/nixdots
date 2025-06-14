@@ -6,9 +6,34 @@ in {
   options.nixosModules.nextcloud = {
     enable = mkEnableOption "Nextcloud hosting";
 
-    host = mkOption {
+    port = mkOption {
+      type = types.port;
+      default = 47420;
+    };
+
+    description = mkOption {
       type = types.string;
-      default = config.nixosModules.info.system.ips.local;
+      default = "Nextcloud Ecosystem";
+    };
+
+    url = mkOption {
+      type = types.string;
+      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+    };
+
+    furl = mkOption {
+      type = types.string;
+      default = "https://${cfg.hostName}";
+    };
+
+    icon = mkOption {
+      type = types.string;
+      default = "nextcloud.svg";
+    };
+
+    hostName = mkOption {
+      type = types.str;
+      default = "nextcloud.${config.nixosModules.reverseProxy.domain}";
     };
   };
 
@@ -17,26 +42,27 @@ in {
       "nextcloud/passwords/admin" = {};
     };
 
-    users.users.nextcloud.extraGroups = ["users"];
-    services.nginx.virtualHosts."cloud.${config.nixosModules.reverseProxy.domain}".listen = [ { addr = cfg.host; port = 8082; } ];
-
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud31;
-      hostName = "cloud.${config.nixosModules.reverseProxy.domain}";
+
+      hostName = cfg.hostName;
+      https = true;
+      maxUploadSize = "32G";
+
       database.createLocally = true;
-      # configureRedis = true;
+      configureRedis = true;
 
       config = {
         adminuser = "nextcloud";
         adminpassFile = config.sops.secrets."nextcloud/passwords/admin".path;
-        dbtype = "mysql";
-        # config_is_read_only = true;
+        dbtype = "pgsql";
       };
+    };
 
-      settings = {
-        trusted_proxies = [ cfg.host ];
-      };
+    services.nginx.virtualHosts.${cfg.hostName} = {
+      onlySSL = true;
+      useACMEHost = config.nixosModules.reverseProxy.domain;
     };
   };
 }

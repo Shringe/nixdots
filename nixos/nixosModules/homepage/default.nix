@@ -131,6 +131,13 @@ in {
 
         { "Files and Documents" = [
           {
+            "Nextcloud" = with nextcloud; { 
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
+            };
+          }
+          {
             "File Browser" = with filebrowser; { 
               description = description;
               href = furl;
