@@ -120,6 +120,7 @@ in {
           (rp "linkwarden")
           (rp "ourshoppinglist")
           (rp "traccar")
+          (rp "nextcloud")
         ];
 
         filtering = {

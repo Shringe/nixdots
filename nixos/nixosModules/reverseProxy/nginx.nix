@@ -64,7 +64,7 @@ in {
         "linkwarden.${d}" = (rp linkwarden.url);
         "ourshoppinglist.${d}" = (rp docker.ourshoppinglist.url);
         "traccar.${d}" = (rp gps.traccar.url);
-
+        # "nextcloud.${d}" = (rp nextcloud.url);
      };
     };
 
