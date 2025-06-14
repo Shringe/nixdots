@@ -16,8 +16,8 @@ in {
       jitsi-meet = {
         enable = true;
         hostName = "jitsi.deamicis.top";
-        nginx.enable = false;
-        caddy.enable = true;
+        nginx.enable = true;
+        # caddy.enable = true;
         excalidraw.enable = true;
         secureDomain.enable = false;
       };
