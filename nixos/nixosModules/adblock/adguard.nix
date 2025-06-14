@@ -121,6 +121,7 @@ in {
           (rp "ourshoppinglist")
           (rp "traccar")
           (rp "nextcloud")
+          (rp "wallos")
         ];
 
         filtering = {

@@ -172,7 +172,7 @@ in {
           }
         ];}
 
-        { "Server Health" = [
+        { "Utility" = [
           # {
           #   "Uptime Kuma" = with uptimeKuma; {
           #     description = description;
@@ -189,6 +189,13 @@ in {
                 type = "gatus";
                 url = furl;
               };
+            };
+          }
+          {
+            "Gatus" = with docker.wallos; {
+              description = description;
+              href = furl;
+              icon = "/icons/${icon}";
             };
           }
         ];}

@@ -6,6 +6,7 @@ in {
     ./automaticrippingmachine
     ./romm
     ./ourshoppinglist
+    ./wallos
   ];
 
   config = lib.mkIf cfg.enable {
