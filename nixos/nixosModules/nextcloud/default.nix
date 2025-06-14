@@ -35,6 +35,11 @@ in {
       type = types.str;
       default = "nextcloud.${config.nixosModules.reverseProxy.domain}";
     };
+
+    directory = mkOption {
+      type = types.str;
+      default = "/mnt/server/nextcloud";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -52,6 +57,7 @@ in {
 
       database.createLocally = true;
       configureRedis = true;
+      home = cfg.directory;
 
       config = {
         adminuser = "nextcloud";
