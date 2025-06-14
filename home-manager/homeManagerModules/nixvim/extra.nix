@@ -19,6 +19,20 @@ in {
       yazi = {
         enable = true;
         enableFishIntegration = true;
+
+        settings = {
+          opener = {
+            image = [
+              { run = ''feh "$@"''; orphan = true; }
+            ];
+          };
+
+          open = {
+            rules = [
+              { mime = "image/*"; use = "image"; }
+            ];
+          };
+        };
       };
     };
   };
