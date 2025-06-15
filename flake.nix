@@ -12,6 +12,10 @@
       url = "github:Shringe/dwl";
     };
 
+    nf = {
+      url = "github:Shringe/nf";
+    };
+
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -61,6 +65,7 @@
 
         (self: super: {
           dwl = inputs.dwl.packages.${system}.default;
+          nf = inputs.nf.packages.${system}.default;
 
           mpv = super.mpv.override {
             scripts = with self.mpvScripts; [ 
