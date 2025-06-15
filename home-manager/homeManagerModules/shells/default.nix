@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./bash.nix
@@ -6,6 +6,10 @@
     ./aliases.nix
     ./atuin.nix
     ./tmux.nix
+  ];
+
+  home.packages = with pkgs; [
+    nf
   ];
 
   # options.shells.enable = lib.mkEnableOption "Enable all shells and shell configuration";

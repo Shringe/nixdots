@@ -11,6 +11,12 @@
         set fish_greeting # disable greeting
       '';
 
+      shellAliases = {
+        nr = "nf fish run";
+        ns = "nf fish shell";
+        nd = "nf fish develop";
+      };
+
       plugins = [
         # { name = "transient-fish" ; src = pkgs.fishPlugins.transient-fish.src; }  
         # { name = "bobthefish" ; src = pkgs.fishPlugins.bobthefish.src; }  
