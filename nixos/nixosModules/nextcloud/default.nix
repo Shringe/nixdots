@@ -59,6 +59,12 @@ in {
       configureRedis = true;
       home = cfg.directory;
 
+      autoUpdateApps.enable = true;
+      extraAppsEnable = true;
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
+      };
+
       config = {
         adminuser = "nextcloud";
         adminpassFile = config.sops.secrets."nextcloud/passwords/admin".path;
