@@ -16,6 +16,11 @@
       url = "github:Shringe/nf";
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
 
     nix-gaming.url = "github:fufexan/nix-gaming";
