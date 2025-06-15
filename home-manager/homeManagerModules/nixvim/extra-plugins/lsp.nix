@@ -28,9 +28,9 @@
         #   };
         # };
         bashls.enable = true;
+        fish_lsp.enable = true;
         nixd.enable = true;
         lua_ls.enable = true;
-        cssls.enable = true;
       };
     };
     keymaps = [
