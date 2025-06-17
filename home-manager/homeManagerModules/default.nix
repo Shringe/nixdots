@@ -109,7 +109,6 @@ with lib;
       browsers = {
         enable = mkEnableOption "Enables preferred browser module";
         chromium.enable = mkEnableOption "chromium";
-        firefox.enable = mkEnableOption "Firefox";
       };
     };
 
@@ -182,7 +181,6 @@ with lib;
       };
 
       browsers = mkIf config.homeManagerModules.desktop.browsers.enable {
-        firefox.enable = mkDefault true;
       };
 
       terminals = mkIf config.homeManagerModules.desktop.terminals.enable {

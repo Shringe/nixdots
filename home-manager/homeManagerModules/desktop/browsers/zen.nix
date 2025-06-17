@@ -2,6 +2,7 @@
 with lib;
 let 
   cfg = config.homeManagerModules.desktop.browsers.zen;
+  ff = config.homeManagerModules.desktop.browsers.firefox;
 in {
   imports = [
     inputs.zen-browser.homeModules.twilight
@@ -15,18 +16,28 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # home.packages = with pkgs; [
-    #   zen
-    # ];
-
     programs.zen-browser = {
       enable = true;
 
       policies = {
         DisableAppUpdate = true;
+        DontCheckDefaultBrowser = true;
         DisableTelemetry = true;
-        # find more options here: https://mozilla.github.io/policy-templates/
+        DisableFirefoxStudies = true;
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+        };
+        DisablePocket = true;
+        DisableFirefoxAccounts = true;
+        DisableAccounts = true;
+        DisableFirefoxScreenshots = true;
       };
+
+      languagePacks = [ "en-US" ];
+      profiles = ff.profiles;
     };
   };
 }
