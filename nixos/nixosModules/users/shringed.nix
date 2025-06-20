@@ -6,7 +6,7 @@ in
   sops.secrets."user_passwords/shringed".neededForUsers = true;
   users.users.shringed = lib.mkIf cfg.enable {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "audio" "nixdots" "steam" "nordvpn" "docker" "gamemode" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "nixdots" "steam" "nordvpn" "docker" "gamemode" "adbusers" ];
     hashedPasswordFile = config.sops.secrets."user_passwords/shringed".path;
     openssh.authorizedKeys.keys = [
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFhNGAfMh9PgOkAZjKvp9QBiydu+Vjf/Iudrz8cf0e+t/6SGz3UdmoaAlaCwSnXWp3Z65pRyXpy7IpbwHVKTkVI= u0_a311@localhost"
