@@ -5,5 +5,6 @@
     ./gimp.nix
     ./joplin.nix
     ./feh.nix
+    ./telegram.nix
   ];
 }

@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local config = {}
 
 config = {
-  default_prog = { "/usr/bin/env", "fish" },
+  default_prog = { "/usr/bin/env", "fish", "-C", "fastfetch" },
 
   font = wezterm.font("JetBrains Mono"),
   -- font_size = 16,

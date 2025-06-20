@@ -195,6 +195,8 @@
     ];
   };
 
+  programs.adb.enable = true;
+
   hardware.bluetooth = {
     enable = true;
   };
