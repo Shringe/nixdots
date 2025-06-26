@@ -73,11 +73,6 @@ with lib;
         termusic.enable = mkEnableOption "Termusic";
       };
 
-      email = {
-        enable = mkEnableOption "Email setup";
-        thunderbird.enable = mkEnableOption "Thunderbird";
-      };
-
       windowManagers = {
         enable = mkEnableOption "Preferred window manager";
         qtile.enable = mkEnableOption "qtile";
