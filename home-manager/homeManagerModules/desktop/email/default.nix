@@ -4,8 +4,8 @@ let
   cfg = config.homeManagerModules.desktop.email;
 in {
   imports = [
+    ./neomutt
     ./thunderbird.nix
-    ./neomutt.nix
   ];
 
   options.homeManagerModules.desktop.email = {
