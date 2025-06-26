@@ -161,10 +161,6 @@ with lib;
         supersonic.enable = mkDefault true;
       };
 
-      email = mkIf config.homeManagerModules.desktop.email.enable {
-        thunderbird.enable = mkDefault true;
-      };
-
       windowManagers = mkIf config.homeManagerModules.desktop.windowManagers.enable {
         # sway.enable = mkDefault true;
       };

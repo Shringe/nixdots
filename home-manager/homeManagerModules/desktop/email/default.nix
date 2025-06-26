@@ -21,6 +21,7 @@ in {
   imports = [
     ./neomutt
     ./thunderbird.nix
+    ./aerc.nix
   ];
 
   options.homeManagerModules.desktop.email = {
