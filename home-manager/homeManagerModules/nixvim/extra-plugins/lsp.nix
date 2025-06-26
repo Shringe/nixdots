@@ -33,6 +33,7 @@
         lua_ls.enable = true;
       };
     };
+
     keymaps = [
       {
         mode = "n";
