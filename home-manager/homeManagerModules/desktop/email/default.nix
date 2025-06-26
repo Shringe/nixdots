@@ -1,5 +1,6 @@
 {
   imports = [
+    ./neomutt
     ./thunderbird.nix
   ];
 }
