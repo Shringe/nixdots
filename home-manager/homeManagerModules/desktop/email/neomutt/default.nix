@@ -16,19 +16,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    accounts.email.accounts."dashingkoso@deamicis.top".neomutt.enable = true;
+    accounts.email.accounts = {
+      "dashingkoso@deamicis.top".neomutt.enable = true;
+      "dashingkoso@gmail.com".neomutt.enable = true;
+      "ldeamicis12@gmail.com".neomutt.enable = true;
+    };
 
-    # programs.neomutt = {
-    #   enable = true;
-    #   vimKeys = true;
-    # };
-
-
-    # Copied from
-    # https://github.com/omdv/nix-config/edit/master/home/om/features/productivity/neomutt.nix
     programs.neomutt = {
       enable = true;
-      vimKeys = false;
+      vimKeys = true;
       checkStatsInterval = 60;
       sidebar = {
         enable = true;
