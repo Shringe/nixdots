@@ -2,6 +2,21 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.email;
+
+  mbsync = {
+    enable = true;
+    create = "maildir";
+  };
+
+  imapMangoMail = {
+    host = "imap.mymangomail.com";
+    port = 993;
+  };
+
+  smtpMangoMail = {
+    host = "smtp.mymangomail.com";
+    port = 465;
+  };
 in {
   imports = [
     ./neomutt
@@ -18,6 +33,8 @@ in {
   config = mkIf cfg.enable {
     sops.secrets = {
       "email/dashingkoso@deamicis.top" = {};
+      "email/dashingkoso@gmail.com" = {};
+      "email/ldeamicis12@gmail.com" = {};
     };
 
     accounts.email = {
@@ -31,27 +48,38 @@ in {
           primary = true;
           passwordCommand = "cat ${config.sops.secrets."email/dashingkoso@deamicis.top".path}";
 
-          imap = {
-            host = "imap.mymangomail.com";
-            port = 993;
-          };
+          imap = imapMangoMail;
+          smtp = smtpMangoMail;
+          mbsync = mbsync;
+        };
 
-          smtp = {
-            host = "smtp.mymangomail.com";
-            port = 465;
-          };
+        "dashingkoso@gmail.com" = {
+          address = "dashingkoso@gmail.com";
+          userName = "dashingkoso@gmail.com";
+          realName = "dashingkoso";
 
-          mbsync = {
-            enable = true;
-            create = "maildir";
-          };
+          passwordCommand = "cat ${config.sops.secrets."email/dashingkoso@gmail.com".path}";
+
+          flavor = "gmail.com";
+          mbsync = mbsync;
+        };
+
+        "ldeamicis12@gmail.com" = {
+          address = "ldeamicis12@gmail.com";
+          userName = "ldeamicis12@gmail.com";
+          realName = "Logen";
+
+          passwordCommand = "cat ${config.sops.secrets."email/ldeamicis12@gmail.com".path}";
+
+          flavor = "gmail.com";
+          mbsync = mbsync;
         };
       };
     };
 
     programs = {
-      msmtp.enable = true;
       mbsync.enable = true;
+      msmtp.enable = true;
     };
 
     services = {
