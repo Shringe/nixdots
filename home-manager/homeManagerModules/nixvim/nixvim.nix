@@ -19,6 +19,8 @@
       friendly-snippets.enable = true;
       nvim-surround.enable = true;
       gitsigns.enable = true;
+      which-key.enable = true;
+      render-markdown.enable = true;
     };
 
     autoCmd = [

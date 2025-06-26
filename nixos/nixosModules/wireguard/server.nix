@@ -25,18 +25,43 @@ in
   config = mkIf cfg.enable {
     sops.secrets."wireguard/server" = {};
     environment.systemPackages = with pkgs; [
+      # Example:
+      # [Interface]
+      # PrivateKey = WGpL3/ejM5L9ngLoAtXkSP1QTNp4eSD34Zh6/Jfni1Q=
+      # ListenPort = 51820
+      # DNS = 10.6.210.1, pfSense.home.arpa
+      # Address = 10.6.210.2/24
+      #
+      # [Peer]
+      # PublicKey = PUVBJ+zuz/0mRPEB4tIaVbet5NzVwdWMX7crGx+/wDs=
+      # AllowedIPs = 0.0.0.0/0
+      # Endpoint = 198.51.100.6:51820
+
+      (writers.writeFishBin "wgnew" ''
+        # set server_private_key (cat "${config.sops.secrets."wireguard/server".path}") 
+        # set server_private_key ""
+
+        function is_debug_mode
+          if test "$argv[1]" = "--debug"
+            true
+          else
+            false
+          end
+        end
+
+        echo (is_debug_mode $argv)
+      '')
+
       (writeShellApplication {
-        name = "wgnew";
+        name = "wgnew-sh";
         runtimeInputs = [
-          bash
           openssl
           wireguard-tools
         ];
 
         text = ''
-          #!/usr/bin/env bash
-          preshared=$(openssl rand -base64 32)
-          echo "$preshared"
+          # serverPrivateKey
+          echo hello!
         '';
       })
     ];
@@ -66,7 +91,8 @@ in
 
         peers = [
           { # My phone
-            publicKey = "ltDO0r/WvwS8fnNa+zyiK5xEa1ZqSHLvtyrkIiUubn4=";
+            # publicKey = "ltDO0r/WvwS8fnNa+zyiK5xEa1ZqSHLvtyrkIiUubn4=";
+            publicKey = "Ferj3XiXDaAh3BAOznxIx7iVF+3MAjYfutPYJF9gGmA=";
             allowedIPs = [ "${cfg.private_ip}.2/32" ];
           }
           { # K
