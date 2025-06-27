@@ -18,7 +18,6 @@ in {
 
       yazi = {
         enable = true;
-        enableFishIntegration = true;
 
         settings = {
           opener = {
