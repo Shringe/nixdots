@@ -20,17 +20,17 @@ in {
         enable = true;
 
         settings = {
-          opener = {
-            image = [
-              { run = ''feh "$@"''; orphan = true; }
-            ];
-          };
-
-          open = {
-            rules = [
-              { mime = "image/*"; use = "image"; }
-            ];
-          };
+          # opener = {
+          #   image = [
+          #     { run = ''feh "$@"''; orphan = true; }
+          #   ];
+          # };
+          #
+          # open = {
+          #   rules = [
+          #     { mime = "image/*"; use = "image"; }
+          #   ];
+          # };
         };
       };
     };

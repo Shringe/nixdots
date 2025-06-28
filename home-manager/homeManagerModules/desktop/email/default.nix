@@ -20,8 +20,8 @@ let
 in {
   imports = [
     ./neomutt
+    ./aerc
     ./thunderbird.nix
-    ./aerc.nix
   ];
 
   options.homeManagerModules.desktop.email = {

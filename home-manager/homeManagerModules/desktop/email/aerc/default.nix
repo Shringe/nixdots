@@ -26,8 +26,20 @@ in {
     programs.aerc = {
       enable = true;
 
+      stylesets = {
+        catppuccin-mocha = builtins.readFile ./themes/catppuccin-mocha;
+      };
+
       extraConfig = {
-        general.unsafe-accounts-conf = true;
+        general = {
+          unsafe-accounts-conf = true;
+        };
+
+        ui = {
+          border-char-vertical = "│";
+          border-char-horizontal = "─";
+          styleset-name = "catppuccin-mocha";
+        };
       };
     };
   };

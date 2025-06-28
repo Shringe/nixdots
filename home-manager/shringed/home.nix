@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -13,6 +13,7 @@
     theming.enable = true;
     nixvim.enable = true;
     desktop = {
+      enable = true;
       discord.enable = true;
       kdeconnect.enable = true;
       music.enable = true;
@@ -26,6 +27,7 @@
         dwl.enable = true;
       };
       email.enable = true;
+      email.aerc.enable = true;
     };
 
     shells.enable = true;
