@@ -10,6 +10,7 @@
     theming.enable = true;
     nixvim.enable = true;
     desktop = {
+      enable = true;
       office.enable = true;
       browsers.enable = true;
       kdeconnect.enable = true;
