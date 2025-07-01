@@ -29,7 +29,6 @@ in
       (writeShellApplication {
         name = "wgnew";
         runtimeInputs = [
-          openssl
           wireguard-tools
           fish
         ];
@@ -38,10 +37,12 @@ in
           fish ${./wgnew.fish} \
             ${config.sops.secrets."wireguard/server".path} \
             ${config.nixosModules.info.system.ips.local} \
-            "${cfg.private_ip}.$1" \
-            "${config.nixosModules.info.system.ips.public}:${toString cfg.port}" \
+            ${config.nixosModules.info.system.ips.public} \
+            ${cfg.private_ip} \
+            ${toString cfg.port} \
             "0.0.0.0/0" \
-            "$2" # Name
+            "$1" \
+            "$2"
         '';
       })
     ];
@@ -85,7 +86,7 @@ in
           }
           { # New Phone
             publicKey = "kxDYZxPPhAQhgdd3u+/G0eJCiWhALGxmdKndjxTZXnw=";
-            allowedIPs = [ "10.100.0.6/32" ];
+            allowedIPs = [ "${cfg.private_ip}.6/32" ];
           }
         ];
       };
