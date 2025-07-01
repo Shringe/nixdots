@@ -192,7 +192,7 @@ in {
             };
           }
           {
-            "Gatus" = with docker.wallos; {
+            "Wallos" = with docker.wallos; {
               description = description;
               href = furl;
               icon = "/icons/${icon}";
