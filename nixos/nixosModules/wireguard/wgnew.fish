@@ -38,28 +38,24 @@ function make_peer
         $argv[3] $argv[1] $argv[2]
 end
 
-function print_example
-    echo "Example usage: =============================="
-    echo "fish wgnew.fish <path_to_server_private_key>  <dns>   <sever_addresses> <client_endpoint>    <allowed_ip> <name>"
-    echo "fish wgnew.fish /run/secrets/wireguard/server 1.0.0.1 10.0.0.5          88.162.056.222:51280 0.0.0.0/0    phone"
-    echo ""
-end
-
-print_example
-
 set server_private_path $argv[1]
-set server_dns $argv[2]
-set server_address $argv[3]
+set server_ip_local $argv[2]
+set server_ip_public $argv[3]
+set server_ip_private $argv[4]
+set server_port $argv[5]
+set allowed_ip $argv[6]
+set client_num $argv[7]
+set client_name $argv[8]
 
-set endpoint $argv[4]
-set allowed_ip $argv[5]
-set client_name $argv[6]
+set server_dns $server_ip_local
+set server_address "$server_ip_private.$client_num"
+set endpoint "$server_ip_public:$server_port"
 
 set server_public (get_server_public)
 set client_pair (gen_pair)
 
 echo "Add to server wireguard peer list: =========="
-make_peer $client_pair[2] $server_address $client_name
+make_peer $client_pair[2] "\${cfg.private_ip}.$client_num" $client_name
 echo ""
 
 echo "Send to new client: ========================="
