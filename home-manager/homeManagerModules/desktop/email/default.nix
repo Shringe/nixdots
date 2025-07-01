@@ -22,6 +22,7 @@ in {
     ./neomutt
     ./aerc
     ./thunderbird.nix
+    ./meli.nix
   ];
 
   options.homeManagerModules.desktop.email = {
