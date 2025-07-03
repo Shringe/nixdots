@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 with lib;
 let
   cfg = config.nixosModules.wireguard.server;
@@ -24,7 +23,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."wireguard/server" = {};
+    sops.secrets."private/server" = {
+      sopsFile = ./secrets.yaml;
+    };
+
     environment.systemPackages = with pkgs; [
       (writeShellApplication {
         name = "wgnew";
@@ -35,7 +37,7 @@ in
 
         text = ''
           fish ${./wgnew.fish} \
-            ${config.sops.secrets."wireguard/server".path} \
+            ${config.sops.secrets."private/server".path} \
             ${config.nixosModules.info.system.ips.local} \
             ${config.nixosModules.info.system.ips.public} \
             ${cfg.private_ip} \
@@ -68,27 +70,7 @@ in
           ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.private_ip}.0/24 -o ${cfg.interface} -j MASQUERADE
         '';
 
-        privateKeyFile = config.sops.secrets."wireguard/server".path;
-
-        peers = [
-          # { # My phone
-          #   # publicKey = "ltDO0r/WvwS8fnNa+zyiK5xEa1ZqSHLvtyrkIiUubn4=";
-          #   publicKey = "Ferj3XiXDaAh3BAOznxIx7iVF+3MAjYfutPYJF9gGmA=";
-          #   allowedIPs = [ "${cfg.private_ip}.2/32" ];
-          # }
-          { # K
-            publicKey = "3HSS1loEZSCGjfqOLm/dyZpPfwzT31wKvw8Ygrl5czE=";
-            allowedIPs = [ "${cfg.private_ip}.3/32" ];
-          }
-          { # My laptop
-            publicKey = "D3qbFvDBUdQ1jJhvS2zUhiyi7hxikS4Y0PgLYUYkp3I=";
-            allowedIPs = [ "${cfg.private_ip}.5/32" ];
-          }
-          { # New Phone
-            publicKey = "kxDYZxPPhAQhgdd3u+/G0eJCiWhALGxmdKndjxTZXnw=";
-            allowedIPs = [ "${cfg.private_ip}.6/32" ];
-          }
-        ];
+        privateKeyFile = config.sops.secrets."private/server".path;
       };
     };
   };
