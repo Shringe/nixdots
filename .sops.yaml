@@ -17,6 +17,12 @@ creation_rules:
       - *deity
       - *shringe
       - *shringed
+  - path_regex: nixos/nixosModules/wireguard/secrets.yaml$
+    key_groups:
+    - age:
+      - *deity
+      - *shringe
+      - *shringed
   - path_regex: home-manager/secrets.yaml$
     key_groups:
       - age:

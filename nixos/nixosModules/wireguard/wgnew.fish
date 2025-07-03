@@ -17,25 +17,38 @@ function gen_pair
     echo $public
 end
 
+function gen_preshared
+    wg genpsk
+end
+
 function get_server_public
     echo (gen_public (cat "$server_private_path"))
 end
 
 function make_toml
-    set -l private_key $argv[1]
-    set -l dns $argv[2]
-    set -l address "$argv[3]/24"
-    set -l public_key $argv[4]
-    set -l allowed_ip $argv[5]
-    set -l endpoint $argv[6]
-
-    printf "[Interface]\nPrivateKey = %s\nDNS = %s\nAddress = %s\n\n[Peer]\nPublicKey = %s\nAllowedIPs = %s\nEndpoint = %s\n" \
-        $private_key $dns $address $public_key $allowed_ip $endpoint
+    printf "%s\n" \
+        "[Interface]" \
+        "PrivateKey = $argv[1]" \
+        "DNS = $argv[2]" \
+        "Address = $argv[3]/24" \
+        "" \
+        "[Peer]" \
+        "PublicKey = $argv[4]" \
+        "PresharedKey = $argv[5]" \
+        "AllowedIPs = $argv[6]" \
+        "Endpoint = $argv[7]"
 end
 
 function make_peer
-    printf "{ # %s\n  publicKey = \"%s\";\n  allowedIPs = [ \"%s/32\" ];\n}\n" \
-        $argv[3] $argv[1] $argv[2]
+    echo "      (mkPeer $argv[1] \"$argv[2]\" \"$argv[3]\")"
+end
+
+function make_secret
+    echo "      \"preshared/$argv[1]\" = key;"
+end
+
+function make_sops
+    echo "    $argv[1]: $argv[2]"
 end
 
 set server_private_path $argv[1]
@@ -53,9 +66,18 @@ set endpoint "$server_ip_public:$server_port"
 
 set server_public (get_server_public)
 set client_pair (gen_pair)
+set preshared (gen_preshared)
+
+echo "Add this preshared key to the sops file: ===="
+make_sops $client_name $preshared
+echo ""
+
+echo "Add to sops secret list: ===================="
+make_secret $client_name
+echo ""
 
 echo "Add to server wireguard peer list: =========="
-make_peer $client_pair[2] "\${cfg.private_ip}.$client_num" $client_name
+make_peer $client_num $client_name $client_pair[2]
 echo ""
 
 echo "Send to new client: ========================="
@@ -63,5 +85,6 @@ make_toml $client_pair[1] \
     $server_dns \
     $server_address \
     $server_public \
+    $preshared \
     $allowed_ip \
     $endpoint

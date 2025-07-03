@@ -4,6 +4,7 @@ let
 in {
   imports = [
     ./server.nix
+    ./peers.nix
     ./client.nix
   ];
 
