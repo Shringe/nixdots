@@ -10,6 +10,11 @@ in {
       type = types.string;
       default = config.nixosModules.reverseProxy.domain;
     };
+
+    aDomain = mkOption {
+      type = types.string;
+      default = config.nixosModules.reverseProxy.aDomain;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -24,6 +29,13 @@ in {
       certs."${cfg.domain}" = {
         domain = cfg.domain;
         extraDomainNames = [ "*.${cfg.domain}" ];
+        dnsProvider = "porkbun";
+        credentialsFile = config.sops.secrets."ssl/porkbun".path;
+      };
+
+      certs."${cfg.aDomain}" = {
+        domain = cfg.aDomain;
+        extraDomainNames = [ "*.${cfg.aDomain}" ];
         dnsProvider = "porkbun";
         credentialsFile = config.sops.secrets."ssl/porkbun".path;
       };

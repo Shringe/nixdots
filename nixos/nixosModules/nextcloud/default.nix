@@ -2,6 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.nextcloud;
+
+  domain = config.nixosModules.reverseProxy.aDomain;
 in {
   options.nixosModules.nextcloud = {
     enable = mkEnableOption "Nextcloud hosting";
@@ -33,7 +35,7 @@ in {
 
     hostName = mkOption {
       type = types.str;
-      default = "nextcloud.${config.nixosModules.reverseProxy.domain}";
+      default = "nextcloud.${domain}";
     };
 
     directory = mkOption {
@@ -74,7 +76,7 @@ in {
 
     services.nginx.virtualHosts.${cfg.hostName} = {
       onlySSL = true;
-      useACMEHost = config.nixosModules.reverseProxy.domain;
+      useACMEHost = domain;
     };
   };
 }
