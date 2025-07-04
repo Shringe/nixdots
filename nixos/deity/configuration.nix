@@ -109,7 +109,7 @@
     firewall = {
       enable = true;
       kdeconnect.enable = true;
-      yuzu.enable = true;
+      yuzu.enable = false;
     };
 
     theming = {

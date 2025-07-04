@@ -3,6 +3,8 @@
 with lib;
 let
   cfg = config.nixosModules.docker.romm;
+
+  ip = config.nixosModules.info.system.ips.local;
 in {
   options.nixosModules.docker.romm = {
     enable = mkEnableOption "Romm";
@@ -24,7 +26,7 @@ in {
 
     url = mkOption {
       type = types.string;
-      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+      default = "http://${ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
@@ -71,7 +73,7 @@ in {
       ];
 
       ports = [
-        "${toString cfg.port}:8080/tcp"
+        "${ip}:${toString cfg.port}:8080/tcp"
       ];
 
       dependsOn = [
