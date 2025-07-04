@@ -24,7 +24,7 @@ in {
 
     programs.neomutt = {
       enable = true;
-      vimKeys = true;
+      vimKeys = false;
       # checkStatsInterval = 60;
       # sidebar = {
       #   enable = true;

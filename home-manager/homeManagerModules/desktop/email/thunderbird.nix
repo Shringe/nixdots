@@ -6,8 +6,8 @@ in {
   options.homeManagerModules.desktop.email.thunderbird = {
     enable = mkOption {
       type = types.bool;
-      # default = config.homeManagerModules.desktop.email.enable;
-      default = false;
+      default = config.homeManagerModules.desktop.email.enable;
+      # default = false;
     };
   };
 
