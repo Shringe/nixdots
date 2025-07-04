@@ -74,8 +74,10 @@ in {
         "ourshoppinglist.${d}" = (rp docker.ourshoppinglist.url);
         "traccar.${d}" = (rp gps.traccar.url);
         "wallos.${d}" = (rp docker.wallos.url);
-        "matrix.${d}" = (rp social.matrix.conduit.url);
         "files.${d}" = (rp filebrowser.url);
+
+        # Public
+        "matrix.${ad}" = (rpa social.matrix.conduit.url);
       };
     };
 
