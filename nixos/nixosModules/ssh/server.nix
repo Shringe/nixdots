@@ -19,7 +19,12 @@ in {
 
     services.openssh = {
       enable = true;
-      ports = [ cfg.port ];
+      listenAddresses = [
+        {
+          addr = config.nixosModules.info.system.ips.local;
+          port = cfg.port;
+        }
+      ];
 
       settings = {
         PasswordAuthentication = false;
@@ -30,7 +35,5 @@ in {
     services.fail2ban = mkIf cfg.enableFail2ban {
       enable = true;
     };
-
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
   };
 }
