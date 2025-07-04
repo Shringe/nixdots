@@ -17,6 +17,11 @@ in {
       type = types.string;
       default = "deamicis.top";
     };
+
+    aDomain = mkOption {
+      type = types.string;
+      default = "saria.top";
+    };
   };
 
   config = mkIf cfg.enable {

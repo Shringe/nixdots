@@ -120,7 +120,6 @@ in {
           (rp "linkwarden")
           (rp "ourshoppinglist")
           (rp "traccar")
-          (rp "nextcloud")
           (rp "wallos")
         ];
 

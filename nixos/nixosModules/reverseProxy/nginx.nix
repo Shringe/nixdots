@@ -5,14 +5,19 @@ let
   cfg = config.nixosModules.reverseProxy.nginx;
 
   d = cfg.domain;
-  rp = url: {
-    useACMEHost = d;
+  ad = cfg.aDomain;
+
+  reverseProxy = url: domain: {
+    useACMEHost = domain;
     onlySSL = true;
 
     locations."/" = {
       proxyPass = url;
     };
   };
+
+  rp = url: (reverseProxy url d);
+  rpa = url: (reverseProxy url ad);
 in {
   options.nixosModules.reverseProxy.nginx = {
     enable = mkEnableOption "Nginx";
@@ -20,6 +25,11 @@ in {
     domain = mkOption {
       type = types.string;
       default = config.nixosModules.reverseProxy.domain;
+    };
+
+    aDomain = mkOption {
+      type = types.string;
+      default = config.nixosModules.reverseProxy.aDomain;
     };
   };
 
@@ -36,7 +46,6 @@ in {
 
       virtualHosts = with config.nixosModules; {
         # Public
-        "files.${d}" = (rp filebrowser.url);
         "ssh.${d}" = (rp "http://${info.system.ips.local}:${toString ssh.server.port}");
         # "matrix.${d}" = (rp "http://${info.system.ips.local}:${toString social.matrix.conduit.port}");
         # "auth.${d}" = (rp "${info.system.ips.local}:${toString authelia.port}");
@@ -66,6 +75,7 @@ in {
         "traccar.${d}" = (rp gps.traccar.url);
         "wallos.${d}" = (rp docker.wallos.url);
         "matrix.${d}" = (rp social.matrix.conduit.url);
+        "files.${d}" = (rp filebrowser.url);
       };
     };
 
