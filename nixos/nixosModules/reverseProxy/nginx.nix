@@ -1,4 +1,3 @@
-
 { config, lib, ... }:
 with lib;
 let
@@ -45,10 +44,15 @@ in {
       recommendedZstdSettings = true;
 
       virtualHosts = with config.nixosModules; {
-        # Public
-        "ssh.${d}" = (rp "http://${info.system.ips.local}:${toString ssh.server.port}");
-        # "matrix.${d}" = (rp "http://${info.system.ips.local}:${toString social.matrix.conduit.port}");
-        # "auth.${d}" = (rp "${info.system.ips.local}:${toString authelia.port}");
+        # IMPORTANT
+        # Reject Unmatched Domains
+        "_" = {
+          default = true;
+          rejectSSL = true;
+          extraConfig = ''
+            return 444;
+          '';
+        };
 
         # Private
         "jellyfin.${d}" = (rp jellyfin.server.url);
@@ -75,8 +79,9 @@ in {
         "traccar.${d}" = (rp gps.traccar.url);
         "wallos.${d}" = (rp docker.wallos.url);
         "files.${d}" = (rp filebrowser.url);
-
+      
         # Public
+        "ssh.${d}" = (rp "http://${info.system.ips.local}:${toString ssh.server.port}");
         "matrix.${ad}" = (rpa social.matrix.conduit.url);
       };
     };

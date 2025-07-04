@@ -14,6 +14,7 @@ in {
         type = types.port;
         default = 47120;
       };
+
       dns = mkOption {
         type = types.port;
         default = 47100;
@@ -27,7 +28,7 @@ in {
 
     host = mkOption {
       type = types.string;
-      default = "0.0.0.0";
+      default = cfg.dns;
     };
 
     description = mkOption {
