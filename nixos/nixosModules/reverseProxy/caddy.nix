@@ -34,7 +34,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [ 443 ];
     sops.secrets = {
       "ssl/porkbun" = {};
     };
