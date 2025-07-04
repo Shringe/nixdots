@@ -13,6 +13,7 @@ in {
     ./music
     ./kdeconnect
     ./apps
+    ./matrix
   ];
 
   options.homeManagerModules.desktop = {

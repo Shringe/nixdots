@@ -39,7 +39,7 @@ in
           fish ${./wgnew.fish} \
             ${config.sops.secrets."private/server".path} \
             ${config.nixosModules.info.system.ips.local} \
-            ${config.nixosModules.info.system.ips.public} \
+            "wireguard.${config.nixosModules.reverseProxy.domain}" \
             ${cfg.private_ip} \
             ${toString cfg.port} \
             "0.0.0.0/0" \

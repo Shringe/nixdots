@@ -76,6 +76,7 @@ in {
           (watch "Linkwarden" linkwarden.furl)
           (watch "OurShoppingList" docker.ourshoppinglist.furl)
           (watch "Nextcloud" nextcloud.furl)
+          (watch "Matrix" social.matrix.conduit.furl)
         ];
       };
     };

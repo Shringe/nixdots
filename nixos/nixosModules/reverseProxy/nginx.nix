@@ -38,7 +38,7 @@ in {
         # Public
         "files.${d}" = (rp filebrowser.url);
         "ssh.${d}" = (rp "http://${info.system.ips.local}:${toString ssh.server.port}");
-        "matrix.${d}" = (rp "http://${info.system.ips.local}:${toString social.matrix.conduit.port}");
+        # "matrix.${d}" = (rp "http://${info.system.ips.local}:${toString social.matrix.conduit.port}");
         # "auth.${d}" = (rp "${info.system.ips.local}:${toString authelia.port}");
 
         # Private
@@ -65,6 +65,7 @@ in {
         "ourshoppinglist.${d}" = (rp docker.ourshoppinglist.url);
         "traccar.${d}" = (rp gps.traccar.url);
         "wallos.${d}" = (rp docker.wallos.url);
+        "matrix.${d}" = (rp social.matrix.conduit.url);
       };
     };
 
