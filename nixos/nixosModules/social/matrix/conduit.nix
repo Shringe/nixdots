@@ -2,6 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.social.matrix.conduit;
+
+  domain = config.nixosModules.reverseProxy.aDomain;
 in {
   options.nixosModules.social.matrix.conduit = {
     enable = mkEnableOption "Matrix conduit server";
@@ -23,23 +25,30 @@ in {
 
     furl = mkOption {
       type = types.string;
-      default = "https://matrix.${config.nixosModules.reverseProxy.domain}";
+      default = "https://matrix.${domain}";
     };
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."social/matrix/conduit" = {};
+    systemd.services.conduit.serviceConfig.EnvironmentFile = config.sops.secrets."social/matrix/conduit".path;
+
     services.matrix-conduit = {
       enable = true;
 
       settings.global = {
+        well_known = {
+          client = cfg.furl;
+          server = "matrix.${domain}";
+        };
+
         address = cfg.host;
         port = cfg.port;
-        server_name = "matrix.${config.nixosModules.reverseProxy.domain}";
+        server_name = "${domain}";
 
         allow_encryption = true;
-        allow_federation = false;
+        allow_federation = true;
         allow_registration = true;
-        registration_token = "braintoken";
 
         database_backend = "rocksdb";
       };
