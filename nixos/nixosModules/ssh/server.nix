@@ -19,12 +19,7 @@ in {
 
     services.openssh = {
       enable = true;
-      listenAddresses = [
-        {
-          addr = config.nixosModules.info.system.ips.local;
-          port = cfg.port;
-        }
-      ];
+      ports = [ cfg.port ];
 
       settings = {
         PasswordAuthentication = false;
