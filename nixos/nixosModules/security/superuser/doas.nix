@@ -23,7 +23,7 @@ in {
               ++ optionals shringe.enable [ "shringe" ]
               ++ optionals shringed.enable [ "shringed" ];
 
-            # keepEnv = true;
+            keepEnv = true;
             # persist = true;
           }
         ];

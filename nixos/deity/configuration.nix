@@ -21,8 +21,6 @@
       ips.local = "192.168.0.165";
     };
 
-    security.enable = true;
-
     gps.traccar.enable = true;
 
     album.immich.enable = true;
