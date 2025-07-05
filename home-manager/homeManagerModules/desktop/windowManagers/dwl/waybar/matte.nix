@@ -2,26 +2,26 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.waybar.matte;
-  nordvpn = config.shared.packages.nordvpn;
-
-  nordstatus = pkgs.writeShellApplication {
-    name = "nordstatus";
-
-    runtimeInputs = with pkgs; [
-      nordvpn
-      gnugrep
-      gawk
-      coreutils
-    ];
-
-    text = ''
-      if nordvpn status | grep -q 'Status: Connected'; then
-        nordvpn status | awk -F': ' '/Country:/ {print $2}'
-      else
-        echo "Off"
-      fi
-    '';
-  };
+  # nordvpn = config.shared.packages.nordvpn;
+  #
+  # nordstatus = pkgs.writeShellApplication {
+  #   name = "nordstatus";
+  #
+  #   runtimeInputs = with pkgs; [
+  #     nordvpn
+  #     gnugrep
+  #     gawk
+  #     coreutils
+  #   ];
+  #
+  #   text = ''
+  #     if nordvpn status | grep -q 'Status: Connected'; then
+  #       nordvpn status | awk -F': ' '/Country:/ {print $2}'
+  #     else
+  #       echo "Off"
+  #     fi
+  #   '';
+  # };
 
   leftSeparator  = makeSeparator "/";
   rightSeparator = makeSeparator "/";
@@ -63,8 +63,8 @@ in {
     stylix.targets.waybar.enable = false;
 
     systemd.user.services.waybar.Service.Environment = with pkgs; mkForce "PATH=$PATH:${makeBinPath [
-      nordvpn
-      nordstatus
+      # nordvpn
+      # nordstatus
       coreutils
       procps
       swaynotificationcenter
@@ -104,7 +104,7 @@ in {
 
           "custom/rightSeparator3"
           "network" 
-          "custom/nordvpn"
+          # "custom/nordvpn"
 
           "custom/rightSeparator2"
           "battery" 

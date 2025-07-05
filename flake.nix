@@ -125,19 +125,8 @@
             system = "x86_64-linux";
             arch = "znver3";
             abi = "64";
-            cuda = false;
-
-            enable_build_utilities = true;
-            flake_directory = "/nixdots";
-            editor = "nvim";
-            shell = "fish";
 
             optimize_builds = false;
-            skip_optimizing_broken_builds = true;
-            skip_optimizing_32bit_builds = true;
-            skip_optimizing_large_builds = true;
-            disable_broken_tests = true;
-            disable_excess_functionality = false;
           in 
             nixosSystem {
               specialArgs = { inherit system inputs; };
@@ -203,169 +192,12 @@
                       allowUnfree = true;
 
                       # Cuda takes forever to build
-                      cudaSupport = mkForce cuda;
+                      cudaSupport = mkForce false;
                     };
                   };
 
                   # Ensure maximum build performance
                   powerManagement.cpuFreqGovernor = "performance";
-                  # swapDevices = mkForce [ ];
-
-                  environment.systemPackages = with pkgs; mkIf enable_build_utilities [
-                    # For running the build in the backround
-                    zellij
-
-                    (writeShellApplication {
-                      name = "optAnalyze";
-                      runtimeInputs = [
-                        gnugrep
-                        gawk
-                        procps
-                        coreutils
-                      ];
-
-                      text = ''
-                        function diskPercent {
-                          df "/nix/store" | awk '$NF == "/nix/store" { match($(NF-1), /([0-9]+)%/, m); print m[1] }'
-                        }
-
-                        function memPercent {
-                          free | awk '/Mem/{printf("RAM: %.0f%"), $3/$2*100} /buffers\/cache/{printf(", buffers: %.0f%"), $4/($3+$4)*100} /Swap/{printf("; swap: %.0f%"), $3/$2*100}'
-                        }
-
-                        function cpuPercent {
-                          vmstat 1 2 | awk 'END { print 100 - $15 }'
-                        }
-
-                        function hardwareStats {
-                          echo "Disk $(diskPercent)% || CPU $(cpuPercent)% || $(memPercent)"
-                        }
-
-                        function countGrep {
-                          num=$(pgrep -af . | grep -- "$1" | grep -o -- "$1" | wc -l)
-                          echo "Found $((num - 2)) processes building with \"$1\""
-                        }
-
-                        ftune="-mtune=${arch}"
-                        fmarch="-march=${arch}"
-
-                        tune="-mtune=generic"
-                        march="-march=${system}"
-
-                        opt2="-O2"
-                        opt3="-O3"
-
-                        hardwareStats
-                        countGrep $ftune
-                        countGrep $fmarch
-                        countGrep $tune
-                        countGrep $march
-                        countGrep $opt2
-                        countGrep $opt3
-                      '';
-                    })
-
-                    (writeShellApplication {
-                      name = "watchBuild";
-                      runtimeInputs = [
-                        zellij
-                        gnugrep
-                        coreutils
-                        nh
-                        lazygit
-                      ];
-
-                      text = ''
-                        sessions=$(zellij list-sessions || echo "failed")
-                        name="watchBuild"
-                        layout="${writeText "watchBuildLayout" ''
-                          layout {
-                              default_tab_template {
-                                  // the default zellij tab-bar and status bar plugins
-                                  pane size=1 borderless=true {
-                                      plugin location="zellij:tab-bar"
-                                  }
-                                  children
-                                  pane size=1 borderless=true {
-                                      plugin location="zellij:status-bar"
-                                  }
-                              }
-
-                              tab split_direction="vertical" {
-                                pane command="nh" {
-                                  args "os" "switch"
-                                }
-                                pane size=60 split_direction="horizontal" {
-                                  pane command="watch" {
-                                    args "-n" "10" "optAnalyze"
-                                  }
-                                  pane command="${shell}"
-                                }
-                              }
-
-                              tab cwd="${flake_directory}" {
-                                pane command="${editor}" {
-                                  args "flake.nix"
-                                }
-                              }
-
-                              tab cwd="${flake_directory}" {
-                                pane command="lazygit"
-                              }
-
-                              tab {
-                                pane command="${shell}"
-                              }
-                          }
-                        ''}"
-
-                        if echo "$sessions" | grep -q "$name"; then
-                          echo "Attaching to existing session"
-                          zellij attach "$name"
-                        else
-                          echo "Creating new session"
-                          zellij --session "$name" --new-session-with-layout "$layout"
-                        fi
-                      '';
-                    })
-                  ];
-
-                  # Disable long or broken builds for now
-                  nixosModules = {
-                  #   album.immich.enable = mkForce false;
-                  #   social.jitsi.enable = mkForce false;
-                  #   social.matrix.conduit.enable = mkForce false;
-                  #   caldav.radicale.enable = mkForce false;
-                  #
-                  #   gaming = {
-                  #     games.enable = mkForce false;
-                  #     steam.enable = mkForce false;
-                  #   };
-                  #
-                  #   openrgb.enable = mkForce false;
-                  #
-                  #   torrent.qbittorrent.enable = mkForce false;
-                  #   arrs = {
-                  #     lidarr.enable = mkForce false;
-                  #     sonarr.enable = mkForce false;
-                  #     prowlarr.enable = mkForce false;
-                  #     radarr.enable = mkForce false;
-                  #     flaresolverr.enable = mkForce false;
-                  #     vpn.enable = mkForce false;
-                  #   };
-                  #
-                    llm = {
-                      ollama.enable = mkForce false;
-                    };
-                  #
-                  #   docker = {
-                  #     enable = mkForce false;
-                  #     romm.enable = mkForce false;
-                  #     ourshoppinglist.enable = mkForce false;
-                  #   };
-                  #
-                  #   groceries.tandoor.enable = mkForce false;
-                  };
                 }
                 ./nixos/deity/configuration.nix 
                 ./nixos/nixosModules
