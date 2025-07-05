@@ -29,7 +29,11 @@ in {
       settings = {
         PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
       };
+
+      settings.AllowUsers = with config.nixosModules.users; []
+        ++ optionals shringed.enable [ "shringed" ];
     };
 
     services.fail2ban = mkIf cfg.enableFail2ban {

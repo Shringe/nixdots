@@ -53,6 +53,7 @@ with lib;
     ./authelia
     ./linkwarden
     ./gps
+    ./security
   ];
 
   options.nixosModules = {
