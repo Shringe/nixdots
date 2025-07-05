@@ -33,18 +33,14 @@ in {
     sops.secrets."social/matrix/conduit" = {};
     systemd.services.conduit.serviceConfig.EnvironmentFile = config.sops.secrets."social/matrix/conduit".path;
 
+
     services.matrix-conduit = {
       enable = true;
 
       settings.global = {
-        well_known = {
-          client = cfg.furl;
-          server = "matrix.${domain}";
-        };
-
         address = cfg.host;
         port = cfg.port;
-        server_name = "${domain}";
+        server_name = domain;
 
         allow_encryption = true;
         allow_federation = true;

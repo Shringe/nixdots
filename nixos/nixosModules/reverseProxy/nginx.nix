@@ -82,7 +82,7 @@ in {
       
         # Public
         "ssh.${d}" = (rp "http://${info.system.ips.local}:${toString ssh.server.port}");
-        "matrix.${ad}" = (rpa social.matrix.conduit.url);
+        ad = (rpa social.matrix.conduit.url);
       };
     };
 
