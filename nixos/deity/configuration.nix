@@ -25,7 +25,7 @@
 
     gps.traccar.enable = true;
 
-    # album.immich.enable = true;
+    album.immich.enable = true;
     backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
