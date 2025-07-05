@@ -8,7 +8,7 @@ in {
 
     users.users.shringe = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "audio" "nixdots" "nordvpn" ];
+      extraGroups = [ "wheel" "networkmanager" "audio" "nixdots" "nordvpn" ];
       hashedPasswordFile = config.sops.secrets."user_passwords/shringe".path;
     };
   };
