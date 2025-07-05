@@ -6,7 +6,8 @@ in {
   options.nixosModules.security.superuser.doas = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.security.superuser.enable;
+      # default = config.nixosModules.security.superuser.enable;
+      default = false;
     };
   };
 
