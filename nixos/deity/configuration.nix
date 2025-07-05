@@ -23,7 +23,7 @@
 
     gps.traccar.enable = true;
 
-    album.immich.enable = true;
+    # album.immich.enable = true;
     backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
@@ -225,9 +225,7 @@
     sessionVariables = {
       NH_FLAKE="/nixdots";
     };
-    systemPackages = with pkgs; with config.shared.packages; [
-      nordvpn
-      
+    systemPackages = with pkgs; [
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       wget
       git
