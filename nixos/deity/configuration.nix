@@ -16,6 +16,8 @@
 
   hardware.enableAllFirmware = true;
 
+  systemd.targets.network-online.wantedBy = lib.mkForce [];
+
   nixosModules = {
     info.system  = {
       ips.local = "192.168.0.165";
