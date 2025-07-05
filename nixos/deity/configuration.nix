@@ -27,10 +27,8 @@
     backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
-    authelia.enable = false;
 
     social = {
-      jitsi.enable = true;
       matrix.conduit.enable = true;
     };
 
@@ -44,15 +42,11 @@
       gatus.enable = true;
     };
 
-    caldav.enable = true;
-
     shell = {
       atuin.server.enable = true;
     };
 
     adblock.enable = true;
-    # guacamole.enable = true;
-    # ombi.enable = true;
 
     ssh = {
       server.enable = true;
@@ -69,24 +63,15 @@
       vpn.enable = true;
     };
 
-    # uptimeKuma = {
-    #   enable = true;
-    # };
-
     linkwarden.enable = true;
 
     docker = {
       enable = true;
       romm.enable = true;
-      ourshoppinglist.enable = true;
       wallos.enable = true;
     };
 
     homepage.enable = true;
-
-    filebrowser = {
-      enable = true;
-    };
 
     nextcloud.enable = true;
 
@@ -97,7 +82,7 @@
 
     jellyfin = {
       enable = true;
-      jellyseerr.enable = true;
+      # jellyseerr.enable = true;
       server.enable = true;
     };
 
@@ -118,7 +103,7 @@
 
     llm = {
       ollama = {
-        enable = true;
+        # enable = true;
         enableCuda = true;
         webui.enable = true;
       };
@@ -146,7 +131,7 @@
 
     desktop = {
       windowManagers = {
-        sway.enable = true;
+        sway.enable = false;
       };
     };
 
