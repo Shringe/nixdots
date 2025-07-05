@@ -7,7 +7,5 @@
     nr = "nf run";
     ns = "nf shell";
     nd = "nf develop";
-
-    rebuild = "doas nh os rebuild switch -R";
   };
 }
