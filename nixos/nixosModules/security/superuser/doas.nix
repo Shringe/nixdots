@@ -11,6 +11,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # Allow NixOS configuration to build if no users are a part of the wheel group
+    users.allowNoPasswordLogin = true;
+
     security = {
       sudo.enable = false;
 

@@ -8,7 +8,7 @@ in {
 
     users.users.shringed = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "audio" "nixdots" "steam" "nordvpn" "docker" "gamemode" "adbusers" ];
+      extraGroups = [ "audio" "nixdots" "steam" "nordvpn" "gamemode" "adbusers" ];
       hashedPasswordFile = config.sops.secrets."user_passwords/shringed".path;
 
       openssh.authorizedKeys.keys = [
