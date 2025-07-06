@@ -3,14 +3,12 @@ with lib;
 let
   cfg = config.nixosModules.monitors.gatus;
 
-  watch = name: url: {
+  mkMonitor = name: module: optional module.enable [{
     name = name;
-    url = url;
+    url = if module ? furl then module.furl else module.url;
     interval = "30m";
-    conditions = [
-      "[STATUS] == 200"
-    ];
-  };
+    conditions = [ "[STATUS] == 200" ];
+  }];
 in {
   options.nixosModules.monitors.gatus = {
     enable = mkEnableOption "Gatus server status monitor";
@@ -48,35 +46,37 @@ in {
       settings = with config.nixosModules; {
         web.port = cfg.port;
 
-        endpoints = [
-          (watch "Radicale" caldav.radicale.furl)
-          (watch "Jellyfin" jellyfin.server.furl)
-          (watch "File Browser" filebrowser.furl)
-          # (watch "Uptime Kuma" uptimeKuma.furl)
-          (watch "Gatus" monitors.gatus.furl)
-          # (watch "Guacamole" guacamole.furl)
-          (watch "AdGuard Home" adblock.adguard.furl)
-          (watch "Jellyseerr" jellyfin.jellyseerr.furl)
-          # (watch "Ombi" ombi.furl)
-          (watch "Kavita" kavita.furl)
-          (watch "Tandoor" groceries.tandoor.furl)
-          (watch "Immich" album.immich.furl)
-          (watch "Ollama" llm.ollama.webui.furl)
+        endpoints = flatten [
+          (mkMonitor "Radicale" caldav.radicale)
+          (mkMonitor "Jellyfin" jellyfin.server)
+          (mkMonitor "File Browser" filebrowser)
+          (mkMonitor "Uptime Kuma" uptimeKuma)
+          (mkMonitor "Gatus" monitors.gatus)
+          (mkMonitor "Guacamole" guacamole)
+          (mkMonitor "AdGuard Home" adblock.adguard)
+          (mkMonitor "Jellyseerr" jellyfin.jellyseerr)
+          (mkMonitor "Ombi" ombi)
+          (mkMonitor "Kavita" kavita)
+          (mkMonitor "Tandoor" groceries.tandoor)
+          (mkMonitor "Immich" album.immich)
+          (mkMonitor "Ollama" llm.ollama.webui)
 
-          # (watch "Automatic Ripping Machine" docker.automaticrippingmachine.url)
-          (watch "Lidarr" arrs.lidarr.url)
-          (watch "Radarr" arrs.radarr.url)
-          (watch "Sonarr" arrs.sonarr.url)
-          (watch "Prowlarr" arrs.prowlarr.url)
-          (watch "qBittorrent" torrent.qbittorrent.url)
-          (watch "Authelia" authelia.furl)
-          (watch "Flaresolverr" arrs.flaresolverr.url)
-          (watch "Atuin" shell.atuin.server.furl)
-          (watch "RomM" docker.romm.furl)
-          (watch "Linkwarden" linkwarden.furl)
-          (watch "OurShoppingList" docker.ourshoppinglist.furl)
-          (watch "Nextcloud" nextcloud.furl)
-          (watch "Matrix" social.matrix.conduit.furl)
+          (mkMonitor "Automatic Ripping Machine" docker.automaticrippingmachine)
+          (mkMonitor "Lidarr" arrs.lidarr)
+          (mkMonitor "Radarr" arrs.radarr)
+          (mkMonitor "Sonarr" arrs.sonarr)
+          (mkMonitor "Prowlarr" arrs.prowlarr)
+          (mkMonitor "qBittorrent" torrent.qbittorrent)
+          (mkMonitor "Authelia" authelia)
+          (mkMonitor "Flaresolverr" arrs.flaresolverr)
+          (mkMonitor "Atuin" shell.atuin.server)
+          (mkMonitor "RomM" docker.romm)
+          (mkMonitor "Linkwarden" linkwarden)
+          (mkMonitor "OurShoppingList" docker.ourshoppinglist)
+          (mkMonitor "Nextcloud" nextcloud)
+          (mkMonitor "Matrix" social.matrix.conduit)
+          (mkMonitor "Traccar" gps.traccar)
+          (mkMonitor "Wallos" docker.wallos)
         ];
       };
     };

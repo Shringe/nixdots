@@ -25,7 +25,7 @@ in {
 
     furl = mkOption {
       type = types.string;
-      default = "https://matrix.${domain}";
+      default = "https://${domain}";
     };
   };
 
