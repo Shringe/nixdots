@@ -25,9 +25,9 @@
       windowManagers = {
         enable = true;
         dwl.enable = true;
+        dwl.swayidle.enable = false;
       };
       email.enable = true;
-      email.aerc.enable = true;
     };
 
     shells.enable = true;
