@@ -8,6 +8,11 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     dwl = {
       url = "github:Shringe/dwl";
     };
@@ -210,6 +215,7 @@
                     zellij
                   ];
                 }
+                inputs.determinate.nixosModules.default
                 ./nixos/deity/configuration.nix 
                 ./nixos/nixosModules
                 ./shared
