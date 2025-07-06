@@ -132,16 +132,18 @@
               specialArgs = { inherit system inputs; };
               modules = [ 
                 {
-                  nix.settings = mkIf optimize_builds {
+                  nix.settings = {
                     system-features = [ "gccarch-${arch}" ];
-                    max-jobs = 1;
+
+                    # Makes it easier to tell which package failed to build with optimizations
+                    max-jobs = mkIf optimize_builds 1;
                   };
 
 
                   nixpkgs = {
                     hostPlatform = {
                       system = system;
-                      gcc = {
+                      gcc = mkIf optimize_builds {
                         arch = arch;
                         tune = arch;
                         abi = abi;
