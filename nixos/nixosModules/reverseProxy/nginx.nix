@@ -3,10 +3,7 @@ with lib;
 let
   cfg = config.nixosModules.reverseProxy.nginx;
 
-  d = cfg.domain;
-  ad = cfg.aDomain;
-
-  reverseProxy = url: domain: {
+  mkReverseProxy = url: domain: {
     useACMEHost = domain;
     onlySSL = true;
 
@@ -15,8 +12,19 @@ let
     };
   };
 
-  rp = url: (reverseProxy url d);
-  rpa = url: (reverseProxy url ad);
+  reverseProxyDomain = domain: module: optionalAttrs module.enable {
+    ${domain} = mkReverseProxy module.url domain;
+  };
+
+  reverseProxySubdomain = subdomain: domain: module: optionalAttrs module.enable {
+    "${subdomain}.${domain}" = mkReverseProxy module.url domain;
+  };
+
+  rps = subdomain: module: reverseProxySubdomain subdomain cfg.domain module;
+  rpd = module: reverseProxyDomain cfg.domain module;
+
+  rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
+  rpad = module: reverseProxyDomain cfg.aDomain module;
 in {
   options.nixosModules.reverseProxy.nginx = {
     enable = mkEnableOption "Nginx";
@@ -43,47 +51,48 @@ in {
       recommendedProxySettings = true;
       recommendedZstdSettings = true;
 
-      virtualHosts = with config.nixosModules; {
-        # IMPORTANT
-        # Reject Unmatched Domains
-        "_" = {
-          default = true;
-          rejectSSL = true;
-          extraConfig = ''
-            return 444;
-          '';
-        };
+      virtualHosts = with config.nixosModules; mkMerge [
+        # IMPORTANT - Reject Unmatched Domains
+        {
+          "_" = {
+            default = true;
+            rejectSSL = true;
+            extraConfig = ''
+              return 444;
+            '';
+          };
+        }
 
-        # Private
-        "jellyfin.${d}" = (rp jellyfin.server.url);
-        "dash.${d}" = (rp homepage.url);
-        "tandoor.${d}" = (rp groceries.tandoor.url);
-        "kavita.${d}" = (rp kavita.url);
-        "gatus.${d}" = (rp monitors.gatus.url);
-        "jellyseerr.${d}" = (rp jellyfin.jellyseerr.url);
-        "adguard.${d}" = (rp adblock.adguard.url);
-        "immich.${d}" = (rp album.immich.url);
-        "radicale.${d}" = (rp caldav.radicale.url);
-        "ollama.${d}" = (rp llm.ollama.webui.url);
-        "router.${d}" = (rp "http://192.168.0.1");
-        "lidarr.${d}" = (rp arrs.lidarr.url);
-        "radarr.${d}" = (rp arrs.radarr.url);
-        "sonarr.${d}" = (rp arrs.sonarr.url);
-        "prowlarr.${d}" = (rp arrs.prowlarr.url);
-        "torrent.${d}" = (rp torrent.qbittorrent.url);
-        "flaresolverr.${d}" = (rp arrs.flaresolverr.url);
-        "atuin.${d}" = (rp shell.atuin.server.url);
-        "romm.${d}" = (rp docker.romm.url);
-        "linkwarden.${d}" = (rp linkwarden.url);
-        "ourshoppinglist.${d}" = (rp docker.ourshoppinglist.url);
-        "traccar.${d}" = (rp gps.traccar.url);
-        "wallos.${d}" = (rp docker.wallos.url);
-        "files.${d}" = (rp filebrowser.url);
-      
-        # Public
-        "ssh.${d}" = (rp "http://${info.system.ips.local}:${toString ssh.server.port}");
-        ${ad} = (rpa social.matrix.conduit.url);
-      };
+        # Private services
+        (rps "jellyfin" jellyfin.server)
+        (rps "dash" homepage)
+        (rps "tandoor" groceries.tandoor)
+        (rps "kavita" kavita)
+        (rps "gatus" monitors.gatus)
+        (rps "jellyseerr" jellyfin.jellyseerr)
+        (rps "adguard" adblock.adguard)
+        (rps "immich" album.immich)
+        (rps "radicale" caldav.radicale)
+        (rps "ollama" llm.ollama.webui)
+        (rps "lidarr" arrs.lidarr)
+        (rps "radarr" arrs.radarr)
+        (rps "sonarr" arrs.sonarr)
+        (rps "prowlarr" arrs.prowlarr)
+        (rps "torrent" torrent.qbittorrent)
+        (rps "flaresolverr" arrs.flaresolverr)
+        (rps "atuin" shell.atuin.server)
+        (rps "romm" docker.romm)
+        (rps "linkwarden" linkwarden)
+        (rps "ourshoppinglist" docker.ourshoppinglist)
+        (rps "traccar" gps.traccar)
+        (rps "wallos" docker.wallos)
+        (rps "files" filebrowser)
+        (rps "router" server.router)
+        (rps "ssh" server.ssh)
+
+        # Public services
+        (rpad social.matrix.conduit)
+      ];
     };
 
     users.users.nginx.extraGroups = [ "acme" ];

@@ -1,22 +1,36 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.ssh.server;
+  cfg = config.nixosModules.server.ssh;
 in {
-  options.nixosModules.ssh.server = {
-    enable = mkEnableOption "OpenSSH server";
+  options.nixosModules.server.ssh = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.server.enable;
+    };
+
+    enableFail2ban = mkOption {
+      type = types.bool;
+      default = true;
+    };
+
+    host = mkOption {
+      type = types.string;
+      default = config.nixosModules.info.system.ips.local;
+    };
 
     port = mkOption {
       type = types.port;
       default = 22;
     };
 
-    enableFail2ban = mkEnableOption "Fail2ban SSH";
+    url = mkOption {
+      type = types.string;
+      default = "http://${cfg.host}:${toString cfg.port}";
+    };
   };
 
   config = mkIf cfg.enable {
-    nixosModules.ssh.server.enableFail2ban = mkDefault true;
-
     services.openssh = {
       enable = true;
       ports = [ cfg.port ];

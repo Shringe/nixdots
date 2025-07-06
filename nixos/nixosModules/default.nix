@@ -30,7 +30,6 @@ with lib;
     ./adblock
     ./arrs
     ./torrent
-    ./ssh
     ./guacamole
     ./ombi
     ./shell
@@ -54,6 +53,7 @@ with lib;
     ./linkwarden
     ./gps
     ./security
+    ./server
   ];
 
   options.nixosModules = {

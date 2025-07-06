@@ -61,17 +61,7 @@ in {
 
     { "Administrator" = []
       ++ mkService "Guacamole" guacamole {}
-      ++ [{
-        "Router Settings" = 
-          let
-            furl = "https://router.${reverseProxy.domain}";
-          in { 
-            description = "Networking Admin Panel";
-            icon = "/icons/router.svg";
-            href = furl;
-            siteMonitor = furl;
-          };
-      }]
+      ++ mkService "Router" server.router {}
       ++ mkService "AdGuard Home" adblock.adguard {
         widget = {
           type = "adguard";
