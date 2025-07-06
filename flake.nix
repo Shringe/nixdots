@@ -215,7 +215,14 @@
                     zellij
                   ];
                 }
+
                 inputs.determinate.nixosModules.default
+                { # Determinate Nix settings
+                  nix.settings = {
+                    lazy-trees = true;
+                  };
+                }
+
                 ./nixos/deity/configuration.nix 
                 ./nixos/nixosModules
                 ./shared
