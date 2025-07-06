@@ -132,10 +132,14 @@
               specialArgs = { inherit system inputs; };
               modules = [ 
                 {
-                  nix.settings.system-features = [ "gccarch-${arch}" ];
+                  nix.settings = mkIf optimize_builds {
+                    system-features = [ "gccarch-${arch}" ];
+                    max-jobs = 1;
+                  };
+
 
                   nixpkgs = {
-                    hostPlatform = mkIf optimize_builds {
+                    hostPlatform = {
                       system = system;
                       gcc = {
                         arch = arch;
@@ -149,12 +153,13 @@
                         postgresql_15 = genericPkgs.postgresql_15;
                         dotnetCorePackages = genericPkgs.dotnetCorePackages;
 
-                        # speexdsp = genericPkgs.speexdsp;
-                        # nototools = genericPkgs.nototools;
-                        # libsecret = genericPkgs.libsecret;
-                        # valkey = genericPkgs.valkey;
-                        # chromedriver = genericPkgs.chromedriver;
-                        # liberfa = genericPkgs.liberfa;
+                        speexdsp = genericPkgs.speexdsp;
+                        nototools = genericPkgs.nototools;
+                        libsecret = genericPkgs.libsecret;
+                        valkey = genericPkgs.valkey;
+                        chromedriver = genericPkgs.chromedriver;
+                        liberfa = genericPkgs.liberfa;
+
                         # It seems these pull in 32bit dependencies which really struggle to build
                         wine = genericPkgs.wine;
                         pipewire = genericPkgs.pipewire;
@@ -165,17 +170,17 @@
                         jellyfin-media-player = genericPkgs.jellyfin-media-player;
                         kdePackages = genericPkgs.kdePackages;
                         flaresolverr = genericPkgs.flaresolverr;
-                        # immich-machine-learning = genericPkgs.immich-machine-learning;
-                        # jdk17 = genericPkgs.jdk17;
-                        # jellyfin = genericPkgs.jellyfin;
+                        immich-machine-learning = genericPkgs.immich-machine-learning;
+                        jdk17 = genericPkgs.jdk17;
+                        jellyfin = genericPkgs.jellyfin;
 
                         libadwaita = prev.libadwaita.overrideAttrs (old: {
                           doCheck = false;
                         });
 
-                        # numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
-                        #   disabledTests = oldAttrs.disabledTests ++ ["test_umath_accuracy" "TestAccuracy::test_validate_transcendentals" "test_validate_transcendentals"];
-                        # });
+                        numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
+                          disabledTests = oldAttrs.disabledTests ++ ["test_umath_accuracy" "TestAccuracy::test_validate_transcendentals" "test_validate_transcendentals"];
+                        });
 
                         python312 = prev.python312.override {
                           packageOverrides = pyfinal: pyprev: {
@@ -198,6 +203,10 @@
 
                   # Ensure maximum build performance
                   powerManagement.cpuFreqGovernor = "performance";
+
+                  environment.systemPackages = with pkgs; [
+                    zellij
+                  ];
                 }
                 ./nixos/deity/configuration.nix 
                 ./nixos/nixosModules
