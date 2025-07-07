@@ -35,14 +35,22 @@ in {
       type = types.string;
       default = "kavita.svg";
     };
+
+    directory = mkOption {
+      type = types.string;
+      default = "/mnt/server/local/kavita";
+    };
   };
 
   config = mkIf cfg.enable {
     sops.secrets."kavita" = {};
 
+    users.users.kavita.extraGroups = [ "manga" ];
+
     services.kavita = {
       enable = true;
       tokenKeyFile = config.sops.secrets."kavita".path;
+      dataDir = cfg.directory;
 
       settings = {
         Port = cfg.port;

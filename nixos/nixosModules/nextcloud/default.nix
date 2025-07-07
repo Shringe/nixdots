@@ -40,7 +40,7 @@ in {
 
     directory = mkOption {
       type = types.str;
-      default = "/mnt/server/nextcloud";
+      default = "/mnt/server/critical/nextcloud";
     };
   };
 

@@ -17,7 +17,7 @@ in {
 
     directory = mkOption {
       type = types.string;
-      default = "/mnt/server";
+      default = "/mnt/server/critical/filebrowser";
     };
 
     description = mkOption {
@@ -48,8 +48,7 @@ in {
 
     # Used for filebrowser mutability
     users.users.filebrowser = {
-      isNormalUser = true;
-      initialPassword = "123";
+      isSystemUser = true;
     };
 
     systemd.services.filebrowser = {
