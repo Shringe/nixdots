@@ -8,13 +8,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.btrbk = {
-      # Option not needed
-      # enable = true;
+    services.btrbk.instances = {
+      "daily" = {
+        onCalendar = "daily";
+        settings = {
+          snapshot_preserve_min = "2w";
+          snapshot_preserve = "14d 4w";
 
-      # Instances moved to respective nixos/nixosModules/drives/
-      instances = {
-
+          snapshot_dir = "_snapshots";
+        };
       };
     };
   };
