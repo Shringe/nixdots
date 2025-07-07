@@ -45,6 +45,9 @@ in {
         allow_federation = true;
         allow_registration = true;
 
+        # 1 GB
+        max_request_size = 1048576000;
+
         database_backend = "rocksdb";
 
         turn_uris = [
