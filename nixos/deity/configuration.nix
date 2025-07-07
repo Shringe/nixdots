@@ -131,7 +131,7 @@
 
     desktop = {
       windowManagers = {
-        sway.enable = false;
+        sway.enable = true;
       };
     };
 
