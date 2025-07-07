@@ -33,7 +33,6 @@ in {
     sops.secrets."social/matrix/conduit" = {};
     systemd.services.conduit.serviceConfig.EnvironmentFile = config.sops.secrets."social/matrix/conduit".path;
 
-
     services.matrix-conduit = {
       enable = true;
 
@@ -47,6 +46,11 @@ in {
         allow_registration = true;
 
         database_backend = "rocksdb";
+
+        turn_uris = [
+          "turn:turn.${domain}?transport=udp"
+          "turn:turn.${domain}?transport=tcp"
+        ];
       };
     };
   };
