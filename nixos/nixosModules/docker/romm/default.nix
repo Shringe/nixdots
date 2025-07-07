@@ -11,7 +11,7 @@ in {
 
     directory = mkOption {
       type = types.string;
-      default = "/mnt/server/Emulation/romm";
+      default = "/mnt/server/critical/romm";
     };
 
     port = mkOption {

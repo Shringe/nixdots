@@ -34,6 +34,11 @@ in {
       type = types.string;
       default = "linkwarden.png";
     };
+
+    directory = mkOption {
+      type = types.string;
+      default = "/mnt/server/critical/linkwarden";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -47,6 +52,7 @@ in {
       host = config.nixosModules.info.system.ips.local;
       port = cfg.port;
       secretsFile = config.sops.secrets."linkwarden".path;
+      storageLocation = cfg.directory;
 
       enableRegistration = true;
     };

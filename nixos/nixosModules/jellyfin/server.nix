@@ -31,16 +31,24 @@ in
       type = types.string;
       default = "jellyfin.svg";
     };
+
+    directory = mkOption {
+      type = types.string;
+      default = "/mnt/server/local/jellyfin";
+    };
   };
 
   config = mkIf cfg.enable {
     nixosModules.jellyfin.jellyseerr.enable = mkDefault false;
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
+    users.users.jellyfin.extraGroups = [ "music" "movies" "shows" ];
+
     services.jellyfin = {
       enable = true;
       package = pkgs.jellyfin;
       openFirewall = true;
+      dataDir = cfg.directory;
     };
   };
 }

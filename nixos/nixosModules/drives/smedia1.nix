@@ -1,6 +1,14 @@
 { config, lib, ... }:
 {
   config = {
+    users.groups = {
+      "books" = {};
+      "manga" = {};
+      "shows" = {};
+      "movies" = {};
+      "music" = {};
+    };
+
     fileSystems  = {
       "/defvol/smedia1" = {
         device = "/dev/disk/by-label/smedia1";
@@ -11,7 +19,7 @@
       "/mnt/server" = { 
         device = "/dev/disk/by-label/smedia1";
         fsType = "btrfs";
-        options = [ "compress=zstd" "noatime" "nofail" ];
+        options = [ "compress=zstd:4" "noatime" "nofail" "subvol=_active" ];
       };
     };
 

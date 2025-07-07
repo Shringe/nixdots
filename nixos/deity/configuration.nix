@@ -23,12 +23,14 @@
       ips.local = "192.168.0.165";
     };
 
+    players.mpv.enable = true;
+
     server.enable = true;
 
     gps.traccar.enable = true;
 
     album.immich.enable = true;
-    backups.btrbk.enable = true;
+    # backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
 
@@ -40,8 +42,6 @@
       enable = true;
     };
 
-    players.mpv.enable = true;
-
     monitors = {
       gatus.enable = true;
     };
@@ -52,24 +52,24 @@
 
     adblock.enable = true;
 
-    torrent.qbittorrent.enable = true;
+    # torrent.qbittorrent.enable = true;
 
-    arrs = {
-      lidarr.enable = true;
-      sonarr.enable = true;
-      prowlarr.enable = true;
-      radarr.enable = true;
-      flaresolverr.enable = true;
-      vpn.enable = true;
-    };
+    # arrs = {
+    #   lidarr.enable = true;
+    #   sonarr.enable = true;
+    #   prowlarr.enable = true;
+    #   radarr.enable = true;
+    #   flaresolverr.enable = true;
+    #   vpn.enable = true;
+    # };
 
     linkwarden.enable = true;
 
-    docker = {
-      enable = true;
-      romm.enable = true;
-      wallos.enable = true;
-    };
+    # docker = {
+    #   enable = true;
+    #   romm.enable = true;
+    #   wallos.enable = true;
+    # };
 
     homepage.enable = true;
 
@@ -97,21 +97,16 @@
       yuzu.enable = false;
     };
 
-    theming = {
-      enable = true;
-    };
-
     llm = {
       ollama = {
         enable = true;
         enableCuda = true;
         webui.enable = true;
       };
+    };
 
-      gpt4all = {
-        # enable = true;
-        # cuda = true;
-      };
+    theming = {
+      enable = true;
     };
 
     boot = {

@@ -35,6 +35,11 @@ in {
       type = types.string;
       default = "immich.svg";
     };
+
+    directory = mkOption {
+      type = types.string;
+      default = "/mnt/server/critical/immich";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -44,7 +49,7 @@ in {
       port = cfg.port;
 
       redis.enable = true;
-      mediaLocation = "/mnt/server/Album/immich";
+      mediaLocation = cfg.directory;
     };
   };
 }
