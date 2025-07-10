@@ -16,6 +16,14 @@ in {
   config = mkIf cfg.enable {
     stylix.opacity.terminal = mkForce 0.99;
 
+    home.packages = with pkgs; [
+      grim
+      slurp
+      playerctl
+      libpulseaudio
+      brightnessctl
+    ];
+
     homeManagerModules.desktop.windowManagers.utils = {
       wofi.enable = true;
       swaync.enable = true;

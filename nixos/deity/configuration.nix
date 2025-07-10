@@ -126,10 +126,6 @@
 
     desktop = {
       enable = true;
-
-      windowManagers = {
-        sway.enable = true;
-      };
     };
 
     kanata = {
