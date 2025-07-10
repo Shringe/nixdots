@@ -15,6 +15,9 @@ in {
           snapshot_preserve_min = "2w";
           snapshot_preserve = "14d 4w";
 
+          target_preserve_min = "no";
+          target_preserve = "4w 2m";
+
           snapshot_dir = "_snapshots";
         };
       };
