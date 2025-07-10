@@ -72,9 +72,10 @@
 
       overlays = [
         inputs.nur.overlays.default
+        inputs.dwl.overlays.default
 
         (self: super: {
-          dwl = inputs.dwl.packages.${system}.default;
+          # dwl = inputs.dwl.packages.${system}.default;
           nf = inputs.nf.packages.${system}.default;
 
           mpv = super.mpv.override {
