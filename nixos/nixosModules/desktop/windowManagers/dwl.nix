@@ -14,8 +14,14 @@ in {
     # Needed for hacky desktop entry
     environment.systemPackages = with pkgs; [
       sdwl
+
+      grim
+      slurp
+      playerctl
+      libpulseaudio
+      brightnessctl
     ];
 
-    services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
+    # services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
   };
 }

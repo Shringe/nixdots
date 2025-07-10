@@ -115,7 +115,7 @@
         lightdm.enable = false;
         ly.enable = false;
         # Fails to load swayfx
-        greetd.enable = true;
+        greetd.enable = false;
       };
 
       loaders = {
