@@ -14,23 +14,23 @@
   boot.extraModulePackages = [ ];
 
 
-  fileSystems."/mnt/Emulation" = { 
-    device = "/dev/disk/by-uuid/33109eb5-d91f-4d54-ad7f-a8d04f418f70";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" ];
-  };
-
-  fileSystems."/mnt/Shows" = { 
-    device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_shows" ];
-  };
-
-  fileSystems."/mnt/Music" = { 
-    device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
-    fsType = "btrfs";
-    options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music" ];
-  };
+  # fileSystems."/mnt/Emulation" = { 
+  #   device = "/dev/disk/by-uuid/33109eb5-d91f-4d54-ad7f-a8d04f418f70";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" "nofail" ];
+  # };
+  #
+  # fileSystems."/mnt/Shows" = { 
+  #   device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_shows" ];
+  # };
+  #
+  # fileSystems."/mnt/Music" = { 
+  #   device = "/dev/disk/by-uuid/a8c64b4e-bf99-467a-8f7a-7fc1ad632976";
+  #   fsType = "btrfs";
+  #   options = [ "compress=zstd" "noatime" "nofail" "subvol=_media/_personal/music" ];
+  # };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
