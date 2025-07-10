@@ -2,6 +2,14 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl;
+
+  autostart = pkgs.writeShellApplication {
+    name = "autostartDwl";
+    text = ''
+      systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      systemctl --user start dwl-session.target
+    '';
+  };
 in {
   imports = [
     ./waybar
@@ -28,7 +36,7 @@ in {
       (writeShellApplication {
         name = "sdwl";
         text = ''
-          ${pkgs.dwl}/bin/dwl -s "systemctl --user start dwl-session.target" ; systemctl --user stop dwl-session.target
+          ${pkgs.dwl}/bin/dwl -s "${autostart}/bin/autostartDwl" ; systemctl --user stop dwl-session.target
         '';
       })
     ];
