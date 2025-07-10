@@ -115,7 +115,7 @@
         lightdm.enable = false;
         ly.enable = false;
         # Fails to load swayfx
-        greetd.enable = false;
+        greetd.enable = true;
       };
 
       loaders = {
@@ -125,6 +125,8 @@
     };
 
     desktop = {
+      enable = true;
+
       windowManagers = {
         sway.enable = true;
       };

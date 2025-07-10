@@ -5,11 +5,6 @@ let
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.swayfx}/bin/swaymsg exit"
 
-    corner_radius 12
-    blur enable
-    blur_passes 8
-    shadows enable
-
     gaps inner 3
     gaps top 1
     gaps bottom 1
@@ -47,9 +42,9 @@ in {
     services.greetd = {
       enable = true;
       settings = {
-        vt = 2;
+        # vt = 2;
         default_session = {
-          command = "${pkgs.swayfx}/bin/sway --unsupported-gpu --config ${swayConfig}";
+          # command = "${pkgs.swayfx}/bin/sway --unsupported-gpu --config ${swayConfig}";
         };
       };
     };
@@ -58,6 +53,6 @@ in {
       enable = true;
     };
 
-    environment.etc."greetd/sway".source = swayConfig;
+    # environment.etc."greetd/sway".source = swayConfig;
   };
 }

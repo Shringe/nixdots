@@ -75,7 +75,6 @@
         inputs.dwl.overlays.default
 
         (self: super: {
-          # dwl = inputs.dwl.packages.${system}.default;
           nf = inputs.nf.packages.${system}.default;
 
           mpv = super.mpv.override {
@@ -156,50 +155,50 @@
                       };
                     };
 
-                    overlays = mkIf optimize_builds [
-                      (final: prev: {
-                        postgresql_15 = genericPkgs.postgresql_15;
-                        dotnetCorePackages = genericPkgs.dotnetCorePackages;
+                    overlays = overlays
+                      ++ optionals optimize_builds [
+                        (final: prev: {
+                          postgresql_15 = genericPkgs.postgresql_15;
+                          dotnetCorePackages = genericPkgs.dotnetCorePackages;
 
-                        speexdsp = genericPkgs.speexdsp;
-                        nototools = genericPkgs.nototools;
-                        libsecret = genericPkgs.libsecret;
-                        valkey = genericPkgs.valkey;
-                        chromedriver = genericPkgs.chromedriver;
-                        liberfa = genericPkgs.liberfa;
+                          speexdsp = genericPkgs.speexdsp;
+                          nototools = genericPkgs.nototools;
+                          libsecret = genericPkgs.libsecret;
+                          valkey = genericPkgs.valkey;
+                          chromedriver = genericPkgs.chromedriver;
+                          liberfa = genericPkgs.liberfa;
 
-                        # It seems these pull in 32bit dependencies which really struggle to build
-                        wine = genericPkgs.wine;
-                        pipewire = genericPkgs.pipewire;
-                        steam-run = genericPkgs.steam-run;
-                        lutris = genericPkgs.lutris;
+                          # It seems these pull in 32bit dependencies which really struggle to build
+                          wine = genericPkgs.wine;
+                          pipewire = genericPkgs.pipewire;
+                          steam-run = genericPkgs.steam-run;
+                          lutris = genericPkgs.lutris;
 
 
-                        jellyfin-media-player = genericPkgs.jellyfin-media-player;
-                        kdePackages = genericPkgs.kdePackages;
-                        flaresolverr = genericPkgs.flaresolverr;
-                        immich-machine-learning = genericPkgs.immich-machine-learning;
-                        jdk17 = genericPkgs.jdk17;
-                        jellyfin = genericPkgs.jellyfin;
+                          jellyfin-media-player = genericPkgs.jellyfin-media-player;
+                          kdePackages = genericPkgs.kdePackages;
+                          flaresolverr = genericPkgs.flaresolverr;
+                          immich-machine-learning = genericPkgs.immich-machine-learning;
+                          jdk17 = genericPkgs.jdk17;
+                          jellyfin = genericPkgs.jellyfin;
 
-                        libadwaita = prev.libadwaita.overrideAttrs (old: {
-                          doCheck = false;
-                        });
+                          libadwaita = prev.libadwaita.overrideAttrs (old: {
+                            doCheck = false;
+                          });
 
-                        numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
-                          disabledTests = oldAttrs.disabledTests ++ ["test_umath_accuracy" "TestAccuracy::test_validate_transcendentals" "test_validate_transcendentals"];
-                        });
+                          numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
+                            disabledTests = oldAttrs.disabledTests ++ ["test_umath_accuracy" "TestAccuracy::test_validate_transcendentals" "test_validate_transcendentals"];
+                          });
 
-                        python312 = prev.python312.override {
-                          packageOverrides = pyfinal: pyprev: {
-                            anyio = pyprev.anyio.overridePythonAttrs (oldAttrs: {
-                              disabledTests = oldAttrs.disabledTests ++ [ "test_handshake_fail" ];
-                            });
+                          python312 = prev.python312.override {
+                            packageOverrides = pyfinal: pyprev: {
+                              anyio = pyprev.anyio.overridePythonAttrs (oldAttrs: {
+                                disabledTests = oldAttrs.disabledTests ++ [ "test_handshake_fail" ];
+                              });
+                            };
                           };
-                        };
-                      })
-                    ];
-
+                        })
+                      ];
 
                     config = {
                       allowUnfree = true;
