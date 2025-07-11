@@ -8,8 +8,13 @@
     ./tmux.nix
   ];
 
+  # Used for aliases
   home.packages = with pkgs; [
     nf
+    rcp
+    duf
+    dust
+    fd
   ];
 
   # options.shells.enable = lib.mkEnableOption "Enable all shells and shell configuration";

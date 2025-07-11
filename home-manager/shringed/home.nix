@@ -65,8 +65,6 @@
     fzf
     haskellPackages.greenclip
     redshift
-    bat
-    eza
     git 
     atuin
     picom
