@@ -58,7 +58,7 @@ in {
       type = types.attrs;
       default = {
         force = true;
-        default = "SearBe";
+        default = "SearFYI";
         order = [ "SearBe" "SearFYI" ];
 
         engines = cfg.engines;
@@ -69,7 +69,7 @@ in {
       type = types.attrs;
       default = {
         "Nix Packages" = mkNixosSearch "packages" "@np";
-        "Nix Options" = mkNixosSearch "packages" "@no";
+        "Nix Options" = mkNixosSearch "options" "@no";
 
         "Nix HomeManager Options" = mkSearchixSearch "options/home-manager" "@nh";
         "Nix User Repository" = mkSearchixSearch "packages/nur" "@nu";
