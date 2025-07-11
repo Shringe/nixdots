@@ -23,6 +23,10 @@
       ips.local = "192.168.0.165";
     };
 
+    drives = {
+      backups1.enable = true;
+    };
+
     players.mpv.enable = true;
 
     server.enable = true;
@@ -232,15 +236,11 @@
       picom
 
       fish
-      eza
-      bat
-      #atuin
       btop
       htop
 
       nix-search-cli
       nh
-
 
       btrfs-progs
       compsize

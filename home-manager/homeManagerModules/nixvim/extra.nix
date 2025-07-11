@@ -11,8 +11,32 @@ in {
     };
   };
 
+  # TODO
+  # This is mostly just much of my command line tooling now. I should probably refactor.
   config = mkIf cfg.enable {
     programs = {
+      fd.enable = true;
+      ripgrep.enable = true;
+      bat.enable = true;
+
+      zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+
+      eza = {
+        enable = true;
+        enableFishIntegration = true;
+
+        icons = "auto";
+        git = true;
+
+        extraOptions = [
+          "--group-directories-first"
+          "--header"
+        ];
+      };
+       
       lazygit.enable = true;
       # neovide.enable = true;
 
