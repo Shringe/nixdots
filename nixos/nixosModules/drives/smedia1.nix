@@ -23,17 +23,17 @@
       };
     };
 
-    # services.btrbk.instances = lib.mkIf config.nixosModules.backup.btrbk.enable {
-    #   "daily".settings.volume."/defvol/smedia1" = {
-    #     subvolume = {
-    #       "_active/local" = {};
-    #       "_active/critical" = {
-    #         target = "/mnt/btr/backup/smedia1";
-    #       };
-    #     };
-    #   };
-    # };
-    #
+    services.btrbk.instances = lib.mkIf config.nixosModules.backups.btrbk.enable {
+      "daily".settings.volume."/defvol/smedia1" = {
+        subvolume = {
+          "_active/local" = {};
+          "_active/critical" = {
+            target = "/mnt/btr/backups/smedia1";
+          };
+        };
+      };
+    };
+
     # services.btrbk.instances."daily".settings.volume."/defvol/smedia1" = lib.mkIf config.nixosModules.backups.btrbk.enable {
     #   subvolume = {
     #     "_active/local" = {};

@@ -8,10 +8,10 @@
     nd = "nf develop";
 
     rcp = "rcp --progress";
-    grep = "ripgrep";
+    # grep = "ripgrep";
     df = "duf";
     du = "dust";
-    find = "fd";
+    # find = "fd";
     cat = "bat";
   };
 }
