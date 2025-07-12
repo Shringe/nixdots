@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 with lib;
 let 
-  cfg = config.nixosModules.boot.displayManagers.greetd; 
+  cfg = config.nixosModules.boot.graphical.regreet; 
+
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
 
@@ -26,21 +27,20 @@ let
     }
   '';
 in {
+  options.nixosModules.boot.graphical.regreet = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.boot.graphical.enable;
+    };
+  };
+
   config = mkIf cfg.enable {
     stylix.targets.regreet.useWallpaper = false;
+    programs.regreet.settings.background.path = config.nixosModules.theming.wallpapers.secondary;
 
     services.greetd.settings.default_session.command = "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
     environment.etc."greetd/sway".source = swayConfig;
 
-    programs.regreet = {
-      enable = true;
-
-      settings = {
-        background = {
-          path = config.nixosModules.theming.wallpapers.secondary;
-          # fit = "fill";
-        };
-      };
-    };
+    programs.regreet.enable = true;
   };
 }

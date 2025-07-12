@@ -12,7 +12,6 @@ with lib;
     ./mouse
     ./openrgb
     ./drivers
-    ./boot
     ./llm
     ./packages
     ./printing
@@ -54,6 +53,7 @@ with lib;
     ./security
     ./server
     ./theming
+    ./boot
   ];
 
   options.nixosModules = {
@@ -91,21 +91,6 @@ with lib;
       gpt4all = {
         enable = mkEnableOption "Default gpt4all";
         cuda = mkEnableOption "Use Cuda";
-      };
-    };
-
-    boot = {
-      enable = mkEnableOption "Default boot configuration";
-
-      loaders = {
-        systemd-boot.enable = mkEnableOption "systemd-boot";
-        grub.enable = mkEnableOption "grub";
-      };
-
-      displayManagers = {
-        ly.enable = mkEnableOption "Ly";
-        lightdm.enable = mkEnableOption "Ly";
-        greetd.enable = mkEnableOption "Ly";
       };
     };
 
@@ -185,12 +170,6 @@ with lib;
 
     vpn = mkIf config.nixosModules.vpn.enable {
       nordvpn.enabled = mkDefault true;
-    };
-
-    boot = mkIf config.nixosModules.boot.enable {
-      loaders.grub.enable = mkDefault false;
-      loaders.systemd-boot.enable = mkDefault true;
-      displayManagers.greetd.enable = mkDefault false;
     };
 
     battery = mkIf config.nixosModules.battery.enable {
