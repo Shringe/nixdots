@@ -45,12 +45,14 @@ in {
         # vt = 2;
         default_session = {
           # command = "${pkgs.swayfx}/bin/sway --unsupported-gpu --config ${swayConfig}";
+          # command = "${pkgs.cage}/bin/cage -s -mlast -- regreet";
         };
       };
     };
 
     programs.regreet = {
       enable = true;
+      cageArgs = [ "-s" "-m" "last"  ];
     };
 
     # environment.etc."greetd/sway".source = swayConfig;

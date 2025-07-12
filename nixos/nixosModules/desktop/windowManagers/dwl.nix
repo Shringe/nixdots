@@ -13,12 +13,12 @@ in {
   config = mkIf cfg.enable {
     # Needed for hacky desktop entry
     environment.systemPackages = with pkgs; [
-      sdwl
+    #   sdwl
       dwl
     ];
 
     security.pam.services.swaylock = {};
 
-    # services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
+    services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
   };
 }
