@@ -1,8 +1,15 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.boot.displayManagers.lightdm;
+  cfg = config.nixosModules.boot.graphical.lightdm;
 in {
+  options.nixosModules.boot.graphical.lightdm = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
+
   config = mkIf cfg.enable {
     services.xserver.displayManager.lightdm = {
       enable = true;

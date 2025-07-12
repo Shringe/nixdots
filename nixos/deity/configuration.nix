@@ -16,7 +16,7 @@
 
   hardware.enableAllFirmware = true;
 
-  systemd.targets.network-online.wantedBy = lib.mkForce [];
+  # systemd.targets.network-online.wantedBy = lib.mkForce [];
 
   nixosModules = {
     info.system  = {
@@ -109,25 +109,6 @@
       };
     };
 
-    theming = {
-      enable = true;
-    };
-
-    boot = {
-      enable = true;
-      displayManagers = {
-        lightdm.enable = false;
-        ly.enable = false;
-        # Fails to load swayfx
-        greetd.enable = true;
-      };
-
-      loaders = {
-        grub.enable = false;
-        systemd-boot.enable = true;
-      };
-    };
-
     desktop = {
       enable = true;
     };
@@ -161,20 +142,6 @@
     };
 
     mouse.main.enable = true;
-  };
-
-  boot = {
-    loader.systemd-boot.memtest86.enable = true;
-    extraModulePackages = with config.boot.kernelPackages; [
-      zenpower
-    ];
-  };
-
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      icu
-    ];
   };
 
   programs.adb.enable = true;

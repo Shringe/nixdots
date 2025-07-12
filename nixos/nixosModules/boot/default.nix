@@ -1,6 +1,15 @@
+{ lib, ... }:
+with lib;
 {
   imports = [
-    ./loaders
-    ./displayManagers
+    ./loader
+    ./graphical
   ];
+
+  options.nixosModules.boot = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+    };
+  };
 }
