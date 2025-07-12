@@ -11,11 +11,5 @@ with lib;
       type = types.bool;
       default = config.nixosModules.boot.enable;
     };
-
-    config = mkIf cfg.enable {
-      boot.loader = {
-        timeout = 0;
-      };
-    };
   };
 }
