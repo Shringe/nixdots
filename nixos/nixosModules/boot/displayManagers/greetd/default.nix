@@ -3,13 +3,7 @@ with lib;
 let 
   cfg = config.nixosModules.boot.displayManagers.greetd; 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.swayfx}/bin/swaymsg exit"
-
-    gaps inner 3
-    gaps top 1
-    gaps bottom 1
-    gaps left 1
-    gaps right 1
+    exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
 
     input "*" {
       accel_profile flat
@@ -23,15 +17,10 @@ let
     }
 
     output "DP-1" {
-      adaptive_sync no
-      mode 2560x1440@165Hz
-      pos 0 0
-      render_bit_depth 10
+      disable
     }
 
     output "HDMI-A-1" {
-      adaptive_sync no
-      allow_tearing yes
       mode 3440x1440@175Hz
       pos 2560 0
       render_bit_depth 10
@@ -39,22 +28,12 @@ let
   '';
 in {
   config = mkIf cfg.enable {
-    services.greetd = {
-      enable = true;
-      settings = {
-        # vt = 2;
-        default_session = {
-          # command = "${pkgs.swayfx}/bin/sway --unsupported-gpu --config ${swayConfig}";
-          # command = "${pkgs.cage}/bin/cage -s -mlast -- regreet";
-        };
-      };
-    };
+    services.greetd.settings.default_session.command = "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
 
     programs.regreet = {
       enable = true;
-      cageArgs = [ "-s" "-m" "last"  ];
     };
 
-    # environment.etc."greetd/sway".source = swayConfig;
+    environment.etc."greetd/sway".source = swayConfig;
   };
 }
