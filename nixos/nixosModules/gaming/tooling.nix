@@ -38,5 +38,5 @@ in
   };
 
   # Temporary: for KDE Plasma's HDR support. Will be removed after universal HDR implementations
-  services.desktopManager.plasma6.enable = lib.mkIf cfg.enable true;
+  # services.desktopManager.plasma6.enable = lib.mkIf cfg.enable true;
 }

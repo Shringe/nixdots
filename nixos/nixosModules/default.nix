@@ -14,7 +14,6 @@ with lib;
     ./drivers
     ./boot
     ./llm
-    ./themes
     ./packages
     ./printing
     ./bluetooth
@@ -54,6 +53,7 @@ with lib;
     ./gps
     ./security
     ./server
+    ./theming
   ];
 
   options.nixosModules = {
@@ -85,27 +85,6 @@ with lib;
 
     printing = {
       enable = mkEnableOption "Printer configuration";
-    };
-
-    theming = {
-      enable = lib.mkEnableOption "enable theming";
-
-      wallpaper = lib.mkOption {
-        type = lib.types.str;
-        # default = "catppuccin_tux_3840x2160.png";
-        # default = "grassmastersword_3440x1440.png";
-        default = "video/Luffy-On-The-Beach-One-Piece.png";
-      };
-
-      stylix = {
-        enable = lib.mkEnableOption "Enable theming with stylix";
-        colorScheme = lib.mkOption {
-          type = lib.types.str;
-          default = "catppuccin-mocha";
-          # default = "everforest";
-          description = "What .yaml theme to use.";
-        };
-      };
     };
 
     llm = {
@@ -206,10 +185,6 @@ with lib;
 
     vpn = mkIf config.nixosModules.vpn.enable {
       nordvpn.enabled = mkDefault true;
-    };
-
-    theming = mkIf config.nixosModules.theming.enable {
-      stylix.enable = mkDefault true;
     };
 
     boot = mkIf config.nixosModules.boot.enable {

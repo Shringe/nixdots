@@ -22,18 +22,25 @@ let
 
     output "HDMI-A-1" {
       mode 3440x1440@175Hz
-      pos 2560 0
       render_bit_depth 10
     }
   '';
 in {
   config = mkIf cfg.enable {
+    stylix.targets.regreet.useWallpaper = false;
+
     services.greetd.settings.default_session.command = "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
+    environment.etc."greetd/sway".source = swayConfig;
 
     programs.regreet = {
       enable = true;
-    };
 
-    environment.etc."greetd/sway".source = swayConfig;
+      settings = {
+        background = {
+          path = config.nixosModules.theming.wallpapers.secondary;
+          # fit = "fill";
+        };
+      };
+    };
   };
 }

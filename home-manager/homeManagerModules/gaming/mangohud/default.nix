@@ -5,6 +5,8 @@ let
 in
 {
   config = mkIf cfg.enable {
+    stylix.targets.mangohud.enable = false;
+
     programs.mangohud = {
       enable = true;
       enableSessionWide = false;

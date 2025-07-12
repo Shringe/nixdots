@@ -20,28 +20,6 @@ with lib;
       systemMonitors.enable = mkEnableOption "systemMonitors";
     };
 
-    theming = {
-      enable = mkEnableOption "enable theming";
-
-      wallpaper = mkOption {
-        type = types.str;
-        # default = "catppuccin_tux_3840x2160.png";
-        # default = "grassmastersword_3440x1440.png";
-        # default = "video/Luffy-On-The-Beach-One-Piece.png";
-        default = "catppuccin_wave.png";
-      };
-
-      stylix = {
-        enable = mkEnableOption "Enable theming with stylix";
-        colorScheme = mkOption {
-          type = types.str;
-          default = "catppuccin-mocha";
-          # default = "everforest";
-          description = "What .yaml theme to use.";
-        };
-      };
-    };
-
     gaming = {
       enable = mkEnableOption "All gaming settings";
       mangohud.enable = mkEnableOption "Mangohud configuration";
@@ -133,10 +111,6 @@ with lib;
   config.homeManagerModules = {
     tooling = mkIf config.homeManagerModules.tooling.enable {
       systemMonitors.enable = mkDefault true;
-    };
-
-    theming = mkIf config.homeManagerModules.theming.enable {
-      stylix.enable = mkDefault true;
     };
 
     gaming = mkIf config.homeManagerModules.gaming.enable {

@@ -58,7 +58,7 @@ in {
       type = types.attrs;
       default = {
         force = true;
-        default = "SearFYI";
+        default = "SearBe";
         order = [ "SearBe" "SearFYI" ];
 
         engines = cfg.engines;
@@ -106,6 +106,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    stylix.targets.firefox.profileNames = [ "default" ];
+
     programs.firefox =  {
       enable = true;
       languagePacks = [ "en-US" ];

@@ -11,11 +11,13 @@ in {
   };
 
   config = mkIf cfg.enable {
+    stylix.targets.swaylock.useWallpaper = false;
+    programs.swaylock.settings.image = config.homeManagerModules.theming.wallpapers.secondary;
+
     programs.swaylock = {
       enable = true;
 
       # settings = {
-      #
       # };
     };
   };
