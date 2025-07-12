@@ -6,6 +6,8 @@
     ./extra.nix
   ];
 
+  stylix.targets.nixvim.enable = false;
+
   programs.nixvim = lib.mkIf config.homeManagerModules.nixvim.enable {
     enable = true;
     colorschemes.catppuccin.enable = true;

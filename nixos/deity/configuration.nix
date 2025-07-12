@@ -185,37 +185,18 @@
 
   services.blueman.enable = true;
 
-
   # Set your time zone.
   time.timeZone = "US/Central";
   networking.hostName = "deity";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    useXkbConfig = true; # use xkb.options in tty.
-  };
-
-  services.xserver.displayManager.lightdm.enable = false;
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-    };
-  };
 
   services.pipewire = {
     enable = true;
     pulse.enable = true;
     alsa.enable = true;
-
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
 
   # $ nix search wget
   environment = {
