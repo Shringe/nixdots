@@ -54,8 +54,6 @@
       atuin.server.enable = true;
     };
 
-    adblock.enable = true;
-
     # torrent.qbittorrent.enable = true;
 
     # arrs = {

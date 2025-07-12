@@ -4,6 +4,7 @@ with lib;
   imports = [
     ./router
     ./ssh
+    ./networking
   ];
 
   options.nixosModules.server = {
