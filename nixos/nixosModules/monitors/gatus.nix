@@ -53,7 +53,7 @@ in {
           (mkMonitor "Uptime Kuma" uptimeKuma)
           (mkMonitor "Gatus" monitors.gatus)
           (mkMonitor "Guacamole" guacamole)
-          (mkMonitor "AdGuard Home" adblock.adguard)
+          (mkMonitor "AdGuard Home" server.networking.dns)
           (mkMonitor "Jellyseerr" jellyfin.jellyseerr)
           (mkMonitor "Ombi" ombi)
           (mkMonitor "Kavita" kavita)

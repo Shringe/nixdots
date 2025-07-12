@@ -25,7 +25,6 @@ with lib;
     # These define their own options and config
     ./wireguard
     ./uptimeKuma
-    ./adblock
     ./arrs
     ./torrent
     ./guacamole

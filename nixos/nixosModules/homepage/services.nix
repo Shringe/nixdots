@@ -62,10 +62,10 @@ in {
     { "Administrator" = []
       ++ mkService "Guacamole" guacamole {}
       ++ mkService "Router" server.router {}
-      ++ mkService "AdGuard Home" adblock.adguard {
+      ++ mkService "AdGuard Home" server.networking.dns {
         widget = {
           type = "adguard";
-          url = adblock.adguard.furl;
+          url = server.networking.dns.furl;
         };
       };
     }

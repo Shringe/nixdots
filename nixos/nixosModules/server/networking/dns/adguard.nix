@@ -1,59 +1,21 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.adblock.adguard;
+  cfg = config.nixosModules.server.networking.dns;
 
   # Creates a custom filtering name for the reverse proxy
   rp = subDomain: "${config.nixosModules.info.system.ips.local} ${subDomain}.${config.nixosModules.reverseProxy.domain}";
 in {
-  options.nixosModules.adblock.adguard = {
-    enable = mkEnableOption "Adguard dns";
-
-    ports = {
-      webui = mkOption {
-        type = types.port;
-        default = 47120;
-      };
-
-      dns = mkOption {
-        type = types.port;
-        default = 47100;
-      };
-    };
-
-    dns = mkOption {
-      type = types.string;
-      default = config.nixosModules.info.system.ips.local;
-    };
-
-    host = mkOption {
-      type = types.string;
-      default = cfg.dns;
-    };
-
-    description = mkOption {
-      type = types.string;
-      default = "Network-Wide Ad Blocker";
-    };
-
-    url = mkOption {
-      type = types.string;
-      default = "http://${cfg.dns}:${toString cfg.ports.webui}";
-    };
-
-    furl = mkOption {
-      type = types.string;
-      default = "https://adguard.${config.nixosModules.reverseProxy.domain}";
-    };
-
-    icon = mkOption {
-      type = types.string;
-      # default = "adguard-home.svg";
-      default = "apps-adguard.svg";
+  options.nixosModules.server.networking.dns.adguard = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.server.networking.dns.enable;
     };
   };
 
   config = mkIf cfg.enable {
+    nixosModules.server.networking.dns.icon = mkDefault "apps-adguard.svg";
+
     services.adguardhome = {
       enable = true;
       port = cfg.ports.webui;
@@ -104,7 +66,7 @@ in {
           (rp "kavita")
           (rp "jellyseerr")
           (rp "gatus")
-          (rp "adguard")
+          (rp "dns")
           (rp "immich")
           (rp "radicale")
           (rp "ollama")

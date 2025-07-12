@@ -70,7 +70,7 @@ in {
         (rps "kavita" kavita)
         (rps "gatus" monitors.gatus)
         (rps "jellyseerr" jellyfin.jellyseerr)
-        (rps "adguard" adblock.adguard)
+        (rps "dns" server.networking.dns)
         (rps "immich" album.immich)
         (rps "radicale" caldav.radicale)
         (rps "ollama" llm.ollama.webui)

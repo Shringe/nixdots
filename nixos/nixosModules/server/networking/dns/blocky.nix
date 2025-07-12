@@ -5,7 +5,11 @@ let
   cfg = config.nixosModules.blocky;
 in {
   options.nixosModules.blocky = {
-    enable = mkEnableOption "Blocky adblocker";
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
     ports = {
       dns = mkOption {
         type = types.ports;
