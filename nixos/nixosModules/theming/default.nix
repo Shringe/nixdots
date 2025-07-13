@@ -44,6 +44,10 @@ in {
       # Skews auto-generated themes
       polarity = "dark";
 
+      targets = {
+        nixos-icons.enable = true;
+      };
+
       cursor = {
         package = pkgs.graphite-cursors;
         name = "graphite-dark-nord";
