@@ -5,6 +5,7 @@ with lib;
     ./ly.nix
     ./lightdm.nix
     ./regreet.nix
+    ./plymouth.nix
   ];
 
   options.nixosModules.boot.graphical = {

@@ -44,6 +44,12 @@ in {
       # Skews auto-generated themes
       polarity = "dark";
 
+      cursor = {
+        package = pkgs.graphite-cursors;
+        name = "graphite-dark-nord";
+        size = 24;
+      };
+
       fonts = {
         serif = {
           package = pkgs.raleway;
