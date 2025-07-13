@@ -28,6 +28,7 @@ in
     };
 
     wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
   };
 
   environment.systemPackages = lib.mkIf cfg.enable [ pkgs.openrgb-with-all-plugins ];
