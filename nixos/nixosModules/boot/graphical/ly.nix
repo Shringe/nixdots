@@ -6,7 +6,7 @@ in {
   options.nixosModules.boot.graphical.ly = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.boot.graphical.enable;
+      default = false;
     };
   };
 
