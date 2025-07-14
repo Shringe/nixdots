@@ -2,6 +2,8 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.swayidle;
+
+  lockCmd = "${pkgs.hyprlock}/bin/hyprlock";
 in {
   options.homeManagerModules.desktop.windowManagers.dwl.swayidle = {
     enable = mkOption {
@@ -20,11 +22,12 @@ in {
       enable = true;
 
       events = [
-        { event = "before-sleep"; command = "${pkgs.hyprlock}/bin/swaylock"; }
+        { event = "before-sleep"; command = lockCmd; }
+        { event = "lock"; command = lockCmd; }
       ];
 
       timeouts = [
-        { timeout = 330; command = "${pkgs.hyprlock}/bin/hyprlock"; }
+        { timeout = 330; command = lockCmd; }
         # {
         #   timeout = 300;
         #   command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
