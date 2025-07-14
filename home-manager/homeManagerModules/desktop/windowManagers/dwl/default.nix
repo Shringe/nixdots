@@ -14,7 +14,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    stylix.opacity.terminal = mkForce 0.99;
+    # Lower opacity to compensate for blur
+    stylix.opacity = {
+      terminal = mkForce 0.80;
+      desktop = mkForce 0.80;
+    };
 
     home.packages = with pkgs; [
       grim
