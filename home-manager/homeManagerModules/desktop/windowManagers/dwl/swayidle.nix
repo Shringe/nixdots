@@ -12,14 +12,15 @@ in {
 
   config = mkIf cfg.enable {
     homeManagerModules.desktop.windowManagers.utils = {
-      swaylock.enable = true;
+      hyprlock.enable = true;
+      swaylock.enable = false;
     };
 
     services.swayidle = {
       enable = true;
 
       events = [
-        { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock -f"; }
+        { event = "before-sleep"; command = "${pkgs.hyprlock}/bin/swaylock"; }
       ];
 
       timeouts = [

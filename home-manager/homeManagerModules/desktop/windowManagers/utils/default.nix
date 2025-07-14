@@ -7,5 +7,6 @@
     ./wofi.nix
     ./swaylock.nix
     ./scripts.nix
+    ./hyprlock.nix
   ];
 }
