@@ -46,8 +46,6 @@ in {
   config = mkIf cfg.enable {
     stylix.targets.hyprlock.enable = false;
 
-    home.packages = [ mediaWidget ];
-
     programs.hyprlock = {
       enable = true;
 
