@@ -15,10 +15,16 @@
 
     dwl = {
       url = "github:Shringe/dwl";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nf = {
       url = "github:Shringe/nf";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zen-browser = {
