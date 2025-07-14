@@ -7,6 +7,8 @@ in {
     ./waybar
     ./swayidle.nix
     ./swaybg.nix
+    ./wlogout.nix
+    ./walker.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl = {
