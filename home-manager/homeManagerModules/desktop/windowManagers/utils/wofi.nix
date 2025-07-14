@@ -31,11 +31,11 @@ in {
         no_actions = true;
       };
 
-      style = with config.lib.stylix.colors.withHashtag; ''
-        @define-color accent ${base07};
-        @define-color txt ${base07};
-        @define-color bg ${base01};
-        @define-color bg2 ${base00};
+      style = with config.lib.stylix.colors.withHashtag; with config.stylix.opacity; ''
+        @define-color accent  alpha(${base07}, ${toString desktop});
+        @define-color txt     alpha(${base07}, ${toString desktop});
+        @define-color bg      alpha(${base01}, ${toString desktop});
+        @define-color bg2     alpha(${base00}, ${toString desktop});
 
         * {
             font-family: "JetBrains";
