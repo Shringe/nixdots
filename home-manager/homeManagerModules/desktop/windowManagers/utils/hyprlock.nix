@@ -73,7 +73,7 @@ in {
         # -- time --
         label {
           monitor =
-          text = cmd[update:30000] echo "$(date +"%H:%M")"
+          text = cmd[update:15000] echo "$(date +"%H:%M")"
           color = rgb(${base07})
           font_size = 80
           font_family = JetBrains Mono ExtraBold
@@ -100,7 +100,7 @@ in {
         # Media Paragraph
         label {
           monitor = 
-          text = cmd[update:1000] ${mediaWidget}/bin/mediaWidget
+          text = cmd[update:100] ${mediaWidget}/bin/mediaWidget
           font_size = 20
           # font_family = JetBrains Mono Nerd Font Mono 
           font_family = JetBrains Mono Nerd Font Mono ExtraBold
