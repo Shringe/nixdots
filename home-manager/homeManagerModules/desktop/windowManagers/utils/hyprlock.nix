@@ -12,6 +12,29 @@ let
     chmod +x $out/bin/playerctlock
     wrapProgram $out/bin/playerctlock --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.playerctl pkgs.bc pkgs.coreutils pkgs.dash ]}
   '';
+
+  mediaWidget = pkgs.writers.writeNuBin "mediaWidget" ''
+    def format [artist: string, album: string, title: string, length: string, music_volume: string, system_volume: string, status: string] {
+      print $"Artist: ($artist)"
+      print $"Album:  ($album)"
+      print $"Title:  ($title)"
+      print $"Length: ($length)"
+      print ""
+      print $"Music:  ($music_volume)"
+      print $"System: ($system_volume)"
+      print $"Status: ($status)"
+    }
+
+    let data = (playerctl metadata --format "{{artist}};{{album}};{{title}};{{duration(mpris:length)}};{{status}};{{volume}}")
+    let metadata_array = ($data | split row ";")
+    let system_volume = (wpctl get-volume @DEFAULT_AUDIO_SINK@ | str replace "Volume: " "" | into float | $in * 100 | math round)
+
+    # Convert music volume to percentage and format
+    let music_volume_percent = ($metadata_array | get 5 | into float | $in * 100 | math round)
+
+    # Call the format function with the parsed data
+    format ($metadata_array | get 0) ($metadata_array | get 1) ($metadata_array | get 2) ($metadata_array | get 3) $"($music_volume_percent)%" $"($system_volume)%" ($metadata_array | get 4)
+  '';
 in {
   options.homeManagerModules.desktop.windowManagers.utils.hyprlock = {
     enable = mkOption {
@@ -22,6 +45,8 @@ in {
 
   config = mkIf cfg.enable {
     stylix.targets.hyprlock.enable = false;
+
+    home.packages = [ mediaWidget ];
 
     programs.hyprlock = {
       enable = true;
@@ -72,78 +97,91 @@ in {
           valign = center
         }
 
-        # PLAYER TITTLE
+        # Media Paragraph
         label {
-          monitor =
-          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --title)"
-          color = rgb(${base07})
-          font_size = 18
+          monitor = 
+          text = cmd[update:1000] ${mediaWidget}/bin/mediaWidget
+          font_size = 20
+          # font_family = JetBrains Mono Nerd Font Mono 
           font_family = JetBrains Mono Nerd Font Mono ExtraBold
-          position = 49%, -100
-          halign = none
-          valign = center
-        }
-
-        # PLAYER Length
-        label {
-          monitor =
-          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --length) "
           color = rgb(${base07})
-          font_size = 16
-          font_family = JetBrains Mono Nerd Font Mono 
-          position = 49%, -120
-          halign = none
-          valign = center
-        }
-
-        # PLAYER STATUS
-        label {
-          monitor =
-          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --status)"
-          color = rgb(${base07})
-          font_size = 16
-          font_family = JetBrains Mono Nerd Font Mono 
-          position = 49%, -140
-          halign = none
-          valign = center
-        }
-
-        # PLAYER SOURCE
-        label {
-          monitor =
-          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --source)"
-          color = rgb(${base07})
-          font_size = 16
-          font_family = JetBrains Mono Nerd Font Mono 
-          position = 49%, -160
-          halign = none
-          valign = center
-        }
-
-        # PLAYER Artist
-        label {
-          monitor =
-          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --artist)"
-          color = rgb(${base07})
-          font_size = 18
-          font_family = JetBrains Mono Nerd Font Mono ExtraBold
-          position = 49%, -200
-          halign = none
-          valign = center
-        }
-
-        # PLAYER ALBUM
-        label {
-          monitor =
-          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --album)"
-          color = rgb(${base07})
-          font_size = 16 
-          font_family = JetBrains Mono Nerd Font Mono
           position = 49%, -220
           halign = none
           valign = center
         }
 
+        # # PLAYER TITTLE
+        # label {
+        #   monitor =
+        #   text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --title)"
+        #   color = rgb(${base07})
+        #   font_size = 18
+        #   font_family = JetBrains Mono Nerd Font Mono ExtraBold
+        #   position = 49%, -100
+        #   halign = none
+        #   valign = center
+        # }
+        #
+        # # PLAYER Length
+        # label {
+        #   monitor =
+        #   text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --length) "
+        #   color = rgb(${base07})
+        #   font_size = 16
+        #   font_family = JetBrains Mono Nerd Font Mono 
+        #   position = 49%, -120
+        #   halign = none
+        #   valign = center
+        # }
+        #
+        # # PLAYER STATUS
+        # label {
+        #   monitor =
+        #   text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --status)"
+        #   color = rgb(${base07})
+        #   font_size = 16
+        #   font_family = JetBrains Mono Nerd Font Mono 
+        #   position = 49%, -140
+        #   halign = none
+        #   valign = center
+        # }
+        #
+        # # PLAYER SOURCE
+        # label {
+        #   monitor =
+        #   text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --source)"
+        #   color = rgb(${base07})
+        #   font_size = 16
+        #   font_family = JetBrains Mono Nerd Font Mono 
+        #   position = 49%, -160
+        #   halign = none
+        #   valign = center
+        # }
+        #
+        # # PLAYER Artist
+        # label {
+        #   monitor =
+        #   text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --artist)"
+        #   color = rgb(${base07})
+        #   font_size = 18
+        #   font_family = JetBrains Mono Nerd Font Mono ExtraBold
+        #   position = 49%, -200
+        #   halign = none
+        #   valign = center
+        # }
+        #
+        # # PLAYER ALBUM
+        # label {
+        #   monitor =
+        #   text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --album)"
+        #   color = rgb(${base07})
+        #   font_size = 16 
+        #   font_family = JetBrains Mono Nerd Font Mono
+        #   position = 49%, -220
+        #   halign = none
+        #   valign = center
+        # }
+        #
         # -- greeting --
         label {
           monitor =
