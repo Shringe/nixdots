@@ -69,7 +69,6 @@ in {
       procps
       swaynotificationcenter
       pavucontrol
-      pulseaudio
     ]}";
 
     programs.waybar = {
@@ -233,7 +232,7 @@ in {
             default = [ "" "" ];
           };
           "on-click" = "pavucontrol";
-          "on-click-right" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "on-click-right" = "wpctl set-mute @DEFAULT_SINK@ toggle";
         };
 
         "custom/leftSeparator1" = leftSeparator;
