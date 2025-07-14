@@ -155,11 +155,11 @@
         "scenefx": "scenefx"
       },
       "locked": {
-        "lastModified": 1752467060,
-        "narHash": "sha256-YDrASZwumWiJ6eBeHR5Unre/Bt5BpxYSsrxglm3F7qY=",
+        "lastModified": 1752473899,
+        "narHash": "sha256-ESgJ8S3o0ePamDlCKI2yiz4OEgrSBO1I5W1btqfT6V8=",
         "owner": "Shringe",
         "repo": "dwl",
-        "rev": "608901f5a2c7891912067467475950f5dbe12b5e",
+        "rev": "0f2e37f1de77f9f1bcf213ff74f86b684baf3fe0",
         "type": "github"
       },
       "original": {
