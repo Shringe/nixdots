@@ -3,16 +3,6 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.hyprlock;
 
-  # playerctlock = pkgs.runCommand "playerctlock" {
-  #   buildInputs = with pkgs; [ makeWrapper ];
-  # } ''
-  #   mkdir -p $out/bin
-  #   cp ${./playerctlock.sh} $out/bin/playerctlock
-  #
-  #   chmod +x $out/bin/playerctlock
-  #   wrapProgram $out/bin/playerctlock --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.playerctl pkgs.bc pkgs.coreutils pkgs.dash ]}
-  # '';
-  #
   mediaWidget = pkgs.writers.writeNuBin "mediaWidget" ''
     def format [artist: string, album: string, title: string, length: string, music_volume: string, system_volume: string, status: string] {
       print $"Artist: ($artist)"
@@ -62,10 +52,6 @@ in {
             monitor = 
             path = ${config.homeManagerModules.theming.wallpapers.secondary}
             blur_passes = 2
-            # contrast = 0.8916
-            # brightness = 0.7172
-            # vibrancy = 0.1696
-            # vibrancy_darkness = 0
         }
 
         # -- time --
@@ -84,7 +70,6 @@ in {
         image {
           monitor =
           path = 
-          # size = 60 # lesser side if not 1:1 ratio
           size = 300
           rounding = 10
           border_size = 0
@@ -132,10 +117,8 @@ in {
           fail_color  = rgb(${base08})
           check_color = rgb(${base0A})
           fade_on_empty = false
-          # placeholder_text = <span foreground='white'><i>unlock the magic...</i></span> 
           placeholder_text =  $USER
           hide_input = false
-          # position = 0, -50
           position = 0, -470
           halign = center
           valign = center
