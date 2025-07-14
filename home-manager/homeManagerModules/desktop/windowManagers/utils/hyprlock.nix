@@ -1,7 +1,17 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.hyprlock;
+
+  playerctlock = pkgs.runCommand "playerctlock" {
+    buildInputs = with pkgs; [ makeWrapper ];
+  } ''
+    mkdir -p $out/bin
+    cp ${./playerctlock.sh} $out/bin/playerctlock
+
+    chmod +x $out/bin/playerctlock
+    wrapProgram $out/bin/playerctlock --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.playerctl pkgs.bc pkgs.coreutils pkgs.dash ]}
+  '';
 in {
   options.homeManagerModules.desktop.windowManagers.utils.hyprlock = {
     enable = mkOption {
@@ -11,31 +21,28 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # stylix.targets.hyprlock.useWallpaper = false;
     stylix.targets.hyprlock.enable = false;
-    # programs.hyprlock.settings.image = config.homeManagerModules.theming.wallpapers.secondary;
 
     programs.hyprlock = {
       enable = true;
 
-      # settings = {
-      #   background = {
-      #     path = toString config.homeManagerModules.theming.wallpapers.secondary;
-      #     blur_passes = 1;
-      #   };
-      # };
-
       # The module seemed to generate config errors with some options
       extraConfig = with config.lib.stylix.colors; ''
+        # GENERAL
         general {
-          hide_cursor = false
-          grace = 0
+          hide_cursor = true
+          ignore_empty_input = true
         }
 
+        # BACKGROUND
         background {
-          monitor =
-          path = ${config.homeManagerModules.theming.wallpapers.secondary}
-          blur_passes = 1
+            monitor = 
+            path = ${config.homeManagerModules.theming.wallpapers.secondary}
+            blur_passes = 1
+            # contrast = 0.8916
+            # brightness = 0.7172
+            # vibrancy = 0.1696
+            # vibrancy_darkness = 0
         }
 
         # -- time --
@@ -45,20 +52,95 @@ in {
           color = rgb(${base07})
           font_size = 80
           font_family = JetBrains Mono ExtraBold
-          position = 0, 200
+          position = 0, 100
           halign = center
           valign = center
         }
 
-        # -- quote --
+        # Album Art
+        image {
+          monitor =
+          path = 
+          # size = 60 # lesser side if not 1:1 ratio
+          size = 300
+          rounding = 10
+          border_size = 0
+          reload_time = 2
+          reload_cmd = ${playerctlock}/bin/playerctlock --arturl
+          position = -190, -220
+          halign = center
+          valign = center
+        }
+
+        # PLAYER TITTLE
         label {
           monitor =
-          text = - PAIN IS REAL, BUT SO IS HOPE -
-          color = rgb(${base06})
-          font_size = 12
-          font_family = JetBrains Mono ExtraLight
-          position = 0, 80
-          halign = center
+          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --title)"
+          color = rgb(${base07})
+          font_size = 18
+          font_family = JetBrains Mono Nerd Font Mono ExtraBold
+          position = 49%, -100
+          halign = none
+          valign = center
+        }
+
+        # PLAYER Length
+        label {
+          monitor =
+          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --length) "
+          color = rgb(${base07})
+          font_size = 16
+          font_family = JetBrains Mono Nerd Font Mono 
+          position = 49%, -120
+          halign = none
+          valign = center
+        }
+
+        # PLAYER STATUS
+        label {
+          monitor =
+          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --status)"
+          color = rgb(${base07})
+          font_size = 16
+          font_family = JetBrains Mono Nerd Font Mono 
+          position = 49%, -140
+          halign = none
+          valign = center
+        }
+
+        # PLAYER SOURCE
+        label {
+          monitor =
+          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --source)"
+          color = rgb(${base07})
+          font_size = 16
+          font_family = JetBrains Mono Nerd Font Mono 
+          position = 49%, -160
+          halign = none
+          valign = center
+        }
+
+        # PLAYER Artist
+        label {
+          monitor =
+          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --artist)"
+          color = rgb(${base07})
+          font_size = 18
+          font_family = JetBrains Mono Nerd Font Mono ExtraBold
+          position = 49%, -200
+          halign = none
+          valign = center
+        }
+
+        # PLAYER ALBUM
+        label {
+          monitor =
+          text = cmd[update:1000] echo "$(${playerctlock}/bin/playerctlock --album)"
+          color = rgb(${base07})
+          font_size = 16 
+          font_family = JetBrains Mono Nerd Font Mono
+          position = 49%, -220
+          halign = none
           valign = center
         }
 
@@ -74,21 +156,23 @@ in {
           valign = center
         }
 
-        # -- password input --
         input-field {
           monitor =
-          size = 230, 40
-          outline_thickness = 0
+          size = 300, 60
+          outline_thickness = 4
           dots_size = 0.2 
           dots_spacing = 0.4 
           dots_center = true
           inner_color = rgb(${base01})
-          font_color = rgb(${base07})
+          font_color  = rgb(${base07})
+          fail_color  = rgb(${base08})
+          check_color = rgb(${base0A})
           fade_on_empty = false
-          placeholder_text = <span foreground='white'><i>unlock the magic...</i></span> 
-          fail_color = rgb(${base07})
+          # placeholder_text = <span foreground='white'><i>unlock the magic...</i></span> 
+          placeholder_text =  $USER
           hide_input = false
-          position = 0, -50
+          # position = 0, -50
+          position = 0, -470
           halign = center
           valign = center
         }
