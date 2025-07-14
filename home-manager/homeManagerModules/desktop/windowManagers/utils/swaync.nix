@@ -19,8 +19,7 @@ in {
       coreutils
       procps
       scripts.toggleGammastep
-      sway
-      swaylock
+      hyprlock
     ]}";
 
     services.swaync = mkIf cfg.enable {
@@ -102,12 +101,12 @@ in {
               }
               {
                 label = "󰌾";
-                command = "swaylock";
+                command = "hyprlock";
               }
-              {
-                label = "󰍃";
-                command = "swaymsg exit";
-              }
+              # {
+              #   label = "󰍃";
+              #   command = "swaymsg exit";
+              # }
               {
                 label = "󰤄";
                 type = "toggle";
