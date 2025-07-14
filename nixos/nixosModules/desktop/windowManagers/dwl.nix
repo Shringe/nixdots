@@ -17,7 +17,11 @@ in {
       dwl
     ];
 
-    security.pam.services.swaylock = {};
+    security.pam.services = {
+      # swaylock = {};
+      hyprlock = {};
+    };
+
 
     services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
   };

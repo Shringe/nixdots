@@ -28,17 +28,13 @@ in {
       wofi.enable = true;
       swaync.enable = true;
       cliphist.enable = true;
-      swaylock.enable = false;
-      hyprlock.enable = true;
     };
 
     systemd.user.targets.dwl-session.Unit = {
       Description = "dwl compositor session";
       Documentation = [ "man:systemd.special(7)" ];
       BindsTo = [ "graphical-session.target" ];
-      Wants = [
-        "graphical-session-pre.target"
-      ];
+      Wants = [ "graphical-session-pre.target" ];
       After = [ "graphical-session-pre.target" ];
     };
   };

@@ -6,7 +6,7 @@ in {
   options.homeManagerModules.desktop.windowManagers.utils.swaylock = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.enable;
+      default = mkDefault config.homeManagerModules.desktop.windowManagers.enable;
     };
   };
 
