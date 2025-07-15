@@ -45,6 +45,7 @@ in {
         general {
           hide_cursor = true
           ignore_empty_input = true
+          grace = 5
         }
 
         # BACKGROUND
