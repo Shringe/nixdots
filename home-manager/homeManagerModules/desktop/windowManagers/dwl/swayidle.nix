@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.swayidle;
 
-  lockCmd = "${pkgs.hyprlock}/bin/hyprlock";
+  lockCmd = "${pkgs.procps}/bin/pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
 in {
   options.homeManagerModules.desktop.windowManagers.dwl.swayidle = {
     enable = mkOption {
@@ -27,12 +27,12 @@ in {
       ];
 
       timeouts = [
-        { timeout = 330; command = lockCmd; }
-        # {
-        #   timeout = 300;
-        #   command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
-        #   resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
-        # }
+        { timeout = 300; command = lockCmd; }
+        {
+          timeout = 330;
+          command = "${pkgs.wlopm}/bin/wlopm --off '*'";
+          resumeCommand = "${pkgs.wlopm}/bin/wlopm --on '*'";
+        }
         {
           timeout = 180;
           command = "${pkgs.brightnessctl}/bin/brightnessctl s 80%-";
