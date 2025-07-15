@@ -78,5 +78,9 @@ in {
       onlySSL = true;
       useACMEHost = domain;
     };
+
+    systemd.services.nextcloud-setup.serviceConfig = {
+      RequiresMountsFor = [ cfg.directory ];
+    };
   };
 }
