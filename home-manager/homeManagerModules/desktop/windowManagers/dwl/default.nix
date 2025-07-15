@@ -33,6 +33,7 @@ in {
       wofi.enable = true;
       swaync.enable = true;
       cliphist.enable = true;
+      swayosd.enable = true;
     };
 
     systemd.user.targets.dwl-session.Unit = {
