@@ -13,15 +13,22 @@ in {
   config = mkIf cfg.enable {
     # Needed for hacky desktop entry
     environment.systemPackages = with pkgs; [
-    #   sdwl
       dwl
     ];
 
-    security.pam.services = {
-      # swaylock = {};
-      hyprlock = {};
+    security = {
+      pam.services.hyprlock = {};
+      rtkit.enable = true; # For real time audio
     };
 
+    xdg.portal = {
+      enable = true;
+      config.common.default = [ "wlr" ];
+
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+      ];
+    };
 
     services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
   };
