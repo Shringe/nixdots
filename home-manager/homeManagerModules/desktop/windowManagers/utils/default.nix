@@ -8,5 +8,6 @@
     ./swaylock.nix
     ./scripts.nix
     ./hyprlock.nix
+    ./swayosd.nix
   ];
 }
