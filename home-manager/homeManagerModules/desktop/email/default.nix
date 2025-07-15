@@ -85,7 +85,7 @@ in {
     };
 
     services = {
-      mbsync.enable = true;
+      # mbsync.enable = true;
     };
   };
 }

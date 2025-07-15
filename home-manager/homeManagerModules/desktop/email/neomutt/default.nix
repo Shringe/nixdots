@@ -1,7 +1,9 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.email.neomutt;
+
+  syncIntervalSeconds = 30;
 in {
   options.homeManagerModules.desktop.email.neomutt = {
     enable = mkOption {
@@ -22,23 +24,71 @@ in {
       "ldeamicis12@gmail.com".neomutt.enable = true;
     };
 
+    systemd.user = {
+      services.mailSync = {
+        Unit = {
+          Description = "Mailbox synchronization";
+          After = [ "network-online.target" ];
+        };
+
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.isync}/bin/mbsync -a";
+
+          # Needed for mbsync
+          Environment = with pkgs; "PATH=$PATH:${makeBinPath [
+            coreutils
+            isync
+          ]}";
+        };
+      };
+
+      timers.mailSync = {
+        Unit = {
+          Description = "Run mbsync every ${toString syncIntervalSeconds} seconds";
+          Requires = [ "mailSync.service" ];
+        };
+
+        Timer = {
+          OnCalendar = "*:*:0/${toString syncIntervalSeconds}";
+          Persistent = true;
+        };
+      };
+    };
+
+    xdg.configFile."mailcap".text = ''
+      # Text formats
+      text/html; ${pkgs.lynx}/bin/lynx -dump %s; nametemplate=%s.html; copiousoutput
+      text/plain; ${pkgs.less}/bin/less %s; needsterminal
+
+      # Documents
+      application/pdf; ${pkgs.zathura}/bin/zathura %s
+      application/pdf; ${pkgs.poppler_utils}/bin/pdftotext %s -; copiousoutput
+
+      # Images
+      image/*; ${pkgs.feh}/bin/feh %s
+    '';
+
     programs.neomutt = {
       enable = true;
-      vimKeys = false;
-      # checkStatsInterval = 60;
-      # sidebar = {
-      #   enable = true;
-      #   width = 30;
-      # };
-
-      # extraConfig = builtins.readFile ./themes/${cfg.theme};
+      vimKeys = false; # Breaks things
 
       # Inspired by 
       # https://seniormars.com/posts/neomutt/
       extraConfig = concatStrings [ ''
         set editor = "nvim"
 
-        #sidebar
+        # Sync mailbox automatically
+        startup-hook '`systemctl --user start mailSync.timer`'
+        shutdown-hook '`systemctl --user stop mailSync.timer`'
+        set mail_check = ${toString syncIntervalSeconds}
+
+        # Mailcap for MIME types
+        set mailcap_path = "~/.config/mailcap"
+        auto_view text/html
+        alternative_order text/plain text/html
+
+        # sidebar
         set sidebar_visible # comment to disable sidebar by default
         set sidebar_short_path
         set sidebar_folder_indent
@@ -56,8 +106,7 @@ in {
         set menu_scroll                      # scroll menu
         set tilde                            # use ~ to pad mutt
         set move=no                          # don't move messages when marking as read
-        set mail_check = 30                  # check for new mail every 30 seconds
-        set imap_keepalive = 900             # 15 minutes
+        # set imap_keepalive = 900             # 15 minutes
         set sleep_time = 0                   # don't sleep when idle
         set wait_key = no		     # mutt won't ask "press key to continue"
         set envelope_from                    # which from?

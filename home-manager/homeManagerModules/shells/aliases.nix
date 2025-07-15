@@ -13,5 +13,6 @@
     du = "dust";
     # find = "fd";
     cat = "bat";
+    watch = "watch -c";
   };
 }
