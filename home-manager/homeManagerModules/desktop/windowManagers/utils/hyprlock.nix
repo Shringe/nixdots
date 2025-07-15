@@ -15,9 +15,9 @@ let
       print $"Status: ($status)"
     }
 
-    let data = (playerctl metadata --format "{{artist}};{{album}};{{title}};{{duration(mpris:length)}};{{status}};{{volume}}")
+    let data = (${pkgs.playerctl}/bin/playerctl metadata --format "{{artist}};{{album}};{{title}};{{duration(mpris:length)}};{{status}};{{volume}}")
     let metadata_array = ($data | split row ";")
-    let system_volume = (wpctl get-volume @DEFAULT_AUDIO_SINK@ | str replace "Volume: " "" | into float | $in * 100 | math round)
+    let system_volume = (${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | str replace "Volume: " "" | into float | $in * 100 | math round)
 
     # Convert music volume to percentage and format
     let music_volume_percent = ($metadata_array | get 5 | into float | $in * 100 | math round)
@@ -49,15 +49,15 @@ in {
 
         # BACKGROUND
         background {
-            monitor = 
-            path = ${config.homeManagerModules.theming.wallpapers.secondary}
-            blur_passes = 2
+          monitor = 
+          path = ${config.homeManagerModules.theming.wallpapers.secondary}
+          blur_passes = 2
         }
 
         # -- time --
         label {
           monitor =
-          text = cmd[update:15000] echo "$(date +"%H:%M")"
+          text = cmd[update:15000] ${pkgs.coreutils}/bin/echo "$(${pkgs.coreutils}/bin/date +"%H:%M")"
           color = rgb(${base07})
           font_size = 80
           font_family = JetBrains Mono ExtraBold
@@ -74,7 +74,7 @@ in {
           rounding = 10
           border_size = 0
           reload_time = 2
-          reload_cmd = playerctl metadata mpris:artUrl
+          reload_cmd = ${pkgs.playerctl}/bin/playerctl metadata mpris:artUrl
           position = -190, -220
           halign = center
           valign = center
