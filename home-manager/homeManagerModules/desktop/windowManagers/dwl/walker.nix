@@ -10,8 +10,8 @@ in {
   options.homeManagerModules.desktop.windowManagers.dwl.walker = {
     enable = mkOption {
       type = types.bool;
-      # default = config.homeManagerModules.desktop.windowManagers.dwl.enable;
-      default = false;
+      default = config.homeManagerModules.desktop.windowManagers.dwl.enable;
+      # default = false;
     };
   };
 

@@ -26,7 +26,6 @@ in {
       grim
       slurp
       playerctl
-      # libpulseaudio
       brightnessctl
     ];
 
