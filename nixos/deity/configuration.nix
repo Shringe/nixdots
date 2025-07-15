@@ -38,6 +38,9 @@
     drives = {
       backups1.enable = true;
     };
+    
+    # btrfs send/receive seems to be creating more errors on bad disk
+    # backups.btrbk.enable = true;
 
     players.mpv.enable = true;
 
@@ -46,7 +49,6 @@
     gps.traccar.enable = true;
 
     album.immich.enable = true;
-    backups.btrbk.enable = true;
     kavita.enable = true;
     groceries.tandoor.enable = true;
 
