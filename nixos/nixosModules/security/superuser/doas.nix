@@ -14,7 +14,10 @@ in {
   config = mkMerge [
     # Add users to wheel group only when doas is disabled
     (mkIf (!cfg.enable) {
-      security.sudo.enable = true;
+      security = {
+        sudo.enable = mkForce true;
+        doas.enable = mkForce false;
+      };
 
       users.users = with config.nixosModules.users; mkMerge [
         (mkIf shringe.enable {
@@ -27,14 +30,25 @@ in {
     })
     
     (mkIf cfg.enable {
-      # Allow NixOS configuration to build if no users are a part of the wheel group
-      users.allowNoPasswordLogin = true;
+      users = {
+        # Allow NixOS configuration to build if no users are a part of the wheel group
+        allowNoPasswordLogin = true;
+
+        users = with config.nixosModules.users; mkMerge [
+          (mkIf shringe.enable {
+            # shringe.extraGroups = [ "systemd-journal" ];
+          })
+          (mkIf shringed.enable {
+            shringed.extraGroups = [ "systemd-journal" ];
+          })
+        ];
+      };
 
       security = {
-        sudo.enable = false;
+        sudo.enable = mkForce false;
 
         doas = {
-          enable = true;
+          enable = mkForce true;
 
           extraRules = with config.nixosModules.users; [
             {
