@@ -6,18 +6,36 @@ in {
   options.nixosModules.security.superuser.doas = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.security.superuser.enable;
-      # default = false;
+      # default = config.nixosModules.security.superuser.enable;
+      default = false;
+    };
+
+    useSudoRs = mkOption {
+      type = types.bool;
+      default = true;
+      description = "If sudo is enabled, then use sudo-rs instead.";
     };
   };
 
   config = mkMerge [
     # Add users to wheel group only when doas is disabled
     (mkIf (!cfg.enable) {
-      security = {
-        sudo.enable = mkForce true;
-        doas.enable = mkForce false;
-      };
+      security = mkMerge [
+        {
+          doas.enable = mkForce false;
+          please.enable = mkForce false;
+        }
+
+        (mkIf (!cfg.useSudoRs) {
+          sudo.enable = mkForce true;
+          sudo-rs.enable = mkForce false;
+        })
+
+        (mkIf cfg.useSudoRs {
+          sudo.enable = mkForce false;
+          sudo-rs.enable = mkForce true;
+        })
+      ];
 
       users.users = with config.nixosModules.users; mkMerge [
         (mkIf shringe.enable {
@@ -46,6 +64,8 @@ in {
 
       security = {
         sudo.enable = mkForce false;
+        sudo-rs.enable = mkForce false;
+        please.enable = mkForce false;
 
         doas = {
           enable = mkForce true;
