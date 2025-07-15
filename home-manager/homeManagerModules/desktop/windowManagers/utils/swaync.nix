@@ -20,6 +20,7 @@ in {
       procps
       scripts.toggleGammastep
       hyprlock
+      wlogout
     ]}";
 
     services.swaync = mkIf cfg.enable {
@@ -41,6 +42,8 @@ in {
         timeout = 3;
         timeout-low = 2;
         timeout-critical = 5;
+
+        normal_window = true;
 
         fit-to-screen = false;
         control-center-width = 500;
@@ -103,10 +106,10 @@ in {
                 label = "󰌾";
                 command = "hyprlock";
               }
-              # {
-              #   label = "󰍃";
-              #   command = "swaymsg exit";
-              # }
+              {
+                label = "󰍃";
+                command = "wlogout";
+              }
               {
                 label = "󰤄";
                 type = "toggle";

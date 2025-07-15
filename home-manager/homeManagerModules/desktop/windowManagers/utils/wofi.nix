@@ -32,10 +32,10 @@ in {
       };
 
       style = with config.lib.stylix.colors.withHashtag; with config.stylix.opacity; ''
-        @define-color accent  alpha(${base07}, ${toString desktop});
-        @define-color txt     alpha(${base07}, ${toString desktop});
-        @define-color bg      alpha(${base01}, ${toString desktop});
-        @define-color bg2     alpha(${base00}, ${toString desktop});
+        @define-color accent  alpha(${base07}, 0.3);
+        @define-color txt     alpha(${base07}, 0.3);
+        @define-color bg      alpha(${base01}, 0.3);
+        @define-color bg2     alpha(${base00}, 0.3);
 
         * {
             font-family: "JetBrains";
