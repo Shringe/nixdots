@@ -7,12 +7,12 @@
     ns = "nf shell";
     nd = "nf develop";
 
-    rcp = "rcp --progress";
+    # rcp = "rcp --progress";
     # grep = "ripgrep";
-    df = "duf";
-    du = "dust";
+    # df = "duf";
+    # du = "dust";
     # find = "fd";
-    cat = "bat";
-    watch = "watch -c";
+    # cat = "bat";
+    # watch = "watch -c";
   };
 }
