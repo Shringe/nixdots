@@ -10,7 +10,6 @@ with lib;
     ./sops
     ./users
     ./mouse
-    ./openrgb
     ./drivers
     ./llm
     ./packages
@@ -53,6 +52,7 @@ with lib;
     ./server
     ./theming
     ./boot
+    ./hardware
   ];
 
   options.nixosModules = {
@@ -91,10 +91,6 @@ with lib;
         enable = mkEnableOption "Default gpt4all";
         cuda = mkEnableOption "Use Cuda";
       };
-    };
-
-    openrgb = {
-      enable = mkEnableOption "OpenRGB";
     };
 
     drivers = {
