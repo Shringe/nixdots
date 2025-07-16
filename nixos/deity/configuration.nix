@@ -145,7 +145,9 @@
       games.enable = true;
     };
 
-    openrgb.enable = true;
+    hardware = {
+      openrgb.enable = true;
+    };
 
     drivers.nvidia.enable = true;
 

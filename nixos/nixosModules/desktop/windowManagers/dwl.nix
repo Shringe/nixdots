@@ -11,10 +11,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Needed for hacky desktop entry
-    environment.systemPackages = with pkgs; [
-      dwl
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        dwl
+      ];
+
+      sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+      };
+    };
 
     security = {
       pam.services.hyprlock = {};
@@ -24,6 +29,7 @@ in {
     xdg.portal = {
       enable = true;
       config.common.default = [ "wlr" ];
+      xdgOpenUsePortal = true;
 
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
