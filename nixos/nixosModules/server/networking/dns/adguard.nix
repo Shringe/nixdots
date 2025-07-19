@@ -84,6 +84,7 @@ in {
           (rp "ourshoppinglist")
           (rp "traccar")
           (rp "wallos")
+          (rp "paperless")
         ];
 
         filtering = {
