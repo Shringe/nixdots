@@ -13,7 +13,6 @@ with lib;
     ./drivers
     ./llm
     ./packages
-    ./printing
     ./bluetooth
     ./firewall
     ./vpn
@@ -80,10 +79,6 @@ with lib;
 
     bluetooth = {
       enable = mkEnableOption "Bluetooth configuration";
-    };
-
-    printing = {
-      enable = mkEnableOption "Printer configuration";
     };
 
     llm = {
