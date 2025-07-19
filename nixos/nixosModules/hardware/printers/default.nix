@@ -2,7 +2,7 @@
 with lib;
 {
   imports = [
-    ./brotherhl2280dw.nix
+    ./brother.nix
   ];
 
   options.nixosModules.hardware.printers = {
