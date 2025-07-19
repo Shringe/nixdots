@@ -13,7 +13,23 @@ in
   };
 
   programs = lib.mkIf cfg.enable {
-    gamescope.enable = true;
+    gamescope = {
+      enable = true;
+
+      # Asks for setuid right now?
+      # capSysNice = true;
+
+      # Doesn't seem to work either?
+      # args = [
+      #   "-W 3440"
+      #   "-H 1440" 
+      #   "-r 175"
+      #   "-f"
+      #   "--adaptive-sync"
+      #   "--mangoapp"
+      # ];
+    };
+
     steam = {
       enable = true;
       extraCompatPackages = with pkgs; [
@@ -28,8 +44,4 @@ in
     xone.enable = true;
     graphics.enable32Bit = true;
   };
-
-  environment.systemPackages = lib.mkIf cfg.enable [
-    # pkgs.proton-ge-bin
-  ];
 }
