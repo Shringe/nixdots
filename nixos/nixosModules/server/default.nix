@@ -5,6 +5,7 @@ with lib;
     ./router
     ./ssh
     ./networking
+    ./services
   ];
 
   options.nixosModules.server = {

@@ -28,7 +28,7 @@
         subvolume = {
           "_active/local" = {};
           "_active/critical" = {
-            target = "/mnt/btr/backups/smedia1";
+            # target = "/mnt/btr/backups/smedia1";
           };
         };
       };
