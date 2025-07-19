@@ -77,6 +77,7 @@ in {
           (mkMonitor "Matrix" social.matrix.conduit)
           (mkMonitor "Traccar" gps.traccar)
           (mkMonitor "Wallos" docker.wallos)
+          (mkMonitor "Paperless" server.services.paperless)
         ];
       };
     };

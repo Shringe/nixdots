@@ -2,11 +2,18 @@
 with lib;
 let
   cfg = config.nixosModules.server.services.paperless;
+
+  domain = config.nixosModules.reverseProxy.domain;
 in {
   options.nixosModules.server.services.paperless = {
     enable = mkOption {
       type = types.bool;
       default = config.nixosModules.server.services.enable;
+    };
+
+    host = mkOption {
+      type = types.str;
+      default = config.nixosModules.info.system.ips.local;
     };
 
     port = mkOption {
@@ -21,12 +28,12 @@ in {
 
     url = mkOption {
       type = types.string;
-      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+      default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
       type = types.string;
-      default = "https://paperless.${config.nixosModules.reverseProxy.domain}";
+      default = "https://paperless.${domain}";
     };
 
     icon = mkOption {
@@ -40,10 +47,19 @@ in {
 
     services.paperless = {
       enable = true;
-      address = config.nixosModules.info.system.ips.local;
+      address = cfg.host;
       port = cfg.port;
-
       passwordFile = config.sops.secrets."server/services/paperless".path;
+
+      settings = {
+        USE_X_FORWARD_PORT = true;
+        USE_X_FORWARD_HOST = true;
+        PAPERLESS_PROXY_SSL_HEADER = [ "HTTP_X_FORWARDED_PROTO" "https" ];
+
+        PAPERLESS_URL = cfg.furl;
+        PAPERLESS_CSRF_TRUSTED_ORIGINS = cfg.furl;
+        PAPERLESS_ALLOWED_HOSTS = "paperless.${domain}";
+      };
     };
   };
 }
