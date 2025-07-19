@@ -40,7 +40,7 @@
     };
     
     # btrfs send/receive seems to be creating more errors on bad disk
-    # backups.btrbk.enable = true;
+    backups.btrbk.enable = true;
 
     players.mpv.enable = true;
 

@@ -36,6 +36,7 @@ in {
           password = "{{HOMEPAGE_VAR_NEXTCLOUD}}";
         };
       }
+      ++ mkService "Paperless" server.services.paperless {}
       ++ mkService "File Browser" filebrowser {}
       ++ mkService "Radicale" caldav.radicale {}
       ++ mkService "Immich" album.immich {

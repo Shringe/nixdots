@@ -12,7 +12,7 @@ in {
 
     useSudoRs = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "If sudo is enabled, then use sudo-rs instead.";
     };
   };
