@@ -147,6 +147,7 @@
 
     hardware = {
       openrgb.enable = true;
+      printers.enable = true;
     };
 
     drivers.nvidia.enable = true;
