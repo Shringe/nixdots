@@ -12,7 +12,10 @@ in {
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl = {
-    enable = mkEnableOption "Dwl";
+    enable = mkOption {
+      type = types.bool;
+      default = config.homeManagerModules.desktop.windowManagers.enable;
+    };
   };
 
   config = mkIf cfg.enable {
