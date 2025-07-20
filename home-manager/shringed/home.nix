@@ -24,7 +24,7 @@
       office.enable = true;
       windowManagers = {
         enable = true;
-        dwl.enable = true;
+        utils.openrgb.enable = true;
       };
       email.enable = true;
     };

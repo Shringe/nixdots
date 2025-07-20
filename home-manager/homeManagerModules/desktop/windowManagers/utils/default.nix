@@ -9,5 +9,6 @@
     ./scripts.nix
     ./hyprlock.nix
     ./swayosd.nix
+    ./openrgb.nix
   ];
 }
