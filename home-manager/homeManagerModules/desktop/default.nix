@@ -14,6 +14,7 @@ in {
     ./kdeconnect
     ./apps
     ./matrix
+    ./printing
   ];
 
   options.homeManagerModules.desktop = {

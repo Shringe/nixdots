@@ -47,6 +47,7 @@ in {
       targets = {
         nixos-icons.enable = true;
         qt.enable = true;
+        kde.enable = true;
       };
 
       cursor = {

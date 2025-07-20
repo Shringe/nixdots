@@ -13,8 +13,23 @@ in {
   config = mkIf cfg.enable {
     services.printing = {
       enable = true;
+      webInterface = false;
 
       drivers = [ pkgs.brlaser ];
+    };
+
+    # Scanning
+    hardware.sane = {
+      enable = true;
+
+      brscan4 = {
+        enable = true;
+
+        # netDevices.brother = {
+        #   model = "Brother-HL-2280DW";
+        #   ip = "192.168.0.219";
+        # };
+      };
     };
   };
 }
