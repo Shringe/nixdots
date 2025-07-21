@@ -38,8 +38,27 @@
       {
         mode = "n";
         key = "<leader>a";
-        # options.silent = true;
         action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>gd";
+        action = "<cmd>lua vim.lsp.buf.definition()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>gr";
+        action = "<cmd>lua vim.lsp.buf.references()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>gi";
+        action = "<cmd>lua vim.lsp.buf.implementation()<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>gt";
+        action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
       }
     ];
   };
