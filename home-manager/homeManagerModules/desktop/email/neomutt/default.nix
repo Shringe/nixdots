@@ -4,6 +4,22 @@ let
   cfg = config.homeManagerModules.desktop.email.neomutt;
 
   syncIntervalSeconds = 30;
+
+  mailSync = pkgs.writeShellApplication {
+    name = "mailSync";
+    runtimeInputs = with pkgs; [
+      isync
+      coreutils
+    ];
+
+    text = ''
+      mbsync new &
+      mbsync old &
+      mbsync school &
+      mbsync college &
+      wait
+    '';
+  };
 in {
   options.homeManagerModules.desktop.email.neomutt = {
     enable = mkOption {
@@ -18,10 +34,15 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = [
+      mailSync
+    ];
+
     accounts.email.accounts = {
-      "dashingkoso@deamicis.top".neomutt.enable = true;
-      "dashingkoso@gmail.com".neomutt.enable = true;
-      "ldeamicis12@gmail.com".neomutt.enable = true;
+      "new".neomutt.enable = true;
+      "old".neomutt.enable = true;
+      "school".neomutt.enable = true;
+      "college".neomutt.enable = true;
     };
 
     systemd.user = {
@@ -33,13 +54,7 @@ in {
 
         Service = {
           Type = "oneshot";
-          ExecStart = "${pkgs.isync}/bin/mbsync -a";
-
-          # Needed for mbsync
-          Environment = with pkgs; "PATH=$PATH:${makeBinPath [
-            coreutils
-            isync
-          ]}";
+          ExecStart = "${mailSync}/bin/mailSync";
         };
       };
 
@@ -71,7 +86,7 @@ in {
 
     programs.neomutt = {
       enable = true;
-      vimKeys = false; # Breaks things
+      vimKeys = true; # Breaks things
 
       # Inspired by 
       # https://seniormars.com/posts/neomutt/
@@ -79,9 +94,17 @@ in {
         set editor = "nvim"
 
         # Sync mailbox automatically
-        startup-hook '`systemctl --user start mailSync.timer`'
-        shutdown-hook '`systemctl --user stop mailSync.timer`'
+        # startup-hook '`systemctl --user start mailSync.timer`'
+        # shutdown-hook '`systemctl --user stop mailSync.timer`'
         set mail_check = ${toString syncIntervalSeconds}
+
+        # Notmuch
+        # set query_command = "notmuch address %s"
+        set query_command = "echo "" && notmuch address from:/%s/"
+
+        set query_format="%4c %t %-70.70a %-70.70n %?e?(%e)?"
+        bind editor <Tab> complete-query
+        bind editor ^T complete
 
         # Mailcap for MIME types
         set mailcap_path = "~/.config/mailcap"
@@ -89,14 +112,12 @@ in {
         alternative_order text/plain text/html
 
         # sidebar
-        set sidebar_visible # comment to disable sidebar by default
-        set sidebar_short_path
-        set sidebar_folder_indent
-        set sidebar_format = "%D %* [%?N?%N / ?%S]"
+        set sidebar_visible = yes
+        set sidebar_width = 22
+        set sidebar_short_path = yes
+        set sidebar_next_new_wrap = yes
         set mail_check_stats
-        bind index,pager \CJ sidebar-prev
-        bind index,pager \CK sidebar-next
-        bind index,pager \CE sidebar-open
+        set sidebar_format = '%B%?F? [%F]?%* %?N?%N/? %?S?%S?'
         bind index,pager B sidebar-toggle-visible
 
         # settings
