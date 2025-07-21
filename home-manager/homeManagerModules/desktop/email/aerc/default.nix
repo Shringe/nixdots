@@ -18,9 +18,9 @@ in {
 
   config = mkIf cfg.enable {
     accounts.email.accounts = {
-      "dashingkoso@deamicis.top".aerc.enable = true;
-      "dashingkoso@gmail.com".aerc.enable = true;
-      "ldeamicis12@gmail.com".aerc.enable = true;
+      "new".aerc.enable = true;
+      "old".aerc.enable = true;
+      "school".aerc.enable = true;
     };
 
     programs.aerc = {
