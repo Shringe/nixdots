@@ -546,11 +546,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1750980534,
-        "narHash": "sha256-NEzmI5VAE9O/Zu0HfZ8tX57TxzuNI+cj72u8AkVgF/c=",
+        "lastModified": 1753509759,
+        "narHash": "sha256-ztP/t328N3f0yNkkujBshcDFQWcjqybOAEnlmc9B1cE=",
         "owner": "Shringe",
         "repo": "nf",
-        "rev": "944317882f3235c771a5f063798feaabcc43115f",
+        "rev": "b23dd4e4d5b0b57fdae4b3720816a42316f68843",
         "type": "github"
       },
       "original": {

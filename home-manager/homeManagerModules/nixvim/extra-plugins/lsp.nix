@@ -60,6 +60,11 @@
         key = "<leader>gt";
         action = "<cmd>lua vim.lsp.buf.type_definition()<CR>";
       }
+      {
+        mode = "n";
+        key = "<leader>rn";
+        action = "<cmd>lua vim.lsp.buf.rename()<CR>";
+      }
     ];
   };
 }
