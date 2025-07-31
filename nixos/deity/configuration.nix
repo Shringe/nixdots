@@ -37,6 +37,7 @@
 
     drives = {
       backups1.enable = true;
+      smedia2.enable = true;
     };
     
     # btrfs send/receive seems to be creating more errors on bad disk
