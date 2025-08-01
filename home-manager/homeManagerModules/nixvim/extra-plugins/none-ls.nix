@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins.none-ls = {
-    enable = true;
+    enable = false;
     sources = {
       diagnostics = {
         mypy.enable = true;

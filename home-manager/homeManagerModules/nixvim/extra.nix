@@ -17,7 +17,7 @@ in {
     home.packages = with pkgs; [
       # Python scripting environment
       (python3.withPackages (ps: with ps; [
-        # typer
+        typer
       ]))
     ];
 
