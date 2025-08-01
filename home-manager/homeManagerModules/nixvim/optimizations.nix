@@ -13,9 +13,10 @@
       nvimRuntime = true;
       plugins = true;
     };
+
     # Currently shows ~12ms decrease with 5 plugins 
     combinePlugins = {
-      enable = true;
+      # enable = true; # Currently with on blink-cmp
       standalonePlugins = [
         "nvim-treesitter"
       ];
