@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.nixvim.extra;
@@ -14,6 +14,13 @@ in {
   # TODO
   # This is mostly just much of my command line tooling now. I should probably refactor.
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      # Python scripting environment
+      (python3.withPackages (ps: with ps; [
+        # typer
+      ]))
+    ];
+
     programs = {
       fd.enable = true;
       ripgrep.enable = true;

@@ -7,13 +7,38 @@
       servers = {
         ruff = {
           enable = true;
-          settings = {
 
+        };
+
+        basedpyright = {
+          enable = true;
+          settings = {
+            python.analysis.ignore = [ "*" ];
+
+            basedpyright = {
+              disableOrganizeImports = true;
+              disableTaggedHints = true;
+
+              analysis = {
+                typeCheckingMode = "strict";
+                inlayHints = {
+                  variableTypes = true;
+                  functionReturnTypes = true;
+                  callArgumentNames = "partial";
+                  pytestParameters = true;
+                  genericTypes = true;
+                  declarationTypes = true;
+                  assignmentTypes = true;
+                };
+              };
+            };
           };
         };
-        jedi_language_server = {
-          enable = true;
-        };
+
+        # jedi_language_server = {
+        #   enable = true;
+        # };
+
         # pyright = {
         #   enable = true;
         #   settings = {
@@ -27,10 +52,12 @@
         #     };
         #   };
         # };
+
         bashls.enable = true;
         fish_lsp.enable = true;
         nixd.enable = true;
         lua_ls.enable = true;
+        # nushell.enable = true;
       };
     };
 
