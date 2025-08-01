@@ -1,33 +1,51 @@
 { pkgs, ... }:
 {
-  programs.nixvim.plugins.treesitter = {
-    enable = true;
+  programs.nixvim.plugins = {
+    treesitter = {
+      enable = true;
 
-    settings = {
-      highlight = {
-        enable = true;
-	additional_vim_regex_highlighting = true;
+      settings = {
+        highlight = {
+          enable = true;
+          additional_vim_regex_highlighting = true;
+        };
+
+        indent.enable = true;
+        folding.enable = true;
+
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+          bash
+          json
+          lua
+          make
+          markdown
+          nix
+          regex
+          toml
+          vim
+          vimdoc
+          xml
+          yaml
+
+          python
+          rust
+        ];
       };
-
-      indent.enable = true;
     };
 
-    grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-      bash
-      json
-      lua
-      make
-      markdown
-      nix
-      regex
-      toml
-      vim
-      vimdoc
-      xml
-      yaml
+    treesitter-textobjects = {
+      enable = true;
 
-      python
-      rust
-    ];
+      select = {
+        enable = true;
+
+        keymaps = {
+          "af" = "@function.outer";
+          "if" = "@function.inner";
+          "ac" = "@class.outer";
+          "ic" = { query = "@class.inner"; desc = "Select inner part of a class region"; };
+        };
+      };
+    };
   };
 }
