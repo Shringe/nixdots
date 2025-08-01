@@ -20,7 +20,7 @@
               disableTaggedHints = true;
 
               analysis = {
-                typeCheckingMode = "strict";
+                typeCheckingMode = "basic";
                 inlayHints = {
                   variableTypes = true;
                   functionReturnTypes = true;
