@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins.cmp = {
-    enable = true;
+    enable = false;
     autoEnableSources = true;
     settings = {
       mapping = {

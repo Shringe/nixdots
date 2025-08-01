@@ -18,8 +18,6 @@
       lualine.enable = true;
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
-      friendly-snippets.enable = true;
-      luasnip.enable = true;
       nvim-surround.enable = true;
       gitsigns.enable = true;
       which-key.enable = true;

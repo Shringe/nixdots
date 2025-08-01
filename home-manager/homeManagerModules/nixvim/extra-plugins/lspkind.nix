@@ -1,7 +1,7 @@
 {
   # Pretties up nvim-cmp menu
   programs.nixvim.plugins.lspkind = {
-    enable = true;
+    enable = false;
     cmp = {
       enable = true;
       menu = {
