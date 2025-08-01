@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     plugins.blink-cmp = {
-      enable = false;
+      enable = true;
 
       settings = {
         ghost_text.enabled = true;
