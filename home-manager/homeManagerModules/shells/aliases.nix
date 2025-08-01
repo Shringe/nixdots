@@ -7,6 +7,8 @@
     ns = "nf shell";
     nd = "nf develop";
 
+    tree = "eza --tree";
+
     # rcp = "rcp --progress";
     # grep = "ripgrep";
     # df = "duf";

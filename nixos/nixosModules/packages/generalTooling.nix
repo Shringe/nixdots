@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    ranger
+    # ranger
     yt-dlp
     ffmpeg
     unzip
     unrar
-    gparted
-    tree
+    # gparted
+    # tree
   ];
 }
