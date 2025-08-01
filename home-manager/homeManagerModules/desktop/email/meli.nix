@@ -13,9 +13,9 @@ in {
 
   config = mkIf cfg.enable {
     accounts.email.accounts = {
-      "dashingkoso@deamicis.top".meli.enable = true;
-      "dashingkoso@gmail.com".meli.enable = true;
-      "ldeamicis12@gmail.com".meli.enable = true;
+      "new".meli.enable = true;
+      "old".meli.enable = true;
+      "school".meli.enable = true;
     };
 
     programs.meli = {

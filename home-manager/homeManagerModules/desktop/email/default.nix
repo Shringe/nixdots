@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.email;
@@ -6,6 +6,7 @@ let
   mbsync = {
     enable = true;
     create = "maildir";
+    extraConfig.account.AuthMechs = "PLAIN";
   };
 
   imapMangoMail = {
@@ -33,48 +34,77 @@ in {
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.overlays = [
+      (final: prev: {
+        isync = prev.isync.override {
+          withCyrusSaslXoauth2 = true;
+        };
+      })
+    ];
+
     sops.secrets = {
-      "email/dashingkoso@deamicis.top" = {};
-      "email/dashingkoso@gmail.com" = {};
-      "email/ldeamicis12@gmail.com" = {};
+      "email/new" = {};
+      "email/old" = {};
+      "email/school" = {};
+      "email/college/access_token" = {};
     };
 
     accounts.email = {
       maildirBasePath = "Mail";
       accounts = {
-        "dashingkoso@deamicis.top" = {
+        "new" = {
           address = "dashingkoso@deamicis.top";
           userName = "dashingkoso@deamicis.top";
           realName = "dashingkoso";
 
           primary = true;
-          passwordCommand = "cat ${config.sops.secrets."email/dashingkoso@deamicis.top".path}";
+          passwordCommand = "cat ${config.sops.secrets."email/new".path}";
 
           imap = imapMangoMail;
           smtp = smtpMangoMail;
+          notmuch.enable = true;
           mbsync = mbsync;
         };
 
-        "dashingkoso@gmail.com" = {
+        "old" = {
           address = "dashingkoso@gmail.com";
           userName = "dashingkoso@gmail.com";
           realName = "dashingkoso";
 
-          passwordCommand = "cat ${config.sops.secrets."email/dashingkoso@gmail.com".path}";
+          passwordCommand = "cat ${config.sops.secrets."email/old".path}";
 
           flavor = "gmail.com";
+          notmuch.enable = true;
           mbsync = mbsync;
         };
 
-        "ldeamicis12@gmail.com" = {
+        "school" = {
           address = "ldeamicis12@gmail.com";
           userName = "ldeamicis12@gmail.com";
           realName = "Logen";
 
-          passwordCommand = "cat ${config.sops.secrets."email/ldeamicis12@gmail.com".path}";
+          passwordCommand = "cat ${config.sops.secrets."email/school".path}";
 
           flavor = "gmail.com";
+          notmuch.enable = true;
           mbsync = mbsync;
+        };
+
+        "college" = {
+          address = "deamicisl421984@student.nctc.edu";
+          userName = "deamicisl421984@student.nctc.edu";
+          realName = "Logen";
+
+          passwordCommand = "cat ${config.sops.secrets."email/college/access_token".path}";
+
+          flavor = "outlook.office365.com";
+          notmuch.enable = true;
+          mbsync = {
+            enable = true;
+            create = "maildir";
+            extraConfig.account.AuthMechs = "XOAUTH2";
+            extraConfig.account.SSLType = "IMAPS";
+          };
         };
       };
     };
@@ -82,6 +112,13 @@ in {
     programs = {
       mbsync.enable = true;
       msmtp.enable = true;
+
+      notmuch = {
+        enable = true;
+        hooks = {
+          preNew = "mbsync --all";
+        };
+      };
     };
 
     services = {
