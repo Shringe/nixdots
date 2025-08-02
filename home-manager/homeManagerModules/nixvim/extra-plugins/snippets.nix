@@ -5,9 +5,15 @@
       friendly-snippets.enable = true;
       luasnip.enable = true;
 
-      telescope.enabledExtensions = [
-        "luasnip"
-      ];
+      telescope = {
+        enabledExtensions = [
+          "luasnip"
+        ];
+
+        keymaps = {
+          "<leader>fi" = "luasnip";
+        };
+      };
     };
 
     extraPlugins = [(pkgs.vimUtils.buildVimPlugin {
