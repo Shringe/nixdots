@@ -1,4 +1,11 @@
 { config, lib, ... }:
+let
+  mkMount = extraOpts: {
+    device = "/dev/disk/by-label/smedia1";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" ] ++ extraOpts;
+  };
+in
 {
   config = {
     users.groups = {
@@ -10,26 +17,16 @@
     };
 
     fileSystems  = {
-      "/defvol/smedia1" = {
-        device = "/dev/disk/by-label/smedia1";
-        fsType = "btrfs";
-        options = [ "noatime" "nofail" ];
-      };
-
-      "/mnt/server" = { 
-        device = "/dev/disk/by-label/smedia1";
-        fsType = "btrfs";
-        options = [ "compress=zstd:4" "noatime" "nofail" "subvol=_active" ];
-      };
+      "/defvol/smedia1" = mkMount [];
+      "/mnt/server/local" = mkMount [ "subvol=_active/local"];
     };
 
     services.btrbk.instances = lib.mkIf config.nixosModules.backups.btrbk.enable {
       "daily".settings.volume."/defvol/smedia1" = {
         subvolume = {
+          "_active/backups" = {};
           "_active/local" = {};
-          "_active/critical" = {
-            # target = "/mnt/btr/backups/smedia1";
-          };
+          "_active/critical" = {};
         };
       };
     };

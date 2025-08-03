@@ -36,7 +36,7 @@
     };
 
     drives = {
-      backups1.enable = true;
+      backups1.enable = false;
       smedia2.enable = true;
     };
     
@@ -45,13 +45,14 @@
 
     players.mpv.enable = true;
 
-    server.enable = true;
+    # server.enable = true;
+    server.networking.enable = true;
 
-    gps.traccar.enable = true;
+    # gps.traccar.enable = true;
 
-    album.immich.enable = true;
-    kavita.enable = true;
-    groceries.tandoor.enable = true;
+    # album.immich.enable = false;
+    # kavita.enable = true;
+    # groceries.tandoor.enable = true;
 
     social = {
       matrix.conduit.enable = true;
@@ -61,13 +62,13 @@
       enable = true;
     };
 
-    monitors = {
-      gatus.enable = true;
-    };
+    # monitors = {
+    #   gatus.enable = true;
+    # };
 
-    shell = {
-      atuin.server.enable = true;
-    };
+    # shell = {
+    #   atuin.server.enable = true;
+    # };
 
     # torrent.qbittorrent.enable = true;
 
@@ -80,7 +81,7 @@
     #   vpn.enable = true;
     # };
 
-    linkwarden.enable = true;
+    # linkwarden.enable = true;
 
     # docker = {
     #   enable = true;
@@ -88,20 +89,20 @@
     #   wallos.enable = true;
     # };
 
-    homepage.enable = true;
+    # homepage.enable = true;
 
-    nextcloud.enable = true;
+    # nextcloud.enable = true;
 
     wireguard = {
       enable = true;
       server.enable = true;
     };
 
-    jellyfin = {
-      enable = true;
-      # jellyseerr.enable = true;
-      server.enable = true;
-    };
+    # jellyfin = {
+    #   enable = true;
+    #   # jellyseerr.enable = true;
+    #   server.enable = true;
+    # };
 
     vpn = {
       enable = true;
@@ -114,13 +115,13 @@
       yuzu.enable = false;
     };
 
-    llm = {
-      ollama = {
-        enable = true;
-        enableCuda = true;
-        webui.enable = true;
-      };
-    };
+    # llm = {
+    #   ollama = {
+    #     enable = true;
+    #     enableCuda = true;
+    #     webui.enable = true;
+    #   };
+    # };
 
     desktop = {
       enable = true;
@@ -128,7 +129,7 @@
 
     kanata = {
       enable = true;
-      variant = "wide";
+      variant = "wide"; 
     };
 
     gaming = {
