@@ -18,7 +18,7 @@ in
 
     fileSystems  = {
       "/defvol/smedia1" = mkMount [];
-      "/mnt/server/local" = mkMount [ "subvol=_active/local"];
+      # "/mnt/server/local" = mkMount [ "subvol=_active/local"];
     };
 
     services.btrbk.instances = lib.mkIf config.nixosModules.backups.btrbk.enable {
