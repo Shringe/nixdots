@@ -57,7 +57,7 @@
         fish_lsp.enable = true;
         nixd.enable = true;
         lua_ls.enable = true;
-        # nushell.enable = true;
+        nushell.enable = true;
       };
     };
 

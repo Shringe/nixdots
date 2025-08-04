@@ -48,7 +48,8 @@
     ];
 
     opts = {
-      shell = "fish";
+      # shell = "fish";
+      shell = config.homeManagerModules.shells.default;
 
       # Numberlines
       number = true; 

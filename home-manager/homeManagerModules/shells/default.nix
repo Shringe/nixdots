@@ -6,6 +6,7 @@
     ./aliases.nix
     ./atuin.nix
     ./tmux.nix
+    ./nushell.nix
   ];
 
   # Used for aliases
