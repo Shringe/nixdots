@@ -88,6 +88,12 @@ with lib;
 
     shells = {
       enable = mkEnableOption "Enable all shells and shell configuration"; 
+      default = mkOption {
+        type = types.str;
+        default = "nu";
+        description = "Default interactive shell";
+      };
+
       fish = {
         enable = mkEnableOption "Enables fish configuration";
         atuin = mkEnableOption "atuin configuration";
