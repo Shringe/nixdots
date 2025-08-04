@@ -25,6 +25,7 @@ in {
       "/mnt/btr/pool/smedia2" = mkMount [];
       "/mnt/server/critical" = mkMount [ "subvol=_active/critical" ];
       "/mnt/server/backups" = mkMount [ "subvol=_active/backups" ];
+      "/mnt/server/local" = mkMount [ "subvol=_active/local"];
     };
 
     services.btrbk.instances = lib.mkIf config.nixosModules.backups.btrbk.enable {
