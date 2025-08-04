@@ -1,65 +1,37 @@
 { config, lib, ... }:
-{
-  config = {
+with lib;
+let
+  cfg = config.nixosModules.drives.steamssd1;
+
+  mkMount = extraOpts: {
+    device = "/dev/disk/by-label/steamssd1";
+    fsType = "btrfs";
+    options = [ "compress=zstd" "noatime" "nofail" ] ++ extraOpts;
+  };
+in {
+  options.nixosModules.drives.steamssd1 = {
+    enable = mkEnableOption "first steam ssd";
+  };
+
+  config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d /mnt/Steam 0755 root root -"
+      "d /mnt/Steam/libraries 0755 root root -"
+
+      "d /mnt/Steam/libraries/SSD1 0755 root root -"
+    ];
+
     fileSystems = { 
-      "/defvol/steamssd1" = {
-        device = "/dev/disk/by-label/steamssd1";
-        fsType = "btrfs";
-        options = [ "noatime" "nofail" ];
-      };
-
-      # "/mnt/Steam/Main" = {
-      #   device = "/dev/disk/by-label/steamssd1";
-      #   fsType = "btrfs";
-      #   options = [ "subvol=_steam/main" "noatime" "nofail" ];
-      # };
-
-      "/mnt/Steam/libraries/SSD1" = { 
-        device = "/dev/disk/by-label/steamssd1";
-        fsType = "btrfs";
-        options = [ "subvol=_steam/library" "compress=zstd" "noatime" "nofail" ];
-      };
-
-      # "/mnt/Saves" = { 
-      #   device = "/dev/disk/by-label/steamssd1";
-      #   fsType = "btrfs";
-      #   options = [ "subvol=Saves" "compress=zstd" "noatime" "nofail" ];
-      # };
+      "/mnt/btr/pool/steamssd1" = mkMount [];
+      "/mnt/Steam/libraries/SSD1" = mkMount [ "subvol=_active/library" ];
     };
 
-    services.btrbk.instances = lib.mkIf config.nixosModules.backups.btrbk.enable {
-      # "steamssd1_main" = {
-      #   onCalendar = "daily";
-      #   settings = {
-      #     snapshot_preserve_min = "1w";
-      #     snapshot_preserve = "2w";
-      #
-      #     subvolume = "/defvol/steamssd1/_steam/main";
-      #     snapshot_dir = "/defvol/steamssd1/_snapshots/main";
-      #   };
-      # };
-
-      "steamssd1_library" = {
-        onCalendar = "daily";
-        settings = {
-          snapshot_preserve_min = "1w";
-          snapshot_preserve = "2w";
-
-          subvolume = "/defvol/steamssd1/_steam/library";
-          snapshot_dir = "/defvol/steamssd1/_snapshots/library";
+    services.btrbk.instances = mkIf config.nixosModules.backups.btrbk.enable {
+      "daily".settings.volume."/mnt/btr/pool/steamssd1" = {
+        subvolume = {
+          "_active/library" = {};
         };
       };
-
-      # "steamssd1_Saves" = {
-      #   onCalendar = "hourly";
-      #   settings = {
-      #     snapshot_preserve_min = "2w";
-      #     snapshot_preserve = "4w";
-      #
-      #     subvolume = "/defvol/steamssd1/Saves";
-      #     snapshot_dir = "/defvol/steamssd1/_snapshots/Saves";
-      #   };
-      # };
     };
   };
 }

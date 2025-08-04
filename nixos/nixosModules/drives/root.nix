@@ -1,6 +1,12 @@
 { config, lib, ... }:
 {
   config = {
+    systemd.tmpfiles.rules = [
+      "d /mnt/btr 0755 root root -"
+      "d /mnt/btr/pool 0755 root root -"
+      "d /mnt/btr/backups 0755 root root -"
+    ];
+
     fileSystems = {
       "/defvol/root" = {
         device = "/dev/disk/by-label/nixos";
