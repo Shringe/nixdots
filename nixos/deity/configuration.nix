@@ -54,7 +54,7 @@
     # gps.traccar.enable = true;
 
     # album.immich.enable = false;
-    # kavita.enable = true;
+    kavita.enable = true;
     # groceries.tandoor.enable = true;
 
     social = {
@@ -101,11 +101,11 @@
       server.enable = true;
     };
 
-    # jellyfin = {
-    #   enable = true;
-    #   # jellyseerr.enable = true;
-    #   server.enable = true;
-    # };
+    jellyfin = {
+      enable = true;
+      # jellyseerr.enable = true;
+      server.enable = true;
+    };
 
     vpn = {
       enable = true;
