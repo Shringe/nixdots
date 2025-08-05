@@ -49,7 +49,7 @@ in {
       recommendedTlsSettings = true;
       recommendedOptimisation = true;
       recommendedProxySettings = true;
-      recommendedZstdSettings = true;
+      # recommendedZstdSettings = true;
 
       virtualHosts = with config.nixosModules; mkMerge [
         # IMPORTANT - Reject Unmatched Domains
