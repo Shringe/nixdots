@@ -1,13 +1,18 @@
 { lib, config, ... }:
 let
   cfg = config.homeManagerModules.shells.atuin;
-in
-{
+in {
+  sops.secrets = {
+    "atuin/session" = {};
+    "atuin/key" = {};
+  };
+
   programs.atuin = lib.mkIf cfg.enable {
     enable = true;
     settings = {
-      key_path = config.sops.secrets.atuin_key.path;
-      # sync_address = "http://192.168.0.165:47200";
+      session_path = config.sops.secrets."atuin/session".path;
+      key_path = config.sops.secrets."atuin/key".path;
+
       sync_address = "https://atuin.deamicis.top";
       enter_accept = true;
 
@@ -15,6 +20,4 @@ in
       inline_height = 20;
     };
   };
-
-  sops.secrets.atuin_key = {};
 }

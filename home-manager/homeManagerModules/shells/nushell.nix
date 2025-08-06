@@ -63,6 +63,7 @@ in {
       zoxide.enableNushellIntegration = true;
       yazi.enableNushellIntegration = true;
       eza.enableNushellIntegration = true;
+      atuin.enableNushellIntegration = true;
     };
   };
 }

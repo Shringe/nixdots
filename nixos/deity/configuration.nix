@@ -48,14 +48,13 @@
 
     players.mpv.enable = true;
 
-    # server.enable = true;
-    server.networking.enable = true;
+    server.enable = true;
 
-    # gps.traccar.enable = true;
+    gps.traccar.enable = true;
 
     # album.immich.enable = false;
     kavita.enable = true;
-    # groceries.tandoor.enable = true;
+    groceries.tandoor.enable = true;
 
     social = {
       matrix.conduit.enable = true;
@@ -65,13 +64,13 @@
       enable = true;
     };
 
-    # monitors = {
-    #   gatus.enable = true;
-    # };
+    monitors = {
+      gatus.enable = true;
+    };
 
-    # shell = {
-    #   atuin.server.enable = true;
-    # };
+    shell = {
+      atuin.server.enable = true;
+    };
 
     # torrent.qbittorrent.enable = true;
 
@@ -92,9 +91,9 @@
     #   wallos.enable = true;
     # };
 
-    # homepage.enable = true;
+    homepage.enable = true;
 
-    # nextcloud.enable = true;
+    nextcloud.enable = true;
 
     wireguard = {
       enable = true;

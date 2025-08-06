@@ -30,7 +30,7 @@
     };
 
     shells.enable = true;
-    shells.atuin.enable = false;
+    # shells.atuin.enable = false;
     scripts.enable = true;
     dotfiles.enable = true;
     sops.enable = true;
