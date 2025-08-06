@@ -16,6 +16,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    stylix.targets.zen-browser.profileNames = [ "default" ];
+
     programs.zen-browser = {
       enable = true;
 
