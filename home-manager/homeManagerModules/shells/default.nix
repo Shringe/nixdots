@@ -7,6 +7,7 @@
     ./atuin.nix
     ./tmux.nix
     ./nushell.nix
+    ./starship.nix
   ];
 
   # Used for aliases

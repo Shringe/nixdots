@@ -4,9 +4,8 @@
       enable = true;
 
       settings = {
-        ghost_text.enabled = true;
-
         completion = {
+          ghost_text.enabled = true;
           menu = {
             # Double the default dementions
             min_width = 20;

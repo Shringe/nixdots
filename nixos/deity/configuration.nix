@@ -170,6 +170,8 @@
     enable = true;
   };
 
+  boot.loader.systemd-boot.memtest86.enable = true;
+
   services.blueman.enable = true;
 
   # Set your time zone.
