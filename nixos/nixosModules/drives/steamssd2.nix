@@ -21,6 +21,8 @@ in {
       "d /mnt/Steam/libraries/SSD2 0755 root root -"
       "d /mnt/Steam/Main 0755 root root -"
       "d /mnt/Saves 0755 root root -"
+      "d /mnt/Steam/Saves 0755 root root -"
+      "d /mnt/Steam/Emulation 0755 root root -"
     ];
 
     fileSystems = { 
@@ -28,6 +30,8 @@ in {
       "/mnt/Steam/libraries/SSD2" = mkMount [ "subvol=_active/library" ];
       "/mnt/Steam/Main" = mkMount [ "subvol=_active/main" ];
       "/mnt/Saves" = mkMount [ "subvol=_active/saves" ];
+      "/mnt/Steam/Saves" = mkMount [ "subvol=_active/saves" ];
+      "/mnt/Steam/Emulation" = mkMount [ "subvol=_active/emulation" ];
     };
 
     services.btrbk.instances = mkIf config.nixosModules.backups.btrbk.enable {
@@ -36,6 +40,7 @@ in {
           "_active/library" = {};
           "_active/main" = {};
           "_active/saves" = {};
+          "_active/emulation" = {};
         };
       };
     };
