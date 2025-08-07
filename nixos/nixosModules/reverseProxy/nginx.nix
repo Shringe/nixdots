@@ -100,7 +100,7 @@ in
 
           # Public services
           (rpad social.matrix.conduit)
-          (rpas "collabora" server.services.collabora)
+          # (rpas "collabora" server.services.collabora)
         ];
     };
 
