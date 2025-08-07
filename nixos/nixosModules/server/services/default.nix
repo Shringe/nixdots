@@ -4,6 +4,7 @@ with lib;
   imports = [
     ./paperless
     ./nextcloud
+    ./collabora
   ];
 
   options.nixosModules.server.services = {

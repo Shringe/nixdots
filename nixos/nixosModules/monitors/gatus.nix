@@ -83,6 +83,7 @@ in
           (mkMonitor "Traccar" gps.traccar)
           (mkMonitor "Wallos" docker.wallos)
           (mkMonitor "Paperless" server.services.paperless)
+          (mkMonitor "Collabora" server.services.collabora)
         ];
       };
     };
