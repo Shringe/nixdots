@@ -25,9 +25,9 @@ let
     };
 
   rps = subdomain: module: reverseProxySubdomain subdomain cfg.domain module;
-  rpd = module: reverseProxyDomain cfg.domain module;
+  # rpd = module: reverseProxyDomain cfg.domain module;
 
-  rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
+  # rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
   rpad = module: reverseProxyDomain cfg.aDomain module;
 in
 {

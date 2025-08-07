@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.server.services.nextcloud;
 
   domain = config.nixosModules.reverseProxy.aDomain;
-in {
+in
+{
   options.nixosModules.server.services.nextcloud = {
     enable = mkOption {
       type = types.bool;
@@ -49,7 +55,7 @@ in {
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      "nextcloud/passwords/admin" = {};
+      "nextcloud/passwords/admin" = { };
     };
 
     services.nextcloud = {
@@ -67,7 +73,13 @@ in {
       autoUpdateApps.enable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (config.services.nextcloud.package.packages.apps) news contacts calendar tasks;
+        inherit (config.services.nextcloud.package.packages.apps)
+          news
+          contacts
+          calendar
+          tasks
+          richdocuments
+          ;
       };
 
       config = {
