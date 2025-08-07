@@ -1,11 +1,17 @@
 # Auto-generated using compose2nix v0.3.1.
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.docker.wallos;
 
   ip = config.nixosModules.info.system.ips.local;
-in {
+in
+{
   options.nixosModules.docker.wallos = {
     enable = mkEnableOption "Wallos";
 
