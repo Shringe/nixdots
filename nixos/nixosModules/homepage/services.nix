@@ -49,7 +49,7 @@ in
               password = "{{HOMEPAGE_VAR_NEXTCLOUD}}";
             };
           }
-          ++ mkService "Collabora" collabora { }
+          # ++ mkService "Collabora" collabora { }
           ++ mkService "Paperless" paperless { }
           ++ mkService "File Browser" filebrowser { }
           ++ mkService "Radicale" caldav.radicale { }
