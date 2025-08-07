@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.nixosModules.server.services.collabora;
 
-  domain = config.nixosModules.reverseProxy.domain;
+  domain = config.nixosModules.reverseProxy.aDomain;
 in
 {
   options.nixosModules.server.services.collabora = {
@@ -19,7 +19,7 @@ in
 
     port = mkOption {
       type = types.port;
-      default = 47440;
+      default = 47460;
     };
 
     description = mkOption {
@@ -47,6 +47,38 @@ in
     services.collabora-online = {
       enable = true;
       port = cfg.port;
+
+      settings = {
+        # Rely on reverse proxy for SSL
+        ssl = {
+          enable = false;
+          termination = true;
+        };
+
+        # # Listen on loopback interface only, and accept requests from ::1
+        # net = {
+        #   listen = "loopback";
+        #   post_allow.host = [ cfg.host ];
+        # };
+
+        # Restrict loading documents from WOPI Host nextcloud.example.com
+        storage.wopi = {
+          "@allow" = true;
+          host = [ "nextcloud.${domain}" ];
+        };
+
+        server_name = "collabora.${domain}";
+      };
+    };
+
+    services.nginx.virtualHosts."collabora.${domain}" = {
+      useACMEHost = domain;
+      onlySSL = true;
+
+      locations."/" = {
+        proxyPass = cfg.url;
+        proxyWebsockets = true;
+      };
     };
   };
 }
