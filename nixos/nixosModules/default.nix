@@ -138,6 +138,10 @@ with lib;
           enable = mkEnableOption "Switch emulator";
           torzu.enable = mkEnableOption "A switch emulator";
         };
+        wiiu = {
+          enable = mkEnableOption "Switch emulator";
+          cemu.enable = mkEnableOption "A switch emulator";
+        };
       };
 
       optimizations = {
@@ -171,6 +175,10 @@ with lib;
       emulators = {
         switch = mkIf config.nixosModules.gaming.emulators.switch.enable {
           torzu.enable = mkDefault true;
+        };
+
+        wiiu = mkIf config.nixosModules.gaming.emulators.wiiu.enable {
+          cemu.enable = mkDefault true;
         };
       };
 
