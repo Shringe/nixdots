@@ -4,8 +4,11 @@ let
   cfg = config.nixosModules.server.networking.dns;
 
   # Creates a custom filtering name for the reverse proxy
-  rp = subDomain: "${config.nixosModules.info.system.ips.local} ${subDomain}.${config.nixosModules.reverseProxy.domain}";
-in {
+  rp =
+    subDomain:
+    "${config.nixosModules.info.system.ips.local} ${subDomain}.${config.nixosModules.reverseProxy.domain}";
+in
+{
   options.nixosModules.server.networking.dns.adguard = {
     enable = mkOption {
       type = types.bool;
@@ -92,25 +95,31 @@ in {
           filtering_enabled = true;
         };
 
-        filters = map(url: { enabled = true; url = url; }) [
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_4.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_8.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_24.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt" # fix
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_50.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_51.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_54.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_55.txt"
-          # "https://adguardteam.github.io/HostlistsRegistry/assets/filter_56.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_59.txt"
-          "https://adguardteam.github.io/HostlistsRegistry/assets/filter_61.txt"
-        ];
+        filters =
+          map
+            (url: {
+              enabled = true;
+              url = url;
+            })
+            [
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_4.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_8.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_9.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_18.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_24.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_30.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_44.txt" # fix
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_50.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_51.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_53.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_54.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_55.txt"
+              # "https://adguardteam.github.io/HostlistsRegistry/assets/filter_56.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_59.txt"
+              "https://adguardteam.github.io/HostlistsRegistry/assets/filter_61.txt"
+            ];
       };
     };
 
