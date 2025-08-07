@@ -3,13 +3,18 @@ with lib;
 let
   cfg = config.nixosModules.monitors.gatus;
 
-  mkMonitor = name: module: optional module.enable [{
-    name = name;
-    url = if module ? furl then module.furl else module.url;
-    interval = "30m";
-    conditions = [ "[STATUS] == 200" ];
-  }];
-in {
+  mkMonitor =
+    name: module:
+    optional module.enable [
+      {
+        name = name;
+        url = if module ? furl then module.furl else module.url;
+        interval = "30m";
+        conditions = [ "[STATUS] == 200" ];
+      }
+    ];
+in
+{
   options.nixosModules.monitors.gatus = {
     enable = mkEnableOption "Gatus server status monitor";
 
@@ -73,7 +78,7 @@ in {
           (mkMonitor "RomM" docker.romm)
           (mkMonitor "Linkwarden" linkwarden)
           (mkMonitor "OurShoppingList" docker.ourshoppinglist)
-          (mkMonitor "Nextcloud" nextcloud)
+          (mkMonitor "Nextcloud" server.services.nextcloud)
           (mkMonitor "Matrix" social.matrix.conduit)
           (mkMonitor "Traccar" gps.traccar)
           (mkMonitor "Wallos" docker.wallos)

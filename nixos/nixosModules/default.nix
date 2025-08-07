@@ -35,7 +35,6 @@ with lib;
     ./monitors
     ./players
     # ./caddy
-    ./nextcloud
     ./reverseProxy
     ./drives
     ./album

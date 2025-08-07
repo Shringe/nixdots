@@ -1,12 +1,15 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.nixosModules.nextcloud;
+  cfg = config.nixosModules.server.services.nextcloud;
 
   domain = config.nixosModules.reverseProxy.aDomain;
 in {
-  options.nixosModules.nextcloud = {
-    enable = mkEnableOption "Nextcloud hosting";
+  options.nixosModules.server.services.nextcloud = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.server.services.enable;
+    };
 
     port = mkOption {
       type = types.port;
