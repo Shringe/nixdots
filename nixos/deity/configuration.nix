@@ -2,15 +2,24 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./disko.nix
-    ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./disko.nix
+  ];
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     system-features = [ "gccarch-zen3" ];
   };
 
@@ -20,10 +29,12 @@
   networking = {
     dhcpcd.enable = false;
     interfaces.enp42s0 = {
-      ipv4.addresses = [{
-        address = config.nixosModules.info.system.ips.local;
-        prefixLength = 24;
-      }];
+      ipv4.addresses = [
+        {
+          address = config.nixosModules.info.system.ips.local;
+          prefixLength = 24;
+        }
+      ];
     };
 
     defaultGateway = "192.168.0.1";
@@ -31,7 +42,7 @@
   };
 
   nixosModules = {
-    info.system  = {
+    info.system = {
       ips.local = "192.168.0.165";
     };
 
@@ -42,7 +53,7 @@
       steamssd1.enable = true;
       steamssd2.enable = true;
     };
-    
+
     # btrfs send/receive seems to be creating more errors on bad disk
     backups.btrbk.enable = true;
 
@@ -85,11 +96,11 @@
 
     linkwarden.enable = true;
 
-    # docker = {
-    #   enable = true;
-    #   romm.enable = true;
-    #   wallos.enable = true;
-    # };
+    docker = {
+      enable = true;
+      romm.enable = true;
+      wallos.enable = true;
+    };
 
     homepage.enable = true;
 
@@ -129,7 +140,7 @@
 
     kanata = {
       enable = true;
-      variant = "wide"; 
+      variant = "wide";
     };
 
     gaming = {
@@ -188,7 +199,7 @@
   # $ nix search wget
   environment = {
     sessionVariables = {
-      NH_FLAKE="/nixdots";
+      NH_FLAKE = "/nixdots";
     };
     systemPackages = with pkgs; [
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -226,4 +237,3 @@
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
-
