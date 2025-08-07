@@ -8,6 +8,11 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    liberodark = {
+      url = "github:liberodark/my-flakes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -82,6 +87,9 @@
 
         (self: super: {
           nf = inputs.nf.packages.${system}.default;
+          torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
+            env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
+          });
 
           mpv = super.mpv.override {
             scripts = with self.mpvScripts; [ 

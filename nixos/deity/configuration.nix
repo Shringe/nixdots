@@ -83,7 +83,7 @@
     #   vpn.enable = true;
     # };
 
-    # linkwarden.enable = true;
+    linkwarden.enable = true;
 
     # docker = {
     #   enable = true;
@@ -140,7 +140,8 @@
       };
 
       emulators = {
-        # switch.enable = true;
+        switch.enable = true;
+        wiiu.enable = true;
       };
 
       optimizations.enable = true;
