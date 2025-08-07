@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.arrs.sonarr;
-in {
+in
+{
   options.nixosModules.arrs.sonarr = {
     enable = mkEnableOption "Sonarr TV Show Management";
 

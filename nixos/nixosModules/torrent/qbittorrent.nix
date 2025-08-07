@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.torrent.qbittorrent;
-in {
+in
+{
   options.nixosModules.torrent.qbittorrent = {
     enable = mkEnableOption "qBittorrent";
     ports = {
@@ -53,12 +59,19 @@ in {
       hashedPasswordFile = config.sops.secrets."user_passwords/qbittorrent".path;
     };
 
-    users.groups.qbittorrent = {};
+    users.groups.qbittorrent = { };
+
+    systemd.tmpfiles.rules = [
+      "d /mnt/server/local/qbittorrent 0750 qbittorrent qbittorrent -"
+    ];
 
     systemd.services.qbittorrent = {
       description = "qBittorrent-nox service";
       wants = [ "network-online.target" ];
-      after = [ "network-online.target" "nss-lookup.target" ];
+      after = [
+        "network-online.target"
+        "nss-lookup.target"
+      ];
 
       serviceConfig = {
         Type = "exec";

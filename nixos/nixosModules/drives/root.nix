@@ -13,16 +13,19 @@
       "/mnt/btr/pool/root" = {
         device = "/dev/disk/by-label/nixos";
         fsType = "btrfs";
-        options = [ "noatime" "compress=zstd" ];
+        options = [
+          "noatime"
+          "compress=zstd"
+        ];
       };
     };
 
     services.btrbk.instances = {
       "daily".settings.volume."/mnt/btr/pool/root" = lib.mkIf config.nixosModules.backups.btrbk.enable {
         subvolume = {
-          "_active/@" = {};
-          "_active/@home" = {};
-          "_active/log" = {};
+          "_active/@" = { };
+          "_active/@home" = { };
+          "_active/log" = { };
         };
       };
     };
