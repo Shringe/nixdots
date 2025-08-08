@@ -62,7 +62,7 @@ in
     users.groups.qbittorrent = { };
 
     systemd.tmpfiles.rules = [
-      "d /mnt/server/local/qbittorrent 0750 qbittorrent qbittorrent -"
+      "d /mnt/server/local/qbittorrent 0770 qbittorrent qbittorrent -"
     ];
 
     systemd.services.qbittorrent = {

@@ -126,13 +126,13 @@
       yuzu.enable = false;
     };
 
-    # llm = {
-    #   ollama = {
-    #     enable = true;
-    #     enableCuda = true;
-    #     webui.enable = true;
-    #   };
-    # };
+    llm = {
+      ollama = {
+        enable = true;
+        enableCuda = true;
+        webui.enable = true;
+      };
+    };
 
     desktop = {
       enable = true;
