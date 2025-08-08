@@ -63,7 +63,6 @@
 
     gps.traccar.enable = true;
 
-    # album.immich.enable = false;
     kavita.enable = true;
     groceries.tandoor.enable = true;
 

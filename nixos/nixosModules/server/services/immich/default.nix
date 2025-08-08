@@ -1,10 +1,14 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.album.immich;
-in {
-  options.nixosModules.album.immich = {
-    enable = mkEnableOption "Immich album manager";
+  cfg = config.nixosModules.server.services.immich;
+in
+{
+  options.nixosModules.server.services.immich = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.server.services.enable;
+    };
 
     host = mkOption {
       type = types.string;
@@ -43,6 +47,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    systemd.tmpfiles.rules = [
+      "d /mnt/server/critical/immich 0700 immich immich -"
+    ];
+
     services.immich = {
       enable = true;
       host = cfg.host;

@@ -5,6 +5,7 @@ with lib;
     ./paperless
     ./nextcloud
     ./collabora
+    ./immich
   ];
 
   options.nixosModules.server.services = {
