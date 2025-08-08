@@ -13,7 +13,8 @@ in
 
   config = mkIf cfg.enable {
     # Avoids having to pass -b bac to nh home switch
-    home.file."${config.xdg.dataHome}/mimeapps.list".force = true;
+    # home.file."${config.xdg.dataHome}/mimeapps.list".force = true;
+    xdg.configFile."mimeapps.list".force = true;
 
     xdg.mimeApps = {
       enable = true;
