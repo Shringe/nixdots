@@ -1,4 +1,4 @@
-{ config,  lib, ... }:
+{ config, lib, ... }:
 with lib;
 {
   imports = [
@@ -37,7 +37,6 @@ with lib;
     # ./caddy
     ./reverseProxy
     ./drives
-    ./album
     ./maintenance
     ./social
     ./backups

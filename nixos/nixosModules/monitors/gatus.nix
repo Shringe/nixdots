@@ -63,7 +63,7 @@ in
           (mkMonitor "Ombi" ombi)
           (mkMonitor "Kavita" kavita)
           (mkMonitor "Tandoor" groceries.tandoor)
-          (mkMonitor "Immich" album.immich)
+          (mkMonitor "Immich" server.services.immich)
           (mkMonitor "Ollama" llm.ollama.webui)
 
           (mkMonitor "Automatic Ripping Machine" docker.automaticrippingmachine)

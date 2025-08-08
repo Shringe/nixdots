@@ -53,10 +53,10 @@ in
           ++ mkService "Paperless" paperless { }
           ++ mkService "File Browser" filebrowser { }
           ++ mkService "Radicale" caldav.radicale { }
-          ++ mkService "Immich" album.immich {
+          ++ mkService "Immich" immich {
             widget = {
               type = "immich";
-              url = album.immich.furl;
+              url = immich.furl;
               key = "{{HOMEPAGE_VAR_IMMICH}}";
               version = 2;
             };

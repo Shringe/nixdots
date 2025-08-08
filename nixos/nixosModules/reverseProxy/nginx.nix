@@ -78,7 +78,7 @@ in
           (rps "gatus" monitors.gatus)
           (rps "jellyseerr" jellyfin.jellyseerr)
           (rps "dns" server.networking.dns)
-          (rps "immich" album.immich)
+          (rps "immich" server.services.immich)
           (rps "radicale" caldav.radicale)
           (rps "ollama" llm.ollama.webui)
           (rps "lidarr" arrs.lidarr)
