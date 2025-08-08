@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.llm.ollama;
-in {
+in
+{
   options.nixosModules.llm.ollama = {
     enable = mkEnableOption "Ollama llm";
 
@@ -72,7 +73,11 @@ in {
 
         acceleration = mkIf cfg.enableCuda "cuda";
 
-        loadModels = [ "llama3.3" "codellama" "qwen3" ];
+        loadModels = [
+          "llama3.1"
+          "codellama"
+          "qwen3"
+        ];
       };
 
       nextjs-ollama-llm-ui = mkIf cfg.webui.enable {
