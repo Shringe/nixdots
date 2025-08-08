@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.arrs.lidarr;
-in {
+in
+{
   options.nixosModules.arrs.lidarr = {
     enable = mkEnableOption "Lidarr music management";
 
