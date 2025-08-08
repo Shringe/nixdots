@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.swayidle;
 
   lockCmd = "${pkgs.procps}/bin/pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.dwl.swayidle = {
     enable = mkOption {
       type = types.bool;
@@ -22,12 +28,18 @@ in {
       enable = true;
 
       events = [
-        { event = "before-sleep"; command = lockCmd; }
-        { event = "lock"; command = lockCmd; }
+        {
+          event = "before-sleep";
+          command = lockCmd;
+        }
+        {
+          event = "lock";
+          command = lockCmd;
+        }
       ];
 
       timeouts = [
-        { timeout = 300; command = lockCmd; }
+        # { timeout = 300; command = lockCmd; }
         {
           timeout = 330;
           command = "${pkgs.wlopm}/bin/wlopm --off '*'";
@@ -36,7 +48,7 @@ in {
         {
           timeout = 180;
           command = "${pkgs.brightnessctl}/bin/brightnessctl s 80%-";
-          resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl s 80%+";        
+          resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl s 80%+";
         }
       ];
     };
