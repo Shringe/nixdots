@@ -15,6 +15,7 @@
       enable = true;
       configs = true;
       initLua = true;
+      luaLib = true;
       nvimRuntime = true;
       plugins = true;
     };
@@ -24,8 +25,11 @@
     combinePlugins = {
       enable = true;
       standalonePlugins = [
-        "nvim-treesitter"
-        "blink.cmp"
+        "friendly-snippets" # Builds but doesn't actually work wihout unpacking
+
+        # All three conflict with eachother ; Two must me unpacked
+        "nvim-tree.lua"
+        # "blink.cmp"
         "codecompanion.nvim"
       ];
     };
