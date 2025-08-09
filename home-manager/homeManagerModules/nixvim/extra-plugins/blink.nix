@@ -4,6 +4,10 @@
       enable = true;
 
       settings = {
+        sources = {
+          per_filetype.codecompanion = [ "codecompanion" ];
+        };
+
         completion = {
           ghost_text.enabled = true;
           menu = {

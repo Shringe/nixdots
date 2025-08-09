@@ -23,6 +23,10 @@
       gitsigns.enable = true;
       which-key.enable = true;
       render-markdown.enable = true;
+      render-markdown.settings.file_types = [
+        "markdown"
+        "codecompanion"
+      ];
     };
 
     autoCmd = [
