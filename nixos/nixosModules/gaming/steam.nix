@@ -1,47 +1,44 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
 let
   cfg = config.nixosModules.gaming.steam;
 in
 {
-  nixpkgs.config = lib.mkIf cfg.enable {
-    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-original"
-      "steam-unwrapped"
-      "steam-run"
-    ];
-  };
+  config = mkIf cfg.enable {
+    programs = {
+      gamescope = {
+        enable = true;
 
-  programs = lib.mkIf cfg.enable {
-    gamescope = {
-      enable = true;
+        # Asks for setuid right now?
+        # capSysNice = true;
 
-      # Asks for setuid right now?
-      # capSysNice = true;
+        # Doesn't seem to work either?
+        # args = [
+        #   "-W 3440"
+        #   "-H 1440"
+        #   "-r 175"
+        #   "-f"
+        #   "--adaptive-sync"
+        #   "--mangoapp"
+        # ];
+      };
 
-      # Doesn't seem to work either?
-      # args = [
-      #   "-W 3440"
-      #   "-H 1440" 
-      #   "-r 175"
-      #   "-f"
-      #   "--adaptive-sync"
-      #   "--mangoapp"
-      # ];
+      steam = {
+        enable = true;
+        extraCompatPackages = with pkgs; [
+          proton-ge-bin
+        ];
+      };
     };
 
-    steam = {
-      enable = true;
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
-      ];
-      # gamescopeSession.enable = true;
+    hardware = {
+      xone.enable = true;
+      graphics.enable32Bit = true;
     };
-  };
-
-
-  hardware = lib.mkIf cfg.enable {
-    xone.enable = true;
-    graphics.enable32Bit = true;
   };
 }
