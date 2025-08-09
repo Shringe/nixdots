@@ -1,12 +1,13 @@
 {
   programs.nixvim.plugins.avante = {
-    enable = false;
+    enable = true;
 
     settings = {
       provider = "ollama";
       ollama = {
         model = "qwen-coder2.5";
-        endpoint = "http://192.168.0.165:47300";
+        # endpoint = "http://192.168.0.165:47300";
+        endpoint = "https://ollama.deamicis.top/api";
       };
 
       diff = {
@@ -32,7 +33,7 @@
       #     theirs = "ct";
       #   };
       # };
-      #
+
       hints = {
         enabled = true;
       };
