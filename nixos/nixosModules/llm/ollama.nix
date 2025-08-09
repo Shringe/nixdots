@@ -2,6 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.llm.ollama;
+
+  domain = config.nixosModules.reverseProxy.domain;
 in
 {
   options.nixosModules.llm.ollama = {
@@ -25,6 +27,11 @@ in
     url = mkOption {
       type = types.string;
       default = "http://${cfg.host}:${toString cfg.port}";
+    };
+
+    furl = mkOption {
+      type = types.string;
+      default = "https://ollama.${domain}/api";
     };
 
     webui = {
@@ -57,7 +64,7 @@ in
 
       furl = mkOption {
         type = types.string;
-        default = "https://ollama.${config.nixosModules.reverseProxy.domain}";
+        default = "https://ollama.${domain}";
       };
     };
   };
@@ -84,6 +91,18 @@ in
         hostname = cfg.webui.host;
         port = cfg.webui.port;
         ollamaUrl = cfg.url;
+      };
+
+      nginx.virtualHosts = {
+        "ollama.${domain}" = {
+          useACMEHost = domain;
+          onlySSL = true;
+
+          locations = {
+            "/".proxyPass = cfg.webui.url;
+            "/api".proxyPass = cfg.url;
+          };
+        };
       };
     };
   };
