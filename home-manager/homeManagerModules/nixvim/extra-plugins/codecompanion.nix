@@ -1,7 +1,9 @@
+let
+  domain = "https://ollama.deamicis.top";
+in
 {
   programs.nixvim.plugins.codecompanion = {
-    enable = false;
-    # currently fails to build
+    enable = true;
 
     settings = {
       adapters = {
@@ -10,7 +12,7 @@
             function()
               return require('codecompanion.adapters').extend('ollama', {
                   env = {
-                      url = "http://192.168.0.165:47300",
+                      url = "${domain}",
                   },
                   schema = {
                       model = {
@@ -26,19 +28,23 @@
           '';
         };
       };
+
       opts = {
         log_level = "TRACE";
         send_code = true;
         use_default_actions = true;
         use_default_prompts = true;
       };
+
       strategies = {
         agent = {
           adapter = "ollama";
         };
+
         chat = {
           adapter = "ollama";
         };
+
         inline = {
           adapter = "ollama";
         };
