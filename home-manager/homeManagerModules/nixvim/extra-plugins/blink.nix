@@ -1,3 +1,4 @@
+{ config, lib, ... }:
 {
   programs.nixvim = {
     plugins.blink-cmp = {
@@ -5,7 +6,9 @@
 
       settings = {
         sources = {
-          per_filetype.codecompanion = [ "codecompanion" ];
+          per_filetype.codecompanion = lib.mkIf config.programs.nixvim.plugins.codecompanion.enable [
+            "codecompanion"
+          ];
         };
 
         completion = {
