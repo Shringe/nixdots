@@ -3,7 +3,7 @@ let
 in
 {
   programs.nixvim.plugins.codecompanion = {
-    enable = true;
+    enable = false;
 
     settings = {
       adapters = {

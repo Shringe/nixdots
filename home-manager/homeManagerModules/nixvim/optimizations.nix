@@ -25,7 +25,9 @@
     combinePlugins = {
       enable = true;
       standalonePlugins = [
-        "friendly-snippets" # Builds but doesn't actually work wihout unpacking
+        # Builds but don't actually work wihout unpacking
+        "friendly-snippets"
+        "avante.nvim"
 
         # All three conflict with eachother ; Two must me unpacked
         "nvim-tree.lua"

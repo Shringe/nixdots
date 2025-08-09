@@ -3,18 +3,20 @@ let
 in
 {
   programs.nixvim.plugins.avante = {
-    enable = false;
+    enable = true;
 
     settings = {
       provider = "ollama";
       providers.ollama = {
         model = "qwen2.5-coder";
-        endpoint = "${domain}/api";
+        endpoint = "${domain}";
+        # max_tokens = 4096;
+        disable_tools = true;
       };
 
       diff = {
         autojump = true;
-        debug = true;
+        debug = false;
         list_opener = "copen";
       };
 
