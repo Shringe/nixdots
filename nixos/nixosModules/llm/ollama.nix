@@ -66,10 +66,9 @@ in
     services = {
       ollama = {
         enable = true;
-        openFirewall = true;
+        openFirewall = false;
         host = cfg.host;
         port = cfg.port;
-        # package = pkgs-stable.ollama;
 
         acceleration = mkIf cfg.enableCuda "cuda";
 
