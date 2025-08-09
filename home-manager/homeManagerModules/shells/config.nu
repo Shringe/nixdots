@@ -1,5 +1,7 @@
-$env.config.edit_mode = "vi"
-$env.config.show_banner = false
+$env.config = {
+  edit_mode: "vi"
+  show_banner: false
+}
 
 alias nr = nf run
 alias ns = nf shell
