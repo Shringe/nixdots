@@ -1,18 +1,20 @@
+let
+  domain = "https://ollama.deamicis.top";
+in
 {
   programs.nixvim.plugins.avante = {
-    enable = true;
+    enable = false;
 
     settings = {
       provider = "ollama";
-      ollama = {
-        model = "qwen-coder2.5";
-        # endpoint = "http://192.168.0.165:47300";
-        endpoint = "https://ollama.deamicis.top/api";
+      providers.ollama = {
+        model = "qwen2.5-coder";
+        endpoint = "${domain}/api";
       };
 
       diff = {
         autojump = true;
-        debug = false;
+        debug = true;
         list_opener = "copen";
       };
 
@@ -23,16 +25,18 @@
         };
       };
 
-      # mappings = {
-      #   diff = {
-      #     both = "cb";
-      #     next = "]x";
-      #     none = "c0";
-      #     ours = "co";
-      #     prev = "[x";
-      #     theirs = "ct";
-      #   };
-      # };
+      mappings = {
+        # ask = "<leader>sa";
+        # edit = "<leader>se";
+        diff = {
+          both = "cb";
+          next = "]x";
+          none = "c0";
+          ours = "co";
+          prev = "[x";
+          theirs = "ct";
+        };
+      };
 
       hints = {
         enabled = true;

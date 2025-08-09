@@ -65,7 +65,7 @@
     keymaps = [
       {
         mode = "n";
-        key = "<leader>a";
+        key = "<leader>ga";
         action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
       }
       {
