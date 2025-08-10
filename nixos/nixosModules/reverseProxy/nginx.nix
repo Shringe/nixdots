@@ -80,7 +80,7 @@ in
           (rps "dns" server.networking.dns)
           (rps "immich" server.services.immich)
           (rps "radicale" caldav.radicale)
-          (rps "ollama" llm.ollama.webui)
+          # (rps "ollama" llm.ollama.webui)
           (rps "lidarr" arrs.lidarr)
           (rps "radarr" arrs.radarr)
           (rps "sonarr" arrs.sonarr)
