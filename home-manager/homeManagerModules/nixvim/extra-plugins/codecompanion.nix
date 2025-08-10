@@ -1,34 +1,53 @@
+{ config, ... }:
 let
   domain = "https://ollama.deamicis.top";
   # model = "qwen2.5-coder:latest";
   model = "deepseek-r1:latest";
 in
 {
+  sops.secrets."llm/openai" = { };
+
   programs.nixvim = {
     plugins.codecompanion = {
       enable = true;
 
       settings = {
         adapters = {
-          ollama = {
-            __raw = ''
-              function()
-                return require("codecompanion.adapters").extend("ollama", {
-                    env = {
-                        url = "${domain}",
-                    },
-                    schema = {
-                        model = {
-                            default = "${model}",
-                        },
-                        num_ctx = {
-                            default = 32768,
-                        },
-                    },
-                })
-              end
-            '';
-          };
+          ollama.__raw = ''
+            function()
+              return require("codecompanion.adapters").extend("ollama", {
+                  env = {
+                      url = "${domain}",
+                  },
+                  schema = {
+                      model = {
+                          default = "${model}",
+                      },
+                      num_ctx = {
+                          default = 32768,
+                      },
+                  },
+              })
+            end
+          '';
+
+          openai.__raw = ''
+            function()
+              return require("codecompanion.adapters").extend("openai", {
+                  env = {
+                      api_key = "cmd:cat ${config.sops.secrets."llm/openai".path}",
+                  },
+                  schema = {
+                      model = {
+                          default = "gpt-5-mini",
+                      },
+                      -- num_ctx = {
+                      --     default = 32768,
+                      -- },
+                  },
+              })
+            end
+          '';
         };
 
         opts = {
@@ -77,7 +96,7 @@ in
           "v"
         ];
         key = "<leader>st";
-        action = "<cmd>CodeCompanionChat<CR>";
+        action = "<cmd>CodeCompanionChat Toggle<CR>";
       }
     ];
   };
