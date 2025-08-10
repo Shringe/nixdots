@@ -16,12 +16,17 @@
     # Simple plugins
     plugins = {
       lualine.enable = true;
+      lualine.settings.options.globalstatus = true;
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
       nvim-surround.enable = true;
       gitsigns.enable = true;
       which-key.enable = true;
       render-markdown.enable = true;
+      render-markdown.settings.file_types = [
+        "markdown"
+        "codecompanion"
+      ];
     };
 
     autoCmd = [
@@ -35,7 +40,8 @@
       #     "*.rs"
       #   ];
       # }
-      { # Associates .kbd(kanata config) files with lisp
+      {
+        # Associates .kbd(kanata config) files with lisp
         command = "setfiletype lisp";
         event = [
           "BufNewFile"
@@ -52,8 +58,8 @@
       shell = config.homeManagerModules.shells.default;
 
       # Numberlines
-      number = true; 
-      relativenumber = true; 
+      number = true;
+      relativenumber = true;
 
       # Saves undo history to swapfile
       undofile = true;
@@ -69,9 +75,10 @@
       mapleader = " ";
     };
 
-# vim.api.nvim_set_keymap(  't'  ,  '<Leader><ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
+    # vim.api.nvim_set_keymap(  't'  ,  '<Leader><ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
     keymaps = [
-      {# Esc in terminal mode
+      {
+        # Esc in terminal mode
         mode = "t";
         key = "<ESC>";
         action = "<C-\\><C-n>";
@@ -130,4 +137,3 @@
     ];
   };
 }
-
