@@ -3,7 +3,7 @@ let
 in
 {
   programs.nixvim.plugins.avante = {
-    enable = true;
+    enable = false;
 
     settings = {
       provider = "ollama";
