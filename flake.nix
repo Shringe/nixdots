@@ -8,6 +8,11 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     liberodark = {
       url = "github:liberodark/my-flakes";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,7 +82,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-old, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nixpkgs-old,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
 
@@ -92,8 +104,8 @@
           });
 
           mpv = super.mpv.override {
-            scripts = with self.mpvScripts; [ 
-              mpris 
+            scripts = with self.mpvScripts; [
+              mpris
               dynamic-crop
               thumbfast
               quack
@@ -133,120 +145,134 @@
 
       # No native optimizations, can be pulled from binary cache
       genericPkgs = unstablePkgs;
-    in {
+    in
+    {
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
       };
 
       nixosConfigurations = with nixpkgs.lib; {
-        deity = 
-          let 
+        deity =
+          let
             system = "x86_64-linux";
             arch = "znver3";
             abi = "64";
 
             optimize_builds = false;
-          in 
-            nixosSystem {
-              specialArgs = { inherit system inputs; };
-              modules = [ 
-                {
-                  nix.settings = {
-                    system-features = [ "gccarch-${arch}" ];
+          in
+          nixosSystem {
+            specialArgs = { inherit system inputs; };
+            modules = [
+              {
+                nix.settings = {
+                  system-features = [ "gccarch-${arch}" ];
 
-                    # Makes it easier to tell which package failed to build with optimizations
-                    max-jobs = mkIf optimize_builds 1;
+                  # Makes it easier to tell which package failed to build with optimizations
+                  max-jobs = mkIf optimize_builds 1;
+                };
+
+                nixpkgs = {
+                  hostPlatform = {
+                    system = system;
+                    gcc = mkIf optimize_builds {
+                      arch = arch;
+                      tune = arch;
+                      abi = abi;
+                    };
                   };
 
+                  overlays =
+                    overlays
+                    ++ optionals optimize_builds [
+                      (final: prev: {
+                        postgresql_15 = genericPkgs.postgresql_15;
+                        dotnetCorePackages = genericPkgs.dotnetCorePackages;
 
-                  nixpkgs = {
-                    hostPlatform = {
-                      system = system;
-                      gcc = mkIf optimize_builds {
-                        arch = arch;
-                        tune = arch;
-                        abi = abi;
-                      };
-                    };
+                        speexdsp = genericPkgs.speexdsp;
+                        nototools = genericPkgs.nototools;
+                        libsecret = genericPkgs.libsecret;
+                        valkey = genericPkgs.valkey;
+                        chromedriver = genericPkgs.chromedriver;
+                        liberfa = genericPkgs.liberfa;
 
-                    overlays = overlays
-                      ++ optionals optimize_builds [
-                        (final: prev: {
-                          postgresql_15 = genericPkgs.postgresql_15;
-                          dotnetCorePackages = genericPkgs.dotnetCorePackages;
+                        # It seems these pull in 32bit dependencies which really struggle to build
+                        wine = genericPkgs.wine;
+                        pipewire = genericPkgs.pipewire;
+                        steam-run = genericPkgs.steam-run;
+                        lutris = genericPkgs.lutris;
 
-                          speexdsp = genericPkgs.speexdsp;
-                          nototools = genericPkgs.nototools;
-                          libsecret = genericPkgs.libsecret;
-                          valkey = genericPkgs.valkey;
-                          chromedriver = genericPkgs.chromedriver;
-                          liberfa = genericPkgs.liberfa;
+                        jellyfin-media-player = genericPkgs.jellyfin-media-player;
+                        kdePackages = genericPkgs.kdePackages;
+                        flaresolverr = genericPkgs.flaresolverr;
+                        immich-machine-learning = genericPkgs.immich-machine-learning;
+                        jdk17 = genericPkgs.jdk17;
+                        jellyfin = genericPkgs.jellyfin;
 
-                          # It seems these pull in 32bit dependencies which really struggle to build
-                          wine = genericPkgs.wine;
-                          pipewire = genericPkgs.pipewire;
-                          steam-run = genericPkgs.steam-run;
-                          lutris = genericPkgs.lutris;
+                        libadwaita = prev.libadwaita.overrideAttrs (old: {
+                          doCheck = false;
+                        });
 
+                        numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
+                          disabledTests = oldAttrs.disabledTests ++ [
+                            "test_umath_accuracy"
+                            "TestAccuracy::test_validate_transcendentals"
+                            "test_validate_transcendentals"
+                          ];
+                        });
 
-                          jellyfin-media-player = genericPkgs.jellyfin-media-player;
-                          kdePackages = genericPkgs.kdePackages;
-                          flaresolverr = genericPkgs.flaresolverr;
-                          immich-machine-learning = genericPkgs.immich-machine-learning;
-                          jdk17 = genericPkgs.jdk17;
-                          jellyfin = genericPkgs.jellyfin;
-
-                          libadwaita = prev.libadwaita.overrideAttrs (old: {
-                            doCheck = false;
-                          });
-
-                          numpy = python-prev.numpy.overridePythonAttrs (oldAttrs: {
-                            disabledTests = oldAttrs.disabledTests ++ ["test_umath_accuracy" "TestAccuracy::test_validate_transcendentals" "test_validate_transcendentals"];
-                          });
-
-                          python312 = prev.python312.override {
-                            packageOverrides = pyfinal: pyprev: {
-                              anyio = pyprev.anyio.overridePythonAttrs (oldAttrs: {
-                                disabledTests = oldAttrs.disabledTests ++ [ "test_handshake_fail" ];
-                              });
-                            };
+                        python312 = prev.python312.override {
+                          packageOverrides = pyfinal: pyprev: {
+                            anyio = pyprev.anyio.overridePythonAttrs (oldAttrs: {
+                              disabledTests = oldAttrs.disabledTests ++ [ "test_handshake_fail" ];
+                            });
                           };
-                        })
-                      ];
+                        };
+                      })
+                    ];
 
-                    config = {
-                      allowUnfree = true;
+                  config = {
+                    allowUnfree = true;
 
-                      # Cuda takes forever to build
-                      cudaSupport = mkForce false;
-                    };
+                    # Cuda takes forever to build
+                    cudaSupport = mkForce false;
                   };
+                };
 
-                  # Ensure maximum build performance
-                  powerManagement.cpuFreqGovernor = "performance";
+                # Ensure maximum build performance
+                powerManagement.cpuFreqGovernor = "performance";
 
-                  environment.systemPackages = with pkgs; [
-                    zellij
-                  ];
-                }
+                environment.systemPackages = with pkgs; [
+                  zellij
+                ];
+              }
 
-                inputs.determinate.nixosModules.default
-                { # Determinate Nix settings
-                  nix.settings = {
-                    lazy-trees = true;
-                  };
-                }
+              inputs.determinate.nixosModules.default
+              {
+                # Determinate Nix settings
+                nix.settings = {
+                  lazy-trees = true;
+                };
+              }
 
-                ./nixos/deity/configuration.nix 
-                ./nixos/nixosModules
-                ./shared
-              ];
-            };
+              ./nixos/deity/configuration.nix
+              ./nixos/nixosModules
+              ./shared
+            ];
+          };
 
         luminum = nixosSystem {
-          specialArgs = { inherit system inputs pkgs stablePkgs unstablePkgs oldPkgs; };
-          modules = [ 
-            ./nixos/luminum/configuration.nix 
+          specialArgs = {
+            inherit
+              system
+              inputs
+              pkgs
+              stablePkgs
+              unstablePkgs
+              oldPkgs
+              ;
+          };
+          modules = [
+            ./nixos/luminum/configuration.nix
             ./nixos/nixosModules
             ./shared
           ];
@@ -257,8 +283,8 @@
         shringed = homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit inputs stablePkgs unstablePkgs; };
-          modules = [ 
-            ./home-manager/shringed/home.nix 
+          modules = [
+            ./home-manager/shringed/home.nix
             ./home-manager/homeManagerModules
             inputs.nixvim.homeManagerModules.nixvim
             ./shared
@@ -268,8 +294,8 @@
         shringe = homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = { inherit inputs stablePkgs unstablePkgs; };
-          modules = [ 
-            ./home-manager/shringe/home.nix 
+          modules = [
+            ./home-manager/shringe/home.nix
             ./home-manager/homeManagerModules
             inputs.nixvim.homeManagerModules.nixvim
             ./shared

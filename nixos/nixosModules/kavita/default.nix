@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.kavita;
-in {
+in
+{
   options.nixosModules.kavita = {
     enable = mkEnableOption "Kavita ebook manager";
 
@@ -43,9 +44,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."kavita" = {};
+    sops.secrets."kavita" = { };
 
-    users.users.kavita.extraGroups = [ "manga" ];
+    users.users.kavita.extraGroups = [
+      "manga"
+      "books"
+    ];
 
     services.kavita = {
       enable = true;
