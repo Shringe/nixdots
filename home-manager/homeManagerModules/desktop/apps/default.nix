@@ -21,12 +21,12 @@ in
       defaultApplications = {
         "application/pdf" = [
           "org.pwmt.zathura.desktop"
-          "firefox.desktop"
+          "zen-twilight.desktop"
         ];
 
-        "x-scheme-handler/http" = [ "firefox.desktop" ];
-        "x-scheme-handler/https" = [ "firefox.desktop" ];
-        "text/html" = [ "firefox.desktop" ];
+        "x-scheme-handler/http" = [ "zen-twilight.desktop" ];
+        "x-scheme-handler/https" = [ "zen-twilight.desktop" ];
+        "text/html" = [ "zen-twilight.desktop" ];
 
         "image/png" = [ "feh.desktop" ];
         "image/jpg" = [ "feh.desktop" ];

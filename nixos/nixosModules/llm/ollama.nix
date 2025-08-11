@@ -81,8 +81,8 @@ in
 
         loadModels = [
           "llama3.1"
-          "codellama"
-          "qwen3"
+          "deekseek-r1:14b"
+          "renchris/qwen3-coder:30b-gguf-unsloth"
         ];
       };
 
@@ -90,7 +90,7 @@ in
         enable = true;
         hostname = cfg.webui.host;
         port = cfg.webui.port;
-        ollamaUrl = cfg.url;
+        ollamaUrl = cfg.furl;
       };
 
       nginx.virtualHosts = {
