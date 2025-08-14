@@ -1,11 +1,18 @@
 # Auto-generated using compose2nix v0.3.1.
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.docker.romm;
 
+  domain = config.nixosModules.reverseProxy.aDomain;
   ip = config.nixosModules.info.system.ips.local;
-in {
+in
+{
   options.nixosModules.docker.romm = {
     enable = mkEnableOption "Romm";
 
@@ -31,7 +38,7 @@ in {
 
     furl = mkOption {
       type = types.string;
-      default = "https://romm.${config.nixosModules.reverseProxy.domain}";
+      default = "https://romm.${domain}";
     };
 
     icon = mkOption {
@@ -42,8 +49,8 @@ in {
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      "romm/romm" = {};
-      "romm/db" = {};
+      "romm/romm" = { };
+      "romm/db" = { };
     };
 
     # Containers

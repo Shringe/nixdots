@@ -27,7 +27,7 @@ let
   rps = subdomain: module: reverseProxySubdomain subdomain cfg.domain module;
   # rpd = module: reverseProxyDomain cfg.domain module;
 
-  # rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
+  rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
   rpad = module: reverseProxyDomain cfg.aDomain module;
 in
 {
@@ -88,7 +88,6 @@ in
           (rps "torrent" torrent.qbittorrent)
           (rps "flaresolverr" arrs.flaresolverr)
           (rps "atuin" shell.atuin.server)
-          (rps "romm" docker.romm)
           (rps "linkwarden" linkwarden)
           (rps "ourshoppinglist" docker.ourshoppinglist)
           (rps "traccar" gps.traccar)
@@ -100,6 +99,7 @@ in
 
           # Public services
           (rpad social.matrix.conduit)
+          (rpas "romm" docker.romm)
           # (rpas "collabora" server.services.collabora)
         ];
     };
