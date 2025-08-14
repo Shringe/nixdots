@@ -10,5 +10,6 @@
     ./hyprlock.nix
     ./swayosd.nix
     ./openrgb.nix
+    ./dolphin.nix
   ];
 }

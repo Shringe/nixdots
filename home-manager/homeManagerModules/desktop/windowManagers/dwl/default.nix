@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl;
-in {
+in
+{
   imports = [
     ./waybar
     ./swayidle.nix
@@ -37,6 +43,7 @@ in {
       swaync.enable = true;
       cliphist.enable = true;
       swayosd.enable = true;
+      dolphin.enable = true;
     };
 
     systemd.user.targets.dwl-session.Unit = {
