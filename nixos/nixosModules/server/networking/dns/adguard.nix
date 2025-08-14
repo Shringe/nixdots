@@ -82,7 +82,7 @@ in
           (rp "auth")
           (rp "flaresolverr")
           (rp "atuin")
-          (rp "romm")
+          # (rp "romm")
           (rp "linkwarden")
           (rp "ourshoppinglist")
           (rp "traccar")
