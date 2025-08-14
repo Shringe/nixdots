@@ -99,7 +99,7 @@ in
 
           # Public services
           (rpad social.matrix.conduit)
-          (rpas "romm" docker.romm)
+          # (rpas "romm" docker.romm)
           # (rpas "collabora" server.services.collabora)
         ];
     };

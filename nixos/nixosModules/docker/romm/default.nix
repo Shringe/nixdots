@@ -251,5 +251,15 @@ in
 
       wantedBy = [ "multi-user.target" ];
     };
+
+    services.nginx.virtualHosts."romm.${domain}" = {
+      useACMEHost = domain;
+      onlySSL = true;
+
+      locations."/" = {
+        proxyPass = cfg.url;
+        proxyWebsockets = true;
+      };
+    };
   };
 }
