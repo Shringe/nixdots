@@ -31,10 +31,10 @@
       url = "github:Shringe/nf";
     };
 
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # walker = {
+    #   url = "github:abenz1267/walker";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -85,6 +85,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-stable,
       nixpkgs-unstable,
       nixpkgs-old,
       ...
@@ -95,6 +96,13 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.dwl.overlays.default
+
+        (self: super: {
+          stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        })
 
         (self: super: {
           nf = inputs.nf.packages.${system}.default;

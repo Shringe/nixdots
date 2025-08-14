@@ -14,7 +14,7 @@ in
     ./swayidle.nix
     ./swaybg.nix
     ./wlogout.nix
-    ./walker.nix
+    # ./walker.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl = {
