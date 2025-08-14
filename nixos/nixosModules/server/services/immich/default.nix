@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.server.services.immich;
@@ -53,6 +58,7 @@ in
 
     services.immich = {
       enable = true;
+      package = pkgs.stable.immich;
       host = cfg.host;
       port = cfg.port;
 
