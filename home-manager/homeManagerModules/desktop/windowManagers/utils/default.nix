@@ -11,5 +11,6 @@
     ./swayosd.nix
     ./openrgb.nix
     ./dolphin.nix
+    ./polkit.nix
   ];
 }
