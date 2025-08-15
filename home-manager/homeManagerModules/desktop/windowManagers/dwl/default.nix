@@ -44,6 +44,7 @@ in
       cliphist.enable = true;
       swayosd.enable = true;
       dolphin.enable = true;
+      polkit.enable = true;
     };
 
     systemd.user.targets.dwl-session.Unit = {
