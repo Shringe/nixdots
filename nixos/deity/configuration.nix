@@ -143,6 +143,7 @@
     };
 
     gaming = {
+      alvr.enable = true;
       servers = {
         # ase.Gatsby.enable = true;
       };

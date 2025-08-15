@@ -6,5 +6,6 @@
     ./optimizations.nix
     ./tooling.nix
     ./servers
+    ./alvr.nix
   ];
 }
