@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.gaming.alvr;
@@ -17,5 +22,9 @@ in
       enable = true;
       openFirewall = true;
     };
+
+    environment.systemPackages = with pkgs; [
+      sidequest
+    ];
   };
 }
