@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib;
@@ -18,13 +17,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.alvr = {
+    services.monado.enable = true;
+    services.wivrn = {
       enable = true;
       openFirewall = true;
     };
-
-    environment.systemPackages = with pkgs; [
-      sidequest
-    ];
   };
 }

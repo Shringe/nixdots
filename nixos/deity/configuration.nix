@@ -122,7 +122,7 @@
     firewall = {
       enable = true;
       kdeconnect.enable = true;
-      yuzu.enable = false;
+      yuzu.enable = true;
     };
 
     llm = {
