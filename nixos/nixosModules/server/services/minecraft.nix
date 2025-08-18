@@ -29,7 +29,7 @@ in
 
     port = mkOption {
       type = types.port;
-      default = 47480;
+      default = 25565;
     };
 
     url = mkOption {
@@ -50,6 +50,7 @@ in
 
       servers.school = {
         enable = true;
+        openFirewall = true;
         package = pkgs.fabricServers.fabric-1_21_8;
 
         symlinks."mods" = pkgs.linkFarmFromDrvs "mods" (
