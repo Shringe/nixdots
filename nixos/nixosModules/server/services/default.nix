@@ -6,6 +6,7 @@ with lib;
     ./nextcloud.nix
     ./collabora.nix
     ./immich.nix
+    ./minecraft.nix
   ];
 
   options.nixosModules.server.services = {

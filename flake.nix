@@ -8,6 +8,8 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
     };
@@ -96,6 +98,7 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.dwl.overlays.default
+        inputs.nix-minecraft.overlay
 
         (self: super: {
           stable = import nixpkgs-stable {
