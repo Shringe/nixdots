@@ -2,10 +2,10 @@
 with lib;
 {
   imports = [
-    ./paperless
-    ./nextcloud
-    ./collabora
-    ./immich
+    ./paperless.nix
+    ./nextcloud.nix
+    ./collabora.nix
+    ./immich.nix
   ];
 
   options.nixosModules.server.services = {
