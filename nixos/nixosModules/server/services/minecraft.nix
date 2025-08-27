@@ -128,9 +128,49 @@ in
               url = "https://cdn.modrinth.com/data/JrvR9OHr/versions/Kaxph4k0/doubledoors-1.21.8-7.1.jar";
               sha512 = "09370159d41925eec07558e65cf06cff99253503d55ff13b206bae1f2914c4e8cdab938747526e3e75f900793fa95eaf2636e7eead1f4bdfc9b0d9efeacfc50e";
             };
-            leavesbegone = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/AVq17PqV/versions/mOo6anJy/LeavesBeGone-v21.8.0-1.21.8-Fabric.jar";
-              sha512 = "b4647db4556854562a0756c90a6ab5fde2957a1fa6ff829afcc95610275dad894c0fcd8ac3adaafc1d11acf012d9d54b96a73cbf9875c95b350b15ce3f4bde38";
+            # leavesbegone = pkgs.fetchurl {
+            #   url = "https://cdn.modrinth.com/data/AVq17PqV/versions/mOo6anJy/LeavesBeGone-v21.8.0-1.21.8-Fabric.jar";
+            #   sha512 = "b4647db4556854562a0756c90a6ab5fde2957a1fa6ff829afcc95610275dad894c0fcd8ac3adaafc1d11acf012d9d54b96a73cbf9875c95b350b15ce3f4bde38";
+            # };
+            fallingtree = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/Fb4jn8m6/versions/vs4XSgGN/FallingTree-1.21.8-1.21.8.2.jar";
+              sha512 = "c3a12bc095fdd603b6bcd972772a937a0d6ce8b3bece81d1b4bc2cb45de7d6d5d4fabbe056f26ebe04f8052a92e3c62618b7b97767bd673abccb3f310e3ac457";
+            };
+            tpautilities = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/4Eg1Wjr2/versions/YG7I089P/tpa-utilities-1.2.0.jar";
+              sha512 = "30166a0af5092814f45f1cc4a5a7ad73f280192275fcd9830a4644e9b125127393ddeabc80090cf2349344308f818cc7d8a1f3c86e9461de900b5cc648632fce";
+            };
+            neutralanimals = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/w1AXlLHd/versions/LMrA12LJ/neutral-animals-1.2.14.jar";
+              sha512 = "0eb157b92e4dac71c1924de4cf320012e0b5b46066df79251b188767689b6389a8261fdf25e907e513d023bd4203ea03d78d74f4498493a1b38f4ce9ebed6118";
+            };
+            singlesleepmod = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/HzlME0ff/versions/WKBhdN3D/single-sleep-mod-1.0.0.jar";
+              sha512 = "ded132e80deea64d13b594dc84ec321228d5317014bd3f54198fb6b2973588d6df152f1adb6ba36b8d9a8fd37d681f2efd1166b5a7c91b8b0770c7538b7434cf";
+            };
+            milkallthemobs = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/qRidloO4/versions/xUlMtm0h/milkallthemobs-1.21.8-3.4.jar";
+              sha512 = "ac5501416a773f4f40a8717f4a622a94d699262123f0897cebfbb7cbe67680d5b424689f83f05e7bd89d2399939b173c1ea2f66c2ab203d2eccf99ffdf892976";
+            };
+            fabric-language-kotlin = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/Ha28R6CL/versions/Y91MRWtG/fabric-language-kotlin-1.13.5%2Bkotlin.2.2.10.jar";
+              sha512 = "bae89ea5e71895f5a760def61359bb90a715832d998aec8141902410c503533fc42631e033109fcc9cdb3f869c58da9b89e9efc3b3ef112cbafe27059de9239e";
+            };
+            owolib = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/ccKDOlHs/versions/fboVuDvC/owo-lib-0.12.22%2B1.21.8.jar";
+              sha512 = "606d327fdd8089de1a02f3654188cb76da79c0f1df8728d679e64b740fac5db6920f8c1c15d3c2a782a3e96ec63207587a9a3982226d197aceb5c8f4bd24db71";
+            };
+            fromthefog = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/p1WH6sHr/versions/7p2yqbTn/From-The-Fog-Forge-Fabric-1.21.6-1.21.8-v1.10.3.jar";
+              sha512 = "7d185dc1c50a6fe9f075f3f2fdb4c1d27207f1f605a6be9bf72e13e4cd394313a50d908c016e7332bef9ce9625340f3a42675c147cf69495af30a0c17f890a57";
+            };
+            # distantfriends = pkgs.fetchurl { # Needs client mod
+            #   url = "https://cdn.modrinth.com/data/CDaJ8xGu/versions/8mMzt1FR/DistantFriends-fabric-1.21.8-0.12.0.jar";
+            #   sha512 = "08f1a2f4f5206131f52034a3f3a29d308b67dfb9aa0adb9f6558bb1337d81531fd3af2ef3584e629050578b1a977fe06e2e992782483275d27779cfb1e6909c9";
+            # };
+            homeutilities = pkgs.fetchurl {
+              url = "https://cdn.modrinth.com/data/CLpHljll/versions/imMefwZH/home-utilities-1.3.0.jar";
+              sha512 = "3ebd798a102beb82d08a8173c003dd99384d05302785a26e04dff0445a137767aa31218524a47da3d8e03a265daa62439ef2849ee98bf1a2ab8ed8542ee8d46d";
             };
           }
         );

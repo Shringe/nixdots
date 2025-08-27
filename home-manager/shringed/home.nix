@@ -44,14 +44,36 @@
       enable = true;
       userName = "Shringe";
       userEmail = "dashingkoso@gmail.com";
-      
+
       extraConfig = {
         credential.helper = "store";
-        safe.directory = [ "/nixdots" "/nixdots/.git" ];
+        safe.directory = [
+          "/nixdots"
+          "/nixdots/.git"
+        ];
       };
     };
   };
 
+  # xdg.configFile."openvr/openvrpaths.vrpath".text = ''
+  #   {
+  #     "config" :
+  #     [
+  #       "~/.local/share/Steam/config"
+  #     ],
+  #     "external_drivers" : null,
+  #     "jsonid" : "vrpathreg",
+  #     "log" :
+  #     [
+  #       "~/.local/share/Steam/logs"
+  #     ],
+  #     "runtime" :
+  #     [
+  #       "${pkgs.opencomposite}/lib/opencomposite"
+  #     ],
+  #     "version" : 1
+  #   }
+  # '';
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -65,7 +87,7 @@
     fzf
     haskellPackages.greenclip
     redshift
-    git 
+    git
     atuin
     picom
     qutebrowser

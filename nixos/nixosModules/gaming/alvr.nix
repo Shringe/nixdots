@@ -18,20 +18,20 @@ in
   };
 
   config = mkIf cfg.enable {
+    # services.monado.enable = true;
+    # services.wivrn = {
+    #   enable = true;
+    #   openFirewall = true;
+    #   defaultRuntime = true;
+    # };
+    #
+    # environment.systemPackages = with pkgs; [
+    #   wlx-overlay-s
+    # ];
+
     programs.alvr = {
       enable = true;
       openFirewall = true;
     };
-
-    services.monado.enable = true;
-    services.wivrn = {
-      enable = true;
-      openFirewall = true;
-    };
-
-    environment.systemPackages = with pkgs; [
-      wlx-overlay-s
-      sidequest
-    ];
   };
 }

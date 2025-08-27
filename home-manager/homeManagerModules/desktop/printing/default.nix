@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.printing;
-in {
+in
+{
   options.homeManagerModules.desktop.printing = {
     enable = mkOption {
       type = types.bool;
@@ -16,7 +22,7 @@ in {
       kdePackages.skanlite
 
       # qt6 skanpage doesn't launch
-      libsForQt5.skanpage
+      stable.libsForQt5.skanpage
     ];
   };
 }
