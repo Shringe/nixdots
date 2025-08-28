@@ -56,20 +56,10 @@
   # environment.
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-    #neovim
-    fish
-    xclip
     alsa-firmware
     fzf
-    haskellPackages.greenclip
-    redshift
     bat
     eza
-    git
-    atuin
-    picom
-    chromium
-    qutebrowser
     btop
     font-awesome
     pavucontrol
