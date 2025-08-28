@@ -2,7 +2,7 @@
   # Pretties up nvim-cmp menu
   programs.nixvim.plugins.lspkind = {
     enable = false;
-    cmp = {
+    settings.cmp = {
       enable = true;
       menu = {
         buffer = "[Buffer]";
