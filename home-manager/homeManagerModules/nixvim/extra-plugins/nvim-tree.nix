@@ -2,8 +2,8 @@
   programs.nixvim = {
     plugins.nvim-tree = {
       enable = true;
-      actions = {
-        openFile.quitOnOpen = true;
+      settings.actions = {
+        open_file.quit_on_open = true;
       };
     };
     keymaps = [
