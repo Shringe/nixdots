@@ -122,6 +122,8 @@
         })
       ];
 
+      # Binary cache provided here
+      # https://docs.determinate.systems/guides/advanced-installation#nixos
       detSys = [
         inputs.determinate.nixosModules.default
         {
