@@ -133,14 +133,8 @@
       };
     };
 
-    desktop = {
-      enable = true;
-    };
-
-    kanata = {
-      enable = true;
-      variant = "wide";
-    };
+    desktop.enable = true;
+    kanata.enable = true;
 
     gaming = {
       alvr.enable = true;

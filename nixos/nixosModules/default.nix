@@ -110,7 +110,7 @@ with lib;
       enable = mkEnableOption "Enables full kanata keyboard configuration";
       variant = mkOption {
         type = types.str;
-        default = "main";
+        default = "wide";
         description = "What .kbd file to use. Options can be found in ./kanata/";
       };
     };
