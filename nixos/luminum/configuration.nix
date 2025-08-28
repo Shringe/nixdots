@@ -2,53 +2,42 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixosModules = {
     theming.enable = true;
-    desktop.windowManagers.sway.enable = true;
     vpn.enable = true;
+    battery.enable = true;
+    kanata.enable = true;
+    desktop.enable = true;
 
     wireless = {
       enable = true;
       fixes.unblockWlan.enable = true;
     };
-    battery.enable = true;
-    kanata = {
-      enable = true;
-      variant = "wide";
-    };
+
     gaming = {
       optimizations.enable = true;
-      steam.enable = true;
-      games.enable = true;
-    };
-    users = {
-      shringe.enable = true;
+      steam.enable = false;
+      games.enable = false;
     };
 
-    boot = {
-      enable = true;
-      loaders = {
-        grub.enable = false;
-        systemd-boot.enable = true;
-      };
-    };
-  };
-
-  boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-    # kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
-    # kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    users.shringe.enable = true;
   };
 
   # Set your time zone.
@@ -89,7 +78,7 @@
   # $ nix search wget
   environment = {
     sessionVariables = {
-      FLAKE="/nixdots";
+      NH_FLAKE = "/nixdots";
     };
     systemPackages = with pkgs; [
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -114,7 +103,6 @@
       nix-search-cli
       nh
 
-
       btrfs-progs
       compsize
       cryptsetup
@@ -131,7 +119,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -164,4 +152,3 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-

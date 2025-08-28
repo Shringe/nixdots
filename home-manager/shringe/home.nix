@@ -7,22 +7,31 @@
   home.homeDirectory = "/home/shringe";
 
   homeManagerModules = {
+    tooling.enable = true;
     theming.enable = true;
     nixvim.enable = true;
     desktop = {
       enable = true;
-      office.enable = true;
-      browsers.enable = true;
+      # discord.enable = true;
       kdeconnect.enable = true;
+      music.enable = true;
+      browsers.enable = true;
+      browsers.chromium.enable = true;
       terminals.enable = true;
-      windowManagers.sway.enable = true;
+      terminals.alacritty.enable = true;
+      office.enable = true;
+      windowManagers = {
+        enable = true;
+      };
+      email.enable = true;
     };
+
+    shells.enable = true;
+    # shells.atuin.enable = false;
     scripts.enable = true;
     dotfiles.enable = true;
     sops.enable = true;
-
-    # For unknown reason silently fails symling generation
-    shells.enable = false;
+    gaming.enable = true;
   };
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
@@ -32,14 +41,16 @@
       enable = true;
       userName = "Shringe";
       userEmail = "dashingkoso@gmail.com";
-      
+
       extraConfig = {
         credential.helper = "store";
-        safe.directory = [ "/nixdots" "/nixdots/.git" ];
+        safe.directory = [
+          "/nixdots"
+          "/nixdots/.git"
+        ];
       };
     };
   };
-
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -54,7 +65,7 @@
     redshift
     bat
     eza
-    git 
+    git
     atuin
     picom
     chromium
@@ -71,6 +82,8 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     FLAKE = "/nixdots";
+
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
   };
 
   # Let Home Manager install and manage itself.
