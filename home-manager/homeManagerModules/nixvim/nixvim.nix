@@ -1,6 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 {
   imports = [
+    inputs.nixvim.homeModules.nixvim
     ./extra-plugins
     ./optimizations.nix
     ./extra.nix
