@@ -175,7 +175,6 @@
           modules = [
             ./home-manager/shringed/home.nix
             ./home-manager/homeManagerModules
-            inputs.nixvim.homeManagerModules.nixvim
             ./shared
           ];
         };
@@ -186,7 +185,6 @@
           modules = [
             ./home-manager/shringe/home.nix
             ./home-manager/homeManagerModules
-            inputs.nixvim.homeManagerModules.nixvim
             ./shared
           ];
         };
