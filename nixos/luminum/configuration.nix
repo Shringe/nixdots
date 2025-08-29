@@ -13,7 +13,9 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./crazyUsb.nix
   ];
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -40,10 +42,6 @@
 
     users.shringe.enable = true;
   };
-
-  boot.kernelParams = [
-    "usbcore.autosuspend=-1"
-  ];
 
   services.blueman.enable = true;
   hardware.bluetooth = {
