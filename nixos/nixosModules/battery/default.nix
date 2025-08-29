@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.nixosModules.battery;
 in
@@ -13,16 +18,16 @@ in
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-        # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
         START_CHARGE_THRESH_BAT0 = 40;
-        STOP_CHARGE_THRESH_BAT0 = 80;
+        STOP_CHARGE_THRESH_BAT0 = 90;
       };
     };
 
     logind = {
-      lidSwitch = "ignore";
+      lidSwitch = "suspend-then-hibernate";
       extraConfig = ''
         HandlePowerKey=ignore
       '';
@@ -33,11 +38,13 @@ in
       powerEventCommands = ''
         systemctl suspend
       '';
-    };     
+    };
   };
 
-  environment.systemPackages = with pkgs; lib.mkIf cfg.tooling.enable  [
-    powertop # power usage cli
-    acpi # battery cli
-  ];
+  environment.systemPackages =
+    with pkgs;
+    lib.mkIf cfg.tooling.enable [
+      powertop # power usage cli
+      acpi # battery cli
+    ];
 }
