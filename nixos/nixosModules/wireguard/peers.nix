@@ -12,7 +12,8 @@ let
     allowedIPs = [ "${cfg.private_ip}.${toString num}/32" ];
     presharedKeyFile = config.sops.secrets."preshared/${name}".path;
   };
-in {
+in
+{
   options.nixosModules.wireguard.server.peers = {
     enable = mkOption {
       type = types.bool;
@@ -30,6 +31,7 @@ in {
       "preshared/L_Phone" = key;
       "preshared/K_Phone" = key;
       "preshared/K_Laptop" = key;
+      "preshared/L_Laptop" = key;
     };
 
     networking.wireguard.interfaces.wg0.peers = [
@@ -40,6 +42,7 @@ in {
       (mkPeer 2 "L_Phone" "5PfQalJfIoZwTCD7pjamN1PjsqC4V7wWfg0M1kIvqUo=")
       (mkPeer 3 "K_Phone" "XbbfzMbue9NF7QjJpi68w3SciQJGZq954X9aZtoXb0s=")
       (mkPeer 4 "K_Laptop" "t+CZw/W6/7G8PTxUiYn9C6lqwak1OFfTRvGU0YTb9UM=")
+      (mkPeer 5 "L_Laptop" "ybqPkNqZFQDef2p+Xi/OyFphMOt/ADvidA1OdWz6eEg=")
     ];
   };
 }
