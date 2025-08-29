@@ -25,6 +25,7 @@
     battery.enable = true;
     kanata.enable = true;
     desktop.enable = true;
+    jellyfin.enable = true;
 
     wireless = {
       enable = true;
@@ -44,10 +45,15 @@
     "usbcore.autosuspend=-1"
   ];
 
-  sops.secrets."wireguard/clients/luminum" = { };
-  networking.wg-quick = {
-    interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
+  services.blueman.enable = true;
+  hardware.bluetooth = {
+    enable = true;
   };
+
+  # sops.secrets."wireguard/clients/luminum" = { };
+  # networking.wg-quick = {
+  #   interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
+  # };
 
   # Set your time zone.
   time.timeZone = "US/Central";

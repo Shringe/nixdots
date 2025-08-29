@@ -39,7 +39,10 @@ in
       ];
 
       timeouts = [
-        # { timeout = 300; command = lockCmd; }
+        {
+          timeout = 300;
+          command = lockCmd;
+        }
         {
           timeout = 330;
           command = "${pkgs.wlopm}/bin/wlopm --off '*'";
