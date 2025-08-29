@@ -44,6 +44,12 @@
     "usbcore.autosuspend=-1"
   ];
 
+  sops.secrets."wireguard/client/luminum" = { };
+  networking.wg-quick = {
+    enable = true;
+    interfaces.wg0.configFile = config.sops.secrets."wireguard/client/luminum".path;
+  };
+
   # Set your time zone.
   time.timeZone = "US/Central";
   networking.hostName = "luminum";
@@ -63,17 +69,10 @@
     };
   };
 
-  # hardware.pulseaudio = {
-  #   enable = true;
-  #   support32Bit = true;
-  # };
-  #
-  # services.pipewire.enable = false;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
     alsa.enable = true;
-
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
