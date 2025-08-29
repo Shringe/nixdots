@@ -16,6 +16,7 @@ in
     secretsFile = config.sops.secrets.wireless.path;
     networks = {
       "Kokiri_5G".pskRaw = "ext:home_pskRaw";
+      "Kokiri_2G".pskRaw = "ext:home_pskRaw2";
     };
   };
 
