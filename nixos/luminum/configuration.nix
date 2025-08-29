@@ -44,10 +44,9 @@
     "usbcore.autosuspend=-1"
   ];
 
-  sops.secrets."wireguard/client/luminum" = { };
+  sops.secrets."wireguard/clients/luminum" = { };
   networking.wg-quick = {
-    enable = true;
-    interfaces.wg0.configFile = config.sops.secrets."wireguard/client/luminum".path;
+    interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
   };
 
   # Set your time zone.
