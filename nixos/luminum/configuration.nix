@@ -40,6 +40,10 @@
     users.shringe.enable = true;
   };
 
+  boot.kernelParams = [
+    "usbcore.autosuspend=-1"
+  ];
+
   # Set your time zone.
   time.timeZone = "US/Central";
   networking.hostName = "luminum";
