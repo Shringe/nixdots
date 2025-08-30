@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.desktop.windowManagers.dwl;
-in {
+in
+{
   options.nixosModules.desktop.windowManagers.dwl = {
     enable = mkOption {
       type = types.bool;
@@ -26,7 +32,7 @@ in {
     };
 
     security = {
-      pam.services.hyprlock = {};
+      pam.services.hyprlock = { };
       rtkit.enable = true; # For real time audio
     };
 
