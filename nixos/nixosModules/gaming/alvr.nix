@@ -15,32 +15,28 @@ in
       # default = config.nixosModules.gaming.enable;
       default = false;
     };
-
-    wivrn = mkOption {
-      type = types.bool;
-      default = false;
-    };
   };
 
   config = mkIf cfg.enable {
-    services = mkIf cfg.wivrn {
-      monado.enable = true;
-      wivrn = {
-        enable = true;
-        openFirewall = true;
-        defaultRuntime = true;
-      };
+    services.monado = {
+      enable = true;
+      highPriority = true;
     };
 
-    environment.systemPackages =
-      with pkgs;
-      mkIf cfg.wivrn [
-        wlx-overlay-s
-      ];
-
-    programs.alvr = mkIf (!cfg.wivrn) {
+    services.wivrn = {
       enable = true;
       openFirewall = true;
+      defaultRuntime = true;
+    };
+
+    environment.systemPackages = with pkgs; [
+      wlx-overlay-s
+      monado-vulkan-layers
+    ];
+
+    programs.appimage = {
+      enable = true;
+      binfmt = true;
     };
   };
 }
