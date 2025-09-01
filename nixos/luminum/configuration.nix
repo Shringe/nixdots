@@ -21,8 +21,12 @@
     "flakes"
   ];
 
-  networking.networkmanager.enable = true;
-  users.users.shringe.extraGroups = [ "networkmanager" ];
+  networking.wireless.iwd = {
+    enable = true;
+    settings = {
+      Settings.AutoConnect = true;
+    };
+  };
 
   nixosModules = {
     theming.enable = true;
@@ -108,7 +112,7 @@
       #atuin
       btop
       htop
-      networkmanagerapplet
+      iwgtk
 
       nix-search-cli
       nh

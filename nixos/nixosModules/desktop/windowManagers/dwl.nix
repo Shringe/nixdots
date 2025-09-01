@@ -47,5 +47,6 @@ in
     };
 
     services.displayManager.sessionPackages = optional cfg.enable pkgs.dwl;
+    services.gnome.gnome-keyring.enable = true;
   };
 }
