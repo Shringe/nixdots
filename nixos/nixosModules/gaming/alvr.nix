@@ -31,7 +31,6 @@ in
 
     environment.systemPackages = with pkgs; [
       wlx-overlay-s
-      monado-vulkan-layers
     ];
 
     programs.appimage = {
