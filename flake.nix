@@ -111,6 +111,8 @@
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
           });
 
+          opencv = self.stable.opencv; # Very slow to build with cuda
+
           mpv = super.mpv.override {
             scripts = with self.mpvScripts; [
               mpris
@@ -138,9 +140,23 @@
 
         config.permittedInsecurePackages = [
           "jitsi-meet-1.0.8043"
+          "qtwebengine-5.15.19"
         ];
 
         config.allowUnfree = true;
+      };
+
+      pkgConfig = {
+        nixpkgs = {
+          inherit system overlays;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "jitsi-meet-1.0.8043"
+              "qtwebengine-5.15.19"
+            ];
+          };
+        };
       };
     in
     {
@@ -150,8 +166,9 @@
 
       nixosConfigurations = with nixpkgs.lib; {
         deity = nixosSystem {
-          specialArgs = { inherit system inputs pkgs; };
+          specialArgs = { inherit system inputs; };
           modules = detSys ++ [
+            pkgConfig
             ./nixos/deity/configuration.nix
             ./nixos/nixosModules
             ./shared
@@ -159,8 +176,9 @@
         };
 
         luminum = nixosSystem {
-          specialArgs = { inherit system inputs pkgs; };
+          specialArgs = { inherit system inputs; };
           modules = detSys ++ [
+            pkgConfig
             ./nixos/luminum/configuration.nix
             ./nixos/nixosModules
             ./shared

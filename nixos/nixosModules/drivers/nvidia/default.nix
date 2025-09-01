@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.drivers.nvidia;
@@ -16,16 +21,9 @@ in
       };
 
       nvidia = {
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
+        # package = config.boot.kernelPackages.nvidiaPackages.beta;
         modesetting.enable = true;
-
-        powerManagement = {
-          enable = false;
-          # finegrained = true;
-        }; 
-
         open = true;
-
         nvidiaSettings = true;
       };
     };
