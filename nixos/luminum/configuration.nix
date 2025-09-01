@@ -21,6 +21,9 @@
     "flakes"
   ];
 
+  networking.networkmanager.enable = true;
+  users.users.shringe.extraGroups = [ "networkmanager" ];
+
   nixosModules = {
     theming.enable = true;
     vpn.enable = true;
@@ -30,7 +33,7 @@
     jellyfin.enable = true;
 
     wireless = {
-      enable = true;
+      enable = false;
       fixes.unblockWlan.enable = true;
     };
 
@@ -105,6 +108,7 @@
       #atuin
       btop
       htop
+      networkmanagerapplet
 
       nix-search-cli
       nh

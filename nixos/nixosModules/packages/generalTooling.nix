@@ -8,5 +8,6 @@
     unrar
     # gparted
     # tree
+    zellij
   ];
 }
