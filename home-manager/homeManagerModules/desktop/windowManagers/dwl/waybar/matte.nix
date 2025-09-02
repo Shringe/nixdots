@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.waybar.matte;
@@ -23,7 +28,7 @@ let
   #   '';
   # };
 
-  leftSeparator  = makeSeparator "/";
+  leftSeparator = makeSeparator "/";
   rightSeparator = makeSeparator "/";
 
   makeSeparator = s: {
@@ -51,7 +56,8 @@ let
       margin-top: 0px;
     }
   '';
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.dwl.waybar.matte = {
     enable = mkOption {
       type = types.bool;
@@ -62,57 +68,62 @@ in {
   config = mkIf cfg.enable {
     stylix.targets.waybar.enable = false;
 
-    systemd.user.services.waybar.Service.Environment = with pkgs; mkForce "PATH=$PATH:${makeBinPath [
-      # nordvpn
-      # nordstatus
-      coreutils
-      procps
-      swaynotificationcenter
-      pavucontrol
-    ]}";
+    systemd.user.services.waybar.Service.Environment =
+      with pkgs;
+      mkForce "PATH=$PATH:${
+        makeBinPath [
+          # nordvpn
+          # nordstatus
+          coreutils
+          procps
+          swaynotificationcenter
+          pavucontrol
+          iwgtk
+        ]
+      }";
 
     programs.waybar = {
       enable = true;
 
       systemd.enable = true;
-      
+
       settings.primary = {
         layer = "top";
         position = "top";
         height = 24;
 
-        modules-left = [ 
-          "dwl/tags" 
+        modules-left = [
+          "dwl/tags"
           "custom/leftSeparator1"
           "dwl/window"
           "custom/leftSeparator2"
         ];
 
-        modules-center = [ 
+        modules-center = [
         ];
 
-        modules-right = [ 
+        modules-right = [
           "custom/rightSeparator5"
-          "tray" 
+          "tray"
           "privacy"
 
           "custom/rightSeparator4"
           "mpris"
           "cava"
-          "pulseaudio" 
+          "pulseaudio"
 
           "custom/rightSeparator3"
-          "network" 
+          "network"
           # "custom/nordvpn"
 
           "custom/rightSeparator2"
-          "battery" 
-          "memory" 
-          "cpu" 
+          "battery"
+          "memory"
+          "cpu"
 
           "custom/rightSeparator1"
           "custom/notification"
-          "clock" 
+          "clock"
         ];
 
         "privacy" = {
@@ -132,7 +143,16 @@ in {
           stereo = true;
           reverse = false;
           bar_delimiter = 0;
-          format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+          format-icons = [
+            "▁"
+            "▂"
+            "▃"
+            "▄"
+            "▅"
+            "▆"
+            "▇"
+            "█"
+          ];
         };
 
         "dwl/tags" = {
@@ -209,13 +229,20 @@ in {
             critical = 15;
           };
           format = "{capacity}% {icon}";
-          "format-icons" = [ "" "" "" "" "" ];
+          "format-icons" = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
 
         network = {
           "format-wifi" = "{essid} ({signalStrength}%) ";
           "format-ethernet" = "{ifname}: {ipaddr}/{cidr} ";
           "format-disconnected" = "Disconnected ⚠";
+          "on-click" = "iwgtk";
         };
 
         pulseaudio = {
@@ -229,7 +256,10 @@ in {
             phone = "";
             portable = "";
             car = "";
-            default = [ "" "" ];
+            default = [
+              ""
+              ""
+            ];
           };
           "on-click" = "pavucontrol";
           "on-click-right" = "wpctl set-mute @DEFAULT_SINK@ toggle";
@@ -245,167 +275,170 @@ in {
         "custom/rightSeparator5" = rightSeparator;
       };
 
-      style = with config.lib.stylix.colors.withHashtag; with config.stylix.opacity; ''
-        @define-color b00 ${base00};
-        @define-color b01 ${base01};
-        @define-color b02 ${base02};
-        @define-color b03 ${base03};
-        @define-color b04 ${base04};
-        @define-color b05 ${base05};
-        @define-color b06 ${base06};
-        @define-color b07 ${base07};
-        @define-color b08 ${base08};
-        @define-color b09 ${base09};
-        @define-color b0A ${base0A};
-        @define-color b0B ${base0B};
-        @define-color b0C ${base0C};
-        @define-color b0D ${base0D};
-        @define-color b0E ${base0E};
-        @define-color b0F ${base0F};
+      style =
+        with config.lib.stylix.colors.withHashtag;
+        with config.stylix.opacity;
+        ''
+          @define-color b00 ${base00};
+          @define-color b01 ${base01};
+          @define-color b02 ${base02};
+          @define-color b03 ${base03};
+          @define-color b04 ${base04};
+          @define-color b05 ${base05};
+          @define-color b06 ${base06};
+          @define-color b07 ${base07};
+          @define-color b08 ${base08};
+          @define-color b09 ${base09};
+          @define-color b0A ${base0A};
+          @define-color b0B ${base0B};
+          @define-color b0C ${base0C};
+          @define-color b0D ${base0D};
+          @define-color b0E ${base0E};
+          @define-color b0F ${base0F};
 
-        @define-color widget_background ${base00};
-        @define-color bar_background ${base00};
-        @define-color text ${base05};
-        @define-color active ${base05};
-        @define-color highlight ${base0E};
+          @define-color widget_background ${base00};
+          @define-color bar_background ${base00};
+          @define-color text ${base05};
+          @define-color active ${base05};
+          @define-color highlight ${base0E};
 
 
-        * {
-          font-family: "JetBrains Mono";
-          font-size: 14px;
-          border: none;
-          margin-top: 0px;
-          margin-bottom: 0px;
-          padding-top: 0px;
-          padding-bottom: 0px;
-          border-top: 0px;
-          border-bottom: 0px;
-          border-radius: 0px;
-        }
-
-        window#waybar {
-          background: @bar_background;
-          color: @b05;
-        }
-
-        #cpu, #memory, #pulseaudio, #cava, #mpris, #mode, #custom-gammastep, #mode, #custom-nordvpn, #battery, #network, #custom-notification, #clock, #window, #tray {
-          color: @text;
-          font-weight: bold;
-          padding-left: 6px;
-          padding-right: 6px;
-        }
-
-        .modules-left {
-          background: @widget_background;
-        }
-        .modules-right {
-          background: @widget_background;
-        }
-
-        #tags {
-          color: @text;
-          font-weight: bold;
-          padding-left: 2px;
-          padding-right: 2px;
-          margin-right: 0px;
-          margin-left: 2px;
-        }
-
-        #tags button {
-          color: @b03;
-          font-weight: bold;
-          padding-left: 2px;
-          padding-right: 2px;
-          margin-right: 0px;
-          margin-left: 2px;
-        }
-
-        #tags button.occupied {
-          color: @text;
-          font-weight: bold;
-          padding-left: 2px;
-          padding-right: 2px;
-          margin-right: 0px;
-          margin-left: 2px;
-        }
-
-        #tags button.focused {
-          color: @highlight;
-          font-weight: bold;
-          padding-left: 2px;
-          padding-right: 2px;
-          margin-right: 0px;
-          margin-left: 2px;
-          ; border-bottom: 1px solid @highlight;
-          border-bottom: 0px;
-        }
-
-        #cpu {
-          color: @active;
-        }
-
-        #memory {
-          color: @active;
-        }
-
-        #window {
-          color: @text;
-        }
-
-        #mode {
-          color: @b01;
-          background: @b0F;
-        }
-
-        #battery {
-          color: @active;
-        }
-
-        #custom-nordvpn {
-          color: @active;
-        }
-
-        #network {
-          color: @active;
-        }
-
-        #pulseaudio.muted, #network.disconnected {
-          color: @b0A;
-        }
-
-        #clock {
-          color: @active;
-        }
-
-        #custom-notification {
-          color: @active;
-        }
-
-        @keyframes blink {
-          to {
-            background-color: #ffffff;
-            color: @b01;
+          * {
+            font-family: "JetBrains Mono";
+            font-size: 14px;
+            border: none;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-top: 0px;
+            border-bottom: 0px;
+            border-radius: 0px;
           }
-        }
 
-        #battery.warning:not(.charging) {
-          color: @b05;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-        }
+          window#waybar {
+            background: @bar_background;
+            color: @b05;
+          }
 
-        ${styleLeftSeparator 1}
-        ${styleLeftSeparator 2}
+          #cpu, #memory, #pulseaudio, #cava, #mpris, #mode, #custom-gammastep, #mode, #custom-nordvpn, #battery, #network, #custom-notification, #clock, #window, #tray {
+            color: @text;
+            font-weight: bold;
+            padding-left: 6px;
+            padding-right: 6px;
+          }
 
-        ${styleRightSeparator 1}
-        ${styleRightSeparator 2}
-        ${styleRightSeparator 3}
-        ${styleRightSeparator 4}
-        ${styleRightSeparator 5}
-      '';
+          .modules-left {
+            background: @widget_background;
+          }
+          .modules-right {
+            background: @widget_background;
+          }
+
+          #tags {
+            color: @text;
+            font-weight: bold;
+            padding-left: 2px;
+            padding-right: 2px;
+            margin-right: 0px;
+            margin-left: 2px;
+          }
+
+          #tags button {
+            color: @b03;
+            font-weight: bold;
+            padding-left: 2px;
+            padding-right: 2px;
+            margin-right: 0px;
+            margin-left: 2px;
+          }
+
+          #tags button.occupied {
+            color: @text;
+            font-weight: bold;
+            padding-left: 2px;
+            padding-right: 2px;
+            margin-right: 0px;
+            margin-left: 2px;
+          }
+
+          #tags button.focused {
+            color: @highlight;
+            font-weight: bold;
+            padding-left: 2px;
+            padding-right: 2px;
+            margin-right: 0px;
+            margin-left: 2px;
+            ; border-bottom: 1px solid @highlight;
+            border-bottom: 0px;
+          }
+
+          #cpu {
+            color: @active;
+          }
+
+          #memory {
+            color: @active;
+          }
+
+          #window {
+            color: @text;
+          }
+
+          #mode {
+            color: @b01;
+            background: @b0F;
+          }
+
+          #battery {
+            color: @active;
+          }
+
+          #custom-nordvpn {
+            color: @active;
+          }
+
+          #network {
+            color: @active;
+          }
+
+          #pulseaudio.muted, #network.disconnected {
+            color: @b0A;
+          }
+
+          #clock {
+            color: @active;
+          }
+
+          #custom-notification {
+            color: @active;
+          }
+
+          @keyframes blink {
+            to {
+              background-color: #ffffff;
+              color: @b01;
+            }
+          }
+
+          #battery.warning:not(.charging) {
+            color: @b05;
+            animation-name: blink;
+            animation-duration: 0.5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+          }
+
+          ${styleLeftSeparator 1}
+          ${styleLeftSeparator 2}
+
+          ${styleRightSeparator 1}
+          ${styleRightSeparator 2}
+          ${styleRightSeparator 3}
+          ${styleRightSeparator 4}
+          ${styleRightSeparator 5}
+        '';
     };
   };
 }
