@@ -49,18 +49,20 @@ in
       enable = true;
     };
 
-    home.file.".local/share/applications/joplin.desktop".text = mkIf cfg.enableFix ''
-      [Desktop Entry]
-      Name=Joplin
-      Exec=${joplinFix}/bin/joplinFix --no-sandbox %U
-      Terminal=false
-      Type=Application
-      Icon=joplin
-      StartupWMClass=@joplin/app-desktop
-      X-AppImage-Version=3.3.13
-      MimeType=x-scheme-handler/joplin;
-      Comment=Joplin for Desktop
-      Categories=Office;
-    '';
+    home = mkIf cfg.enableFix {
+      file.".local/share/applications/joplin.desktop".text = ''
+        [Desktop Entry]
+        Name=Joplin
+        Exec=${joplinFix}/bin/joplinFix --no-sandbox %U
+        Terminal=false
+        Type=Application
+        Icon=joplin
+        StartupWMClass=@joplin/app-desktop
+        X-AppImage-Version=3.3.13
+        MimeType=x-scheme-handler/joplin;
+        Comment=Joplin for Desktop
+        Categories=Office;
+      '';
+    };
   };
 }
