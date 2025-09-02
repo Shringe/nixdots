@@ -59,10 +59,10 @@
     enable = true;
   };
 
-  # sops.secrets."wireguard/clients/luminum" = { };
-  # networking.wg-quick = {
-  #   interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
-  # };
+  sops.secrets."wireguard/clients/luminum" = { };
+  networking.wg-quick = {
+    interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
+  };
 
   # Set your time zone.
   time.timeZone = "US/Central";
