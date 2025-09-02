@@ -25,6 +25,10 @@ in
           # TODO, I don't think this is working
           AlwaysRandomizeAddress = true;
         };
+
+        General = {
+          AddressRandomization = "network";
+        };
       };
     };
   };
