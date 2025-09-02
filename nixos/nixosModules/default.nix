@@ -4,7 +4,6 @@ with lib;
   imports = [
     ./kanata
     ./gaming
-    ./wireless
     ./battery
     ./desktop
     ./sops
@@ -50,6 +49,7 @@ with lib;
     ./theming
     ./boot
     ./hardware
+    ./networking
   ];
 
   options.nixosModules = {
@@ -112,13 +112,6 @@ with lib;
         type = types.str;
         default = "wide";
         description = "What .kbd file to use. Options can be found in ./kanata/";
-      };
-    };
-
-    wireless = {
-      enable = mkEnableOption "Enables wireless connections";
-      fixes = {
-        unblockWlan.enable = mkEnableOption "Automatically unblocks wlan on startup";
       };
     };
 
