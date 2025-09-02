@@ -6,5 +6,6 @@
     ./joplin.nix
     ./feh.nix
     ./telegram.nix
+    ./xournal.nix
   ];
 }

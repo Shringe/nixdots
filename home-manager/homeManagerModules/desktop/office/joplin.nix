@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.office.joplin;
@@ -24,7 +29,8 @@ let
     hunt_pid &
     ${pkgs.joplin-desktop}/bin/joplin-desktop "$@"
   '';
-in {
+in
+{
   options.homeManagerModules.desktop.office.joplin = {
     enable = mkOption {
       type = types.bool;
@@ -33,7 +39,7 @@ in {
 
     enableFix = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "On native Wayland joplin-desktop won't open a visible window until a specific child process is killed.";
     };
   };
