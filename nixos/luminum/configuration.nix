@@ -27,7 +27,7 @@
 
       Settings = {
         AutoConnect = true;
-        AlwaysAddressRandomization = true;
+        AlwaysRandomizeAddress = true;
       };
     };
   };
