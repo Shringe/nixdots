@@ -7,26 +7,32 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.dwl.waybar.matte;
-  # nordvpn = config.shared.packages.nordvpn;
-  #
-  # nordstatus = pkgs.writeShellApplication {
-  #   name = "nordstatus";
-  #
-  #   runtimeInputs = with pkgs; [
-  #     nordvpn
-  #     gnugrep
-  #     gawk
-  #     coreutils
-  #   ];
-  #
-  #   text = ''
-  #     if nordvpn status | grep -q 'Status: Connected'; then
-  #       nordvpn status | awk -F': ' '/Country:/ {print $2}'
-  #     else
-  #       echo "Off"
-  #     fi
-  #   '';
-  # };
+
+  toggleProcess = pkgs.writeShellApplication {
+    name = "toggleProcess";
+    runtimeInputs = with pkgs; [
+      coreutils
+      procps
+    ];
+
+    text = ''
+      kill "$(pidof "$1")" 2>/dev/null || "$1"
+    '';
+  };
+
+  notifyCopy = pkgs.writeShellApplication {
+    name = "notifyCopy";
+    runtimeInputs = with pkgs; [
+      wl-clipboard
+      libnotify
+    ];
+
+    text = ''
+      if [ "$(notify-send --action "Copy" "$1: $2")" = "0" ]; then
+        wl-copy "$2"
+      fi
+    '';
+  };
 
   leftSeparator = makeSeparator "/";
   rightSeparator = makeSeparator "/";
@@ -79,6 +85,10 @@ in
           swaynotificationcenter
           pavucontrol
           iwgtk
+          curl
+          libnotify
+          notifyCopy
+          toggleProcess
         ]
       }";
 
@@ -239,10 +249,11 @@ in
         };
 
         network = {
-          "format-wifi" = "{essid} ({signalStrength}%) ";
-          "format-ethernet" = "{ifname}: {ipaddr}/{cidr} ";
-          "format-disconnected" = "Disconnected ⚠";
-          "on-click" = "iwgtk";
+          format-wifi = "{essid} ({signalStrength}%) ";
+          format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
+          format-disconnected = "Disconnected ⚠";
+          on-click = "toggleProcess iwgtk";
+          on-click-right = "notifyCopy 'Public IP' $(curl icanhazip.com)";
         };
 
         pulseaudio = {
@@ -421,7 +432,7 @@ in
             }
           }
 
-          #battery.warning:not(.charging) {
+          #battery.critical:not(.charging) {
             color: @b05;
             animation-name: blink;
             animation-duration: 0.5s;
