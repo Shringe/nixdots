@@ -28,9 +28,9 @@ in
 
     logind = {
       lidSwitch = "suspend";
-      extraConfig = ''
-        HandlePowerKey=ignore
-      '';
+      # extraConfig = ''
+      #   HandlePowerKey=ignore
+      # '';
     };
 
     acpid = {
