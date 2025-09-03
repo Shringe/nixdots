@@ -9,8 +9,15 @@
   nixpkgs.config.allowUnfree = true;
 
   homeManagerModules = {
+    theming = {
+      enable = true;
+      wallpapers = {
+        primary = ./../../assets/wallpapers/PurpleFluid_3440x1440.png;
+        secondary = ./../../assets/wallpapers/BlossomsCatppuccin_3440x1440.png;
+      };
+    };
+
     tooling.enable = true;
-    theming.enable = true;
     nixvim.enable = true;
     desktop = {
       enable = true;
