@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.boot.graphical.plymouth;
-in {
+in
+{
   options.nixosModules.boot.graphical.plymouth = {
     enable = mkOption {
       type = types.bool;
@@ -13,12 +14,6 @@ in {
 
   config = mkIf cfg.enable {
     boot = {
-      # For clean nvidia boot
-      uvesafb = {
-        enable = true;
-        gfx-mode = "3440x1440@175";
-      };
-
       # Enable "Silent boot"
       consoleLogLevel = 3;
       initrd.verbose = false;
