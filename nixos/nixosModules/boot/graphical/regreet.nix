@@ -15,6 +15,13 @@ let
     input "*" {
       accel_profile flat
       pointer_accel -0.675
+      natural_scroll disabled
+    }
+
+    input type:touchpad {
+      accel_profile adaptive
+      pointer_accel 0.0
+      natural_scroll enabled
     }
 
     output "eDP-1" {
