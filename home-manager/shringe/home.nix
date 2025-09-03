@@ -52,6 +52,11 @@
     };
   };
 
+  services = {
+    wluma.enable = true; # Auto brightness
+    blueman-applet.enable = true; # bluetooth
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   fonts.fontconfig.enable = true;
