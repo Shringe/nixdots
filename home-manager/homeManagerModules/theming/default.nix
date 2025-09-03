@@ -29,13 +29,13 @@ in
     wallpapers = {
       primary = mkOption {
         type = types.path;
-        default = ./../../../assets/wallpapers/PurpleFluid_3440x1440.png;
+        default = ./../../../assets/wallpapers/PurpleFluid_1920x1080.png;
         description = "Used for most things.";
       };
 
       secondary = mkOption {
         type = types.path;
-        default = ./../../../assets/wallpapers/BlossomsCatppuccin_3440x1440.png;
+        default = ./../../../assets/wallpapers/BlossomsCatppuccin_1920x1080.png;
         description = "Used for things like the display manager.";
       };
     };
