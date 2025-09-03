@@ -102,7 +102,9 @@
       #atuin
       btop
       htop
+
       iwgtk
+      wluma
 
       nix-search-cli
       nh
