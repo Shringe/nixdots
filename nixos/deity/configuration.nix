@@ -46,6 +46,14 @@
       ips.local = "192.168.0.165";
     };
 
+    theming = {
+      enable = true;
+      wallpapers = {
+        primary = ./../../assets/wallpapers/PurpleFluid_3440x1440.png;
+        secondary = ./../../assets/wallpapers/BlossomsCatppuccin_3440x1440.png;
+      };
+    };
+
     drives = {
       backups1.enable = false;
       smedia1.enable = true;
