@@ -13,6 +13,11 @@
       url = "github:gmodena/nix-flatpak";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     liberodark = {
       url = "github:liberodark/my-flakes";
       inputs.nixpkgs.follows = "nixpkgs";

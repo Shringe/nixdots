@@ -29,6 +29,7 @@
     desktop.enable = true;
     jellyfin.enable = true;
     networking.wireless.enable = true;
+    boot.secureboot = true;
 
     gaming = {
       optimizations.enable = true;
