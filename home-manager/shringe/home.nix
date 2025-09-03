@@ -22,6 +22,7 @@
       office.enable = true;
       windowManagers = {
         enable = true;
+        utils.rot8.enable = true;
       };
       email.enable = true;
     };

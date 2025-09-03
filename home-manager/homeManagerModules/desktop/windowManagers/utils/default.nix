@@ -12,5 +12,7 @@
     ./openrgb.nix
     ./dolphin.nix
     ./polkit.nix
+    ./rot8.nix
+    ./gammastep.nix
   ];
 }
