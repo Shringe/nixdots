@@ -29,7 +29,10 @@
     desktop.enable = true;
     jellyfin.enable = true;
     networking.wireless.enable = true;
-    boot.secureboot = true;
+    boot = {
+      secureboot = true;
+      graphical.plymouth.enable = true;
+    };
 
     gaming = {
       optimizations.enable = true;
