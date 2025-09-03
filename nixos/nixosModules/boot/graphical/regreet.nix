@@ -10,7 +10,7 @@ let
 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "${pkgs.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
-    seat "*" "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
+    seat "*" xcursor_theme "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
 
     input "*" {
       accel_profile flat
