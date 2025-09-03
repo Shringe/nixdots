@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let 
-  cfg = config.nixosModules.boot.graphical.regreet; 
+let
+  cfg = config.nixosModules.boot.graphical.regreet;
 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
+    exec "${pkgs.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
 
     input "*" {
       accel_profile flat
@@ -26,7 +31,8 @@ let
       render_bit_depth 10
     }
   '';
-in {
+in
+{
   options.nixosModules.boot.graphical.regreet = {
     enable = mkOption {
       type = types.bool;
@@ -38,7 +44,8 @@ in {
     stylix.targets.regreet.useWallpaper = false;
     programs.regreet.settings.background.path = config.nixosModules.theming.wallpapers.secondary;
 
-    services.greetd.settings.default_session.command = "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
+    services.greetd.settings.default_session.command =
+      "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
     environment.etc."greetd/sway".source = swayConfig;
 
     programs.regreet.enable = true;
