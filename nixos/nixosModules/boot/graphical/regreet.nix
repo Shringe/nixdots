@@ -10,6 +10,7 @@ let
 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
     exec "${pkgs.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
+    seat "*" "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
 
     input "*" {
       accel_profile flat
@@ -18,7 +19,6 @@ let
 
     output "eDP-1" {
       mode 1920x1080@60Hz
-      pos 0 0
       render_bit_depth 10
     }
 
