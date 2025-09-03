@@ -32,8 +32,8 @@
 
     gaming = {
       optimizations.enable = true;
-      steam.enable = false;
-      games.enable = false;
+      steam.enable = true;
+      games.enable = true;
     };
 
     users.shringe.enable = true;
@@ -46,9 +46,7 @@
   };
 
   services.blueman.enable = true;
-  hardware.bluetooth = {
-    enable = true;
-  };
+  hardware.bluetooth.enable = true;
 
   # Set your time zone.
   time.timeZone = "US/Central";
