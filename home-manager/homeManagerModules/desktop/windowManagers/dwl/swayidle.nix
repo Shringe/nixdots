@@ -84,7 +84,8 @@ in
       ++ optionals cfg.suspend [
         {
           timeout = 330;
-          command = "${pkgs.systemdMinimal}/bin/systemctl suspend";
+          # command = "${pkgs.systemdMinimal}/bin/systemctl suspend";
+          command = "systemctl suspend";
         }
       ]
       ++ optionals (!cfg.suspend) [
