@@ -24,7 +24,7 @@ in
   config = mkIf cfg.enable {
     boot = {
       loader = {
-        efi.canTouchEfiVariables = true;
+        # efi.canTouchEfiVariables = true;
         timeout = 0;
       };
 

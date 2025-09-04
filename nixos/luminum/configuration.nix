@@ -5,8 +5,10 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
+with lib;
 {
   imports = [
     # Include the results of the hardware scan.
@@ -49,7 +51,7 @@
 
   # # Ensuring wireguard service fails and is restarted if an internet connection is not already established.
   # # Otherwise wireguard will setup wg0 too early and no internet will be established.
-  # systemd.services.wg-quick-wg0.serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/sleep 30";
+  systemd.services.wg-quick-wg0.wantedBy = mkForce [ ];
 
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
