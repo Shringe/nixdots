@@ -96,7 +96,7 @@ in
 
         widget-config = {
           backlight = {
-            label = " ";
+            label = "🔆";
             device = "intel_backlight";
           };
 
@@ -131,10 +131,10 @@ in
                 label = "󰐥";
                 command = "systemctl poweroff";
               }
-              {
-                label = "󰜉";
-                command = "systemctl reboot";
-              }
+              # {
+              #   label = "󰜉";
+              #   command = "systemctl reboot";
+              # }
               {
                 label = "󰌾";
                 command = "hyprlock";
