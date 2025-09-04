@@ -27,7 +27,7 @@ in
     };
 
     logind = {
-      lidSwitch = "suspend";
+      lidSwitch = "suspend-then-hibernate";
       # extraConfig = ''
       #   HandlePowerKey=ignore
       # '';
