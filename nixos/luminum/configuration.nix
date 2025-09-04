@@ -49,6 +49,11 @@
     wg-quick.interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
   };
 
+  # Ensuring wireguard service fails and is restarted if an internet connection is not already established.
+  # Otherwise wireguard will setup wg0 too early and no internet will be established.
+  systemd.services.wg-quick-wg0.serviceConfig.ExecStartPre =
+    "${pkgs.dnslookup}/bin/dnslookup 'wireguard.${config.nixosModules.reverseProxy.domain}'";
+
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
 
