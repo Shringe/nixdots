@@ -45,11 +45,9 @@ in
       };
     };
 
-    environment.systemPackages =
-      with pkgs;
-      mkIf cfg.tooling.enable [
-        powertop # power usage cli
-        acpi # battery cli
-      ];
+    environment.systemPackages = with pkgs; [
+      powertop # power usage cli
+      acpi # battery cli
+    ];
   };
 }
