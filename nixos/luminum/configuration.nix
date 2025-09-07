@@ -34,6 +34,10 @@ with lib;
       graphical.plymouth.enable = true;
     };
 
+    hardware = {
+      kanata.enable = true;
+    };
+
     gaming = {
       optimizations.enable = true;
       steam.enable = true;
