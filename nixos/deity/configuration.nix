@@ -15,13 +15,6 @@
     ./hardware-configuration.nix
     ./disko.nix
   ];
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    system-features = [ "gccarch-zen3" ];
-  };
 
   hardware.enableAllFirmware = true;
 
@@ -179,13 +172,6 @@
   programs.adb.enable = true;
 
   boot.loader.systemd-boot.memtest86.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "US/Central";
-  networking.hostName = "deity";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
 
   # $ nix search wget
   environment = {

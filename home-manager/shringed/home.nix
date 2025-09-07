@@ -1,13 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "shringed";
-  home.homeDirectory = "/home/shringed";
-
-  nixpkgs.config.allowUnfree = true;
-
   homeManagerModules = {
     theming = {
       enable = true;
@@ -123,7 +116,4 @@
     # XDG_SESSION_DESKTOP = "Hyprland";
     # WLR_NO_HARDWARE_CURSORS = "1";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
