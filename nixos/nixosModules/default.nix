@@ -10,7 +10,6 @@ with lib;
     ./mouse
     ./llm
     ./packages
-    ./bluetooth
     ./firewall
     ./vpn
     ./jellyfin
@@ -71,10 +70,6 @@ with lib;
       enable = mkEnableOption "Enables firewall";
       kdeconnect.enable = mkEnableOption "Enables kdeconnect firewall ports";
       yuzu.enable = mkEnableOption "Enables yuzu LAN firewall ports";
-    };
-
-    bluetooth = {
-      enable = mkEnableOption "Bluetooth configuration";
     };
 
     llm = {
