@@ -165,6 +165,7 @@
       printers.enable = true;
       kanata.enable = true;
       nvidia.enable = true;
+      bluetooth.enable = true;
     };
 
     users = {
@@ -176,13 +177,7 @@
 
   programs.adb.enable = true;
 
-  hardware.bluetooth = {
-    enable = true;
-  };
-
   boot.loader.systemd-boot.memtest86.enable = true;
-
-  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "US/Central";
