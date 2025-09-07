@@ -17,8 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    powerManagement.enable = cfg.powerManagement.enable; # base nixos power management
-    services = mkIf cfg.powerManagement.enable {
+    powerManagement.enable = true; # base nixos power management
+    services = {
       thermald.enable = true; # Prevents overheating on Intel
       auto-cpufreq.enable = true;
       logind.lidSwitch = "suspend-then-hibernate";
