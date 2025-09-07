@@ -16,11 +16,6 @@ with lib;
     ./crazyUsb.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
   nixosModules = {
     theming.enable = true;
     desktop.enable = true;
@@ -47,10 +42,8 @@ with lib;
   };
 
   sops.secrets."wireguard/clients/luminum" = { };
-  networking = {
-    hostName = "luminum";
-    wg-quick.interfaces.wg0.configFile = config.sops.secrets."wireguard/clients/luminum".path;
-  };
+  networking.wg-quick.interfaces.wg0.configFile =
+    config.sops.secrets."wireguard/clients/luminum".path;
 
   # # Ensuring wireguard service fails and is restarted if an internet connection is not already established.
   # # Otherwise wireguard will setup wg0 too early and no internet will be established.

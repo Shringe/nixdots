@@ -1,7 +1,7 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.bluetooth;
+  cfg = config.nixosModules.hardware.bluetooth;
 in
 {
   options.nixosModules.hardware.bluetooth = {

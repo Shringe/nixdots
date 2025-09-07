@@ -6,7 +6,7 @@ in
 {
   options.nixosModules.hardware.audio = {
     enable = mkOption {
-      type = type.bool;
+      type = types.bool;
       default = false;
     };
   };

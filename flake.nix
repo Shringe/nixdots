@@ -1,6 +1,4 @@
 {
-  description = "Master flake";
-
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -8,10 +6,11 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
-    };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nf.url = "github:Shringe/nf";
+    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    disko.url = "github:nix-community/disko";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
@@ -33,27 +32,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nf = {
-      url = "github:Shringe/nf";
-    };
-
-    # walker = {
-    #   url = "github:abenz1267/walker";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
-
-    nix-gaming.url = "github:fufexan/nix-gaming";
-
-    disko = {
-      url = "github:nix-community/disko";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
@@ -129,88 +110,75 @@
         })
       ];
 
-      # Binary cache provided here
-      # https://docs.determinate.systems/guides/advanced-installation#nixos
-      detSys = [
-        inputs.determinate.nixosModules.default
-        {
-          nix.settings = {
-            lazy-trees = true;
-          };
-        }
-      ];
-
-      pkgs = import nixpkgs-unstable {
-        inherit system overlays;
-
-        config.permittedInsecurePackages = [
-          "jitsi-meet-1.0.8043"
-          "qtwebengine-5.15.19"
-        ];
-
-        config.allowUnfree = true;
-      };
-
+      pkgs = import nixpkgs-unstable pkgConfig;
       pkgConfig = {
-        nixpkgs = {
-          inherit system overlays;
-          config = {
-            allowUnfree = true;
-            permittedInsecurePackages = [
-              "jitsi-meet-1.0.8043"
-              "qtwebengine-5.15.19"
-            ];
-          };
+        inherit system overlays;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "jitsi-meet-1.0.8043"
+            "qtwebengine-5.15.19"
+          ];
         };
       };
+
+      mkNixos =
+        name:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system inputs; };
+          modules = [
+            # Binary cache provided here
+            # https://docs.determinate.systems/guides/advanced-installation#nixos
+            inputs.determinate.nixosModules.default
+
+            ./nixos/${name}/configuration.nix
+            ./nixos/nixosModules
+            ./shared
+
+            {
+              networking.hostName = name;
+              nixpkgs = pkgConfig;
+              nix.settings.experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
+            }
+          ];
+        };
+
+      mkHome =
+        name:
+        inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home-manager/${name}/home.nix
+            ./home-manager/homeManagerModules
+            ./shared
+
+            {
+              programs.home-manager.enable = true;
+              home = {
+                username = name;
+                homeDirectory = "/home/${name}";
+              };
+            }
+          ];
+        };
     in
     {
       devShells.x86_64-linux.default = import ./devshell.nix {
         inherit pkgs;
       };
 
-      nixosConfigurations = with nixpkgs.lib; {
-        deity = nixosSystem {
-          specialArgs = { inherit system inputs; };
-          modules = detSys ++ [
-            pkgConfig
-            ./nixos/deity/configuration.nix
-            ./nixos/nixosModules
-            ./shared
-          ];
-        };
-
-        luminum = nixosSystem {
-          specialArgs = { inherit system inputs; };
-          modules = detSys ++ [
-            pkgConfig
-            ./nixos/luminum/configuration.nix
-            ./nixos/nixosModules
-            ./shared
-          ];
-        };
+      nixosConfigurations = {
+        deity = mkNixos "deity";
+        luminum = mkNixos "luminum";
       };
 
-      homeConfigurations = with inputs.home-manager.lib; {
-        shringed = homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home-manager/shringed/home.nix
-            ./home-manager/homeManagerModules
-            ./shared
-          ];
-        };
-
-        shringe = homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            ./home-manager/shringe/home.nix
-            ./home-manager/homeManagerModules
-            ./shared
-          ];
-        };
+      homeConfigurations = {
+        shringe = mkHome "shringe";
+        shringed = mkHome "shringed";
       };
     };
 }

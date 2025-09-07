@@ -8,7 +8,7 @@ in
     enable = mkOption {
       type = types.bool;
       default = true;
-      descrption = "Whether to set default localization properties.";
+      description = "Whether to set default localization properties.";
     };
   };
 

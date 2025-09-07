@@ -1,11 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "shringe";
-  home.homeDirectory = "/home/shringe";
-
   homeManagerModules = {
     tooling.enable = true;
     theming.enable = true;
@@ -81,7 +76,4 @@
 
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
   };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
