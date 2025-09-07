@@ -1,7 +1,8 @@
 {
   imports = [
-    ./openrgb
     ./printers
     ./kanata
+    ./openrgb.nix
+    ./nvidia.nix
   ];
 }

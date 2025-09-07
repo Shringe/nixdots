@@ -25,7 +25,6 @@ with lib;
     theming.enable = true;
     vpn.enable = true;
     battery.enable = true;
-    kanata.enable = true;
     desktop.enable = true;
     jellyfin.enable = true;
     networking.wireless.enable = true;
