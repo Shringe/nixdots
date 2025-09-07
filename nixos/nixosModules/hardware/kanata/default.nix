@@ -13,7 +13,8 @@ in
 
     variant = mkOption {
       type = types.str;
-      default = "wide";
+      # default = "wide";
+      default = "new_advanced_hrms";
       description = "What .kbd file to use. Options can be found in ./kanata/";
     };
   };
