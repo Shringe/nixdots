@@ -6,5 +6,6 @@
     ./nvidia.nix
     ./bluetooth.nix
     ./battery.nix
+    ./audio.nix
   ];
 }
