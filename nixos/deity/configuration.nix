@@ -164,6 +164,7 @@
     hardware = {
       openrgb.enable = true;
       printers.enable = true;
+      kanata.enable = true;
     };
 
     drivers.nvidia.enable = true;

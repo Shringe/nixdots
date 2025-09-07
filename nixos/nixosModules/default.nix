@@ -2,7 +2,6 @@
 with lib;
 {
   imports = [
-    ./kanata
     ./gaming
     ./battery
     ./desktop
@@ -103,15 +102,6 @@ with lib;
       windowManagers = {
         qtile.enable = mkEnableOption "Qtile dependencies";
         hyprland.enable = mkEnableOption "hyprland setup";
-      };
-    };
-
-    kanata = {
-      enable = mkEnableOption "Enables full kanata keyboard configuration";
-      variant = mkOption {
-        type = types.str;
-        default = "wide";
-        description = "What .kbd file to use. Options can be found in ./kanata/";
       };
     };
 

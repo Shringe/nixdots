@@ -2,5 +2,6 @@
   imports = [
     ./openrgb
     ./printers
+    ./kanata
   ];
 }
