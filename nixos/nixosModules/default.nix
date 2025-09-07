@@ -8,7 +8,6 @@ with lib;
     ./sops
     ./users
     ./mouse
-    ./drivers
     ./llm
     ./packages
     ./bluetooth
@@ -83,10 +82,6 @@ with lib;
         enable = mkEnableOption "Default gpt4all";
         cuda = mkEnableOption "Use Cuda";
       };
-    };
-
-    drivers = {
-      nvidia.enable = mkEnableOption "Nvidia drivers";
     };
 
     mouse = {

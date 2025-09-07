@@ -142,7 +142,6 @@
     };
 
     desktop.enable = true;
-    kanata.enable = true;
 
     gaming = {
       alvr.enable = true;
@@ -165,9 +164,8 @@
       openrgb.enable = true;
       printers.enable = true;
       kanata.enable = true;
+      nvidia.enable = true;
     };
-
-    drivers.nvidia.enable = true;
 
     users = {
       shringed.enable = true;

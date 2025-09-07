@@ -6,9 +6,16 @@
 }:
 with lib;
 let
-  cfg = config.nixosModules.drivers.nvidia;
+  cfg = config.nixosModules.hardware.nvidia;
 in
 {
+  options.nixosModules.hardware.nvidia = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
+
   config = mkIf cfg.enable {
     hardware = {
       graphics = {
@@ -42,6 +49,7 @@ in
       serviceConfig = {
         ExecStart = "${pkgs.steam-run}/bin/steam-run ${pkgs.nvidia_oc}/bin/nvidia_oc set --index 0 --power-limit 242000 --freq-offset 112 --mem-offset 2600";
         User = "root";
+        RemainAfterExit = true;
       };
     };
 
@@ -53,6 +61,7 @@ in
       substituters = [
         "https://nix-community.cachix.org"
       ];
+
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
