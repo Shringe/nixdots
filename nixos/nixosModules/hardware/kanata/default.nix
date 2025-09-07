@@ -24,7 +24,10 @@ in
       enable = true;
       keyboards.default = {
         configFile = ./${cfg.variant}.kbd;
-        extraArgs = [ "--quiet" ];
+        extraArgs = [
+          "--quiet"
+          "--nodelay"
+        ];
       };
     };
   };
