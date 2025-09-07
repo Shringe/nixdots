@@ -12,7 +12,87 @@
   lctl lmet lalt           spc                 ralt rmet rctl
 )
 
+;; New advanced addons from https://github.com/jtroo/kanata/discussions/1656
+(defvirtualkeys
+  to-base (layer-switch new_colemak_dh_hrms_wide_base)
+)
+
+(defvar
+  tot 110  ;; tot=time out tap
+  npinky 300
+  nring 250
+  nmiddle 200
+  nindex 150
+)
+
+(deftemplate homerowmod (timeouttap timeouthold keytap keyhold)
+	(tap-hold $timeouttap $timeouthold 
+		(multi $keytap  @.tp) 
+		$keyhold
+	)
+)
+
+;; homerowmodfiltered is a way to force problematic bigrams to become letters not mods
+(deftemplate homerowmodfiltered (timeouttap timeouthold keytap keyhold typinglist)
+  (tap-hold-release-keys $timeouttap $timeouthold
+    (multi $keytap  @.tp)
+    $keyhold
+    $typinglist ;; Activates $keytap early if a key within $typinglist is pressed before hold activates.
+  )
+)
+
+(defalias
+  ;; call @.tp whenever you want to enter fast typing-layer
+  .tp (switch
+        ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
+        ()  (multi
+              (layer-switch new_colemak_dh_hrms_wide_typing)
+              (on-idle 55 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
+            ) break
+      )
+  .spc-typing   (multi (layer-switch new_colemak_dh_hrms_wide_base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts
+)
+
 ;; First defined keymap is default
+(deflayermap (new_colemak_dh_hrms_wide_base)
+  ` @grl
+  caps @wesclock
+  lsft @wnumpad
+  lalt @wsym
+  spc @wextendspc
+  ralt @wsym
+  rsft @wfmkeys
+  \ (layer-switch gaming)
+  
+  ;; define home row mods (they act as typing-layer triggers, too )
+  f (t! homerowmod $tot $nindex t lctl)
+  k (t! homerowmod $tot $nindex n rctl)
+  d (t! homerowmod $tot $nmiddle s lsft)
+  l (t! homerowmod $tot $nmiddle e rsft)
+  s (t! homerowmod $tot $nring r lmet)
+  ; (t! homerowmod $tot $nring i rmet)
+  a (t! homerowmod $tot $npinky a lalt)
+  ' (t! homerowmod $tot $npinky o ralt)
+  ;; define each letter as typing-layer trigger
+  q (multi q @.tp) w (multi w @.tp) e (multi f @.tp) r (multi p @.tp) t (multi b @.tp) y (multi [ @.tp) u (multi j @.tp) i (multi l @.tp) o (multi u @.tp) p (multi y @.tp) [ (multi ; @.tp)
+  g (multi g @.tp) h (multi ' @.tp) j (multi m @.tp)
+  z (multi x @.tp) x (multi c @.tp) c (multi d @.tp) v (multi v @.tp) b (multi z @.tp) n (multi / @.tp) m (multi k @.tp) , (multi h @.tp) . (multi , @.tp) / (multi . @.tp)
+)
+
+(deflayermap (new_colemak_dh_hrms_wide_typing) 
+  ` @grl
+  caps @wesclock
+  lsft @wnumpad
+  lalt @wsym
+  spc @wextendspc
+  ralt @wsym
+  rsft @wfmkeys
+  \ (layer-switch gaming)
+
+  a a b z c d d s e f f t g g h ' i l j m k n l e m k n / o u p y q q r p s r t b u j v v w w x c y [ z x , h . , / . ; i ' o [ ; 
+)
+
+;; End of new addons ===============================
 (deflayer colemak_dh_hrms_wide
   @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
   tab        q          w          f          p          b    [    j    l          u          y          ;          ]    (layer-switch gaming)
@@ -293,89 +373,3 @@
   _      @cws tab  C-tab _    _    _    _    bspc  del   _     _      
   _    _    _            _          _    _    _    
 )
-
-;; New advanced addons from https://github.com/jtroo/kanata/discussions/1656
-(defvirtualkeys
-  to-base (layer-switch new_colemak_dh_hrms_wide_base)
-)
-
-(defvar
-  tot 110  ;; tot=time out tap
-  npinky 300
-  nring 250
-  nmiddle 200
-  nindex 150
-)
-
-(deftemplate homerowmod (timeouttap timeouthold keytap keyhold)
-	(tap-hold $timeouttap $timeouthold 
-		(multi $keytap  @.tp) 
-		$keyhold
-	)
-)
-
-;; homerowmodfiltered is a way to force problematic bigrams to become letters not mods
-(deftemplate homerowmodfiltered (timeouttap timeouthold keytap keyhold typinglist)
-  (tap-hold-release-keys $timeouttap $timeouthold
-    (multi $keytap  @.tp)
-    $keyhold
-    $typinglist ;; Activates $keytap early if a key within $typinglist is pressed before hold activates.
-  )
-)
-
-(defalias
-  ;; call @.tp whenever you want to enter fast typing-layer
-  .tp (switch
-        ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
-        ()  (multi
-              (layer-switch new_colemak_dh_hrms_wide_typing)
-              (on-idle 55 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
-            ) break
-      )
-  .spc-typing   (multi (layer-switch new_colemak_dh_hrms_wide_base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts
-)
-
-(deflayermap (new_colemak_dh_hrms_wide_base)
-  ` @grl
-  caps @wesclock
-  lsft @wnumpad
-  lalt @wsym
-  spc @wextendspc
-  ralt @wsym
-  rsft @wfmkeys
-  \ (layer-switch gaming)
-  
-  ;; define home row mods (they act as typing-layer triggers, too )
-  f (t! homerowmod $tot $nindex t lctl)
-  k (t! homerowmod $tot $nindex n rctl)
-  d (t! homerowmod $tot $nmiddle s lsft)
-  l (t! homerowmod $tot $nmiddle e rsft)
-  s (t! homerowmod $tot $nring r lmet)
-  ; (t! homerowmod $tot $nring i rmet)
-  a (t! homerowmod $tot $npinky a lalt)
-  ' (t! homerowmod $tot $npinky o ralt)
-  ;; define each letter as typing-layer trigger
-  q (multi q @.tp) w (multi w @.tp) e (multi f @.tp) r (multi p @.tp) t (multi b @.tp) y (multi [ @.tp) u (multi j @.tp) i (multi l @.tp) o (multi u @.tp) p (multi y @.tp) [ (multi ; @.tp)
-  g (multi g @.tp) h (multi ' @.tp) j (multi m @.tp)
-  z (multi x @.tp) x (multi c @.tp) c (multi d @.tp) v (multi v @.tp) b (multi z @.tp) n (multi / @.tp) m (multi k @.tp) , (multi h @.tp) . (multi , @.tp) / (multi . @.tp)
-)
-
-(deflayermap (new_colemak_dh_hrms_wide_typing) 
-  ` @grl
-  caps @wesclock
-  lsft @wnumpad
-  lalt @wsym
-  spc @wextendspc
-  ralt @wsym
-  rsft @wfmkeys
-  \ (layer-switch gaming)
-
-  a a b z c d d s e f f t g g h ' i l j m k n l e m k n / o u p y q q r p s r t b u j v v w w x c y [ z x , h . , / . ; i ' o [ ; 
-  ;; caps XX ;; key deactivations of caps,... are optional
-)
-
-  ;; @grl       1          2          3          4          5    6    7          8          9          0          -    =    bspc
-  ;; tab        q          w          f          p          b    [    j    l          u          y          ;          ]    (layer-switch gaming)
-  ;; @wesclock  @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    '    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    ret
-  ;; @wnumpad   x          c          d          v          z    /    k    h          ,          .          @wfmkeys
-  ;; _    _     @wsym                            @wextendspc                     @wsym      _          _   
