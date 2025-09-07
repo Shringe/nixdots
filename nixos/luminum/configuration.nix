@@ -23,8 +23,6 @@ with lib;
 
   nixosModules = {
     theming.enable = true;
-    vpn.enable = true;
-    battery.enable = true;
     desktop.enable = true;
     jellyfin.enable = true;
     networking.wireless.enable = true;
@@ -36,6 +34,7 @@ with lib;
     hardware = {
       kanata.enable = true;
       bluetooth.enable = true;
+      battery.enable = true;
     };
 
     gaming = {
