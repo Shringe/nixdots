@@ -3,7 +3,6 @@ with lib;
 {
   imports = [
     ./gaming
-    ./battery
     ./desktop
     ./sops
     ./users
@@ -47,6 +46,7 @@ with lib;
     ./boot
     ./hardware
     ./networking
+    ./locale.nix
   ];
 
   options.nixosModules = {

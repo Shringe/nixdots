@@ -166,6 +166,7 @@
       kanata.enable = true;
       nvidia.enable = true;
       bluetooth.enable = true;
+      audio.enable = true;
     };
 
     users = {
@@ -185,12 +186,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-  };
 
   # $ nix search wget
   environment = {

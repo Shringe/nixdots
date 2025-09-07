@@ -56,17 +56,6 @@ with lib;
   # # Otherwise wireguard will setup wg0 too early and no internet will be established.
   systemd.services.wg-quick-wg0.wantedBy = mkForce [ ];
 
-  # Set your time zone.
-  time.timeZone = "US/Central";
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
   # $ nix search wget
   environment = {
     sessionVariables = {
