@@ -12,7 +12,7 @@ in
       enable = true;
 
       settings = {
-        adapters = {
+        http.adapters = {
           ollama.__raw = ''
             function()
               return require("codecompanion.adapters").extend("ollama", {
@@ -50,7 +50,7 @@ in
           '';
         };
 
-        opts = {
+        http.opts = {
           log_level = "TRACE";
           send_code = true;
           use_default_actions = true;
