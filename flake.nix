@@ -118,6 +118,7 @@
           permittedInsecurePackages = [
             "jitsi-meet-1.0.8043"
             "qtwebengine-5.15.19"
+            "olm-3.2.16"
           ];
         };
       };
