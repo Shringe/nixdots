@@ -80,7 +80,7 @@ in
           (mkMonitor "OurShoppingList" docker.ourshoppinglist)
           (mkMonitor "Nextcloud" server.services.nextcloud)
           (mkMonitor "Matrix" social.matrix.conduit)
-          (mkMonitor "Traccar" gps.traccar)
+          (mkMonitor "Traccar" server.services.traccar)
           (mkMonitor "Wallos" docker.wallos)
           (mkMonitor "Paperless" server.services.paperless)
           (mkMonitor "Collabora" server.services.collabora)

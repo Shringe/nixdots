@@ -35,7 +35,7 @@ in
             };
           }
           ++ mkService "OurShoppingList" docker.ourshoppinglist { }
-          ++ mkService "Traccar" gps.traccar { };
+          ++ mkService "Traccar" traccar { };
       }
 
       {

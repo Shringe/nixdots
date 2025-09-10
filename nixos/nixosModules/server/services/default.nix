@@ -7,6 +7,7 @@ with lib;
     ./collabora.nix
     ./immich.nix
     ./minecraft.nix
+    ./traccar.nix
   ];
 
   options.nixosModules.server.services = {

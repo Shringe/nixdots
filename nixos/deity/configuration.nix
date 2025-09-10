@@ -62,8 +62,6 @@
 
     server.enable = true;
 
-    gps.traccar.enable = true;
-
     kavita.enable = true;
     groceries.tandoor.enable = true;
 
