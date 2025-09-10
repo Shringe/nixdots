@@ -1,10 +1,19 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let 
-  cfg = config.nixosModules.gps.traccar;
-in {
-  options.nixosModules.gps.traccar = {
-    enable = mkEnableOption "Traccar";
+let
+  cfg = config.nixosModules.server.services.traccar;
+in
+{
+  options.nixosModules.server.services.traccar = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.server.services.enable;
+    };
 
     port = mkOption {
       type = types.port;
@@ -33,7 +42,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."gps/traccar" = {};
+    sops.secrets."gps/traccar" = { };
+
+    # Unstable is currently broken and services.traccar.package does not exist for some reason
+    nixpkgs.overlays = [
+      (self: super: {
+        traccar = self.stable.traccar;
+      })
+    ];
+
+    systemd.services.traccar.serviceConfig.PrivateUsers = mkForce false;
 
     services.traccar = {
       enable = true;

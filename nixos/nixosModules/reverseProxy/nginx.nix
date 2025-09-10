@@ -90,7 +90,7 @@ in
           (rps "atuin" shell.atuin.server)
           (rps "linkwarden" linkwarden)
           (rps "ourshoppinglist" docker.ourshoppinglist)
-          (rps "traccar" gps.traccar)
+          (rps "traccar" server.services.traccar)
           (rps "wallos" docker.wallos)
           (rps "files" filebrowser)
           (rps "router" server.router)

@@ -39,7 +39,6 @@ with lib;
     ./groceries
     ./authelia
     ./linkwarden
-    ./gps
     ./security
     ./server
     ./theming
