@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.matrix;
@@ -9,10 +14,20 @@ in
       type = types.bool;
       default = config.homeManagerModules.desktop.enable;
     };
+
+    extra = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Extra matrix clients.";
+    };
   };
 
   config = mkIf cfg.enable {
-    programs = {
+    home.packages = with pkgs; [
+      fluffychat
+    ];
+
+    programs = mkIf cfg.extra {
       element-desktop.enable = true;
       nheko.enable = true;
     };
