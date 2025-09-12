@@ -21,19 +21,12 @@
 
     # Simple plugins
     plugins = {
-      lualine.enable = true;
-      lualine.settings.options.globalstatus = true;
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
       nvim-surround.enable = true;
       gitsigns.enable = true;
       which-key.enable = true;
-      notify.enable = true;
-      render-markdown.enable = true;
-      render-markdown.settings.file_types = [
-        "markdown"
-        "codecompanion"
-      ];
+      spectre.enable = true;
     };
 
     autoCmd = [
