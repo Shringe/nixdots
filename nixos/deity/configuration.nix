@@ -167,8 +167,6 @@
     mouse.main.enable = true;
   };
 
-  programs.adb.enable = true;
-
   boot.loader.systemd-boot.memtest86.enable = true;
 
   # $ nix search wget
