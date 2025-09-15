@@ -3,6 +3,7 @@ with lib;
 {
   imports = [
     ./windowManagers
+    ./adb.nix
   ];
 
   options.nixosModules.desktop = {

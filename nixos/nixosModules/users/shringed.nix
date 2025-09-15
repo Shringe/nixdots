@@ -19,7 +19,6 @@ in
         "steam"
         "nordvpn"
         "gamemode"
-        "adbusers"
         "lp"
       ];
 
