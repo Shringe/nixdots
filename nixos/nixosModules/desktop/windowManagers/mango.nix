@@ -21,30 +21,29 @@ in
   };
 
   config = mkIf cfg.enable {
-    sessionVariables = {
+    environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       WLR_RENDERER = "vulkan";
     };
+
+    security = {
+      pam.services.hyprlock = { };
+      rtkit.enable = true; # For real time audio
+    };
+
+    programs.mango.enable = true;
+
+    # xdg.portal = {
+    #   enable = true;
+    #   config.common.default = [ "wlr" ];
+    #   xdgOpenUsePortal = true;
+    #
+    #   extraPortals = with pkgs; [
+    #     xdg-desktop-portal-wlr
+    #   ];
+    # };
+
+    # services.displayManager.sessionPackages = optional cfg.enable pkgs.mango;
+    # services.gnome.gnome-keyring.enable = true;
   };
-
-  security = {
-    pam.services.hyprlock = { };
-    rtkit.enable = true; # For real time audio
-  };
-
-  programs.mango.enable = true;
-
-  # xdg.portal = {
-  #   enable = true;
-  #   config.common.default = [ "wlr" ];
-  #   xdgOpenUsePortal = true;
-  #
-  #   extraPortals = with pkgs; [
-  #     xdg-desktop-portal-wlr
-  #   ];
-  # };
-
-  # services.displayManager.sessionPackages = optional cfg.enable pkgs.mango;
-  # services.gnome.gnome-keyring.enable = true;
-
 }
