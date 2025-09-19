@@ -11,7 +11,11 @@
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     nix-gaming.url = "github:fufexan/nix-gaming";
     disko.url = "github:nix-community/disko";
-    mango.url = "github:DreamMaoMao/mango";
+
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
