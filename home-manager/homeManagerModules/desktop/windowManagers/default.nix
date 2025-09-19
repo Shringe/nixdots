@@ -5,5 +5,6 @@
     ./qtile
     ./hyprland
     ./sway
+    ./mango
   ];
 }
