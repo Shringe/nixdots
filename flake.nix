@@ -102,7 +102,9 @@
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
           });
 
-          opencv = self.stable.opencv; # Very slow to build with cuda
+          # Very slow to build when updates
+          opencv = self.stable.opencv;
+          jellyfin-media-player = self.stable.jellyfin-media-player;
 
           mpv = super.mpv.override {
             scripts = with self.mpvScripts; [
