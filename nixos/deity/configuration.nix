@@ -124,14 +124,6 @@
       yuzu.enable = true;
     };
 
-    llm = {
-      ollama = {
-        enable = true;
-        enableCuda = true;
-        webui.enable = true;
-      };
-    };
-
     desktop.enable = true;
 
     gaming = {
