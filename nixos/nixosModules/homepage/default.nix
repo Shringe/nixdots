@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.homepage;
@@ -11,16 +16,17 @@ let
       ln -s ${../../../assets/icons} $out/share/homepage/public/icons
     '';
   });
-in {
+in
+{
   imports = [
     ./services.nix
   ];
 
   options.nixosModules.homepage = {
-    enable = lib.mkEnableOption "Homepage dashboard";
+    enable = mkEnableOption "Homepage dashboard";
 
-    port = lib.mkOption {
-      type = lib.types.port;
+    port = mkOption {
+      type = types.port;
       default = 47020;
     };
 
@@ -40,8 +46,8 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    sops.secrets."homepage" = {};
+  config = mkIf cfg.enable {
+    sops.secrets."homepage" = { };
 
     services.homepage-dashboard = {
       enable = true;
@@ -75,8 +81,8 @@ in {
             uptime = true;
             memory = true;
             disk = [
-              "/"
-              "/mnt/server"
+              "/mnt/btr/pool/root"
+              "/mnt/btr/pool/smedia2"
             ];
           };
         }
@@ -88,7 +94,7 @@ in {
             };
           };
         }
-      ]; 
+      ];
     };
   };
 }
