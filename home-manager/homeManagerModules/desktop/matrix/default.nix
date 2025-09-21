@@ -17,16 +17,12 @@ in
 
     extra = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       description = "Extra matrix clients.";
     };
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      fluffychat
-    ];
-
     programs = mkIf cfg.extra {
       element-desktop.enable = true;
       nheko.enable = true;
