@@ -39,6 +39,7 @@
       ips.local = "192.168.0.165";
     };
 
+    reporting.enable = true;
     theming = {
       enable = true;
       wallpapers = {
