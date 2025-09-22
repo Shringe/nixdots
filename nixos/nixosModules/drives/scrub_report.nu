@@ -1,18 +1,20 @@
 def lines_from_start_to_end [start: string, end: string] {
   mut out = []
   
+  # Reversed to make sure we get the most recent scrub report from the device,
+  # and not the oldest one
   mut collecting = false
-  for line in $in {
-    if ($line | str contains $start) {
+  for line in ($in | reverse) {
+    if ($line | str contains $end) {
       $collecting = true
-    } else if ($line | str contains $end) {
+    } else if ($line | str contains $start) {
       break
     } else if $collecting {
       $out = ($out | append $line)
     }
   }
 
-  $out
+  $out | reverse
 }
 
 def find_absolute_paths [device_path: string] {
