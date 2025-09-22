@@ -5,7 +5,7 @@
   ...
 }:
 let
-  scrubReportNu = pkgs.writers.writeNu "scrubReport" {
+  scrubReport = pkgs.writers.writeNu "scrubReport" {
     makeWrapperArgs = [
       "--prefix"
       "PATH"
@@ -27,7 +27,8 @@ in
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.btrfs-progs}/bin/btrfs scrub start -B /dev/disk/by-label/${label}";
-        ExecStopPost = "${scrubReportNu}/bin/scrubReport ${label}";
+        # ExecStart = "${pkgs.coreutils}/bin/echo testing";
+        ExecStopPost = "${scrubReport} ${label}";
         Nice = 19;
         IOSchedulingClass = 3;
         IOSchedulingPriority = 7;
