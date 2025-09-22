@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.nixosModules.drives.smedia1;
-  util = import ./util.nix { inherit config pkgs; };
+  util = import ./util.nix { inherit config lib pkgs; };
 in
 {
   options.nixosModules.drives.smedia1 = {
