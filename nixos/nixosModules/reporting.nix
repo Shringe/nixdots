@@ -106,27 +106,5 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets."social/matrix/matrixReport" = { };
-
-    environment.systemPackages = [
-      cfg.matrixReport
-    ];
-
-    systemd.services.btrfs-scrub = {
-      serviceConfig = {
-        Type = "oneshot";
-        User = "root";
-        ExecStart = "${scrubAll}/bin/scrubAll";
-        EnvironmentFile = config.sops.secrets."social/matrix/matrixReport".path;
-      };
-    };
-
-    systemd.timers.btrfs-scrub = {
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "weekly";
-        RandomizedDelaySec = "4h";
-        Persistent = true;
-      };
-    };
   };
 }
