@@ -12,15 +12,18 @@ let
     name = "matrixReport";
 
     runtimeInputs = with pkgs; [
-      curl
       coreutils
+      curl
+      jq
     ];
 
     text = ''
+      msg=$(jq -n --arg body "$1" '{msgtype: "m.text", body: $body}')
+      printf "Reporting message to matrix:\n%s" "$msg"
       curl -X PUT \
         -H "Authorization: Bearer $MATRIX_REPORT_TOKEN" \
         -H "Content-Type: application/json" \
-        -d "{\"msgtype\":\"m.text\",\"body\":\"$1\"}" \
+        -d "$msg" \
         "https://$MATRIX_REPORT_SERVER/_matrix/client/r0/rooms/$MATRIX_REPORT_ROOM:$MATRIX_REPORT_SERVER/send/m.room.message/$(date +%s)"
     '';
   };
@@ -95,6 +98,7 @@ in
         Type = "oneshot";
         User = "root";
         ExecStart = "${scrubAll}/bin/scrubAll";
+        EnvironmentFile = config.sops.secrets."social/matrix/matrixReport".path;
       };
     };
 
