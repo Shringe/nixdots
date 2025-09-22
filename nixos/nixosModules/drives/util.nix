@@ -1,11 +1,12 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
 {
   mkWeeklyScrub = label: day: {
-    systemd.services."btrfs-scrub-${label}" = {
+    systemd.services."btrfs-scrub-${label}" = lib.mkIf config.nixosModules.reporting.enable {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "btrfs scrub start -B /dev/disk/by-label/${label}";

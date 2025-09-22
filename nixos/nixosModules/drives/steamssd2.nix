@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.nixosModules.drives.steamssd2;
-  util = import ./util.nix { inherit config pkgs; };
+  util = import ./util.nix { inherit config lib pkgs; };
 in
 {
   options.nixosModules.drives.steamssd2 = {
