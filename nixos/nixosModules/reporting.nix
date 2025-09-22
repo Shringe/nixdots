@@ -18,6 +18,8 @@ let
     ];
 
     text = ''
+      # shellcheck disable=SC1091
+      source ${config.sops.secrets."social/matrix/matrixReport".path}
       msg=$(jq -n --arg body "$1" '{msgtype: "m.text", body: $body}')
       printf "Reporting message to matrix:\n%s" "$msg"
       curl -X PUT \
@@ -92,6 +94,10 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets."social/matrix/matrixReport" = { };
+
+    environment.systemPackages = [
+      matrixReport
+    ];
 
     systemd.services.btrfs-scrub = {
       serviceConfig = {
