@@ -4,17 +4,30 @@
   pkgs,
   ...
 }:
+let
+  scrubReportNu = pkgs.writers.writeNu "scrubReport" {
+    makeWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      "${lib.makeBinPath (
+        with pkgs;
+        [
+          btrfs-progs
+          util-linux
+          config.nixosModules.reporting.matrixReport
+        ]
+      )}"
+    ];
+  } (builtins.readFile ./scrub_report.nu);
+in
 {
   mkWeeklyScrub = label: day: {
     systemd.services."btrfs-scrub-${label}" = lib.mkIf config.nixosModules.reporting.enable {
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.btrfs-progs}/bin/btrfs scrub start -B /dev/disk/by-label/${label}";
-        ExecStartPost = pkgs.writeShellScript "btrfs-scrub-${label}" ''
-          out=$(${pkgs.btrfs-progs}/bin/btrfs scrub status /dev/disk/by-label/${label})
-          ${config.nixosModules.reporting.matrixReport}/bin/matrixReport "<p>Btrfs scrub report for ${label}:</p><code>$out</code>"
-        '';
-
+        ExecStopPost = "${scrubReportNu}/bin/scrubReport ${label}";
         Nice = 19;
         IOSchedulingClass = 3;
         IOSchedulingPriority = 7;

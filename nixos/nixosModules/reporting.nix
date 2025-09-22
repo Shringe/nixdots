@@ -106,5 +106,8 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets."social/matrix/matrixReport" = { };
+    environment.systemPackages = [
+      cfg.matrixReport
+    ];
   };
 }
