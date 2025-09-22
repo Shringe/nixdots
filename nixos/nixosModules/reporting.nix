@@ -8,35 +8,13 @@ with lib;
 let
   cfg = config.nixosModules.reporting;
 
-  matrixReport = pkgs.writeShellApplication {
-    name = "matrixReport";
-
-    runtimeInputs = with pkgs; [
-      coreutils
-      curl
-      jq
-    ];
-
-    text = ''
-      # shellcheck disable=SC1091
-      source ${config.sops.secrets."social/matrix/matrixReport".path}
-      msg=$(jq -n --arg body "$1" '{msgtype: "m.text", body: $body}')
-      printf "Reporting message to matrix:\n%s" "$msg"
-      curl -X PUT \
-        -H "Authorization: Bearer $MATRIX_REPORT_TOKEN" \
-        -H "Content-Type: application/json" \
-        -d "$msg" \
-        "https://$MATRIX_REPORT_SERVER/_matrix/client/r0/rooms/$MATRIX_REPORT_ROOM:$MATRIX_REPORT_SERVER/send/m.room.message/$(date +%s)"
-    '';
-  };
-
   scrubAll = pkgs.writeShellApplication {
     name = "scrubAll";
 
     runtimeInputs = with pkgs; [
       btrfs-progs
       coreutils
-      matrixReport
+      cfg.matrixReport
     ];
 
     text = ''
@@ -90,13 +68,39 @@ in
       default = false;
       description = "Automatic scrubbing and reporting of system information to matrix";
     };
+
+    matrixReport = mkOption {
+      type = types.package;
+      default = pkgs.writeShellApplication {
+        name = "matrixReport";
+
+        runtimeInputs = with pkgs; [
+          coreutils
+          curl
+          jq
+        ];
+
+        text = ''
+          # shellcheck disable=SC1091
+          source ${config.sops.secrets."social/matrix/matrixReport".path}
+          msg=$(jq -n --arg body "$1" '{msgtype: "m.text", body: $body}')
+          printf "Reporting message to matrix:\n%s" "$msg"
+          curl -X PUT \
+            -H "Authorization: Bearer $MATRIX_REPORT_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "$msg" \
+            "https://$MATRIX_REPORT_SERVER/_matrix/client/r0/rooms/$MATRIX_REPORT_ROOM:$MATRIX_REPORT_SERVER/send/m.room.message/$(date +%s)"
+        '';
+      };
+      description = "Script used to report system messages to matrix";
+    };
   };
 
   config = mkIf cfg.enable {
     sops.secrets."social/matrix/matrixReport" = { };
 
     environment.systemPackages = [
-      matrixReport
+      cfg.matrixReport
     ];
 
     systemd.services.btrfs-scrub = {
