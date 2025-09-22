@@ -9,7 +9,7 @@
     systemd.services."btrfs-scrub-${label}" = lib.mkIf config.nixosModules.reporting.enable {
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "btrfs scrub start -B /dev/disk/by-label/${label}";
+        ExecStart = "${pkgs.btrfs-progs}/bin/btrfs scrub start -B /dev/disk/by-label/${label}";
         ExecStartPost = pkgs.writeShellScript "btrfs-scrub-${label}" ''
           out=$(${pkgs.btrfs-progs}/bin/btrfs scrub status /dev/disk/by-label/${label})
           ${config.nixosModules.reporting.matrixReport}/bin/matrixReport "<p>Btrfs scrub report for ${label}:</p><code>$out</code>"
