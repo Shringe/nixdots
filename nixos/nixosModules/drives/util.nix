@@ -32,4 +32,15 @@
       };
     };
   };
+
+  mkMount = label: extraOpts: {
+    device = "/dev/disk/by-label/${label}";
+    fsType = "btrfs";
+    options = [
+      "compress=zstd"
+      "noatime"
+      "nofail"
+    ]
+    ++ extraOpts;
+  };
 }
