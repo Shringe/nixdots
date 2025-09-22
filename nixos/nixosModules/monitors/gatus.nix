@@ -9,7 +9,7 @@ let
       {
         name = name;
         url = if module ? furl then module.furl else module.url;
-        interval = "20s";
+        interval = "10m";
         conditions = [ "[STATUS] == 200" ];
 
         alerts = [
@@ -17,8 +17,6 @@ let
             type = "matrix";
             enabled = true;
             send-on-resolved = true;
-            success-threshold = 1;
-            failure-threshold = 1;
           }
         ];
       }
