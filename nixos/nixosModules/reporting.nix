@@ -83,8 +83,16 @@ in
         text = ''
           # shellcheck disable=SC1091
           source ${config.sops.secrets."social/matrix/matrixReport".path}
-          msg=$(jq -n --arg body "$1" '{msgtype: "m.text", body: $body}')
-          printf "Reporting message to matrix:\n%s" "$msg"
+          msg=$(jq -n \
+            --arg body "$1" \
+            --arg fbody "$1" \
+            '{
+              msgtype: "m.text",
+              body: $body,
+              format: "org.matrix.custom.html",
+              formatted_body: $fbody
+            }')
+
           curl -X PUT \
             -H "Authorization: Bearer $MATRIX_REPORT_TOKEN" \
             -H "Content-Type: application/json" \
