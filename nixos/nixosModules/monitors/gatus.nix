@@ -9,8 +9,16 @@ let
       {
         name = name;
         url = if module ? furl then module.furl else module.url;
-        interval = "30m";
+        interval = "10m";
         conditions = [ "[STATUS] == 200" ];
+
+        alerts = [
+          {
+            type = "matrix";
+            enabled = true;
+            send-on-resolved = true;
+          }
+        ];
       }
     ];
 in
@@ -45,11 +53,20 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."gatus" = { };
+
     services.gatus = {
       enable = true;
+      environmentFile = config.sops.secrets."gatus".path;
 
       settings = with config.nixosModules; {
         web.port = cfg.port;
+
+        alerting.matrix = {
+          server-url = config.nixosModules.social.matrix.conduit.furl;
+          access-token = "\${MATRIX_ACCESS_TOKEN}";
+          internal-room-id = "!E5MUdlKUbI2XBDCWXu:${config.nixosModules.reverseProxy.aDomain}";
+        };
 
         endpoints = flatten [
           (mkMonitor "Radicale" caldav.radicale)
