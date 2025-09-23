@@ -132,7 +132,7 @@ in
         mouse_natural_scrolling=0
         accel_profile=1
         accel_speed=-0.675
-        adaptive_sync=1
+        adaptive_sync=0
 
         # Display
         monitorrule=DP-1,0.55,1,tile,0,1,0,0,2560,1440,165

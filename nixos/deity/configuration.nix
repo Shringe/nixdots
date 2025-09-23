@@ -39,6 +39,7 @@
       ips.local = "192.168.0.165";
     };
 
+    reporting.enable = true;
     theming = {
       enable = true;
       wallpapers = {
@@ -122,14 +123,6 @@
       enable = true;
       kdeconnect.enable = true;
       yuzu.enable = true;
-    };
-
-    llm = {
-      ollama = {
-        enable = true;
-        enableCuda = true;
-        webui.enable = true;
-      };
     };
 
     desktop.enable = true;

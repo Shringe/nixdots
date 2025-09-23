@@ -32,7 +32,6 @@ with lib;
     # ./caddy
     ./reverseProxy
     ./drives
-    ./maintenance
     ./social
     ./backups
     ./kavita
@@ -46,6 +45,8 @@ with lib;
     ./hardware
     ./networking
     ./locale.nix
+    ./maintenance.nix
+    ./reporting.nix
   ];
 
   options.nixosModules = {
