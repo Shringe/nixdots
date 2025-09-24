@@ -125,7 +125,13 @@
       yuzu.enable = true;
     };
 
-    desktop.enable = true;
+    desktop = {
+      enable = true;
+      syncthing = {
+        enable = true;
+        user = "shringed";
+      };
+    };
 
     gaming = {
       alvr.enable = true;
