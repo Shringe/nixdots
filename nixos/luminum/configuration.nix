@@ -18,12 +18,19 @@ with lib;
 
   nixosModules = {
     theming.enable = true;
-    desktop.enable = true;
     jellyfin.enable = true;
     networking.wireless.enable = true;
     boot = {
       secureboot = true;
       graphical.plymouth.enable = true;
+    };
+
+    desktop = {
+      enable = true;
+      syncthing = {
+        enable = true;
+        user = "shringe";
+      };
     };
 
     hardware = {

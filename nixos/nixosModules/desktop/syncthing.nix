@@ -30,7 +30,7 @@ in
           };
 
           "luminum" = {
-            id = "";
+            id = "6RU4LTJ-QTZBX2G-N5YYSTZ-YMD5Z7L-TXT4RYI-QPLFNF6-FOZAFXE-YDHMZAN";
           };
         };
 
