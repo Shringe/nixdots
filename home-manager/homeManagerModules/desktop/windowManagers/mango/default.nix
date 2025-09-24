@@ -197,6 +197,8 @@ in
         bind=SUPER,o,incnmaster,-1
         bind=SUPER,l,setmfact,-0.05
         bind=SUPER,u,setmfact,+0.05
+        bind=SUPER,l,increase_proportion,0.1
+        bind=SUPER,u,increase_proportion,-0.1
         bind=SUPER,y,zoom
         bind=SUPER,Tab,view,last
         bind=SUPER,w,killclient

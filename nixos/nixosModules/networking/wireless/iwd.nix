@@ -16,18 +16,18 @@ in
   };
 
   config = mkIf cfg.enable {
+    # services.resolved.enable = true;
     networking.wireless.iwd = {
       enable = true;
       settings = {
         Settings = {
           AutoConnect = true;
-
-          # TODO, I don't think this is working
           AlwaysRandomizeAddress = true;
         };
 
         General = {
           AddressRandomization = "network";
+          # EnableNetworkConfiguration = true;
         };
       };
     };
