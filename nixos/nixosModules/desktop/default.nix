@@ -4,6 +4,7 @@ with lib;
   imports = [
     ./windowManagers
     ./adb.nix
+    ./syncthing.nix
   ];
 
   options.nixosModules.desktop = {
