@@ -26,7 +26,7 @@ in
       settings = {
         devices = {
           "deity" = {
-            id = "5W7H7GU-TDU26JX-B4MFEOZ-GJ32I2H-WYJCLTO-6XAQKFP-JFL7FJZ-H4WGBQE";
+            id = "ZKU5OTJ-AUIISBU-KUEDBQ7-3ZQFYKR-3ICUHTY-UJBKHIQ-FRSCLTM-PMT2AAZ";
           };
 
           "luminum" = {
