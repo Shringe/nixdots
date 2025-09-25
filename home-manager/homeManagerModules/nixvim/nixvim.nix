@@ -27,6 +27,7 @@
       gitsigns.enable = true;
       which-key.enable = true;
       spectre.enable = true;
+      zellij.enable = true;
     };
 
     autoCmd = [

@@ -1,31 +1,44 @@
-# https://github.com/evanjs/nixos_cfg/blob/4bb5b0b84a221b25cf50853c12b9f66f0cad3ea4/config/new-modules/default.nix
-
 { lib, ... }:
-
 with lib;
 let
   # Recursively constructs an attrset of a given folder, recursing on directories, value of attrs is the filetype
-  getDir = dir: mapAttrs
-    (file: type:
-      if type == "directory" then getDir "${dir}/${file}" else type
-    )
-    (builtins.readDir dir);
+  getDir =
+    dir:
+    mapAttrs (file: type: if type == "directory" then getDir "${dir}/${file}" else type) (
+      builtins.readDir dir
+    );
 
   # Collects all files of a directory as a list of strings of paths
-  files = dir: collect isString (mapAttrsRecursive (path: type: concatStringsSep "/" path) (getDir dir));
+  files =
+    dir: collect isString (mapAttrsRecursive (path: type: concatStringsSep "/" path) (getDir dir));
 
   # Filters out directories that don't end with .nix or are this file, also makes the strings absolute
-  validFiles = dir: map
-    (file: ./. + "/${file}")
-    (filter
-      (file: hasSuffix ".nix" file && file != "default.nix" &&
-        ! lib.hasPrefix "x/taffybar/" file &&
-        ! lib.hasSuffix "-hm.nix" file)
-      (files dir));
+  validFiles =
+    dir:
+    map (file: ./. + "/${file}") (
+      filter (
+        file:
+        hasSuffix ".nix" file
+        && file != "default.nix"
+        && !lib.hasPrefix "x/taffybar/" file
+        && !lib.hasSuffix "-hm.nix" file
+      ) (files dir)
+    );
 
+  # Check if a file already defines programs.nixvim
+  fileDefinesNixvim =
+    file:
+    let
+      content = builtins.readFile file;
+    in
+    builtins.match ".*programs\.nixvim.*" content != null;
+
+  # Files that don't already define programs.nixvim, or aren't "wrapped", get wrapped in a programs.nixvim attribute set
+  partitionedFiles = partition (file: fileDefinesNixvim file) (validFiles ./.);
+  unwrappedFiles = partitionedFiles.wrong;
+  wrappedFiles = partitionedFiles.right;
 in
 {
-
-  imports = validFiles ./.;
-
+  programs.nixvim.imports = unwrappedFiles;
+  imports = wrappedFiles;
 }
