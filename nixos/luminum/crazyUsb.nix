@@ -22,7 +22,7 @@ in
 
   # The system cant sleep if the crazy usb if awake
   environment.etc."systemd/system-sleep/crazyUsb" = {
-    text = crazyUsbSleepHook.text;
-    mode = "0755";
+    source = "${crazyUsbSleepHook}/bin/crazyUsbSleepHook";
+    # mode = "0755";
   };
 }
