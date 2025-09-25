@@ -36,7 +36,7 @@ in
 
         folders = {
           "Documents" = {
-            path = "~/sync";
+            path = "~/Documents";
             devices = [
               "deity"
               "luminum"
