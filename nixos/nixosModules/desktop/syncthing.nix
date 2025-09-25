@@ -21,7 +21,7 @@ in
       enable = true;
       user = cfg.user;
       dataDir = "/home/${cfg.user}";
-      # openDefaultPorts = true;
+      openDefaultPorts = true;
 
       settings = {
         devices = {
