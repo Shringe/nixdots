@@ -104,17 +104,6 @@ with lib;
     gaming = {
       tooling.enable = mkEnableOption "Extra tooling";
 
-      emulators = {
-        switch = {
-          enable = mkEnableOption "Switch emulator";
-          torzu.enable = mkEnableOption "A switch emulator";
-        };
-        wiiu = {
-          enable = mkEnableOption "Switch emulator";
-          cemu.enable = mkEnableOption "A switch emulator";
-        };
-      };
-
       optimizations = {
         enable = mkEnableOption "Full optimizations";
       };
@@ -143,16 +132,6 @@ with lib;
     };
 
     gaming = {
-      emulators = {
-        switch = mkIf config.nixosModules.gaming.emulators.switch.enable {
-          torzu.enable = mkDefault true;
-        };
-
-        wiiu = mkIf config.nixosModules.gaming.emulators.wiiu.enable {
-          cemu.enable = mkDefault true;
-        };
-      };
-
       # optimizations = mkDefault config.nixosModules.gaming.optimizations.enable {
       # };
       games = mkIf config.nixosModules.gaming.games.enable {

@@ -1,7 +1,7 @@
 {
   imports = [
     ./games
-    ./emulators
+    ./emulators.nix
     ./steam.nix
     ./optimizations.nix
     ./tooling.nix
