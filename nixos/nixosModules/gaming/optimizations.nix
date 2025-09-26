@@ -1,8 +1,15 @@
-{ lib, inputs, config, pkgs, ... }:
+{
+  lib,
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.gaming.optimizations;
-in {
+in
+{
   imports = with inputs.nix-gaming.nixosModules; [
     pipewireLowLatency
     platformOptimizations
@@ -10,21 +17,18 @@ in {
 
   config = mkIf cfg.enable {
     nix.settings = {
-      substituters = ["https://nix-gaming.cachix.org"];
-      trusted-public-keys = ["nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="];
+      substituters = [ "https://nix-gaming.cachix.org" ];
+      trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
     };
 
     services.pipewire = {
+      enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
 
       lowLatency = {
-        # enable this module
         enable = true;
-        # defaults (no need to be set unless modified)
-        quantum = 64;
-        rate = 48000;
       };
     };
 
@@ -35,7 +39,7 @@ in {
     programs.steam.platformOptimizations.enable = true;
 
     boot.kernel.sysctl = {
-      "vm.swappiness" = 20; 
+      "vm.swappiness" = 20;
     };
 
     boot = {

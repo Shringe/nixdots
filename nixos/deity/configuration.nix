@@ -139,15 +139,11 @@
         # ase.Gatsby.enable = true;
       };
 
-      emulators = {
-        switch.enable = true;
-        wiiu.enable = true;
-      };
-
       optimizations.enable = true;
       tooling.enable = true;
       steam.enable = true;
       games.enable = true;
+      emulators.enable = true;
     };
 
     hardware = {

@@ -43,6 +43,7 @@ with lib;
       optimizations.enable = true;
       steam.enable = true;
       games.enable = true;
+      emulators.enable = true;
     };
 
     users.shringe.enable = true;
