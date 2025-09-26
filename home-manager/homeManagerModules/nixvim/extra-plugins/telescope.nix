@@ -19,6 +19,7 @@
         "<leader>fg" = "live_grep";
         "<leader>fu" = "buffers";
         "<leader>fd" = "diagnostics";
+        "<leader>fn" = "marks";
 
         # "<c-d>" = {
         #   mode = "i";
