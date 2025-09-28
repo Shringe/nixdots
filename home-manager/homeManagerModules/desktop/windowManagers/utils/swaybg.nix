@@ -1,12 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
-  cfg = config.homeManagerModules.desktop.windowManagers.dwl.swaybg;
-in {
-  options.homeManagerModules.desktop.windowManagers.dwl.swaybg = {
+  cfg = config.homeManagerModules.desktop.windowManagers.utils.swaybg;
+in
+{
+  options.homeManagerModules.desktop.windowManagers.utils.swaybg = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.dwl.enable;
+      default = false;
     };
   };
 

@@ -21,6 +21,26 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      grim
+      slurp
+      playerctl
+      brightnessctl
+    ];
+
+    homeManagerModules.desktop.windowManagers.utils = {
+      wofi.enable = true;
+      swaync.enable = true;
+      cliphist.enable = true;
+      swayosd.enable = true;
+      dolphin.enable = true;
+      polkit.enable = true;
+      systemd.enable = true;
+      wlogout.enable = true;
+      swayidle.enable = true;
+      swaybg.enable = true;
+    };
+
     wayland.windowManager.mango = {
       enable = true;
 
