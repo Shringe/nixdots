@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.openrgb;
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.utils.openrgb = {
     enable = mkOption {
       type = types.bool;
@@ -17,7 +18,7 @@ in {
         PartOf = [ config.wayland.systemd.target ];
         Requires = [ "tray.target" ];
         After = [
-          config.wayland.systemd.target
+          "graphical-session.target"
           "tray.target"
         ];
       };
