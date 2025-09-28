@@ -1,13 +1,13 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.homeManagerModules.desktop.windowManagers.dwl.wlogout;
-in {
-  options.homeManagerModules.desktop.windowManagers.dwl.wlogout = {
+  cfg = config.homeManagerModules.desktop.windowManagers.utils.wlogout;
+in
+{
+  options.homeManagerModules.desktop.windowManagers.utils.wlogout = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.dwl.enable;
-      # default = false;
+      default = false;
     };
   };
 

@@ -6,7 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.homeManagerModules.desktop.windowManagers.dwl.swayidle;
+  cfg = config.homeManagerModules.desktop.windowManagers.utils.swayidle;
 
   lockCmd = "${pkgs.procps}/bin/pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
 
@@ -36,10 +36,10 @@ let
   };
 in
 {
-  options.homeManagerModules.desktop.windowManagers.dwl.swayidle = {
+  options.homeManagerModules.desktop.windowManagers.utils.swayidle = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.dwl.enable;
+      default = false;
     };
 
     suspend = mkOption {

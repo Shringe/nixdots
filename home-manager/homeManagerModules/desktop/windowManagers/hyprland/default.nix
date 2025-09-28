@@ -25,12 +25,6 @@ in
       hyprsunset
       hyprpolkitagent
       hyprshot
-      xdg-desktop-portal-hyprland
-
-      blueman
-
-      wayland-protocols
-      waybar
     ];
 
     wayland.windowManager.hyprland = {

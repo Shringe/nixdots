@@ -11,10 +11,6 @@ in
 {
   imports = [
     ./waybar
-    ./swayidle.nix
-    ./swaybg.nix
-    ./wlogout.nix
-    # ./walker.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl = {
@@ -46,6 +42,9 @@ in
       dolphin.enable = true;
       polkit.enable = true;
       systemd.enable = true;
+      wlogout.enable = true;
+      swayidle.enable = true;
+      swaybg.enable = true;
     };
   };
 }
