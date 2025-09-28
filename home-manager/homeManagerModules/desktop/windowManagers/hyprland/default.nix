@@ -40,17 +40,6 @@ in
         "$d1" = "HDMI-A-1";
         "$d2" = "DP-1";
 
-        exec-once = [
-          "hyprpaper"
-          "swaync"
-          "wl-paste --type text --watch cliphist store"
-          "wl-paste --type image --watch cliphist store"
-          # "hypridle"
-          "systemctl --user start hyprpolkitagent"
-          "waybar"
-          "kdeconnect-indicator"
-        ];
-
         # Mouse
         bindm = [
           "$mod, mouse:272, movewindow"
@@ -78,8 +67,8 @@ in
           "CTRL,XF86AudioMute,exec,media-control mic_mute"
 
           # Applications
-          "$mod, r, exec, firefox"
-          "$mod, Return, exec, alacritty"
+          "$mod, r, exec, zen-twilight"
+          "$mod, Return, exec, wezterm"
           "$mod, w, killactive"
           "$mod, Space, toggleFloating"
           "$mod, t, fullscreen"
@@ -155,7 +144,7 @@ in
         };
 
         render = {
-          explicit_sync = 0;
+          # explicit_sync = 0;
         };
 
         monitor = [
@@ -177,7 +166,7 @@ in
         ];
 
         windowrulev2 = [
-          "workspace 7, class:discord"
+          # "workspace 7, class:discord"
           # "workspace 9, class:steam"
         ];
 
@@ -186,8 +175,8 @@ in
 
           blur = {
             enabled = true;
-            size = 12;
-            passes = 1;
+            size = 5;
+            passes = 3;
           };
         };
 
