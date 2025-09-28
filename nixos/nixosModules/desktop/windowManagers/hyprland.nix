@@ -1,13 +1,19 @@
 { config, lib, ... }:
+with lib;
 let
   cfg = config.nixosModules.desktop.windowManagers.hyprland;
 in
 {
-  programs.hyprland.enable = lib.mkIf cfg.enable true;
+  options.nixosModules.desktop.windowManagers.hyprland = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.desktop.windowManagers.enable;
+    };
+  };
 
-  # Optional, hint electron apps to use wayland:
-  environment.sessionVariables.NIXOS_OZONE_WL = lib.mkIf cfg.enable "1";
-
-  # Needed for hyprlock
-  security.pam.services.hyprlock = lib.mkIf cfg.enable {};
+  config = mkIf cfg.enable {
+    programs.hyprland.enable = true;
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    security.pam.services.hyprlock = { };
+  };
 }
