@@ -12,6 +12,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    wayland.systemd.target = "wlroots-session.target";
     systemd.user.targets.wlroots-session.Unit = {
       Description = "wlroots compositor session";
       Documentation = [ "man:systemd.special(7)" ];
