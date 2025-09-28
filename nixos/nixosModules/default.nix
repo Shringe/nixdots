@@ -91,7 +91,6 @@ with lib;
     desktop = {
       windowManagers = {
         qtile.enable = mkEnableOption "Qtile dependencies";
-        hyprland.enable = mkEnableOption "hyprland setup";
       };
     };
 
