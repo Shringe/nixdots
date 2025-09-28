@@ -23,7 +23,6 @@ in
   config = mkIf cfg.enable {
     wayland.windowManager.mango = {
       enable = true;
-      systemd.enable = true;
 
       # More option see https://github.com/DreamMaoMao/mango/wiki/
       settings = ''
@@ -304,7 +303,7 @@ in
 
       autostart_sh = ''
         dbus-update-activation-environment --systemd --all
-        systemctl --user start mango-session.target
+        systemctl --user start wlroots-session.target
       '';
     };
   };
