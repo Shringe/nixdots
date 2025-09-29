@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./hypridle.nix
+    ./waybar.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.hyprland = {

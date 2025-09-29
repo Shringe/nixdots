@@ -18,7 +18,6 @@ in
         PartOf = [ config.wayland.systemd.target ];
         Requires = [ "tray.target" ];
         After = [
-          "graphical-session.target"
           "tray.target"
         ];
       };
@@ -29,7 +28,7 @@ in
         Restart = "on-failure";
       };
 
-      Install.WantedBy = [ config.wayland.systemd.target ];
+      Install.WantedBy = [ "graphical-session.target" ];
     };
   };
 }
