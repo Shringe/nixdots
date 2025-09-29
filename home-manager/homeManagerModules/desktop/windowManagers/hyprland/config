@@ -8,11 +8,6 @@
         "",
         "",
         "",
-        "",
-        "",
-        "",
-        "",
-        "",
         ""
       ],
       "states": {
@@ -25,14 +20,6 @@
       "bar_delimiter": 0,
       "bars": 12,
       "format-icons": [
-        "▁",
-        "▂",
-        "▃",
-        "▄",
-        "▅",
-        "▆",
-        "▇",
-        "█",
         "▁",
         "▂",
         "▃",
@@ -110,12 +97,11 @@
       "tooltip": false
     },
     "hyprland/workspaces": {
-      "all-outputs": true
+      "all-outputs": false
     },
     "hyprland/window": {
-      "format": "{title}",
       "icon": false,
-      "icon-size": 10,
+      "icon-size": 10
     },
     "height": 24,
     "layer": "top",
@@ -124,28 +110,12 @@
     },
     "modules-center": [],
     "modules-left": [
-      "hyprland/workspaces",
+      "hyprland/workspaces"
       "custom/leftSeparator1",
       "hyprland/window",
       "custom/leftSeparator2"
     ],
     "modules-right": [
-      "custom/rightSeparator5",
-      "tray",
-      "privacy",
-      "custom/rightSeparator4",
-      "mpris",
-      "cava",
-      "pulseaudio",
-      "custom/rightSeparator3",
-      "network",
-      "custom/rightSeparator2",
-      "battery",
-      "memory",
-      "cpu",
-      "custom/rightSeparator1",
-      "custom/notification",
-      "clock",
       "custom/rightSeparator5",
       "tray",
       "privacy",
@@ -182,9 +152,6 @@
       "modules": [
         {
           "type": "screenshare"
-        },
-        {
-          "type": "screenshare"
         }
       ]
     },
@@ -194,8 +161,6 @@
       "format-icons": {
         "car": "",
         "default": [
-          "",
-          "",
           "",
           ""
         ],
