@@ -110,7 +110,7 @@
     },
     "modules-center": [],
     "modules-left": [
-      "hyprland/workspaces"
+      "hyprland/workspaces",
       "custom/leftSeparator1",
       "hyprland/window",
       "custom/leftSeparator2"
