@@ -1,0 +1,219 @@
+[
+  {
+    "battery": {
+      "bat": "BAT0",
+      "format": "{capacity}% {icon}",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "states": {
+        "critical": 15,
+        "warning": 30
+      }
+    },
+    "cava": {
+      "autosens": 1,
+      "bar_delimiter": 0,
+      "bars": 12,
+      "format-icons": [
+        "▁",
+        "▂",
+        "▃",
+        "▄",
+        "▅",
+        "▆",
+        "▇",
+        "█",
+        "▁",
+        "▂",
+        "▃",
+        "▄",
+        "▅",
+        "▆",
+        "▇",
+        "█"
+      ],
+      "framerate": 30,
+      "hide_on_silence": true,
+      "method": "pipewire",
+      "reverse": false,
+      "source": "auto",
+      "stereo": true
+    },
+    "clock": {
+      "format": "{:%a %d %b  %I:%M %p} "
+    },
+    "cpu": {
+      "format": "{usage}% "
+    },
+    "custom/leftSeparator1": {
+      "format": "/",
+      "tooltip": false
+    },
+    "custom/leftSeparator2": {
+      "format": "/",
+      "tooltip": false
+    },
+    "custom/nordvpn": {
+      "exec": "nordstatus",
+      "format": "VPN: {}",
+      "interval": 5,
+      "on-click": "nordvpn connect",
+      "on-click-right": "nordvpn disconnect"
+    },
+    "custom/notification": {
+      "escape": true,
+      "exec": "swaync-client -swb",
+      "exec-if": "which swaync-client",
+      "format": "{} {icon}",
+      "format-icons": {
+        "dnd-inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "notification": "<span foreground='red'><sup></sup></span>"
+      },
+      "on-click": "swaync-client -t -sw",
+      "on-click-right": "swaync-client -d -sw",
+      "return-type": "json"
+    },
+    "custom/rightSeparator1": {
+      "format": "/",
+      "tooltip": false
+    },
+    "custom/rightSeparator2": {
+      "format": "/",
+      "tooltip": false
+    },
+    "custom/rightSeparator3": {
+      "format": "/",
+      "tooltip": false
+    },
+    "custom/rightSeparator4": {
+      "format": "/",
+      "tooltip": false
+    },
+    "custom/rightSeparator5": {
+      "format": "/",
+      "tooltip": false
+    },
+    "hyprland/workspaces": {
+      "all-outputs": false
+    },
+    "hyprland/window": {
+      "format": "{layout} => {title}",
+      "icon": false,
+      "icon-size": 10,
+      "max-lenght": 40
+    },
+    "height": 24,
+    "layer": "top",
+    "memory": {
+      "format": "{}% "
+    },
+    "modules-center": [],
+    "modules-left": [
+      "custom/leftSeparator1",
+      "custom/leftSeparator2",
+      "hyprland/workspaces",
+      "custom/leftSeparator1",
+      "hyprland/window",
+      "custom/leftSeparator2"
+    ],
+    "modules-right": [
+      "custom/rightSeparator5",
+      "tray",
+      "privacy",
+      "custom/rightSeparator4",
+      "mpris",
+      "cava",
+      "pulseaudio",
+      "custom/rightSeparator3",
+      "network",
+      "custom/rightSeparator2",
+      "battery",
+      "memory",
+      "cpu",
+      "custom/rightSeparator1",
+      "custom/notification",
+      "clock",
+      "custom/rightSeparator5",
+      "tray",
+      "privacy",
+      "custom/rightSeparator4",
+      "mpris",
+      "cava",
+      "pulseaudio",
+      "custom/rightSeparator3",
+      "network",
+      "custom/rightSeparator2",
+      "battery",
+      "memory",
+      "cpu",
+      "custom/rightSeparator1",
+      "custom/notification",
+      "clock"
+    ],
+    "mpris": {
+      "format": "{title}",
+      "status-icons": {
+        "paused": "⏸",
+        "playing": "▶"
+      }
+    },
+    "network": {
+      "format-disconnected": "Disconnected ⚠",
+      "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+      "format-wifi": "{essid} ({signalStrength}%) ",
+      "on-click": "toggleProcess iwgtk",
+      "on-click-right": "notifyCopy 'Public IP' $(curl icanhazip.com)"
+    },
+    "position": "top",
+    "privacy": {
+      "modules": [
+        {
+          "type": "screenshare"
+        },
+        {
+          "type": "screenshare"
+        }
+      ]
+    },
+    "pulseaudio": {
+      "format": "{volume}% {icon}",
+      "format-bluetooth": "{volume}% {icon}",
+      "format-icons": {
+        "car": "",
+        "default": [
+          "",
+          "",
+          "",
+          ""
+        ],
+        "handsfree": "",
+        "headphones": "",
+        "headset": "",
+        "phone": "",
+        "portable": ""
+      },
+      "format-muted": "{volume}% 🔇",
+      "on-click": "pavucontrol",
+      "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle"
+    },
+    "tray": {
+      "spacing": 5
+    }
+  }
+]
