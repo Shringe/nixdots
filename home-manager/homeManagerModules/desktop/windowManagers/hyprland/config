@@ -110,13 +110,12 @@
       "tooltip": false
     },
     "hyprland/workspaces": {
-      "all-outputs": false
+      "all-outputs": true
     },
     "hyprland/window": {
-      "format": "{layout} => {title}",
+      "format": "{title}",
       "icon": false,
       "icon-size": 10,
-      "max-lenght": 40
     },
     "height": 24,
     "layer": "top",
@@ -125,8 +124,6 @@
     },
     "modules-center": [],
     "modules-left": [
-      "custom/leftSeparator1",
-      "custom/leftSeparator2",
       "hyprland/workspaces",
       "custom/leftSeparator1",
       "hyprland/window",

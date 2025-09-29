@@ -54,7 +54,6 @@ in
         Documentation = "https://github.com/Alexays/Waybar/wiki";
         PartOf = [
           "${name}-session.target"
-          "tray.target"
         ];
         After = [ "${name}-session.target" ];
         ConditionEnvironment = "WAYLAND_DISPLAY";
@@ -90,7 +89,6 @@ in
 
       Install.WantedBy = [
         "${name}-session.target"
-        "tray.target"
       ];
     };
 

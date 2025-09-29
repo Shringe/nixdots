@@ -337,7 +337,7 @@ window#waybar {
   margin-left: 2px;
 }
 
-#workspaces button.occupied {
+#workspaces button.empty {
   color: @text;
   font-weight: bold;
   padding-left: 2px;
@@ -346,7 +346,7 @@ window#waybar {
   margin-left: 2px;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
   color: @highlight;
   font-weight: bold;
   padding-left: 2px;
