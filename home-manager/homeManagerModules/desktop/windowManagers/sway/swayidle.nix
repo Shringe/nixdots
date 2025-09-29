@@ -16,9 +16,9 @@ in {
       ];
 
       timeouts = [
-        { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -f"; }
+        { timeout = 330; command = "${pkgs.swaylock}/bin/swaylock -f"; }
         {
-          timeout = 330;
+          timeout = 300;
           command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
           resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
         }
