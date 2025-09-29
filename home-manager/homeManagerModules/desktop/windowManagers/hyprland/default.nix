@@ -25,9 +25,19 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       hyprsunset
-      hyprpolkitagent
       hyprshot
     ];
+
+    homeManagerModules.desktop.windowManagers.utils = {
+      wofi.enable = true;
+      swaync.enable = true;
+      cliphist.enable = true;
+      swayosd.enable = true;
+      dolphin.enable = true;
+      polkit.enable = true;
+      systemd.enable = true;
+      wlogout.enable = true;
+    };
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -41,6 +51,7 @@ in
         "$mod" = "SUPER";
         "$d1" = "HDMI-A-1";
         "$d2" = "DP-1";
+        experimental.xx_color_management_v4 = "true";
 
         # Mouse
         bindm = [
@@ -77,8 +88,7 @@ in
 
           # Wofi
           "$mod, s, exec, wofi --show drun"
-
-          "$mod, x, exec, wofi-power-menu"
+          "$mod, x, exec, wlogout"
           "$mod, c, exec, wofi-emoji"
           "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
@@ -88,33 +98,17 @@ in
           "$mod, i, movefocus, u"
           "$mod, e, movefocus, d"
 
-          "$mod, Left, movefocus, l"
-          "$mod, Right, movefocus, r"
-          "$mod, Up, movefocus, u"
-          "$mod, Down, movefocus, d"
-
           # Window movement
           "$mod CTRL, n, movewindow, l"
           "$mod CTRL, o, movewindow, r"
           "$mod CTRL, i, movewindow, u"
           "$mod CTRL, e, movewindow, d"
 
-          "$mod CTRL, Left, movewindow, l"
-          "$mod CTRL, Right, movewindow, r"
-          "$mod CTRL, Up, movewindow, u"
-          "$mod CTRL, Down, movewindow, d"
-
           # Window size
-          "$mod ALT, n, resizeactive, 10 0"
-          "$mod ALT, o, resizeactive, -10 0"
-          "$mod ALT, i, resizeactive, 0 -10"
-          "$mod ALT, e, resizeactive, 0 10"
-
-          "$mod ALT, Left, resizeactive, 10 0"
-          "$mod ALT, Right, resizeactive, -10 0"
-          "$mod ALT, Up, resizeactive, 0 10"
-          "$mod ALT, Down, resizeactive, 0 -10"
-
+          "$mod SHIFT, n, resizeactive, 40 0"
+          "$mod SHIFT, o, resizeactive, -40 0"
+          "$mod SHIFT, i, resizeactive, 0 -40"
+          "$mod SHIFT, e, resizeactive, 0 40"
         ]
         ++ (
           # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
@@ -147,11 +141,34 @@ in
 
         render = {
           # explicit_sync = 0;
+          cm_auto_hdr = 1;
+          cm_fs_passthrough = 2;
         };
 
         monitor = [
-          "$d1, 3440x1440@175, 0x0, 1, bitdepth, 10, vrr, 2"
-          "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, vrr, 1"
+          "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, vrr, 2"
+        ];
+
+        monitorv2 = [
+          {
+            output = "$d1";
+            mode = "3440x1440@175";
+            position = "0x0";
+            scale = 1;
+            bitdepth = 10;
+            vrr = 2;
+
+            # cm = "hdr";
+            supports_hdr = 1;
+            supports_wide_color = 1;
+            # sdrbrightness = 1.0;
+            # sdrsaturation = 1.0;
+            # sdr_min_luminance = 0.005;
+            # sdr_max_luminance = 250;
+            # min_luminance = 0;
+            # max_luminance = 1000;
+            # max_avg_luminance = 250;
+          }
         ];
 
         workspace = [
@@ -185,7 +202,7 @@ in
         general = {
           border_size = 2;
           gaps_in = 2;
-          gaps_out = 3;
+          gaps_out = 5;
 
           allow_tearing = true;
         };
