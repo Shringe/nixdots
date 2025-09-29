@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./hypridle.nix
+    ./hyprpaper.nix
     ./waybar.nix
   ];
 
