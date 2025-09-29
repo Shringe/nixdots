@@ -36,19 +36,27 @@ in
       swaynotificationcenter
     ];
 
-    systemd.user.services.swaync.Service.Environment =
-      with pkgs;
-      "PATH=$PATH:${
-        makeBinPath [
-          scripts.toggleGammastep
-          serviceToggle
+    systemd.user.services.swaync = {
+      Install.WantedBy = mkForce [ "grahpical-session.target" ];
+      Unit = {
+        After = mkForce [ "grahpical-session.target" ];
+        PartOf = mkForce [ "grahpical-session.target" ];
+      };
 
-          coreutils
-          procps
-          hyprlock
-          wlogout
-        ]
-      }";
+      Service.Environment =
+        with pkgs;
+        "PATH=$PATH:${
+          makeBinPath [
+            scripts.toggleGammastep
+            serviceToggle
+
+            coreutils
+            procps
+            hyprlock
+            wlogout
+          ]
+        }";
+    };
 
     services.swaync = mkIf cfg.enable {
       enable = true;
