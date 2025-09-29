@@ -61,11 +61,29 @@ in
 
         # Repeating
         bindr = [
-          ",XF86AudioRaiseVolume,exec,media-control volume_up"
-          ",XF86AudioLowerVolume,exec,media-control volume_down"
+          # Media
+          ",XF86AudioRaiseVolume,exec,swayosd-client --output-volume raise"
+          ",XF86AudioLowerVolume,exec,swayosd-client --output-volume lower"
+          "CTRL,XF86AudioRaiseVolume,exec,swayosd-client --input-volume raise"
+          "CTRL,XF86AudioLowerVolume,exec,swayosd-client --input-volume lower"
 
-          "CTRL,XF86AudioRaiseVolume,exec,media-control mic_up"
-          "CTRL,XF86AudioLowerVolume,exec,media-control mic_down"
+          ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+          ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+
+          "CTRL, XF86AudioRaiseVolume, exec, swayosd-client --input-volume raise"
+          "CTRL, XF86AudioLowerVolume, exec, swayosd-client --input-volume lower"
+
+          ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
+          ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+
+          "SHIFT, XF86AudioRaiseVolume, exec, playerctl volume 0.1+"
+          "SHIFT, XF86AudioLowerVolume, exec, playerctl volume 0.1-"
+          "SHIFT, XF86AudioMute, exec, playerctl volume 0"
+
+          "$mod SHIFT, n, resizeactive, 100 0"
+          "$mod SHIFT, o, resizeactive, -100 0"
+          "$mod SHIFT, i, resizeactive, 0 -100"
+          "$mod SHIFT, e, resizeactive, 0 100"
         ];
 
         bind = [
@@ -73,11 +91,19 @@ in
           "$mod CTRL, q, exit"
           ", Print, exec, hyprshot --mode region"
 
-          ",XF86AudioPlay,exec,media-control play_pause"
-          ",XF86AudioNext,exec,media-control next"
-          ",XF86AudioPrev,exec,media-control prev"
-          ",XF86AudioMute,exec,media-control volume_mute"
-          "CTRL,XF86AudioMute,exec,media-control mic_mute"
+          # Media
+          ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+          "CTRL, XF86AudioMute, exec, swayosd-client --input-volume mute-toggle"
+
+          "SHIFT, XF86MonBrightnessUp, exec, playerctl shuffle Toggle"
+          "SHIFT, XF86MonBrightnessDown, exec, playerctl loop Track"
+
+          "CTRL, XF86MonBrightnessUp, exec, playerctl loop None"
+          "CTRL, XF86MonBrightnessDown, exec, playerctl loop Playlist"
+
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
 
           # Applications
           "$mod, r, exec, zen-twilight"
@@ -103,12 +129,6 @@ in
           "$mod CTRL, o, movewindow, r"
           "$mod CTRL, i, movewindow, u"
           "$mod CTRL, e, movewindow, d"
-
-          # Window size
-          "$mod SHIFT, n, resizeactive, 40 0"
-          "$mod SHIFT, o, resizeactive, -40 0"
-          "$mod SHIFT, i, resizeactive, 0 -40"
-          "$mod SHIFT, e, resizeactive, 0 40"
         ]
         ++ (
           # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
@@ -127,8 +147,8 @@ in
         );
 
         input = {
-          repeat_rate = 40;
-          repeat_delay = 300;
+          repeat_rate = 30;
+          repeat_delay = 500;
 
           follow_mouse = true;
           accel_profile = "flat";
@@ -195,7 +215,7 @@ in
           blur = {
             enabled = true;
             size = 5;
-            passes = 3;
+            passes = 2;
           };
         };
 
