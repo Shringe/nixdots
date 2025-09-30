@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -21,9 +22,28 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      grim
+      slurp
+      playerctl
+      brightnessctl
+    ];
+
+    homeManagerModules.desktop.windowManagers.utils = {
+      wofi.enable = true;
+      swaync.enable = true;
+      cliphist.enable = true;
+      swayosd.enable = true;
+      dolphin.enable = true;
+      polkit.enable = true;
+      systemd.enable = true;
+      wlogout.enable = true;
+      swayidle.enable = true;
+      swaybg.enable = true;
+    };
+
     wayland.windowManager.mango = {
       enable = true;
-      systemd.enable = true;
 
       # More option see https://github.com/DreamMaoMao/mango/wiki/
       settings = ''
@@ -304,7 +324,7 @@ in
 
       autostart_sh = ''
         dbus-update-activation-environment --systemd --all
-        systemctl --user start mango-session.target
+        systemctl --user start wlroots-session.target
       '';
     };
   };
