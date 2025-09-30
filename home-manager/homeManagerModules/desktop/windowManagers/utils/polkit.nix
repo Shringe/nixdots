@@ -12,6 +12,22 @@ in
   };
 
   config = mkIf cfg.enable {
+    systemd.user.services.polkit-gnome = {
+      Install.WantedBy = mkForce [
+        "wlroots-session.target"
+      ];
+
+      Unit = {
+        After = mkForce [
+          "wlroots-session.target"
+        ];
+
+        PartOf = mkForce [
+          "wlroots-session.target"
+        ];
+      };
+    };
+
     services.polkit-gnome = {
       enable = true;
     };
