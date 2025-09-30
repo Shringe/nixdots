@@ -15,7 +15,7 @@ in
     systemd.user.services.openrgb = {
       Unit = {
         Description = "Sets RGB with OpenRGB";
-        PartOf = [ config.wayland.systemd.target ];
+        PartOf = [ "graphical-session.target" ];
         Requires = [ "tray.target" ];
         After = [
           "tray.target"
