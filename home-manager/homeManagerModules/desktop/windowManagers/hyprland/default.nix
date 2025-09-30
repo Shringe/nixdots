@@ -35,7 +35,6 @@ in
       cliphist.enable = true;
       swayosd.enable = true;
       dolphin.enable = true;
-      # polkit.enable = true;
       systemd.enable = true;
       wlogout.enable = true;
     };
@@ -54,14 +53,26 @@ in
         "$d2" = "DP-1";
         experimental.xx_color_management_v4 = "true";
 
+        env = [
+          "GDK_BACKEND,wayland,x11,*"
+          "QT_QPA_PLATFORM,wayland;xcb"
+          "SDL_VIDEODRIVER,wayland"
+          "CLUTTER_BACKEND,wayland"
+        ];
+
         # Mouse
         bindm = [
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"
         ];
 
+        # Layouts
+        dwindle = {
+          split_width_multiplier = 1.4;
+        };
+
         # Repeating
-        bindr = [
+        binde = [
           # Media
           ",XF86AudioRaiseVolume,exec,swayosd-client --output-volume raise"
           ",XF86AudioLowerVolume,exec,swayosd-client --output-volume lower"
@@ -82,10 +93,10 @@ in
           "SHIFT, XF86AudioMute, exec, playerctl volume 0"
 
           # Resize
-          "$mod, l, resizeactive, 100 0"
-          "$mod, u, resizeactive, -100 0"
-          "$mod, y, resizeactive, 0 100"
-          "$mod, ;, resizeactive, 0 -100"
+          "$mod, l, resizeactive, -100 0"
+          "$mod, u, resizeactive, 100 0"
+          "$mod, y, resizeactive, 0 -100"
+          "$mod, semicolon, resizeactive, 0 100"
         ];
 
         bind = [
@@ -165,6 +176,7 @@ in
           # explicit_sync = 0;
           cm_auto_hdr = 1;
           cm_fs_passthrough = 2;
+          direct_scanout = 2;
         };
 
         monitor = [
@@ -194,16 +206,16 @@ in
         ];
 
         workspace = [
-          "1, monitor:$d1"
-          "2, monitor:$d1"
-          "3, monitor:$d1"
-          "4, monitor:$d1"
-          "5, monitor:$d1"
-          "6, monitor:$d1"
+          "1, monitor:$d1, persistent:true"
+          "2, monitor:$d1, persistent:true"
+          "3, monitor:$d1, persistent:true"
+          "4, monitor:$d1, persistent:true"
+          "5, monitor:$d1, persistent:true"
+          "6, monitor:$d1, persistent:true"
 
-          "7, monitor:$d2"
-          "8, monitor:$d2"
-          "9, monitor:$d2"
+          "7, monitor:$d2, persistent:true"
+          "8, monitor:$d2, persistent:true"
+          "9, monitor:$d2, persistent:true"
         ];
 
         windowrulev2 = [
@@ -216,8 +228,12 @@ in
 
           blur = {
             enabled = true;
-            size = 5;
+            size = 8;
             passes = 2;
+          };
+
+          shadow = {
+            enabled = true;
           };
         };
 
@@ -225,16 +241,19 @@ in
           border_size = 2;
           gaps_in = 2;
           gaps_out = 5;
-
           allow_tearing = true;
         };
 
-        animation = [
-          "workspaces, 1, 5, default"
-          "windows, 1, 5, default"
-          "fade, 1, 5, default"
-          "layers, 1, 5, default"
-        ];
+        animations = {
+          bezier = "myBezier, 0.10, 0.9, 0.1, 1.05";
+          animation = [
+            "windows, 0.8, 5, myBezier, slide"
+            "windowsOut, 0.8, 5, myBezier, slide"
+            "border, 0.8, 10, default"
+            "fade, 0.8, 7, default"
+            "workspaces, 0.8, 6, default"
+          ];
+        };
       };
     };
   };
