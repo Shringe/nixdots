@@ -10,9 +10,10 @@ let
 in
 {
   imports = [
+    ./waybar
     ./hypridle.nix
     ./hyprpaper.nix
-    ./waybar
+    ./hyprpolkit.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.hyprland = {
