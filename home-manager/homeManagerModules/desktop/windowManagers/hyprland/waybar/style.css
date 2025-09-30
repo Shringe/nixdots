@@ -63,7 +63,7 @@ window#waybar {
   margin-left: 2px;
 }
 
-#workspaces button {
+#workspaces button.empty {
   color: @b03;
   font-weight: bold;
   padding-left: 2px;
@@ -72,7 +72,7 @@ window#waybar {
   margin-left: 2px;
 }
 
-#workspaces button.visible {
+#workspaces button {
   color: @text;
   font-weight: bold;
   padding-left: 2px;
@@ -81,7 +81,7 @@ window#waybar {
   margin-left: 2px;
 }
 
-#workspaces button.active {
+#workspaces button.active, #workspaces button.visible {
   color: @highlight;
   font-weight: bold;
   padding-left: 2px;
