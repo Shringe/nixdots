@@ -14,6 +14,7 @@ in
     ./hypridle.nix
     ./hyprpaper.nix
     ./hyprpolkit.nix
+    ./hyprshot.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.hyprland = {
@@ -26,7 +27,6 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       hyprsunset
-      hyprshot
     ];
 
     homeManagerModules.desktop.windowManagers.utils = {
@@ -81,10 +81,11 @@ in
           "SHIFT, XF86AudioLowerVolume, exec, playerctl volume 0.1-"
           "SHIFT, XF86AudioMute, exec, playerctl volume 0"
 
-          "$mod SHIFT, n, resizeactive, 100 0"
-          "$mod SHIFT, o, resizeactive, -100 0"
-          "$mod SHIFT, i, resizeactive, 0 -100"
-          "$mod SHIFT, e, resizeactive, 0 100"
+          # Resize
+          "$mod, l, resizeactive, 100 0"
+          "$mod, u, resizeactive, -100 0"
+          "$mod, y, resizeactive, 0 100"
+          "$mod, ;, resizeactive, 0 -100"
         ];
 
         bind = [

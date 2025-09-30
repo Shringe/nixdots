@@ -7,6 +7,31 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.hypridle;
+
+  toggleBacklights = pkgs.writeShellApplication {
+    name = "toggleBacklights";
+    runtimeInputs = with pkgs; [
+      coreutils
+      brightnessctl
+    ];
+
+    text = ''
+      lock="/tmp/toggleBacklights.state"
+      kbd="platform::kbd_backlight"
+      if [ -f "$lock" ]; then
+          read -r screenMode kbdMode < "$lock"
+          rm "$lock"
+          brightnessctl set "$screenMode"
+          brightnessctl --device "$kbd" set "$kbdMode"
+      else
+          screenMode=$(brightnessctl get)
+          kbdMode=$(brightnessctl --device "$kbd" get)
+          echo "$screenMode $kbdMode" > "$lock"
+          brightnessctl set 20%
+          brightnessctl --device "$kbd" set 0
+      fi
+    '';
+  };
 in
 {
   options.homeManagerModules.desktop.windowManagers.hyprland.hypridle = {
@@ -34,17 +59,10 @@ in
 
         listener = [
           {
-            # Dim screen
-            timeout = 150;
-            on-timeout = "brightnessctl -s set 10";
-            on-resume = "brightnessctl -r";
-          }
-
-          {
-            # Turn off keyboard backlight
-            timeout = 150;
-            on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
-            on-resume = "brightnessctl -rd rgb:kbd_backlight";
+            # Dim backlights
+            timeout = 180;
+            on-timeout = "${toggleBacklights}/bin/toggleBacklights";
+            on-resume = "${toggleBacklights}/bin/toggleBacklights";
           }
 
           {
@@ -59,15 +77,8 @@ in
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }
-
-          {
-            # Sleep
-            timeout = 1800;
-            on-timeout = "systemctl suspend";
-          }
         ];
       };
     };
-
   };
 }
