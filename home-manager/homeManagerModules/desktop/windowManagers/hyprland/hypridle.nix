@@ -8,6 +8,7 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland.hypridle;
 
+  lockCmd = "${pkgs.procps}/bin/pgrep hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
   toggleBacklights = pkgs.writeShellApplication {
     name = "toggleBacklights";
     runtimeInputs = with pkgs; [
@@ -52,7 +53,7 @@ in
 
       settings = {
         general = {
-          lock_cmd = "pidof hyprlock || hyprlock"; # Avoid starting multiple hyprlock instances.
+          lock_cmd = lockCmd; # Avoid starting multiple hyprlock instances.
           before_sleep_cmd = "loginctl lock-session"; # Lock before suspend.
           after_sleep_cmd = "hyprctl dispatch dpms on"; # To avoid having to press a key twice to turn on the display.
         };
@@ -68,7 +69,7 @@ in
           {
             # Lock screen
             timeout = 300;
-            on-timeout = "loginctl lock-session";
+            on-timeout = lockCmd;
           }
 
           {
