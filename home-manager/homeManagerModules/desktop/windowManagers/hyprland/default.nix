@@ -58,6 +58,12 @@ in
           "QT_QPA_PLATFORM,wayland;xcb"
           "SDL_VIDEODRIVER,wayland"
           "CLUTTER_BACKEND,wayland"
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          "XDG_SESSION_TYPE,wayland"
+          "XDG_SESSION_DESKTOP,Hyprland"
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GL_GSYNC_ALLOWED,1"
+          "__GL_VRR_ALLOWED,1"
         ];
 
         # Mouse
@@ -245,13 +251,11 @@ in
         };
 
         animations = {
-          bezier = "myBezier, 0.10, 0.9, 0.1, 1.05";
           animation = [
-            "windows, 0.8, 5, myBezier, slide"
-            "windowsOut, 0.8, 5, myBezier, slide"
-            "border, 0.8, 10, default"
-            "fade, 0.8, 7, default"
-            "workspaces, 0.8, 6, default"
+            "workspaces, 1, 5, default"
+            "windows, 1, 5, default"
+            "fade, 1, 5, default"
+            "layers, 1, 5, default"
           ];
         };
       };
