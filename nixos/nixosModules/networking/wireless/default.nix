@@ -16,7 +16,7 @@ let
 
     text = ''
       case $1 in
-        post) systemctl restart fixWlan
+        post) systemctl restart fixWlan &
       esac
     '';
   };
