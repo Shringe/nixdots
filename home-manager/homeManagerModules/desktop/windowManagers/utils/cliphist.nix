@@ -26,12 +26,15 @@ in
 
     services.cliphist = mkIf cfg.enable {
       enable = true;
-      systemdTargets = [ "graphical-session.target" ];
       allowImages = true;
+      systemdTargets = [
+        "hyprland-session.target"
+        "wlroots-session.target"
+      ];
 
       extraOptions = [
         "-max-items"
-        "100"
+        "300"
       ];
     };
   };

@@ -13,10 +13,21 @@ in
 
   config = mkIf cfg.enable {
     systemd.user.services.swayosd = {
-      Install.WantedBy = mkForce [ "grahpical-session.target" ];
+      Install.WantedBy = mkForce [
+        "wlroots-session.target"
+        "hyprland-session.target"
+      ];
+
       Unit = {
-        After = mkForce [ "grahpical-session.target" ];
-        PartOf = mkForce [ "grahpical-session.target" ];
+        After = mkForce [
+          "wlroots-session.target"
+          "hyprland-session.target"
+        ];
+
+        PartOf = mkForce [
+          "wlroots-session.target"
+          "hyprland-session.target"
+        ];
       };
     };
 
