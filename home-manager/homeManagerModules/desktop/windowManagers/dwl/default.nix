@@ -11,10 +11,6 @@ in
 {
   imports = [
     ./waybar
-    ./swayidle.nix
-    ./swaybg.nix
-    ./wlogout.nix
-    # ./walker.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.dwl = {
@@ -45,14 +41,10 @@ in
       swayosd.enable = true;
       dolphin.enable = true;
       polkit.enable = true;
-    };
-
-    systemd.user.targets.dwl-session.Unit = {
-      Description = "dwl compositor session";
-      Documentation = [ "man:systemd.special(7)" ];
-      BindsTo = [ "graphical-session.target" ];
-      Wants = [ "graphical-session-pre.target" ];
-      After = [ "graphical-session-pre.target" ];
+      systemd.enable = true;
+      wlogout.enable = true;
+      swayidle.enable = true;
+      swaybg.enable = true;
     };
   };
 }

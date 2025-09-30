@@ -36,19 +36,38 @@ in
       swaynotificationcenter
     ];
 
-    systemd.user.services.swaync.Service.Environment =
-      with pkgs;
-      "PATH=$PATH:${
-        makeBinPath [
-          scripts.toggleGammastep
-          serviceToggle
+    systemd.user.services.swaync = {
+      Install.WantedBy = mkForce [
+        "wlroots-session.target"
+        "hyprland-session.target"
+      ];
 
-          coreutils
-          procps
-          hyprlock
-          wlogout
-        ]
-      }";
+      Unit = {
+        After = mkForce [
+          "wlroots-session.target"
+          "hyprland-session.target"
+        ];
+
+        PartOf = mkForce [
+          "wlroots-session.target"
+          "hyprland-session.target"
+        ];
+      };
+
+      Service.Environment =
+        with pkgs;
+        "PATH=$PATH:${
+          makeBinPath [
+            scripts.toggleGammastep
+            serviceToggle
+
+            coreutils
+            procps
+            hyprlock
+            wlogout
+          ]
+        }";
+    };
 
     services.swaync = mkIf cfg.enable {
       enable = true;

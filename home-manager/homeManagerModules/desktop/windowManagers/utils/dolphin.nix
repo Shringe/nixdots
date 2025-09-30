@@ -26,24 +26,25 @@ in
       "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
     # Additional KDE-specific packages
-    home.packages = with pkgs; [
-      kdePackages.kate
-      kdePackages.okular
+    home.packages = with pkgs.kdePackages; [
+      kate
+      okular
+      ark
 
       # Dolphin and required dependencies
-      kdePackages.dolphin
-      kdePackages.kio
-      kdePackages.kdf
-      kdePackages.kio-fuse
-      kdePackages.kio-extras
-      kdePackages.kio-admin
-      kdePackages.qtwayland
-      kdePackages.plasma-integration
-      kdePackages.kdegraphics-thumbnailers
-      kdePackages.breeze-icons
-      kdePackages.qtsvg
-      kdePackages.kservice
-      shared-mime-info
+      dolphin
+      kio
+      kdf
+      kio-fuse
+      kio-extras
+      kio-admin
+      qtwayland
+      plasma-integration
+      kdegraphics-thumbnailers
+      breeze-icons
+      qtsvg
+      kservice
+      pkgs.shared-mime-info
     ];
   };
 }

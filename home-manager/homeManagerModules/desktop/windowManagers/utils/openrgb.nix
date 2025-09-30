@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.openrgb;
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.utils.openrgb = {
     enable = mkOption {
       type = types.bool;
@@ -14,10 +15,9 @@ in {
     systemd.user.services.openrgb = {
       Unit = {
         Description = "Sets RGB with OpenRGB";
-        PartOf = [ config.wayland.systemd.target ];
+        PartOf = [ "graphical-session.target" ];
         Requires = [ "tray.target" ];
         After = [
-          config.wayland.systemd.target
           "tray.target"
         ];
       };
@@ -28,7 +28,7 @@ in {
         Restart = "on-failure";
       };
 
-      Install.WantedBy = [ config.wayland.systemd.target ];
+      Install.WantedBy = [ "graphical-session.target" ];
     };
   };
 }

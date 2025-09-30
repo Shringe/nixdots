@@ -6,8 +6,8 @@
 }:
 with lib;
 let
-  cfg = config.homeManagerModules.desktop.windowManagers.dwl.waybar.matte;
-  name = "wlroots";
+  cfg = config.homeManagerModules.desktop.windowManagers.hyprland.waybar;
+  name = "hyprland";
   configFile = "${config.xdg.configFile."waybar/${name}/config".source}";
   styleFile = "${config.xdg.configFile."waybar/${name}/style.css".source}";
 
@@ -38,10 +38,10 @@ let
   };
 in
 {
-  options.homeManagerModules.desktop.windowManagers.dwl.waybar.matte = {
+  options.homeManagerModules.desktop.windowManagers.hyprland.waybar = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.dwl.waybar.variant == "matte";
+      default = config.homeManagerModules.desktop.windowManagers.hyprland.enable;
     };
   };
 

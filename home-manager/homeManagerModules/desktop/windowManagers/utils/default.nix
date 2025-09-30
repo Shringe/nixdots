@@ -14,5 +14,9 @@
     ./polkit.nix
     ./rot8.nix
     ./gammastep.nix
+    ./systemd.nix
+    ./swayidle.nix
+    ./wlogout.nix
+    ./swaybg.nix
   ];
 }

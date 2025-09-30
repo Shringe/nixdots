@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.cliphist;
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.utils.cliphist = {
     enable = mkOption {
       type = types.bool;
@@ -11,19 +17,24 @@ in {
   };
 
   config = {
-    home.packages = with pkgs; mkIf cfg.enable [
-      wl-clipboard
-      cliphist
-    ];
+    home.packages =
+      with pkgs;
+      mkIf cfg.enable [
+        wl-clipboard
+        cliphist
+      ];
 
     services.cliphist = mkIf cfg.enable {
       enable = true;
-      # systemdTargets = [ "sway-session.target" ];
       allowImages = true;
+      systemdTargets = [
+        "hyprland-session.target"
+        "wlroots-session.target"
+      ];
 
       extraOptions = [
         "-max-items"
-        "100"
+        "300"
       ];
     };
   };

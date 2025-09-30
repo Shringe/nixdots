@@ -54,16 +54,6 @@ with lib;
       windowManagers = {
         enable = mkEnableOption "Preferred window manager";
         qtile.enable = mkEnableOption "qtile";
-        hyprland = {
-          enable = mkEnableOption "Hyprland configuration";
-          hyprpaper.enable = mkEnableOption "hyprpaper configuration";
-          wofi.enable = mkEnableOption "Wofi configuration";
-          waybar.enable = mkEnableOption "Waybar configuration";
-          swaync.enable = mkEnableOption "Swaync configuration";
-          hyprlock.enable = mkEnableOption "hyprlock configuration";
-          cliphist.enable = mkEnableOption "cliphist configuration";
-          hypridle.enable = mkEnableOption "hypridle configuration";
-        };
       };
 
       terminals = {
@@ -85,9 +75,8 @@ with lib;
       };
     };
 
-
     shells = {
-      enable = mkEnableOption "Enable all shells and shell configuration"; 
+      enable = mkEnableOption "Enable all shells and shell configuration";
       default = mkOption {
         type = types.str;
         default = "nu";
@@ -103,8 +92,8 @@ with lib;
         atuin = mkEnableOption "atuin configuration";
       };
       aliases.enable = mkEnableOption "Enables aliases";
-      atuin.enable = mkEnableOption "Enables atuin configuration and integration"; 
-      tmux.enable = mkEnableOption "Enables tmux configuration and integration"; 
+      atuin.enable = mkEnableOption "Enables atuin configuration and integration";
+      tmux.enable = mkEnableOption "Enables tmux configuration and integration";
     };
 
     dotfiles = {
@@ -133,7 +122,7 @@ with lib;
 
     desktop = {
       discord = {
-        
+
       };
 
       music = mkIf config.homeManagerModules.desktop.music.enable {
@@ -169,7 +158,7 @@ with lib;
         atuin = mkDefault true;
       };
       aliases.enable = mkDefault true;
-      atuin.enable = mkDefault true; 
+      atuin.enable = mkDefault true;
       tmux.enable = mkDefault true;
     };
 
