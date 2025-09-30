@@ -12,7 +12,7 @@ in
   imports = [
     ./hypridle.nix
     ./hyprpaper.nix
-    ./waybar.nix
+    ./waybar
   ];
 
   options.homeManagerModules.desktop.windowManagers.hyprland = {
