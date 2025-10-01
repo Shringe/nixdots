@@ -93,6 +93,12 @@ in
           "$mod, mouse:273, resizewindow"
         ];
 
+        gesture = [
+          "3, horizontal, workspace"
+          "3, down, close"
+          "3, up, fullscreen"
+        ];
+
         # Layouts
         dwindle = {
           split_width_multiplier = 1.4;
@@ -277,8 +283,8 @@ in
 
           blur = {
             enabled = true;
-            size = 8;
-            passes = 2;
+            size = 6;
+            passes = 3;
           };
 
           shadow = {
@@ -286,11 +292,14 @@ in
           };
         };
 
+        "$bactive" = "${rgb "base07"} ${rgb "base07"} ${rgb "base0E"} 45deg";
         general = {
           border_size = 2;
           gaps_in = 2;
-          gaps_out = 5;
+          gaps_out = 4;
           allow_tearing = true;
+
+          "col.active_border" = mkForce "$bactive";
         };
 
         animations = {
