@@ -12,6 +12,12 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
     disko.url = "github:nix-community/disko";
 
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -146,10 +152,27 @@
             {
               networking.hostName = name;
               nixpkgs = pkgConfig;
-              nix.settings.experimental-features = [
-                "nix-command"
-                "flakes"
-              ];
+              nix.settings = {
+                experimental-features = [
+                  "nix-command"
+                  "flakes"
+                ];
+
+                substituters = [
+                  "https://hyprland.cachix.org"
+                  "https://install.determinate.systems"
+                ];
+
+                trusted-substituters = [
+                  "https://hyprland.cachix.org"
+                  "https://install.determinate.systems"
+                ];
+
+                trusted-public-keys = [
+                  "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+                  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+                ];
+              };
             }
           ];
         };

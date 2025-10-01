@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -46,16 +47,23 @@ in
       wluma.enable = true;
     };
 
+    systemd.user.targets."hyprland-session" = {
+      Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
       systemd = {
         enable = true;
         variables = [ "--all" ];
       };
 
-      plugins = with pkgs.hyprlandPlugins; [
-        hyprtrails
+      plugins = with inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}; [
+        # hyprtrails
         hyprexpo
         hyprscrolling
       ];
@@ -261,12 +269,12 @@ in
         ];
 
         workspace = [
-          "1, monitor:$d1, persistent:true"
-          "2, monitor:$d1, persistent:true"
-          "3, monitor:$d1, persistent:true"
-          "4, monitor:$d1, persistent:true"
-          "5, monitor:$d1, persistent:true"
-          "6, monitor:$d1, persistent:true"
+          "1, persistent:true"
+          "2, persistent:true"
+          "3, persistent:true"
+          "4, persistent:true"
+          "5, persistent:true"
+          "6, persistent:true"
 
           "7, monitor:$d2, persistent:true"
           "8, monitor:$d2, persistent:true"
