@@ -106,6 +106,7 @@
     FLAKE = "/nixdots";
 
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "$HOME/.steam/root/compatibilitytools.d";
+    LIBVA_DRIVER_NAME = "nvidia";
 
     # GDK_BACKEND = "wayland,x11";
     # QT_QPA_PLATFORM = "wayland;xcb";
