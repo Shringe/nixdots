@@ -27,6 +27,10 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       hyprsunset
+      xev
+      wev
+      slurp
+      wlr-randr
     ];
 
     homeManagerModules.desktop.windowManagers.utils = {
@@ -37,6 +41,7 @@ in
       dolphin.enable = true;
       systemd.enable = true;
       wlogout.enable = true;
+      wluma.enable = true;
     };
 
     wayland.windowManager.hyprland = {
@@ -171,7 +176,12 @@ in
 
           follow_mouse = true;
           accel_profile = "flat";
-          sensitivity = "-0.675";
+          sensitivity = -0.675;
+        };
+
+        device = {
+          name = "msft0001:01-04f3:3138-touchpad";
+          sensitivity = 0.0;
         };
 
         cursor = {
@@ -179,17 +189,28 @@ in
         };
 
         render = {
-          # explicit_sync = 0;
           cm_auto_hdr = 1;
           cm_fs_passthrough = 2;
           direct_scanout = 2;
         };
 
-        monitor = [
-          "$d2, 2560x1440@165, auto-left, 1, bitdepth, 10, vrr, 2"
-        ];
-
         monitorv2 = [
+          {
+            output = "eDP-1";
+            mode = "1920x1080@60";
+            position = "0x0";
+            scale = 1;
+            bitdepth = 10;
+            vrr = 2;
+          }
+          {
+            output = "$d2";
+            mode = "2560x1440@165";
+            position = "0x0";
+            scale = 1;
+            bitdepth = 10;
+            vrr = 2;
+          }
           {
             output = "$d1";
             mode = "3440x1440@175";
