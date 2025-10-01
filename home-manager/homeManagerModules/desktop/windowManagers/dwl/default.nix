@@ -23,8 +23,8 @@ in
   config = mkIf cfg.enable {
     # Lower opacity to compensate for blur
     stylix.opacity = {
-      terminal = mkForce 0.80;
-      desktop = mkForce 0.80;
+      terminal = mkForce 0.70;
+      desktop = mkForce 0.70;
     };
 
     home.packages = with pkgs; [

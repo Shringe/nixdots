@@ -1,4 +1,10 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.desktop.windowManagers.hyprland;
@@ -12,7 +18,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.hyprland.enable = true;
+    programs.hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage =
+        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    };
+
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     security.pam.services.hyprlock = { };
   };
