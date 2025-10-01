@@ -201,7 +201,7 @@ in
             position = "0x0";
             scale = 1;
             bitdepth = 10;
-            vrr = 2;
+            vrr = 1;
           }
           {
             output = "$d2";
