@@ -17,7 +17,10 @@
       office.enable = true;
       windowManagers = {
         enable = true;
-        utils.rot8.enable = true;
+        utils = {
+          rot8.enable = true;
+          wluma.enable = true;
+        };
       };
       email.enable = true;
     };
@@ -46,11 +49,6 @@
         ];
       };
     };
-  };
-
-  services = {
-    wluma.enable = true; # Auto brightness
-    blueman-applet.enable = true; # bluetooth
   };
 
   # The home.packages option allows you to install Nix packages into your

@@ -18,5 +18,7 @@
     ./swayidle.nix
     ./wlogout.nix
     ./swaybg.nix
+    ./wluma.nix
+    ./blueman.nix
   ];
 }
