@@ -242,7 +242,7 @@ in
           {
             output = "$d2";
             mode = "2560x1440@165";
-            position = "0x0";
+            position = "auto-left";
             scale = 1;
             bitdepth = 10;
             vrr = 2;

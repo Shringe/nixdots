@@ -27,6 +27,7 @@ in
 
       Service = {
         ExecStart = "${pkgs.gammastep}/bin/gammastep -O 3600";
+        ExecPost = "${pkgs.gammastep}/bin/gammastep -x";
         Restart = "on-failure";
       };
 
