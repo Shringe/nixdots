@@ -268,6 +268,12 @@ in
           }
         ];
 
+        exec-once = [
+          "[workspace 7 silent] wezterm start jellyfin-tui"
+          "[workspace 8 silent] nheko"
+          "[workspace 9 silent] thunderbird"
+        ];
+
         workspace = [
           "1, persistent:true"
           "2, persistent:true"
