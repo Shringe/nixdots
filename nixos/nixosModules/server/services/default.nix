@@ -8,6 +8,7 @@ with lib;
     ./immich.nix
     ./minecraft.nix
     ./traccar.nix
+    ./searxng.nix
   ];
 
   options.nixosModules.server.services = {

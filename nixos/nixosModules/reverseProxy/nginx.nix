@@ -96,6 +96,7 @@ in
           (rps "router" server.router)
           (rps "ssh" server.ssh)
           (rps "paperless" server.services.paperless)
+          # (rps "searxng" server.services.searxng)
 
           # Public services
           (rpad social.matrix.conduit)
