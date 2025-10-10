@@ -19,6 +19,9 @@ in
 
   config = mkIf cfg.enable {
     services.blueman.enable = cfg.blueman;
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
 }
