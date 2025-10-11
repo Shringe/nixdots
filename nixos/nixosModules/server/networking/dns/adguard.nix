@@ -88,6 +88,7 @@ in
           (rp "traccar")
           (rp "wallos")
           (rp "paperless")
+          (rp "searxng")
         ];
 
         filtering = {

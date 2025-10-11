@@ -42,12 +42,24 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."server/services/searxng" = { };
+
     services.searx = {
       enable = true;
       redisCreateLocally = true;
-      configureUwsgi = true;
-      configureNginx = true;
+      # configureUwsgi = true;
+      # configureNginx = true;
       domain = domain;
+      settings = {
+        server = {
+          secret_key = config.sops.secrets."server/services/searxng".path;
+          port = cfg.port;
+          base_url = cfg.furl;
+          bind_address = config.nixosModules.info.system.ips.local;
+          limiter = false;
+          public_instance = false;
+        };
+      };
     };
   };
 }
