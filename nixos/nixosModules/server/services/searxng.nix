@@ -15,6 +15,11 @@ in
       default = config.nixosModules.server.services.enable;
     };
 
+    host = mkOption {
+      type = types.str;
+      default = config.nixosModules.info.system.ips.local;
+    };
+
     port = mkOption {
       type = types.port;
       default = 47480;
@@ -27,7 +32,7 @@ in
 
     url = mkOption {
       type = types.string;
-      default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
+      default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
@@ -55,7 +60,7 @@ in
           secret_key = config.sops.secrets."server/services/searxng".path;
           port = cfg.port;
           base_url = cfg.furl;
-          bind_address = config.nixosModules.info.system.ips.local;
+          bind_address = cfg.host;
           limiter = false;
           public_instance = false;
           image_proxy = true;
