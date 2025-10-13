@@ -9,6 +9,10 @@ let
   domain = config.nixosModules.reverseProxy.domain;
 in
 {
+  imports = [
+    ./vpn.nix
+  ];
+
   options.nixosModules.server.services.searxng = {
     enable = mkOption {
       type = types.bool;
@@ -53,7 +57,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."server/services/searxng" = { };
+    sops.secrets."server/services/searxng/key" = { };
 
     services.searx = {
       enable = true;
@@ -63,7 +67,7 @@ in
       domain = domain;
       settings = {
         server = {
-          secret_key = config.sops.secrets."server/services/searxng".path;
+          secret_key = config.sops.secrets."server/services/searxng/key".path;
           port = cfg.port;
           base_url = cfg.furl;
           bind_address = cfg.host;
