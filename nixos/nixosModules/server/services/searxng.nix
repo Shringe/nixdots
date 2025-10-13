@@ -44,6 +44,12 @@ in
       type = types.string;
       default = "searxng.svg";
     };
+
+    useVpn = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Pipe outgoing requests through a dedicated vpn tunnel";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -72,13 +78,15 @@ in
           query_in_title = true;
           infinite_scroll = true;
           center_alignment = true;
-          search_on_category_select = true;
+          search_on_category_select = false;
         };
 
         search = {
           autocomplete = "duckduckgo";
-          default_lang = "all";
+          default_lang = "en";
         };
+
+        outgoing.request_timeout = 5.0;
 
         enabled_plugins = [
           "Basic Calculator"
@@ -90,22 +98,37 @@ in
           "Tracker URL remover"
         ];
 
-        plugins = {
-          "searx.plugins.oa_doi_rewrite.SXNGPlugin".active = true;
+        hostnames = {
+          replace = {
+            "(.*\.)?nixos\.wiki$" = "wiki.nixos.org";
+          };
+
+          high_priority = [
+            "(.*\.)?wikipedia.org$"
+            "(.*\.)?reddit.com$"
+          ];
         };
 
         engines = mapAttrsToList (name: value: { inherit name; } // value) {
-          # Remove some defaults
-          # "startpage".disabled = false;
-          "google".disabled = true;
+          "startpage" = {
+            disabled = false;
+            weight = 1.3;
+          };
+
+          "google" = {
+            disabled = true;
+            weight = 1.3;
+          };
+
+          "mojeek" = {
+            disabled = false;
+            weight = 0.7;
+          };
 
           # Add more
-          "startpage".weight = 1.3;
           "qwant".disabled = false;
           "bing".disabled = false;
-          "mojeek".disabled = false;
-          "mojeek".weight = 0.7;
-          # "presearch".disabled = false;
+          "presearch".disabled = false;
           "wiby".disabled = false;
           "ddg definitions".disabled = false;
           "libretranslate".disabled = false;
@@ -119,8 +142,35 @@ in
           "duckduckgo videos".disabled = false;
           "minecraft wiki".disabled = false;
           "mojeek images".disabled = false;
-          # "presearch images".disabled = false;
+          "presearch images".disabled = false;
           "selfhst icons".disabled = false;
+          "wallhaven".disabled = false;
+          "imgur".disabled = false;
+          "material icons".disabled = false;
+          "svgrepo".disabled = false;
+          "google news".disabled = true;
+          "yahoo news".disabled = true;
+          "lib.rs".disabled = false;
+          "crates.io".disabled = false;
+          "codeberg".disabled = false;
+          "gitea.com".disabled = false;
+          "gitlab".disabled = false;
+          "sourcehut".disabled = false;
+          "nixos wiki".disabled = false;
+          "free software directory".disabled = false;
+          "hackernews".disabled = false;
+          "lobste.rs".disabled = false;
+          "crossref".disabled = false;
+          "semantic scholar".disabled = false;
+          "fdroid".disabled = false;
+          "apk mirror".disabled = false;
+          "nyaa".disabled = false;
+          "openrepos".disabled = false;
+          "annas archive".disabled = false;
+          "1337x".disabled = false;
+          "reddit".disabled = false;
+          "9gag".disabled = false;
+          "emojipedia".disabled = false;
 
           # Wikipedia
           "wikibooks".disabled = false;
