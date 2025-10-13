@@ -3,10 +3,6 @@ with lib;
 let
   cfg = config.nixosModules.arrs.vpn;
   ip = "192.168.15.1";
-  isolated.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "airvpn";
-  };
 in
 {
   options.nixosModules.arrs.vpn = {
@@ -21,8 +17,6 @@ in
       prowlarr.ip = ip;
       flaresolverr.ip = ip;
     };
-
-    nixosModules.server.services.searxng.host = ip;
 
     vpnNamespaces.airvpn.portMappings = [
       {
@@ -82,10 +76,6 @@ in
         enable = true;
         vpnNamespace = "airvpn";
       };
-
-      redis-searx = isolated;
-      searx = isolated;
-      searx-init = isolated;
     };
   };
 }
