@@ -244,7 +244,7 @@ in
             mode = "2560x1440@165";
             position = "auto-left";
             scale = 1;
-            bitdepth = 10;
+            bitdepth = 8;
             vrr = 2;
           }
           {
@@ -252,7 +252,7 @@ in
             mode = "3440x1440@175";
             position = "0x0";
             scale = 1;
-            bitdepth = 10;
+            bitdepth = 12;
             vrr = 2;
 
             # cm = "hdr";
@@ -275,12 +275,12 @@ in
         ];
 
         workspace = [
-          "1, persistent:true"
-          "2, persistent:true"
-          "3, persistent:true"
-          "4, persistent:true"
-          "5, persistent:true"
-          "6, persistent:true"
+          "1, monitor:$d1, persistent:true"
+          "2, monitor:$d1, persistent:true"
+          "3, monitor:$d1, persistent:true"
+          "4, monitor:$d1, persistent:true"
+          "5, monitor:$d1, persistent:true"
+          "6, monitor:$d1, persistent:true"
 
           "7, monitor:$d2, persistent:true"
           "8, monitor:$d2, persistent:true"
