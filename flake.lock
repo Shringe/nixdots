@@ -2095,11 +2095,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1760569450,
-        "narHash": "sha256-OjDx/xjeWTtElSEEpWaePA98y416w6pgi4bEt8RFiLk=",
+        "lastModified": 1760578245,
+        "narHash": "sha256-rXKQtzR+6YmlM+/c9PhF9w7snQjl0dVMPZ/zgJWxJDA=",
         "owner": "Shringe",
         "repo": "whalecrab",
-        "rev": "c4200cc46ba1efa04aaf7479f8465ed117bafff8",
+        "rev": "3b74a8967ac2342cd81791c24dc337aefce770d5",
         "type": "github"
       },
       "original": {

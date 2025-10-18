@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-
+{ pkgs, lib, ... }:
+with lib;
 {
   homeManagerModules = {
     theming = {
@@ -24,8 +24,11 @@
       office.enable = true;
       windowManagers = {
         enable = true;
-        utils.swayidle.suspend = false;
-        utils.openrgb.enable = true;
+        utils = {
+          swayidle.suspend = false;
+          openrgb.enable = true;
+          wluma.enable = mkForce false;
+        };
       };
       email.enable = true;
     };
