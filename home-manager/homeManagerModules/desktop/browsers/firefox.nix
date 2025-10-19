@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   lock-false = {
@@ -14,40 +19,62 @@ let
   cfg = config.homeManagerModules.desktop.browsers.firefox;
 
   mkSxngSearch = url: abbr: {
-    urls = [{
-      template = "https://${url}/search?q={searchTerms}";
-      params = [
-        { name = "type"; value = "engines"; }
-        { name = "query"; value = "{searchTerms}"; }
-      ];
-    }];
+    urls = [
+      {
+        template = "https://${url}/search?q={searchTerms}";
+        params = [
+          {
+            name = "type";
+            value = "engines";
+          }
+          {
+            name = "query";
+            value = "{searchTerms}";
+          }
+        ];
+      }
+    ];
     definedAliases = [ abbr ];
   };
 
   mkNixosSearch = type: abbr: {
-    urls = [{
-      template = "https://search.nixos.org/${type}";
-      params = [
-        { name = "type"; value = "packages"; }
-        { name = "query"; value = "{searchTerms}"; }
-      ];
-    }];
+    urls = [
+      {
+        template = "https://search.nixos.org/${type}";
+        params = [
+          {
+            name = "type";
+            value = "packages";
+          }
+          {
+            name = "query";
+            value = "{searchTerms}";
+          }
+        ];
+      }
+    ];
     icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
     definedAliases = [ abbr ];
   };
 
   mkSearchixSearch = type: abbr: {
-    urls = [{
-      template = "https://searchix.ovh/${type}/search";
-      params = [
-        { name = "query"; value = "{searchTerms}"; }
-      ];
-    }];
+    urls = [
+      {
+        template = "https://searchix.ovh/${type}/search";
+        params = [
+          {
+            name = "query";
+            value = "{searchTerms}";
+          }
+        ];
+      }
+    ];
 
     icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
     definedAliases = [ abbr ];
   };
-in {
+in
+{
   options.homeManagerModules.desktop.browsers.firefox = {
     enable = mkOption {
       type = types.bool;
@@ -58,8 +85,12 @@ in {
       type = types.attrs;
       default = {
         force = true;
-        default = "SearBe";
-        order = [ "SearBe" "SearFYI" ];
+        default = "SearXNG";
+        order = [
+          "SearXNG"
+          "SearBe"
+          "SearFYI"
+        ];
 
         engines = cfg.engines;
       };
@@ -76,6 +107,7 @@ in {
 
         "SearBe" = mkSxngSearch "searx.be" "@sxb";
         "SeekFYI" = mkSxngSearch "seek.fyi" "@sxf";
+        "SearXNG" = mkSxngSearch "searxng.deamicis.top" "@sx";
       };
     };
 
@@ -108,12 +140,12 @@ in {
   config = mkIf cfg.enable {
     stylix.targets.firefox.profileNames = [ "default" ];
 
-    programs.firefox =  {
+    programs.firefox = {
       enable = true;
       languagePacks = [ "en-US" ];
       profiles = cfg.profiles;
 
-      /* ---- POLICIES ---- */
+      # ---- POLICIES ----
       # Check about:policies#documentation for options.
       policies = {
         DisableTelemetry = true;
@@ -135,11 +167,17 @@ in {
         DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
         SearchBar = "unified"; # alternative: "separate"
 
-        /* ---- PREFERENCES ---- */
+        # ---- PREFERENCES ----
         # Check about:config for options.
-        Preferences = { 
-          "full-screen-api.transition-duration.enter" = [ 0 0 ];
-          "full-screen-api.transition-duration.leave" = [ 0 0 ];
+        Preferences = {
+          "full-screen-api.transition-duration.enter" = [
+            0
+            0
+          ];
+          "full-screen-api.transition-duration.leave" = [
+            0
+            0
+          ];
           "full-screen-api.delay" = "-1";
           "full-screen-api.timeout" = "-1";
           "extensions.pocket.enabled" = lock-false;
@@ -159,7 +197,7 @@ in {
           "browser.newtabpage.activity-stream.showSponsored" = lock-false;
           "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
-          
+
           "browser.startup.homepage" = "https://dash.deamicis.top";
         };
       };
