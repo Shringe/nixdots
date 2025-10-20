@@ -8,6 +8,7 @@
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nf.url = "github:Shringe/nf";
+    whalecrab.url = "github:Shringe/whalecrab";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     nix-gaming.url = "github:fufexan/nix-gaming";
     disko.url = "github:nix-community/disko";
@@ -93,6 +94,7 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.dwl.overlays.default
+        inputs.whalecrab.overlay
         inputs.nix-minecraft.overlay
 
         (self: super: {

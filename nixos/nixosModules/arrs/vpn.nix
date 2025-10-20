@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.nixosModules.arrs.vpn;
   ip = "192.168.15.1";
-in {
+in
+{
   options.nixosModules.arrs.vpn = {
     enable = mkEnableOption "Confines *arrs to a vpn";
   };
@@ -16,7 +17,7 @@ in {
       prowlarr.ip = ip;
       flaresolverr.ip = ip;
     };
-    
+
     vpnNamespaces.airvpn.portMappings = [
       {
         from = config.nixosModules.arrs.sonarr.port;
@@ -41,6 +42,11 @@ in {
       {
         from = config.nixosModules.arrs.flaresolverr.port;
         to = config.nixosModules.arrs.flaresolverr.port;
+        protocol = "tcp";
+      }
+      {
+        from = config.nixosModules.server.services.searxng.port;
+        to = config.nixosModules.server.services.searxng.port;
         protocol = "tcp";
       }
     ];
