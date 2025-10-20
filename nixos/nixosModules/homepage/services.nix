@@ -73,7 +73,8 @@ in
               url = monitors.gatus.furl;
             };
           }
-          ++ mkService "Wallos" docker.wallos { };
+          ++ mkService "Wallos" docker.wallos { }
+          ++ mkService "SearXNG" server.services.searxng { };
       }
 
       {
