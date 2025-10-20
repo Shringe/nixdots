@@ -17,12 +17,12 @@ in
 
     auto-cpufreq = mkOption {
       type = types.bool;
-      default = false;
+      default = cfg.enable;
     };
 
     tlp = mkOption {
       type = types.bool;
-      default = cfg.enable;
+      default = false;
     };
   };
 
@@ -67,7 +67,7 @@ in
 
           battery = {
             governor = "powersave";
-            turbo = "never";
+            turbo = "auto";
           };
         };
       };
