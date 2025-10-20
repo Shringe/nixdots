@@ -23,6 +23,7 @@ with lib;
     boot = {
       secureboot = true;
       graphical.plymouth.enable = true;
+      zswap.enable = true;
     };
 
     desktop = {

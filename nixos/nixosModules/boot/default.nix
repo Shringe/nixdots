@@ -4,6 +4,7 @@ with lib;
   imports = [
     ./loader
     ./graphical
+    ./zswap.nix
   ];
 
   options.nixosModules.boot = {
