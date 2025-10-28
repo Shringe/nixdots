@@ -7,5 +7,8 @@
     ./feh.nix
     ./telegram.nix
     ./xournal.nix
+    ./qtCaltulate.nix
+    ./extraGtk.nix
+    ./extraQt.nix
   ];
 }
