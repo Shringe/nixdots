@@ -60,7 +60,7 @@ window#waybar {
   padding-left: 2px;
   padding-right: 2px;
   margin-right: 0px;
-  margin-left: 2px;
+  margin-left: 0px;
 }
 
 #workspaces button.empty {
@@ -69,7 +69,7 @@ window#waybar {
   padding-left: 2px;
   padding-right: 2px;
   margin-right: 0px;
-  margin-left: 2px;
+  margin-left: 0px;
 }
 
 #workspaces button {
@@ -78,7 +78,7 @@ window#waybar {
   padding-left: 2px;
   padding-right: 2px;
   margin-right: 0px;
-  margin-left: 2px;
+  margin-left: 0px;
 }
 
 #workspaces button.active, #workspaces button.visible {
@@ -87,7 +87,7 @@ window#waybar {
   padding-left: 2px;
   padding-right: 2px;
   margin-right: 0px;
-  margin-left: 2px;
+  margin-left: 0px;
   ; border-bottom: 1px solid @highlight;
   border-bottom: 0px;
 }
