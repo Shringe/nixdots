@@ -7,6 +7,9 @@ with lib;
 let
   cfg = config.nixosModules.server.services.searxng;
   domain = config.nixosModules.reverseProxy.domain;
+
+  # Abstracted because google often breaks and I must switch to another google proxy
+  googleWeight = 1.15;
 in
 {
   imports = [
@@ -115,13 +118,18 @@ in
 
         engines = mapAttrsToList (name: value: { inherit name; } // value) {
           "startpage" = {
-            disabled = false;
-            weight = 1.3;
+            disabled = true;
+            weight = googleWeight;
           };
 
           "google" = {
             disabled = true;
-            weight = 1.3;
+            weight = googleWeight;
+          };
+
+          "mullvadleta" = {
+            disabled = false;
+            weight = googleWeight;
           };
 
           "mojeek" = {
@@ -129,9 +137,14 @@ in
             weight = 0.7;
           };
 
+          "brave" = {
+            disabled = false;
+            weight = 1.05;
+          };
+
           # Add more
           "qwant".disabled = false;
-          "bing".disabled = false;
+          "bing".disabled = true;
           "presearch".disabled = false;
           "wiby".disabled = false;
           "ddg definitions".disabled = false;
