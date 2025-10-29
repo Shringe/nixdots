@@ -94,6 +94,15 @@ in
             };
           };
         }
+        {
+          search = {
+            provider = "custom";
+            url = "${config.nixosModules.server.services.searxng.furl}/search?q=";
+            target = "_self"; # One of _self, _blank, _parent or _top
+            # showSearchSuggestions = true;
+            # suggestionUrl = "";
+          };
+        }
       ];
     };
   };
