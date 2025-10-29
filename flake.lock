@@ -1540,16 +1540,16 @@
     },
     "nixpkgs_8": {
       "locked": {
-        "lastModified": 1753160944,
-        "narHash": "sha256-SDK3hgN6jLKtkovjfSfejs7KNkY4TtKoPefihmmItn4=",
+        "lastModified": 1760878510,
+        "narHash": "sha256-K5Osef2qexezUfs0alLvZ7nQFTGS9DL2oTVsIXsqLgs=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "be125bdb1901ce41845e0ed84be28a45fb07593c",
+        "rev": "5e2a59a5b1a82f89f2c7e598302a9cacebb72a67",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-25.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -2095,11 +2095,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1760578245,
-        "narHash": "sha256-rXKQtzR+6YmlM+/c9PhF9w7snQjl0dVMPZ/zgJWxJDA=",
+        "lastModified": 1761183218,
+        "narHash": "sha256-0GG4FgPO9Xwi5zEzmvECKCx/G4lVuGsY8jbjHYKJRKA=",
         "owner": "Shringe",
         "repo": "whalecrab",
-        "rev": "3b74a8967ac2342cd81791c24dc337aefce770d5",
+        "rev": "5e74d4a838360ddeb624c1e0d67fde1aed296f34",
         "type": "github"
       },
       "original": {
