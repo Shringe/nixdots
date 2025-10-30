@@ -73,6 +73,11 @@ in
         "$d1" = "HDMI-A-1";
         "$d2" = "DP-1";
         experimental.xx_color_management_v4 = "true";
+        misc = {
+          enable_swallow = true;
+          swallow_regex = "org.wezfurlong.wezterm";
+          disable_autoreload = true;
+        };
 
         env = [
           "GDK_BACKEND,wayland,x11,*"
