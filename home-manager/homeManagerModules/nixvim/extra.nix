@@ -1,13 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.nixvim.extra;
-in {
+in
+{
   options.homeManagerModules.nixvim.extra = {
     enable = mkOption {
       type = types.bool;
       default = config.homeManagerModules.nixvim.enable;
-      description = "Enable extra tooling for neovim workflow."; 
+      description = "Enable extra tooling for neovim workflow.";
     };
   };
 
@@ -16,9 +22,11 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       # Python scripting environment
-      (python3.withPackages (ps: with ps; [
-        typer
-      ]))
+      (python3.withPackages (
+        ps: with ps; [
+          typer
+        ]
+      ))
     ];
 
     programs = {
@@ -43,10 +51,8 @@ in {
           "--header"
         ];
       };
-       
-      lazygit.enable = true;
-      # neovide.enable = true;
 
+      lazygit.enable = true;
       yazi = {
         enable = true;
 
