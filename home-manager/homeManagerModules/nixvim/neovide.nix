@@ -39,7 +39,7 @@ in
         enable = true;
 
         settings = {
-          fork = true;
+          fork = false;
           # no-multigrid = true;
           font = {
             # Default is fira code
