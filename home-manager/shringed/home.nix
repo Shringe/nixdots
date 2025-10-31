@@ -41,6 +41,11 @@ with lib;
     gaming.enable = true;
   };
 
+  programs.neovide.settings.vsync = false;
+  programs.nixvim.globals = {
+    neovide_refresh_rate = 175;
+  };
+
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   programs = {
