@@ -59,6 +59,7 @@
         nil_ls.enable = true;
         lua_ls.enable = true;
         nushell.enable = true;
+        slint_lsp.enable = true;
       };
     };
 
