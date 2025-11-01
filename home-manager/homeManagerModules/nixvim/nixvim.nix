@@ -135,6 +135,25 @@
         options.silent = true;
         action = "<cmd>wincmd l<CR>";
       }
+
+      {
+        mode = "n";
+        key = "<leader>ss";
+        options.silent = true;
+        action = "<cmd>write<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>sa";
+        options.silent = true;
+        action = "<cmd>exit<CR>";
+      }
+      {
+        mode = "n";
+        key = "<leader>st";
+        options.silent = true;
+        action = "<cmd>bdelete<CR>";
+      }
     ];
   };
 }
