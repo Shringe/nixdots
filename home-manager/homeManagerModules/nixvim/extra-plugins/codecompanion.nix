@@ -1,13 +1,15 @@
-{ config, ... }:
+{ config, lib, ... }:
+with lib;
 let
   domain = "https://ollama.deamicis.top";
   # model = "qwen2.5-coder:latest";
   model = "deepseek-r1:latest";
+  enable = false;
 in
 {
-  sops.secrets."llm/openai" = { };
+  sops.secrets."llm/openai" = mkIf enable { };
 
-  programs.nixvim = {
+  programs.nixvim = mkIf enable {
     plugins.codecompanion = {
       enable = true;
 
