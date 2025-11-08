@@ -60,12 +60,12 @@
     bat
     eza
     btop
-    font-awesome
     pavucontrol
     nh
 
     meslo-lgs-nf
     jetbrains-mono
+    font-awesome
   ];
 
   home.sessionVariables = {
