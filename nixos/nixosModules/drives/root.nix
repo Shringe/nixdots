@@ -31,7 +31,7 @@ in
       };
 
       services.btrbk.instances = {
-        "daily".settings.volume."/mnt/btr/pool/root" = mkIf config.nixosModules.backups.btrbk.enable {
+        "btrbk".settings.volume."/mnt/btr/pool/root" = mkIf config.nixosModules.backups.btrbk.enable {
           subvolume = {
             "_active/@" = { };
             "_active/@home" = { };
