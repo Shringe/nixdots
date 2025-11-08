@@ -8,22 +8,22 @@ with lib;
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Networking Admin Panel";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://192.168.0.1";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://router.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "router.svg";
     };
   };

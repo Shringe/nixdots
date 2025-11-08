@@ -28,7 +28,7 @@ in {
     enable = mkEnableOption "Caddy";
 
     domain = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.reverseProxy.domain;
     };
   };

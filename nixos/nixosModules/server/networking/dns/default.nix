@@ -27,32 +27,32 @@ in {
     };
 
     dns = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = cfg.dns;
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Network-Wide Ad Blocker";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.dns}:${toString cfg.ports.webui}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://dns.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
     };
   };
 }

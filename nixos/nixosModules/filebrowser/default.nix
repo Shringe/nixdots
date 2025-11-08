@@ -11,32 +11,32 @@ in {
     };
 
     ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/critical/filebrowser";
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Cloud Storage and Filesharing";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://files.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "filebrowser.svg";
     };
   };

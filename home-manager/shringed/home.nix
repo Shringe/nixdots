@@ -51,10 +51,13 @@ with lib;
   programs = {
     git = {
       enable = true;
-      userName = "Shringe";
-      userEmail = "dashingkoso@gmail.com";
 
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Shringe";
+          email = "dashingkoso@gmail.com";
+        };
+
         credential.helper = "store";
         safe.directory = [
           "/nixdots"

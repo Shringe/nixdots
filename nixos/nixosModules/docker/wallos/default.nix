@@ -21,22 +21,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Subscription Manager";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://wallos.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "wallos.svg";
     };
   };

@@ -14,12 +14,12 @@ in {
     enable = mkEnableOption "Preferred reverse proxy setup";
 
     domain = mkOption {
-      type = types.string;
+      type = types.str;
       default = "deamicis.top";
     };
 
     aDomain = mkOption {
-      type = types.string;
+      type = types.str;
       default = "saria.top";
     };
   };

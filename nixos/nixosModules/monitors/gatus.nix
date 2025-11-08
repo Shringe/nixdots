@@ -32,22 +32,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Better Server Status Monitor";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://gatus.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "gatus.svg";
     };
   };

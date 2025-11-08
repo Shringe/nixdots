@@ -13,27 +13,27 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Media Streaming";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://jellyfin.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "jellyfin.svg";
     };
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/local/jellyfin";
     };
   };

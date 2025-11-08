@@ -21,7 +21,7 @@ in
     };
 
     private_ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.wireguard.server.private_ip;
     };
   };

@@ -23,22 +23,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Collaborative Documents";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://collabora.${domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "paperless-ngx.svg";
     };
   };

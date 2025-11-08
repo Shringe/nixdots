@@ -7,7 +7,7 @@ in {
     enable = mkEnableOption "Sonarr TV Show Management";
 
     ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -17,22 +17,22 @@ in {
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Movie Management";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://radarr.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "radarr.svg";
     };
   };

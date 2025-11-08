@@ -15,7 +15,7 @@ in {
     };
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -25,7 +25,7 @@ in {
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
   };

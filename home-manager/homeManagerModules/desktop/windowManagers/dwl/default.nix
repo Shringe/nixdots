@@ -16,7 +16,8 @@ in
   options.homeManagerModules.desktop.windowManagers.dwl = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.enable;
+      # default = config.homeManagerModules.desktop.windowManagers.enable;
+      default = false;
     };
   };
 

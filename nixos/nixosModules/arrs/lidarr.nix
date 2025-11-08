@@ -8,7 +8,7 @@ in
     enable = mkEnableOption "Lidarr music management";
 
     ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -18,22 +18,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Music Management";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://lidarr.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "lidarr.svg";
     };
   };

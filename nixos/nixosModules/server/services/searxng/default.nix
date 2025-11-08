@@ -33,22 +33,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Powerful MetaSearch Engine";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://searxng.${domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "searxng.svg";
     };
 
