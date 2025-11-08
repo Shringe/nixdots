@@ -13,12 +13,12 @@ in {
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://auth.${config.nixosModules.reverseProxy.domain}";
     };
   };

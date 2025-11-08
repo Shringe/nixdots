@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.gaming.games.prismlauncher;
@@ -12,10 +17,10 @@ in
         jdks = [
           jdk21
           jdk17
-          graalvm-ce
-          # graalvm-oracle
+          # graalvmPackages.graalvm-oracle
+          stable.graalvm-oracle
           # graalvmPackages
-          zulu
+          # zulu
         ];
       })
     ];

@@ -15,22 +15,22 @@ in {
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Simple Collaborative Todo App";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://ourshoppinglist.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "ourshoppinglist.svg";
     };
   };

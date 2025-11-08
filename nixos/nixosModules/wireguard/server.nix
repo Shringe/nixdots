@@ -12,12 +12,12 @@ in
     };
 
     private_ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = "10.100.0";
     };
 
     interface = mkOption {
-      type = types.string;
+      type = types.str;
       default = "enp42s0";
     };
   };

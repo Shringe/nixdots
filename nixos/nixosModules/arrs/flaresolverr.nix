@@ -7,7 +7,7 @@ in {
     enable = mkEnableOption "Flaresolverr Cloudflare";
 
     ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -17,12 +17,12 @@ in {
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Bypasses Cloudflare Protection";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
   };

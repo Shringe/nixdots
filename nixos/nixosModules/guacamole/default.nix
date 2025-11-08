@@ -7,7 +7,7 @@ in {
     enable = mkEnableOption "Guacamole web interface";
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -17,17 +17,17 @@ in {
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "OpenSSH Web Client";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "apache.svg";
     };
   };

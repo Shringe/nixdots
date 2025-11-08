@@ -5,17 +5,17 @@ let
 in {
   options.nixosModules.docker.automaticrippingmachine = {
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Automatically rips DVDs, Blu-rays, and CDs";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "cd.svg";
     };
   };
