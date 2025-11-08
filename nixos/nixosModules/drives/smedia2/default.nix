@@ -55,7 +55,7 @@ in
       };
 
       services.btrbk.instances = mkIf config.nixosModules.backups.btrbk.enable {
-        "daily".settings.volume."/mnt/btr/pool/smedia2" = {
+        "btrbk".settings.volume."/mnt/btr/pool/smedia2" = {
           subvolume = {
             "_active/backups" = { };
             "_active/local" = { };
