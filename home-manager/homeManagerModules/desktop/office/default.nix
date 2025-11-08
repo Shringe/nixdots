@@ -10,5 +10,6 @@
     ./qtCaltulate.nix
     ./extraGtk.nix
     ./extraQt.nix
+    ./bitwarden.nix
   ];
 }
