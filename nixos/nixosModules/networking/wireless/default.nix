@@ -7,19 +7,11 @@
 with lib;
 let
   cfg = config.nixosModules.networking.wireless;
-  fixWlanHook = pkgs.writeShellApplication {
-    name = "fixWlanHook";
-
-    runtimeInputs = with pkgs; [
-      systemd
-    ];
-
-    text = ''
-      case $1 in
-        post) systemctl restart fixWlan &
-      esac
-    '';
-  };
+  fixWlanHook = pkgs.writers.writeDash "fixWlanHook" ''
+    case $1 in
+      post) ${pkgs.systemd}/bin/systemctl restart fixWlan --no-block
+    esac
+  '';
 
   fixWlan = pkgs.writeShellApplication {
     name = "fixWlan";
@@ -31,10 +23,13 @@ let
     ];
 
     text = ''
-      rfkill unblock wlan
-      ip link set wlan0 down
-      ip link set wlan0 up
+      rfkill unblock ${cfg.interface}
       systemctl stop wg-quick-wg0
+      systemctl start iwd
+      sleep 1
+      ip link set wlan0 down
+      sleep 1
+      ip link set wlan0 up
       sleep 15
       systemctl start wg-quick-wg0
     '';
@@ -53,27 +48,37 @@ in
       default = false;
     };
 
-    unblockWlan = mkOption {
+    unblockInterface = mkOption {
       type = types.bool;
       default = cfg.enable;
     };
+
+    interface = mkOption {
+      type = types.str;
+      default = "wlan";
+      description = "Name of interface to use for cfg.unblockInterface";
+    };
   };
 
-  config = mkIf cfg.unblockWlan {
-    systemd.services.fixWlan = mkIf cfg.unblockWlan {
+  config = mkIf cfg.unblockInterface {
+    systemd.services.fixWlan = {
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "${fixWlan}/bin/fixWlan";
       };
 
-      wantedBy = [ "multi-user.target" ];
-      requisite = [ "iwd.service" ];
-      after = [ "iwd.service" ];
+      # wantedBy = [ "multi-user.target" ];
+      # requisite = [ "iwd.service" ];
+      # after = [ "iwd.service" ];
+    };
+
+    systemd.services.iwd = {
+      wantedBy = mkForce [ ];
     };
 
     environment.etc."systemd/system-sleep/fixWlan" = {
-      source = "${fixWlanHook}/bin/fixWlanHook";
+      source = fixWlanHook;
       # mode = "0755";
     };
   };

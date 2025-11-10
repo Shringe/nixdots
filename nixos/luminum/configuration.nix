@@ -19,7 +19,12 @@ with lib;
   nixosModules = {
     theming.enable = true;
     jellyfin.enable = true;
-    networking.wireless.enable = true;
+    networking.wireless = {
+      enable = true;
+      unblockInterface = true;
+      # interface = "phy0";
+    };
+
     boot = {
       secureboot = true;
       graphical.plymouth.enable = true;
@@ -53,6 +58,11 @@ with lib;
   sops.secrets."wireguard/clients/luminum" = { };
   networking.wg-quick.interfaces.wg0.configFile =
     config.sops.secrets."wireguard/clients/luminum".path;
+
+  # Disable automatic start
+  systemd.services.wg-quick-wg0 = {
+    wantedBy = mkForce [ ];
+  };
 
   # $ nix search wget
   environment = {
