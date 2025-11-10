@@ -7,7 +7,7 @@ in {
     enable = mkEnableOption "Radicale hosting";
 
     ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -17,22 +17,22 @@ in {
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Caldav and Carddav server";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://radicale.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "radicale.svg";
     };
   };

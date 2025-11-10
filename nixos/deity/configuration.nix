@@ -49,7 +49,7 @@
     };
 
     drives = {
-      backups1.enable = false;
+      backups1.enable = true;
       smedia1.enable = true;
       smedia2.enable = true;
       steamssd1.enable = true;

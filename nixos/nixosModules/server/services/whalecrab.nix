@@ -17,7 +17,7 @@ in
     };
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/critical/whalecrab";
     };
   };

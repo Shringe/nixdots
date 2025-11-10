@@ -15,7 +15,7 @@ in
     };
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -25,12 +25,12 @@ in
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://ollama.${domain}/api";
     };
 
@@ -38,7 +38,7 @@ in
       enable = mkEnableOption "Web frontend";
 
       host = mkOption {
-        type = types.string;
+        type = types.str;
         default = config.nixosModules.info.system.ips.local;
       };
 
@@ -48,22 +48,22 @@ in
       };
 
       description = mkOption {
-        type = types.string;
+        type = types.str;
         default = "Local LLMs";
       };
 
       icon = mkOption {
-        type = types.string;
+        type = types.str;
         default = "ollama.svg";
       };
 
       url = mkOption {
-        type = types.string;
+        type = types.str;
         default = "http://${cfg.webui.host}:${toString cfg.webui.port}";
       };
 
       furl = mkOption {
-        type = types.string;
+        type = types.str;
         default = "https://ollama.${domain}";
       };
     };

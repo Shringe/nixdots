@@ -31,7 +31,7 @@
 
     liberodark = {
       url = "github:liberodark/my-flakes";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     determinate = {
@@ -97,6 +97,7 @@
         inputs.whalecrab.overlay
         inputs.nix-minecraft.overlay
 
+        # Large overlay sets
         (self: super: {
           stable = import nixpkgs-stable {
             inherit system;
@@ -104,15 +105,12 @@
           };
         })
 
+        # Customized builds
         (self: super: {
           nf = inputs.nf.packages.${system}.default;
           torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
           });
-
-          # Very slow to build when updates
-          opencv = self.stable.opencv;
-          jellyfin-media-player = self.stable.jellyfin-media-player;
 
           mpv = super.mpv.override {
             scripts = with self.mpvScripts; [
@@ -122,6 +120,16 @@
               quack
             ];
           };
+        })
+
+        # Frequently slow or unreliable builds
+        (self: super: {
+          opencv = self.stable.opencv;
+          jellyfin-media-player = self.stable.jellyfin-media-player;
+          jellyfin-tui = self.stable.jellyfin-tui;
+          jellyfin = self.stable.jellyfin;
+          homepage-dashboard = self.stable.homepage-dashboard;
+          lutris = self.stable.lutris;
         })
       ];
 

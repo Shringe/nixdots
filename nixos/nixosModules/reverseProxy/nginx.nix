@@ -35,12 +35,12 @@ in
     enable = mkEnableOption "Nginx";
 
     domain = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.reverseProxy.domain;
     };
 
     aDomain = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.reverseProxy.aDomain;
     };
   };

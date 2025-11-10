@@ -37,7 +37,7 @@ in
       };
 
       services.btrbk.instances = mkIf config.nixosModules.backups.btrbk.enable {
-        "daily".settings.volume."/mnt/btr/pool/steamssd2" = {
+        "btrbk".settings.volume."/mnt/btr/pool/steamssd2" = {
           subvolume = {
             "_active/library" = { };
             "_active/main" = { };

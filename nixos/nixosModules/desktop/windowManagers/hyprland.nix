@@ -26,6 +26,7 @@ in
     };
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    services.gnome.gnome-keyring.enable = true;
     security.pam.services.hyprlock = { };
   };
 }

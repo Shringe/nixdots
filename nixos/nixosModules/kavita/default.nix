@@ -8,7 +8,7 @@ in
     enable = mkEnableOption "Kavita ebook manager";
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -18,27 +18,27 @@ in
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://kavita.${config.nixosModules.reverseProxy.domain}";
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Ebook and Comics Manager";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "kavita.svg";
     };
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/local/kavita";
     };
   };

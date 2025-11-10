@@ -15,7 +15,7 @@ in {
     enable = mkEnableOption "Sleek waybar config";
 
     wm = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.homeManagerModules.desktop.windowManagers.utils.waybar.wm;
     };
   };
