@@ -16,7 +16,7 @@ in
     };
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -26,27 +26,27 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Photo Album";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.host}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://immich.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "immich.svg";
     };
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/critical/immich";
     };
   };

@@ -44,13 +44,6 @@ with lib;
   programs.neovide.settings.vsync = false;
   programs.nixvim.globals = {
     neovide_refresh_rate = 175;
-    neovide_cursor_vfx_particle_density = 2.0;
-    neovide_cursor_vfx_particle_lifetime = 0.75;
-    neovide_cursor_vfx_particle_highlight_lifetime = 0.3;
-    neovide_cursor_vfx_mode = mkForce [
-      "ripple"
-      "pixiedust"
-    ];
   };
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
@@ -58,10 +51,13 @@ with lib;
   programs = {
     git = {
       enable = true;
-      userName = "Shringe";
-      userEmail = "dashingkoso@gmail.com";
 
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Shringe";
+          email = "dashingkoso@gmail.com";
+        };
+
         credential.helper = "store";
         safe.directory = [
           "/nixdots"
@@ -100,7 +96,9 @@ with lib;
     git
     btop
     nh
+    meslo-lgs-nf
     jetbrains-mono
+    font-awesome
   ];
 
   home.sessionVariables = {

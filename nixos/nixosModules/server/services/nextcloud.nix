@@ -23,22 +23,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Nextcloud Ecosystem";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://${cfg.hostName}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "nextcloud.svg";
     };
 
@@ -60,7 +60,7 @@ in
 
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
 
       hostName = cfg.hostName;
       https = true;

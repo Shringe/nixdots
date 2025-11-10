@@ -25,28 +25,28 @@ in
 
     ips = {
       webui = mkOption {
-        type = types.string;
+        type = types.str;
         default = "192.168.15.1";
       };
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Torrent and Download Client";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ips.webui}:${toString cfg.ports.webui}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://torrent.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "qbittorrent.svg";
     };
   };

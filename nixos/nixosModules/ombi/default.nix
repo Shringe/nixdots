@@ -13,17 +13,17 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "All-In-One Media Requests Hub";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "film-reel.svg";
     };
   };

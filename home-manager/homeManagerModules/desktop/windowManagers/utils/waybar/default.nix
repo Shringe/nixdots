@@ -13,7 +13,7 @@ in {
     enable = mkEnableOption "Default waybar configuration";
 
     wm = mkOption {
-      type = types.string;
+      type = types.str;
       default = "sway";
     };
   };

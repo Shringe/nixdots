@@ -13,7 +13,7 @@ in
     };
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
   };

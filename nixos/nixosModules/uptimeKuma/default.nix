@@ -12,22 +12,22 @@ in {
     };
 
     ip = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Server Status Monitor";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${cfg.ip}:${toString cfg.port}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "uptime-kuma.svg";
     };
   };

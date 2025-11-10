@@ -9,7 +9,7 @@ in {
     enable = mkEnableOption "Matrix conduit server";
 
     host = mkOption {
-      type = types.string;
+      type = types.str;
       default = config.nixosModules.info.system.ips.local;
     };
 
@@ -19,12 +19,12 @@ in {
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://${domain}";
     };
   };

@@ -49,17 +49,22 @@ in
 
       fileSystems = {
         "/mnt/btr/pool/smedia2" = util.mkMount "smedia2" [ ];
+        # For stuff that must be backed up externally and prioritized
         "/mnt/server/critical" = util.mkMount "smedia2" [ "subvol=_active/critical" ];
+        # For random and miscellaneous backups
         "/mnt/server/backups" = util.mkMount "smedia2" [ "subvol=_active/backups" ];
+        # For stuff that will not be backed up
         "/mnt/server/local" = util.mkMount "smedia2" [ "subvol=_active/local" ];
       };
 
       services.btrbk.instances = mkIf config.nixosModules.backups.btrbk.enable {
-        "daily".settings.volume."/mnt/btr/pool/smedia2" = {
+        "btrbk".settings.volume."/mnt/btr/pool/smedia2" = {
           subvolume = {
             "_active/backups" = { };
             "_active/local" = { };
-            "_active/critical" = { };
+            "_active/critical" = {
+              # target = "/mnt/btr/backups/smedia2";
+            };
           };
         };
       };

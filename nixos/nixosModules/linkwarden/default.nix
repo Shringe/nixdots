@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let 
+let
   cfg = config.nixosModules.linkwarden;
-in {
+in
+{
   imports = [
-    ./module.nix
+    # ./module.nix
   ];
 
   options.nixosModules.linkwarden = {
@@ -16,42 +22,44 @@ in {
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "Fancy Bookmark Manager";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://linkwarden.${config.nixosModules.reverseProxy.domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "linkwarden.png";
     };
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/critical/linkwarden";
     };
   };
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      "linkwarden" = { owner = "linkwarden"; };
+      "linkwarden" = {
+        owner = "linkwarden";
+      };
     };
 
     services.linkwarden = {
       enable = true;
-      package = (pkgs.callPackage ../../../shared/packages/linkwarden.nix {});
+      # package = (pkgs.callPackage ../../../shared/packages/linkwarden.nix { });
       host = config.nixosModules.info.system.ips.local;
       port = cfg.port;
-      secretsFile = config.sops.secrets."linkwarden".path;
+      environmentFile = config.sops.secrets."linkwarden".path;
       storageLocation = cfg.directory;
 
       enableRegistration = true;

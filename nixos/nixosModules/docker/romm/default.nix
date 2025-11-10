@@ -17,7 +17,7 @@ in
     enable = mkEnableOption "Romm";
 
     directory = mkOption {
-      type = types.string;
+      type = types.str;
       default = "/mnt/server/critical/romm";
     };
 
@@ -27,22 +27,22 @@ in
     };
 
     description = mkOption {
-      type = types.string;
+      type = types.str;
       default = "RomM Emulator and Rom Manager";
     };
 
     url = mkOption {
-      type = types.string;
+      type = types.str;
       default = "http://${ip}:${toString cfg.port}";
     };
 
     furl = mkOption {
-      type = types.string;
+      type = types.str;
       default = "https://romm.${domain}";
     };
 
     icon = mkOption {
-      type = types.string;
+      type = types.str;
       default = "romm.svg";
     };
   };
