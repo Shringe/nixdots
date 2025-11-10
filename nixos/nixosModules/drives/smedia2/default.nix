@@ -63,7 +63,7 @@ in
             "_active/backups" = { };
             "_active/local" = { };
             "_active/critical" = {
-              # target = "/mnt/btr/backups/smedia2";
+              target = "/mnt/btr/backups/smedia2";
             };
           };
         };
