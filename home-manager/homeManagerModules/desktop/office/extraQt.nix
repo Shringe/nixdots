@@ -28,6 +28,7 @@ in
       gwenview
       elisa
       isoimagewriter
+      mission-center
     ];
   };
 }
