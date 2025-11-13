@@ -58,9 +58,12 @@ in
       environmentFile = config.sops.secrets."gps/traccar".path;
 
       settings = {
-        "web.port" = (toString cfg.port);
-
+        "web.port" = toString cfg.port;
         databasePassword = "$TRACCAR_DB_PASSWORD";
+
+        # Push notifications
+        "notificator.types" = "traccar";
+        "notificator.traccar.key" = "$TRACCAR_PUSH_NOTIFICATIONS_API_KEY";
       };
     };
   };
