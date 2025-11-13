@@ -25,6 +25,9 @@ in
       accounts-qt
       akonadi
       kdepim-runtime
+      gwenview
+      elisa
+      isoimagewriter
     ];
   };
 }
