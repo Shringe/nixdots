@@ -44,7 +44,8 @@ let
 in
 {
   imports = [
-    ./wpa.nix.iwd.nix
+    ./wpa.nix
+    ./iwd.nix
     ./networkmanager.nix
   ];
 
