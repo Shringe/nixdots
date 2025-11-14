@@ -75,7 +75,7 @@ in
         ExecStart = "${fixWlan}/bin/fixWlan";
       };
 
-      # wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       # requisite = [ "iwd.service" ];
       # after = [ "iwd.service" ];
     };
