@@ -32,7 +32,7 @@ in
       powertop.enable = true;
     };
 
-    systemd.sleep.extraConfig = "HibernateDelaySec=30min";
+    systemd.sleep.extraConfig = "HibernateDelaySec=90min";
 
     services = {
       thermald.enable = true; # Prevents overheating on Intel
@@ -68,6 +68,9 @@ in
           battery = {
             governor = "powersave";
             turbo = "auto";
+            enable_thresholds = true;
+            start_threshold = 20;
+            stop_threshold = 1;
           };
         };
       };

@@ -19,13 +19,18 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    wait-online = {
+      url = "github:Shringe/wait-online";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -108,6 +113,7 @@
         # Customized builds
         (self: super: {
           nf = inputs.nf.packages.${system}.default;
+          wait-online = inputs.wait-online.packages.${system}.default;
           torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
           });
