@@ -17,20 +17,27 @@ let
     name = "fixWlan";
 
     runtimeInputs = with pkgs; [
-      iproute2
       util-linux
+      systemd
+      wait-online
       coreutils
+      iproute2
     ];
 
     text = ''
-      rfkill unblock ${cfg.interface}
+      rfkill unblock "${cfg.interface}";
       systemctl stop wg-quick-wg0
-      systemctl start iwd
-      sleep 1
-      ip link set wlan0 down
-      sleep 1
-      ip link set wlan0 up
-      sleep 15
+      systemctl restart iwd
+      sleep 3
+      ip link set "${cfg.interface}0" down
+      ip link set "${cfg.interface}0" up
+
+      if ! wait-online --endpoint "wireguard.${config.nixosModules.reverseProxy.domain}" --delay 200 --max-retries 300; then 
+        code="$?"
+        systemctl stop iwd
+        exit "$code"
+      fi
+
       systemctl start wg-quick-wg0
     '';
   };
@@ -68,7 +75,7 @@ in
         ExecStart = "${fixWlan}/bin/fixWlan";
       };
 
-      # wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       # requisite = [ "iwd.service" ];
       # after = [ "iwd.service" ];
     };
