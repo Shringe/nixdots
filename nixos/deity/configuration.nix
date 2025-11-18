@@ -127,6 +127,7 @@
 
     desktop = {
       enable = true;
+      adb.enable = true;
       syncthing = {
         enable = true;
         user = "shringed";
