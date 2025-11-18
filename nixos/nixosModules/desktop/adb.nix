@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.desktop.adb;
@@ -9,6 +14,12 @@ in
       type = types.bool;
       default = false;
     };
+
+    port = mkOption {
+      type = types.int;
+      default = 12037;
+      description = "Port for adb server to use";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -17,5 +28,15 @@ in
       optionals shringe.enable [ "shringe" ] ++ optionals shringed.enable [ "shringed" ];
 
     programs.adb.enable = true;
+
+    environment = {
+      sessionVariables = {
+        ANDROID_ADB_SERVER_PORT = cfg.port;
+      };
+
+      systemPackages = with pkgs.stable; [
+        # universal-android-debloater
+      ];
+    };
   };
 }
