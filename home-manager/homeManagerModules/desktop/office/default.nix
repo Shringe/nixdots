@@ -13,5 +13,6 @@
     ./bitwarden.nix
     ./llm.nix
     ./systemMonitor.nix
+    ./weather.nix
   ];
 }
