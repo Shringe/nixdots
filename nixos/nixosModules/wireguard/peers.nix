@@ -30,7 +30,9 @@ in
     sops.secrets = {
       "preshared/L_Phone" = key;
       "preshared/K_Phone" = key;
+      "preshared/K_Laptop" = key;
       "preshared/L_Laptop" = key;
+      "preshared/L_Phone2" = key;
     };
 
     networking.wireguard.interfaces.wg0.peers = [
@@ -40,7 +42,9 @@ in
       # }
       (mkPeer 2 "L_Phone" "5PfQalJfIoZwTCD7pjamN1PjsqC4V7wWfg0M1kIvqUo=")
       (mkPeer 3 "K_Phone" "IDVL+7WJv1H5RDUtFszbKxzdSlY+VXNqCiyDmqZIqko=")
+      (mkPeer 4 "K_Laptop" "znkrk3a5TOuL4YCLC5096aIzYAY7Zfgl/RS0BvX8Pk0=")
       (mkPeer 5 "L_Laptop" "ybqPkNqZFQDef2p+Xi/OyFphMOt/ADvidA1OdWz6eEg=")
+      (mkPeer 6 "L_Phone2" "zV6eHqtCYkyzxdQC17hNlfQcHxk93GkCaV7gQ1wXqVc=")
     ];
   };
 }
