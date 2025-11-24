@@ -49,9 +49,16 @@ in
       kernelPackages = pkgs.linuxPackages_zen;
     };
 
-    environment.sessionVariables = {
-      # Equivalent to Nvidia low-latency mode
-      __GL_MaxFramesAllowed = "1";
+    environment = {
+      systemPackages = with pkgs; [
+        lsfg-vk
+        lsfg-vk-ui
+      ];
+
+      sessionVariables = {
+        # Equivalent to Nvidia low-latency mode
+        __GL_MaxFramesAllowed = "1";
+      };
     };
 
     programs.gamemode = {
