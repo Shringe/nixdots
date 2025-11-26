@@ -1,7 +1,7 @@
 {
   plugins.telescope.keymaps."<leader>fy" = "yank_history";
   plugins.yanky = {
-    enable = true;
+    enable = false;
     enableTelescope = true;
 
     settings = {
