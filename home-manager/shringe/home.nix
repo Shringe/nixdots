@@ -8,7 +8,7 @@
     desktop = {
       enable = true;
       # discord.enable = true;
-      kdeconnect.enable = false;
+      kdeconnect.enable = true;
       music.enable = true;
       browsers.enable = true;
       browsers.chromium.enable = true;
