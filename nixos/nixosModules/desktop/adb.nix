@@ -12,7 +12,7 @@ in
   options.nixosModules.desktop.adb = {
     enable = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
     };
 
     port = mkOption {
@@ -35,7 +35,8 @@ in
       };
 
       systemPackages = with pkgs.stable; [
-        # universal-android-debloater
+        scrcpy
+        universal-android-debloater
       ];
     };
   };

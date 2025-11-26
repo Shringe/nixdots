@@ -5,6 +5,7 @@ with lib;
     ./windowManagers
     ./adb.nix
     ./syncthing.nix
+    ./compat.nix
   ];
 
   options.nixosModules.desktop = {
