@@ -89,6 +89,7 @@ in
           (rp "wallos")
           (rp "paperless")
           (rp "searxng")
+          (rp "home")
         ];
 
         filtering = {

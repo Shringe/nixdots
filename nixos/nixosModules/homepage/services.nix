@@ -74,7 +74,8 @@ in
             };
           }
           ++ mkService "Wallos" docker.wallos { }
-          ++ mkService "SearXNG" server.services.searxng { };
+          ++ mkService "SearXNG" server.services.searxng { }
+          ++ mkService "Home Assistant" server.services.homeAssistant { };
       }
 
       {

@@ -3,6 +3,7 @@ with lib;
 {
   imports = [
     ./searxng
+    ./homeAssistant
     ./paperless.nix
     ./nextcloud.nix
     ./collabora.nix

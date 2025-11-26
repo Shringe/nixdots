@@ -10,6 +10,7 @@ let
 
   # Abstracted because google often breaks and I must switch to another google proxy
   googleWeight = 1.15;
+  braveWeight = 1.05;
 in
 {
   imports = [
@@ -74,7 +75,8 @@ in
           port = cfg.port;
           base_url = cfg.furl;
           bind_address = cfg.host;
-          limiter = false;
+          limiter = true;
+          link_token = true;
           public_instance = false;
           image_proxy = true;
           method = "GET";
@@ -117,6 +119,7 @@ in
         };
 
         engines = mapAttrsToList (name: value: { inherit name; } // value) {
+          # Google
           "startpage" = {
             disabled = true;
             weight = googleWeight;
@@ -132,14 +135,21 @@ in
             weight = googleWeight;
           };
 
+          # Brave
+          "brave" = {
+            disabled = true;
+            weight = braveWeight;
+          };
+
+          "mullvadleta brave" = {
+            disabled = false;
+            weight = braveWeight;
+          };
+
+          # Misc
           "mojeek" = {
             disabled = false;
             weight = 0.7;
-          };
-
-          "brave" = {
-            disabled = false;
-            weight = 1.05;
           };
 
           # Add more
@@ -190,12 +200,12 @@ in
           "emojipedia".disabled = false;
 
           # Wikipedia
-          "wikibooks".disabled = false;
-          "wikiquote".disabled = false;
-          "wikisource".disabled = false;
-          "wikispecies".disabled = false;
-          "wikiversity".disabled = false;
-          "wikivoyage".disabled = false;
+          "wikibooks".disabled = true;
+          "wikiquote".disabled = true;
+          "wikisource".disabled = true;
+          "wikispecies".disabled = true;
+          "wikiversity".disabled = true;
+          "wikivoyage".disabled = true;
         };
       };
     };
