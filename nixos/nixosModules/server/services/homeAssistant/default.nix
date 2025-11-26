@@ -14,7 +14,8 @@ in
 
     host = mkOption {
       type = types.str;
-      default = config.nixosModules.info.system.ips.local;
+      # default = config.nixosModules.info.system.ips.local;
+      default = "127.0.0.1";
     };
 
     port = mkOption {
@@ -45,68 +46,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.home-assistant = {
-      enable = true;
+    virtualisation.oci-containers.containers.homeassistant = {
+      image = "ghcr.io/home-assistant/home-assistant:stable";
+      # autoStart = true;
 
-      # Enables imperative configuration
-      config = null;
+      ports = [ "${toString cfg.port}:8123/tcp" ];
 
-      # config = {
-      #   default_config = {
-      #
-      #   };
-      #
-      #   http = {
-      #     server_host = cfg.host;
-      #     server_port = cfg.port;
-      #
-      #     use_x_forwarded_for = true;
-      #     trusted_proxies = [
-      #       cfg.host
-      #     ];
-      #   };
-      # };
+      # since no absolute path is given, it will be created in
+      # /var/lib/docker/volumes on the host
+      volumes = [ "home-assistant:/config" ];
 
-      # defaultIntegrations = mkForce [
-      #   "mobile_app"
-      #   "application_credentials"
-      #   "frontend"
-      #   "hardware"
-      #   "logger"
-      #   "network"
-      #   "system_health"
-      #   "automation"
-      #   "person"
-      #   "scene"
-      #   "script"
-      #   "tag"
-      #   "zone"
-      #   "counter"
-      #   "input_boolean"
-      #   "input_button"
-      #   "input_datetime"
-      #   "input_number"
-      #   "input_select"
-      #   "input_text"
-      #   "schedule"
-      #   "timer"
-      #   "backup"
-      # ];
-
-      extraPackages = ps: with ps; [ psycopg2 ];
-      # config.recorder.db_url = "postgresql://@/hass";
-      extraComponents = [ "isal" ];
+      extraOptions = [
+        "--network=host"
+      ];
     };
-
-    # services.postgresql = {
-    #   ensureDatabases = [ "hass" ];
-    #   ensureUsers = [
-    #     {
-    #       name = "hass";
-    #       ensureDBOwnership = true;
-    #     }
-    #   ];
-    # };
 
     services.nginx.virtualHosts."home.${domain}" = {
       useACMEHost = domain;
