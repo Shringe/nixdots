@@ -19,8 +19,10 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       cemu
-      torzu
       mesen
+
+      # TODO: fix build failure
+      # torzu
     ];
   };
 }

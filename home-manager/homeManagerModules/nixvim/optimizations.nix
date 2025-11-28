@@ -23,7 +23,8 @@
     # Currently shows ~12ms decrease with 5 plugins
     # 2025-08-09, I have more plugins now and it is almost a 3x speedup
     combinePlugins = {
-      enable = true;
+      # TODO: Fix nvim-dap collision
+      enable = false;
       standalonePlugins = [
         # Builds but don't actually work wihout unpacking
         "friendly-snippets"
