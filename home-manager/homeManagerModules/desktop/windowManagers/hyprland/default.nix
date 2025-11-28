@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  inputs,
   pkgs,
   ...
 }:
@@ -18,6 +17,7 @@ in
     ./hyprpaper.nix
     ./hyprpolkit.nix
     ./hyprshot.nix
+    ./plugins.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.hyprland = {
@@ -53,20 +53,11 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage =
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
       systemd = {
         enable = true;
         variables = [ "--all" ];
       };
-
-      plugins = with inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}; [
-        # hyprtrails
-        hyprexpo
-        hyprscrolling
-      ];
 
       settings = {
         "$mod" = "SUPER";
@@ -90,15 +81,6 @@ in
           "__GL_GSYNC_ALLOWED,1"
           "__GL_VRR_ALLOWED,1"
         ];
-
-        plugin = {
-          hyprtrails.color = rgb "base07";
-          hyprscrolling = {
-            fullscreen_on_one_column = true;
-            column_width = 0.7;
-            focus_fit_method = 1;
-          };
-        };
 
         # Mouse
         bindm = [
@@ -151,10 +133,6 @@ in
           ", Print, exec, hyprshot --mode region"
           "$mod, m, exec, hyprctl keyword general:layout master"
           "$mod, k, exec, hyprctl keyword general:layout dwindle"
-          "$mod, j, exec, hyprctl keyword general:layout scrolling"
-
-          # Plugins
-          "$mod, f, hyprexpo:expo, toggle"
 
           # Media
           ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
