@@ -58,12 +58,14 @@ in
 
     services.immich = {
       enable = true;
-      package = pkgs.stable.immich;
       host = cfg.host;
       port = cfg.port;
 
       redis.enable = true;
       mediaLocation = cfg.directory;
+
+      # TODO: enable this once magma enters the binary cache
+      machine-learning.enable = false;
     };
   };
 }

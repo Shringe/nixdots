@@ -45,11 +45,11 @@ in
     sops.secrets."gps/traccar" = { };
 
     # Unstable is currently broken and services.traccar.package does not exist for some reason
-    nixpkgs.overlays = [
-      (self: super: {
-        traccar = self.stable.traccar;
-      })
-    ];
+    # nixpkgs.overlays = [
+    #   (self: super: {
+    #     traccar = self.traccar;
+    #   })
+    # ];
 
     systemd.services.traccar.serviceConfig.PrivateUsers = mkForce false;
 

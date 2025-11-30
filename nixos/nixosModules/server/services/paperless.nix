@@ -4,7 +4,8 @@ let
   cfg = config.nixosModules.server.services.paperless;
 
   domain = config.nixosModules.reverseProxy.domain;
-in {
+in
+{
   options.nixosModules.server.services.paperless = {
     enable = mkOption {
       type = types.bool;
@@ -43,7 +44,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."server/services/paperless" = {};
+    sops.secrets."server/services/paperless" = { };
 
     services.paperless = {
       enable = true;
@@ -54,7 +55,10 @@ in {
       settings = {
         USE_X_FORWARD_PORT = true;
         USE_X_FORWARD_HOST = true;
-        PAPERLESS_PROXY_SSL_HEADER = [ "HTTP_X_FORWARDED_PROTO" "https" ];
+        PAPERLESS_PROXY_SSL_HEADER = [
+          "HTTP_X_FORWARDED_PROTO"
+          "https"
+        ];
 
         PAPERLESS_URL = cfg.furl;
         PAPERLESS_CSRF_TRUSTED_ORIGINS = cfg.furl;

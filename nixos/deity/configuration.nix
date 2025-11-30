@@ -62,6 +62,8 @@
     players.mpv.enable = true;
 
     server.enable = true;
+    # TODO: wait for binary cache
+    server.services.paperless.enable = false;
 
     kavita.enable = true;
     groceries.tandoor.enable = true;
