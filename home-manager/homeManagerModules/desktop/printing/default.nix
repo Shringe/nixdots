@@ -22,7 +22,8 @@ in
       kdePackages.skanlite
 
       # qt6 skanpage doesn't launch
-      stable.libsForQt5.skanpage
+      # stable.libsForQt5.skanpage
+      kdePackages.skanpage
     ];
   };
 }

@@ -2,8 +2,8 @@
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
@@ -55,8 +55,8 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/stylix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nur = {
@@ -70,8 +70,8 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
@@ -89,8 +89,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-stable,
-      nixpkgs-unstable,
       ...
     }@inputs:
     let
@@ -103,12 +101,12 @@
         inputs.nix-minecraft.overlay
 
         # Large overlay sets
-        (self: super: {
-          stable = import nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        })
+        # (self: super: {
+        #   stable = import nixpkgs-stable {
+        #     inherit system;
+        #     config.allowUnfree = true;
+        #   };
+        # })
 
         # Customized builds
         (self: super: {
@@ -128,18 +126,18 @@
           };
         })
 
-        # Frequently slow or unreliable builds
-        (self: super: {
-          opencv = self.stable.opencv;
-          jellyfin-media-player = self.stable.jellyfin-media-player;
-          jellyfin-tui = self.stable.jellyfin-tui;
-          jellyfin = self.stable.jellyfin;
-          homepage-dashboard = self.stable.homepage-dashboard;
-          lutris = self.stable.lutris;
-        })
+        # # Frequently slow or unreliable builds
+        # (self: super: {
+        #   opencv = self.stable.opencv;
+        #   jellyfin-media-player = self.stable.jellyfin-media-player;
+        #   jellyfin-tui = self.stable.jellyfin-tui;
+        #   jellyfin = self.stable.jellyfin;
+        #   homepage-dashboard = self.stable.homepage-dashboard;
+        #   lutris = self.stable.lutris;
+        # })
       ];
 
-      pkgs = import nixpkgs-unstable pkgConfig;
+      pkgs = import nixpkgs pkgConfig;
       pkgConfig = {
         inherit system overlays;
         config = {

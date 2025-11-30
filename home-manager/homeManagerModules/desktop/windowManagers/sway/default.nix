@@ -1,4 +1,9 @@
-{ config, lib, unstablePkgs, ... }:
+{
+  config,
+  lib,
+  unstablePkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.sway;
@@ -7,7 +12,8 @@ let
 
   displ1 = "HDMI-A-1";
   displ2 = "DP-1";
-in {
+in
+{
   imports = [
     ./swaylogout.nix
     ./swayidle.nix
@@ -118,7 +124,7 @@ in {
       swaynag.enable = true;
       config = rec {
         modifier = "Mod4";
-        terminal = "wezterm"; 
+        terminal = "wezterm";
         menu = "wofi --show drun";
 
         left = "n";
@@ -155,36 +161,97 @@ in {
         ];
 
         workspaceOutputAssign = [
-          { output = displ1; workspace = "1"; }
-          { output = displ1; workspace = "2"; }
-          { output = displ1; workspace = "3"; }
-          { output = displ1; workspace = "4"; }
-          { output = displ1; workspace = "5"; }
-          { output = displ1; workspace = "6"; }
-          { output = displ1; workspace = "7"; }
-          { output = displ1; workspace = "8"; }
-          { output = displ1; workspace = "9"; }
-          { output = displ1; workspace = "10"; }
+          {
+            output = displ1;
+            workspace = "1";
+          }
+          {
+            output = displ1;
+            workspace = "2";
+          }
+          {
+            output = displ1;
+            workspace = "3";
+          }
+          {
+            output = displ1;
+            workspace = "4";
+          }
+          {
+            output = displ1;
+            workspace = "5";
+          }
+          {
+            output = displ1;
+            workspace = "6";
+          }
+          {
+            output = displ1;
+            workspace = "7";
+          }
+          {
+            output = displ1;
+            workspace = "8";
+          }
+          {
+            output = displ1;
+            workspace = "9";
+          }
+          {
+            output = displ1;
+            workspace = "10";
+          }
 
-          { output = displ2; workspace = "11"; }
-          { output = displ2; workspace = "12"; }
-          { output = displ2; workspace = "13"; }
-          { output = displ2; workspace = "14"; }
-          { output = displ2; workspace = "15"; }
-          { output = displ2; workspace = "16"; }
-          { output = displ2; workspace = "17"; }
-          { output = displ2; workspace = "18"; }
-          { output = displ2; workspace = "19"; }
-          { output = displ2; workspace = "20"; }
+          {
+            output = displ2;
+            workspace = "11";
+          }
+          {
+            output = displ2;
+            workspace = "12";
+          }
+          {
+            output = displ2;
+            workspace = "13";
+          }
+          {
+            output = displ2;
+            workspace = "14";
+          }
+          {
+            output = displ2;
+            workspace = "15";
+          }
+          {
+            output = displ2;
+            workspace = "16";
+          }
+          {
+            output = displ2;
+            workspace = "17";
+          }
+          {
+            output = displ2;
+            workspace = "18";
+          }
+          {
+            output = displ2;
+            workspace = "19";
+          }
+          {
+            output = displ2;
+            workspace = "20";
+          }
         ];
 
-        bars = [];
+        bars = [ ];
 
         keybindings = with config.wayland.windowManager.sway.config; {
           # Window Manager
           # "floating_modifier ${mod}" = "normal";
           "${mod}+w" = "kill";
-          "${mod}+Shift+q" = "d the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
+          "${mod}+Shift+q" =
+            "d the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 
           # Media
           "XF86AudioPlay" = "exec playerctl play-pause";
@@ -196,7 +263,6 @@ in {
           "--locked XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
           "--locked XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
           "--locked XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
-
 
           # Applications
           "${mod}+Return" = "exec ${terminal}";
@@ -302,7 +368,7 @@ in {
           right = cfg.proportions.gaps.outer;
 
           inner = cfg.proportions.gaps.inner;
-          # outer = cfg.proportions.gaps.outer; 
+          # outer = cfg.proportions.gaps.outer;
         };
 
         window = {

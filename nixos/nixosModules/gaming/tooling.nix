@@ -1,4 +1,9 @@
-{ config, lib, pkgs, pkgs-stable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.nixosModules.gaming.tooling;
 in
@@ -18,21 +23,22 @@ in
     pkgs.pulsemixer
   ];
 
-  nixpkgs.config = lib.mkIf cfg.enable { 
+  nixpkgs.config = lib.mkIf cfg.enable {
     packageOverrides = pkgs: {
       steam = pkgs.steam.override {
-        extraPkgs = pkgs: with pkgs; [
-          xorg.libXcursor
-          xorg.libXi
-          xorg.libXinerama
-          xorg.libXScrnSaver
-          libpng
-          libpulseaudio
-          libvorbis
-          stdenv.cc.cc.lib
-          libkrb5
-          keyutils
-        ];
+        extraPkgs =
+          pkgs: with pkgs; [
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXinerama
+            xorg.libXScrnSaver
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            libkrb5
+            keyutils
+          ];
       };
     };
   };

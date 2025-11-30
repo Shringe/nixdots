@@ -19,7 +19,8 @@ in
   options.nixosModules.server.services.minecraft = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.server.services.enable;
+      # default = config.nixosModules.server.services.enable;
+      default = false;
     };
 
     host = mkOption {

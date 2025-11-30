@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.jellyfin.client;
@@ -10,7 +15,8 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      jellyfin-media-player
+      # TODO: once in cache
+      # jellyfin-media-player
       jellyfin-tui
     ];
   };
