@@ -143,6 +143,7 @@
           jellyfin-media-player = self.old.jellyfin-media-player;
           immich-machine-learning = self.old.immich-machine-learning;
           universal-android-debloater = self.old.universal-android-debloater;
+          searxng = self.old.searxng;
         })
       ];
 
