@@ -101,6 +101,7 @@ in
           (mkMonitor "Wallos" docker.wallos)
           (mkMonitor "Paperless" server.services.paperless)
           (mkMonitor "Collabora" server.services.collabora)
+          (mkMonitor "SearXNG" server.services.searxng)
           (mkMonitor "Home Assistant" server.services.homeAssistant)
         ];
       };
