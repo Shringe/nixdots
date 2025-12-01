@@ -104,7 +104,7 @@
 ;; Defaults
 (defvar
   default colemak_dh_hrms
-  default_wide colemak_dh_hrms_wide
+  default_wide new_colemak_dh_hrms_wide_base
 )
 
 ;; Timings
