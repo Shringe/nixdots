@@ -17,12 +17,12 @@ in
 
     auto-cpufreq = mkOption {
       type = types.bool;
-      default = cfg.enable;
+      default = false;
     };
 
     tlp = mkOption {
       type = types.bool;
-      default = false;
+      default = cfg.enable;
     };
   };
 
@@ -32,7 +32,7 @@ in
       powertop.enable = true;
     };
 
-    systemd.sleep.extraConfig = "HibernateDelaySec=90min";
+    systemd.sleep.extraConfig = "HibernateDelaySec=15min";
 
     services = {
       thermald.enable = true; # Prevents overheating on Intel
