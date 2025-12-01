@@ -23,14 +23,13 @@
     # Currently shows ~12ms decrease with 5 plugins
     # 2025-08-09, I have more plugins now and it is almost a 3x speedup
     combinePlugins = {
-      # TODO: Fix nvim-dap collision
-      enable = false;
+      enable = true;
       standalonePlugins = [
         # Builds but don't actually work wihout unpacking
         "friendly-snippets"
         "avante.nvim"
 
-        # All three conflict with eachother ; Two must me unpacked
+        # All three conflict with eachother ; Two must be unpacked
         "nvim-tree.lua"
         # "blink.cmp"
         "codecompanion.nvim"
