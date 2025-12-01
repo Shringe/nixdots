@@ -185,6 +185,9 @@ in
           "$mod CTRL, o, movewindow, r"
           "$mod CTRL, i, movewindow, u"
           "$mod CTRL, e, movewindow, d"
+
+          "$mod, code:19, workspace, 10"
+          "$mod SHIFT, code:19, movetoworkspace, 10"
         ]
         ++ (
           # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
@@ -266,10 +269,12 @@ in
 
         exec-once = [
           "[workspace 2 silent] zen-twilight"
+          "[workspace 3 silent] wezterm"
           "[workspace 6 silent] steam"
           "[workspace 7 silent] wezterm start jellyfin-tui"
-          "[workspace 8 silent] joplin-desktop"
+          "[workspace 8 silent] nheko"
           "[workspace 9 silent] thunderbird"
+          "[workspace 10 silent] joplin-desktop"
         ];
 
         workspace = [
@@ -283,6 +288,7 @@ in
           "7, monitor:$d2, persistent:true"
           "8, monitor:$d2, persistent:true"
           "9, monitor:$d2, persistent:true"
+          "10, monitor:$d2, persistent:true"
         ];
 
         windowrulev2 = [
