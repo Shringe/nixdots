@@ -8,7 +8,7 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland;
   rgb = color: "rgb(${config.lib.stylix.colors.${color}})";
-  rgba = color: "rgba(${config.lib.stylix.colors.${color}}90)";
+  # rgba = color: "rgba(${config.lib.stylix.colors.${color}}90)";
 in
 {
   imports = [
@@ -55,7 +55,6 @@ in
       swayosd.enable = true;
       dolphin.enable = true;
       systemd.enable = true;
-      wlogout.enable = true;
       wluma.enable = true;
     };
 
@@ -170,7 +169,7 @@ in
 
           # Wofi
           "$mod, s, exec, wofi --show drun"
-          "$mod, x, exec, wlogout"
+          # "$mod, x, exec, wofi-power-menu"
           "$mod, c, exec, wofi-emoji"
           "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
