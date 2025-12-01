@@ -58,6 +58,7 @@ in
 
       extraOptions = [
         "--network=host"
+        "--device=/dev/ttyUSB0"
       ];
     };
 
