@@ -206,6 +206,7 @@ in
           "wikispecies".disabled = true;
           "wikiversity".disabled = true;
           "wikivoyage".disabled = true;
+          "wikidata".disabled = true;
         };
       };
     };
