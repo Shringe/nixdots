@@ -34,6 +34,9 @@
     nameservers = [ config.nixosModules.info.system.ips.local ];
   };
 
+  # Useful for filtering out failed builds from source
+  nix.settings.max-jobs = 1;
+
   nixosModules = {
     info.system = {
       ips.local = "192.168.0.165";
@@ -62,6 +65,7 @@
     players.mpv.enable = true;
 
     server.enable = true;
+
     # TODO: wait for binary cache
     server.services.paperless.enable = false;
 

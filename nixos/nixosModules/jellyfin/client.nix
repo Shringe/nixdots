@@ -15,8 +15,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      # TODO: once in cache
-      # jellyfin-media-player
+      jellyfin-media-player
       jellyfin-tui
     ];
   };
