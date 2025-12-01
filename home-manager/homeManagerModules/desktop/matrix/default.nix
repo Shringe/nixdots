@@ -24,7 +24,7 @@ in
 
     enableService = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Enable user service for starting prefferd client in background";
     };
   };
