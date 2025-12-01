@@ -24,6 +24,11 @@ with lib;
       office.enable = true;
       windowManagers = {
         enable = true;
+        hyprland.monitors = {
+          primary = "HDMI-A-1";
+          secondary = "DP-1";
+        };
+
         utils = {
           swayidle.suspend = false;
           openrgb.enable = true;
