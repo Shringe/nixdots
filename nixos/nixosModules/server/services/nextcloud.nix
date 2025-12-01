@@ -95,6 +95,7 @@ in
     };
 
     systemd.services.nextcloud-setup.serviceConfig = {
+      RemainAfterExit = true; # Prevent it from running on every nixos switch
       RequiresMountsFor = [ cfg.directory ];
     };
   };
