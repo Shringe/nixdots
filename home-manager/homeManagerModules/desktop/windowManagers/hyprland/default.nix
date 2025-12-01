@@ -25,6 +25,18 @@ in
       type = types.bool;
       default = config.homeManagerModules.desktop.windowManagers.enable;
     };
+
+    monitors = {
+      primary = mkOption {
+        type = types.str;
+        default = "eDP-1";
+      };
+
+      secondary = mkOption {
+        type = types.str;
+        default = cfg.monitors.primary;
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -61,8 +73,9 @@ in
 
       settings = {
         "$mod" = "SUPER";
-        "$d1" = "HDMI-A-1";
-        "$d2" = "DP-1";
+        "$d1" = cfg.monitors.primary;
+        "$d2" = cfg.monitors.secondary;
+
         experimental.xx_color_management_v4 = "true";
         misc = {
           enable_swallow = true;
@@ -223,7 +236,7 @@ in
             vrr = 1;
           }
           {
-            output = "$d2";
+            output = "DP-1";
             mode = "2560x1440@165";
             position = "auto-left";
             scale = 1;
@@ -231,7 +244,7 @@ in
             vrr = 2;
           }
           {
-            output = "$d1";
+            output = "HDMI-A-1";
             mode = "3440x1440@175";
             position = "0x0";
             scale = 1;
@@ -252,6 +265,8 @@ in
         ];
 
         exec-once = [
+          "[workspace 2 silent] zen-twilight"
+          "[workspace 6 silent] steam"
           "[workspace 7 silent] wezterm start jellyfin-tui"
           "[workspace 8 silent] joplin-desktop"
           "[workspace 9 silent] thunderbird"
