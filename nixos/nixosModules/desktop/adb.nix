@@ -36,8 +36,7 @@ in
 
       systemPackages = with pkgs; [
         scrcpy
-        # TODO: once in cache
-        # universal-android-debloater
+        universal-android-debloater
       ];
     };
   };

@@ -63,9 +63,6 @@ in
 
       redis.enable = true;
       mediaLocation = cfg.directory;
-
-      # TODO: enable this once magma enters the binary cache
-      machine-learning.enable = false;
     };
   };
 }

@@ -3,7 +3,7 @@
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
@@ -89,6 +89,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-old,
       ...
     }@inputs:
     let
@@ -101,12 +102,12 @@
         inputs.nix-minecraft.overlay
 
         # Large overlay sets
-        # (self: super: {
-        #   stable = import nixpkgs-stable {
-        #     inherit system;
-        #     config.allowUnfree = true;
-        #   };
-        # })
+        (self: super: {
+          old = import nixpkgs-old {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        })
 
         # Customized builds
         (self: super: {
@@ -135,6 +136,14 @@
         #   homepage-dashboard = self.stable.homepage-dashboard;
         #   lutris = self.stable.lutris;
         # })
+
+        # Broken builds
+        (self: super: {
+          jellyfin = self.old.jellyfin;
+          jellyfin-media-player = self.old.jellyfin-media-player;
+          immich-machine-learning = self.old.immich-machine-learning;
+          universal-android-debloater = self.old.universal-android-debloater;
+        })
       ];
 
       pkgs = import nixpkgs pkgConfig;
