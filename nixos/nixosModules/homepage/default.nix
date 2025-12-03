@@ -44,6 +44,11 @@ in
       type = types.str;
       default = "http://${config.nixosModules.info.system.ips.local}:${toString cfg.port}";
     };
+
+    furl = mkOption {
+      type = types.str;
+      default = "https://dash.${config.nixosModules.reverseProxy.domain}";
+    };
   };
 
   config = mkIf cfg.enable {
