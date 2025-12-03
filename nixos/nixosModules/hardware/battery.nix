@@ -17,12 +17,12 @@ in
 
     auto-cpufreq = mkOption {
       type = types.bool;
-      default = false;
+      default = cfg.enable;
     };
 
     tlp = mkOption {
       type = types.bool;
-      default = cfg.enable;
+      default = false;
     };
   };
 
@@ -70,7 +70,7 @@ in
             turbo = "auto";
             enable_thresholds = true;
             start_threshold = 20;
-            stop_threshold = 1;
+            stop_threshold = 80;
           };
         };
       };
