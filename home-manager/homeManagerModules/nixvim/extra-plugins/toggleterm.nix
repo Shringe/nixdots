@@ -1,4 +1,9 @@
 let
+  mode = [
+    # "t"
+    "n"
+  ];
+
   mkTuiAppLua = cmd: ''
     local ${cmd} = Terminal:new({
       cmd = "${cmd}",
@@ -11,12 +16,8 @@ let
   '';
 
   mkTuiAppKey = app: key: {
-    mode = [
-      "t"
-      "n"
-    ];
+    inherit mode key;
 
-    key = key;
     action = "<cmd>lua _${app}_toggle()<CR>";
   };
 in
@@ -38,10 +39,7 @@ in
 
     keymaps = [
       {
-        mode = [
-          "t"
-          "n"
-        ];
+        inherit mode;
 
         key = "<leader>tt";
         action = "<cmd>ToggleTerm<CR>";

@@ -81,7 +81,7 @@
       {
         # Esc in terminal mode
         mode = "t";
-        key = "<ESC>";
+        key = "n<ESC>";
         action = "<C-\\><C-n>";
         options.silent = true;
       }
