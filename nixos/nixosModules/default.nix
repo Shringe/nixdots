@@ -47,6 +47,7 @@ with lib;
     ./locale.nix
     ./maintenance.nix
     ./reporting.nix
+    ./tools.nix
   ];
 
   options.nixosModules = {
