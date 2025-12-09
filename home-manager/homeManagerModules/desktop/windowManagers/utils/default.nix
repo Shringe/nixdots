@@ -20,5 +20,6 @@
     ./swaybg.nix
     ./wluma.nix
     ./blueman.nix
+    ./kclock.nix
   ];
 }
