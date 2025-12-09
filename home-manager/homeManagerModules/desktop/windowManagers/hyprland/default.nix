@@ -56,6 +56,7 @@ in
       dolphin.enable = true;
       systemd.enable = true;
       wluma.enable = true;
+      kclock.enable = true;
     };
 
     systemd.user.targets."hyprland-session" = {
