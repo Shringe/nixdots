@@ -6,6 +6,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.wluma;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.wluma = {
@@ -18,19 +19,11 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.wluma = {
       Unit = {
-        PartOf = mkForce [
-          "wlroots-session.target"
-          "hyprland-session.target"
-        ];
-        After = mkForce [
-          "wlroots-session.target"
-          "hyprland-session.target"
-        ];
+        PartOf = mkForce targets;
+        After = mkForce targets;
       };
-      Install.WantedBy = mkForce [
-        "wlroots-session.target"
-        "hyprland-session.target"
-      ];
+
+      Install.WantedBy = mkForce targets;
     };
 
     services.wluma.enable = true;

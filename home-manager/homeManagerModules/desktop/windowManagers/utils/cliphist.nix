@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.cliphist;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.cliphist = {
@@ -27,10 +28,7 @@ in
     services.cliphist = mkIf cfg.enable {
       enable = true;
       allowImages = true;
-      systemdTargets = [
-        "hyprland-session.target"
-        "wlroots-session.target"
-      ];
+      systemdTargets = targets;
 
       extraOptions = [
         "-max-items"

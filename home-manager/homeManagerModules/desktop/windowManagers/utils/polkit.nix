@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.polkit;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.polkit = {
@@ -13,18 +14,11 @@ in
 
   config = mkIf cfg.enable {
     systemd.user.services.polkit-gnome = {
-      Install.WantedBy = mkForce [
-        "wlroots-session.target"
-      ];
+      Install.WantedBy = mkForce targets;
 
       Unit = {
-        After = mkForce [
-          "wlroots-session.target"
-        ];
-
-        PartOf = mkForce [
-          "wlroots-session.target"
-        ];
+        After = mkForce targets;
+        PartOf = mkForce targets;
       };
     };
 

@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.kclock;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.kclock = {
@@ -24,8 +25,8 @@ in
     systemd.user.services.kclockd = {
       Unit = {
         Description = "Runs kclock daemon";
-        PartOf = [ config.wayland.systemd.target ];
-        After = [ config.wayland.systemd.target ];
+        PartOf = targets;
+        After = targets;
         ConditionEnvironment = "WAYLAND_DISPLAY";
       };
 
