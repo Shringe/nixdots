@@ -41,7 +41,8 @@ in
   options.nixosModules.boot.graphical.regreet = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.boot.graphical.enable;
+      # default = config.nixosModules.boot.graphical.enable;
+      default = false;
     };
   };
 
