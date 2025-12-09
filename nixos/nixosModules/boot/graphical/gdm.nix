@@ -22,6 +22,10 @@ in
 
     services.displayManager.gdm = {
       enable = true;
+      wayland = true;
+
+      # Should be handled by systemd an other system services like tlp?
+      autoSuspend = false;
     };
   };
 }
