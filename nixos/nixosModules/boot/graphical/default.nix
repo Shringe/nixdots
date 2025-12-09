@@ -7,6 +7,7 @@ with lib;
     ./regreet.nix
     ./plymouth.nix
     ./sddm.nix
+    ./gdm.nix
   ];
 
   options.nixosModules.boot.graphical = {
