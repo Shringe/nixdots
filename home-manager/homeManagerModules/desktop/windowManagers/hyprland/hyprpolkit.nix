@@ -11,7 +11,8 @@ in
   options.homeManagerModules.desktop.windowManagers.hyprland.hyprpolkit = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.hyprland.enable;
+      # default = config.homeManagerModules.desktop.windowManagers.hyprland.enable;
+      default = false;
     };
   };
 
