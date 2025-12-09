@@ -21,7 +21,7 @@ in
       kdePackages.kclock
     ];
 
-    systemd.user.services.kclock = {
+    systemd.user.services.kclockd = {
       Unit = {
         Description = "Runs kclock daemon";
         PartOf = [ config.wayland.systemd.target ];
