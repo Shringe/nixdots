@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.swaync;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
   scripts = config.homeManagerModules.desktop.windowManagers.utils.scripts;
 
   serviceToggle = pkgs.writeShellApplication {
@@ -37,21 +38,11 @@ in
     ];
 
     systemd.user.services.swaync = {
-      Install.WantedBy = mkForce [
-        "wlroots-session.target"
-        "hyprland-session.target"
-      ];
+      Install.WantedBy = mkForce targets;
 
       Unit = {
-        After = mkForce [
-          "wlroots-session.target"
-          "hyprland-session.target"
-        ];
-
-        PartOf = mkForce [
-          "wlroots-session.target"
-          "hyprland-session.target"
-        ];
+        After = mkForce targets;
+        PartOf = mkForce targets;
       };
 
       Service.Environment =

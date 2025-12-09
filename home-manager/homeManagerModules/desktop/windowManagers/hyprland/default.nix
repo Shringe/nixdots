@@ -49,12 +49,16 @@ in
     ];
 
     homeManagerModules.desktop.windowManagers.utils = {
+      systemd = {
+        enable = true;
+        waylandTargets = [ "hyprland-session.target" ];
+      };
+
       wofi.enable = true;
       swaync.enable = true;
       cliphist.enable = true;
       swayosd.enable = true;
       dolphin.enable = true;
-      systemd.enable = true;
       wluma.enable = true;
       kclock.enable = true;
       polkit.enable = true;

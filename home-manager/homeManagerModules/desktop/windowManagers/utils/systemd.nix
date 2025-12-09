@@ -9,6 +9,11 @@ in
       type = types.bool;
       default = false;
     };
+
+    waylandTargets = mkOption {
+      type = types.listOf types.str;
+      default = [ config.wayland.systemd.target ];
+    };
   };
 
   config = mkIf cfg.enable {
