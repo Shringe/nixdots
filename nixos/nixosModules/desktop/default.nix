@@ -6,6 +6,7 @@ with lib;
     ./adb.nix
     ./syncthing.nix
     ./compat.nix
+    ./gpm.nix
   ];
 
   options.nixosModules.desktop = {
