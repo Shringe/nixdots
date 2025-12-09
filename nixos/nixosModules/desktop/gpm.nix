@@ -11,7 +11,7 @@ in
   options.nixosModules.desktop.gpm = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = config.nixosModules.desktop.enable;
     };
   };
 

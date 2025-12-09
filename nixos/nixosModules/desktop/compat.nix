@@ -12,7 +12,7 @@ in
   options.nixosModules.desktop.compat = {
     enable = mkOption {
       type = types.bool;
-      default = true;
+      default = config.nixosModules.desktop.enable;
       description = "Compatibility tools like nix-ld";
     };
   };
