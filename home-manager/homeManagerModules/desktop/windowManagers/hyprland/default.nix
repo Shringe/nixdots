@@ -151,6 +151,7 @@ in
           ", Print, exec, hyprshot --mode region"
           "$mod, m, exec, hyprctl keyword general:layout master"
           "$mod, k, exec, hyprctl keyword general:layout dwindle"
+          "$mod, v, exec, swaync-client -t -sw"
 
           # Media
           ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
@@ -306,7 +307,7 @@ in
 
           blur = {
             enabled = true;
-            size = 6;
+            size = 7;
             passes = 3;
           };
 
@@ -324,16 +325,45 @@ in
 
           "col.active_border" = mkForce "$bactive";
         };
-
-        animations = {
-          animation = [
-            "workspaces, 1, 5, default"
-            "windows, 1, 5, default"
-            "fade, 1, 5, default"
-            "layers, 1, 5, default"
-          ];
-        };
       };
+
+      # https://github.com/HyDE-Project/HyDE/blob/master/Configs/.config/hypr/animations/diablo-1.conf
+      extraConfig = ''
+        layerrule = blur, swaync-control-center
+        layerrule = blur, swaync-notification-window
+        layerrule = ignorezero, swaync-control-center
+        layerrule = ignorezero, swaync-notification-window
+        layerrule = ignorealpha 0.5, swaync-control-center
+        layerrule = ignorealpha 0.5, swaync-notification-window
+
+        animations {
+            enabled = 1
+            bezier = default, 0.05, 0.9, 0.1, 1.05
+            bezier = wind, 0.05, 0.9, 0.1, 1.05
+            bezier = overshot, 0.13, 0.99, 0.29, 1.08
+            bezier = liner, 1, 1, 1, 1
+            bezier = bounce, 0.4, 0.9, 0.6, 1.0
+            bezier = snappyReturn, 0.4, 0.9, 0.6, 1.0
+
+            bezier = slideInFromRight, 0.5, 0.0, 0.5, 1.0
+            animation = windows, 1, 5,  snappyReturn, slidevert
+            animation = windowsIn, 1, 5, snappyReturn, slidevert right 
+          
+            animation = windowsOut, 1, 5, snappyReturn, slide 
+            animation = windowsMove, 1, 6, bounce, slide
+            animation = layersOut, 1, 5, bounce, slidevert right
+            animation = fadeIn, 1, 10, default
+            animation = fadeOut, 1, 10, default
+            animation = fadeSwitch, 1, 10, default
+            animation = fadeShadow, 1, 10, default
+            animation = fadeDim, 1, 10, default
+            animation = fadeLayers, 1, 10, default
+            animation = workspaces, 1, 7, overshot, slidevert
+            animation = border, 1, 1, liner
+            animation = layers, 1, 4, bounce, slidevert right
+            animation = borderangle, 1, 30, liner, loop
+        } 
+      '';
     };
   };
 }

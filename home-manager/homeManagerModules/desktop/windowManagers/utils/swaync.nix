@@ -33,9 +33,9 @@ in
   config = mkIf cfg.enable {
     stylix.targets.swaync.enable = false;
 
-    home.packages = with pkgs; [
-      swaynotificationcenter
-    ];
+    # home.packages = with pkgs; [
+    # swaynotificationcenter
+    # ];
 
     systemd.user.services.swaync = {
       Install.WantedBy = mkForce targets;
@@ -76,9 +76,9 @@ in
         notification-body-image-height = 100;
         notification-body-image-width = 200;
 
-        timeout = 3;
-        timeout-low = 2;
-        timeout-critical = 5;
+        timeout = 8;
+        timeout-low = 4;
+        timeout-critical = 0;
 
         normal_window = true;
 
@@ -245,12 +245,13 @@ in
               font-family: JetBrainsMono NFP;
               font-weight: bold;
               font-size: 14px;
+              border-radius: 8px;
           }
 
 
           .control-center .notification-row:focus,
           .control-center .notification-row:hover {
-              opacity: 1;
+              # opacity: 1;
               background: @noti-bg-darker;
           }
 
@@ -261,17 +262,22 @@ in
           }
 
           .notification {
-              background: transparent;
+              background: @base00;
+              border-radius: 8px;
+              font-size: 14px;
+
               margin: 0px;
-              border-radius: 0px;
+              padding: 8px;
+              padding-top: 6px;
+              padding-bottom: 12px;
           }
 
-          .notification-content {
-              background: @cc-bg;
-              padding: 7px;
-              border-radius: 0px;
-              margin: 0;
-          }
+          # .notification-content {
+          #     background: @cc-bg;
+          #     padding: 7px;
+          #     border-radius: 8px;
+          #     margin: 0;
+          # }
 
           .close-button {
               background: @accent;
@@ -348,7 +354,7 @@ in
           }
 
           .control-center-list-placeholder {
-              opacity: .5;
+              # opacity: .5;
           }
 
           .widget-title {

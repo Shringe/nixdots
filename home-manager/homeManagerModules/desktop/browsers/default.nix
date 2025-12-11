@@ -1,9 +1,9 @@
 # { lib, config, ... }:
 {
   imports = [
+    ./zen
     ./firefox.nix
     ./chromium.nix
-    ./zen.nix
   ];
 
   options = {
