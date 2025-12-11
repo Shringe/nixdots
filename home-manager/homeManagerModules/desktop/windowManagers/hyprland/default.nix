@@ -151,6 +151,7 @@ in
           ", Print, exec, hyprshot --mode region"
           "$mod, m, exec, hyprctl keyword general:layout master"
           "$mod, k, exec, hyprctl keyword general:layout dwindle"
+          "$mod, v, exec, swaync-client -t -sw"
 
           # Media
           ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
@@ -306,7 +307,7 @@ in
 
           blur = {
             enabled = true;
-            size = 6;
+            size = 7;
             passes = 3;
           };
 
@@ -328,6 +329,13 @@ in
 
       # https://github.com/HyDE-Project/HyDE/blob/master/Configs/.config/hypr/animations/diablo-1.conf
       extraConfig = ''
+        layerrule = blur, swaync-control-center
+        layerrule = blur, swaync-notification-window
+        layerrule = ignorezero, swaync-control-center
+        layerrule = ignorezero, swaync-notification-window
+        layerrule = ignorealpha 0.5, swaync-control-center
+        layerrule = ignorealpha 0.5, swaync-notification-window
+
         animations {
             enabled = 1
             bezier = default, 0.05, 0.9, 0.1, 1.05
