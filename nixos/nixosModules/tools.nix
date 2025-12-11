@@ -22,6 +22,8 @@ in
       stressapptest
       cargo
       usbutils
+      libnotify
+      cmatrix
     ];
   };
 }
