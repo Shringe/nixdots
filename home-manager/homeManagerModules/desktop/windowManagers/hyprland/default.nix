@@ -176,6 +176,7 @@ in
 
           # Wofi
           "$mod, s, exec, wofi --show drun"
+          "$mod, p, exec, wofi-hyprswitch"
           # "$mod, x, exec, wofi-power-menu"
           "$mod, c, exec, wofi-emoji"
           "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"

@@ -7,6 +7,64 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.wofi;
+
+  wofi-hyprswitch = pkgs.writers.writeNuBin "wofi-hyprswitch" { } ''
+    def get_window_info [] {
+      ${pkgs.hyprland}/bin/hyprctl clients
+    }
+
+    def select_window [] {
+      ${pkgs.hyprland}/bin/hyprctl dispatch focuswindow $"pid:($in)" | ignore
+    }
+
+    def prompt_wofi [] {
+      $in | str join "\n" | ${pkgs.wofi}/bin/wofi --show=dmenu
+    }
+
+    def parse_window_info [] {
+      $in | lines | reduce --fold [] {|line, acc|
+        if ($line | is-empty) {
+          $acc
+        } else if ($line | str starts-with "Window ") {
+          let parts = $line | parse "Window {address} -> {info}:"
+          $acc | append {
+            address: $parts.address.0
+            info: $parts.info.0
+          }
+        } else {
+          let field = $line | parse "{key}: {value}"
+          if ($field | is-empty) {
+            $acc
+          } else {
+            $acc | update ($acc | length | $in - 1) {
+              $in | insert ($field.key.0 | str trim) ($field.value.0 | str trim)
+            }
+          }
+        }
+      }
+    }
+
+    def main [--class_in_name] {
+      let info = get_window_info | parse_window_info
+
+      let table = $info | each {
+        let name = if $class_in_name { 
+          $"($in.class): ($in.info)"
+        } else {
+          $in.info 
+        }
+
+        {
+          name: $name
+          pid: $in.pid
+        }
+      }
+
+      let chosen_name = $table | get name | prompt_wofi
+      let chosen_pid = $table | where name == $chosen_name | first | get pid
+      $chosen_pid | select_window
+    }
+  '';
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.wofi = {
@@ -24,10 +82,8 @@ in
       mkIf cfg.enable [
         wofi-emoji
         wofi-power-menu
+        wofi-hyprswitch
       ];
-
-    # xdg.configFile."wofi-power-menu".text = ''
-    # '';
 
     programs.wofi = mkIf cfg.enable {
       enable = true;
