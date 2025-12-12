@@ -29,6 +29,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    elephant.url = "github:abenz1267/elephant";
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -182,19 +188,23 @@
                   "flakes"
                 ];
 
-                substituters = [
-                  "https://hyprland.cachix.org"
-                  "https://install.determinate.systems"
-                ];
+                http-connections = 128;
+                max-substitution-jobs = 128;
 
-                trusted-substituters = [
-                  "https://hyprland.cachix.org"
-                  "https://install.determinate.systems"
+                substituters = [
+                  "https://install.determinate.systems?priority=2"
+                  "https://nix-community.cachix.org?priority=3"
+                  "https://hyprland.cachix.org?priority=4"
+                  "https://walker.cachix.org?priority=6"
+                  "https://walker-git.cachix.org?priority=8"
                 ];
 
                 trusted-public-keys = [
-                  "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
                   "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+                  "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+                  "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+                  "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+                  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
                 ];
               };
             }

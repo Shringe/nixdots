@@ -54,7 +54,8 @@ in
         waylandTargets = [ "hyprland-session.target" ];
       };
 
-      wofi.enable = true;
+      # wofi.enable = true;
+      walker.enable = true;
       swaync.enable = true;
       cliphist.enable = true;
       swayosd.enable = true;
@@ -177,12 +178,20 @@ in
           "$mod, t, fullscreen"
 
           # Wofi
-          "$mod, s, exec, wofi --show drun"
-          "$mod, p, exec, wofi-hyprswitch"
-          # "$mod, x, exec, wofi-power-menu"
-          "$mod, x, exec, wlogout"
-          "$mod, c, exec, wofi-emoji"
-          "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+          # "$mod, s, exec, wofi --show drun"
+          # "$mod, p, exec, wofi-hyprswitch"
+          # # "$mod, x, exec, wofi-power-menu"
+          # "$mod, x, exec, wlogout"
+          # "$mod, c, exec, wofi-emoji"
+          # "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+
+          # Walker
+          "$mod, s, exec, nc -U /run/user/1000/walker/walker.sock"
+          # "$mod, p, exec, wofi-hyprswitch"
+          # # "$mod, x, exec, wofi-power-menu"
+          # "$mod, x, exec, wlogout"
+          # "$mod, c, exec, wofi-emoji"
+          # "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
           # Window focus
           "$mod, n, movefocus, l"
