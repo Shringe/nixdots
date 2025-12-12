@@ -63,6 +63,7 @@ in
       kclock.enable = true;
       polkit.enable = true;
       hyprlock.enable = true;
+      wlogout.enable = true;
     };
 
     systemd.user.targets."hyprland-session" = {
@@ -179,6 +180,7 @@ in
           "$mod, s, exec, wofi --show drun"
           "$mod, p, exec, wofi-hyprswitch"
           # "$mod, x, exec, wofi-power-menu"
+          "$mod, x, exec, wlogout"
           "$mod, c, exec, wofi-emoji"
           "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
