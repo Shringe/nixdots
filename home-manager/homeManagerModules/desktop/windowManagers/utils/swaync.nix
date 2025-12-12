@@ -57,6 +57,7 @@ in
             hyprlock
             wlogout
             swaynotificationcenter
+            systemd
           ]
         }";
     };
@@ -139,11 +140,11 @@ in
               }
               # {
               #   label = "󰜉";
-              #   command = "systemctl reboot";
+              #   command = "systemvctl reboot";
               # }
               {
                 label = "󰌾";
-                command = "/run/system/current/shyprlock";
+                command = "loginctl lock-session";
               }
               {
                 label = "󰍃";
@@ -465,17 +466,17 @@ in
 
           .widget-buttons-grid>flowbox>flowboxchild>button {
               margin: 0;
-              padding: 12px 36px;
+              padding: 8px 36px;
               background: @cc-bg;
-              border-radius: 5px;
+              border-radius: 12px;
               color: @text-color;
           }
 
           .toggle:checked {
               margin: 0;
-              padding: 12px 36px;
+              padding: 8px 36px;
               background: @accent-hover;
-              border-radius: 5px;
+              border-radius: 12px;
               color: @text-color;
           }
 
