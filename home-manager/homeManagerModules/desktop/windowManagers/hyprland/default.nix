@@ -37,6 +37,12 @@ in
         default = cfg.monitors.primary;
       };
     };
+
+    uid = mkOption {
+      type = types.int;
+      default = 1000;
+      description = "Used to start walker faster via directly querying the unix socket";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -186,7 +192,7 @@ in
           # "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
           # Walker
-          "$mod, s, exec, nc -U /run/user/1000/walker/walker.sock"
+          "$mod, s, exec, nc -U /run/user/${toString cfg.uid}/walker/walker.sock"
           # "$mod, p, exec, wofi-hyprswitch"
           # # "$mod, x, exec, wofi-power-menu"
           # "$mod, x, exec, wlogout"

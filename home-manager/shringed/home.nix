@@ -24,6 +24,7 @@ with lib;
       office.enable = true;
       windowManagers = {
         enable = true;
+        hyprland.uid = 1000;
         hyprland.monitors = {
           primary = "HDMI-A-1";
           secondary = "DP-1";
