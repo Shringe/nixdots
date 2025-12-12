@@ -62,6 +62,7 @@ in
       wluma.enable = true;
       kclock.enable = true;
       polkit.enable = true;
+      hyprlock.enable = true;
     };
 
     systemd.user.targets."hyprland-session" = {
