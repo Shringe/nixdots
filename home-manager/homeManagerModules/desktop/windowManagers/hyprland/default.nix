@@ -308,7 +308,7 @@ in
 
           blur = {
             enabled = true;
-            size = 7;
+            size = 8;
             passes = 3;
           };
 
