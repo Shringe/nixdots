@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.hyprlock;
@@ -25,7 +30,8 @@ let
     # Call the format function with the parsed data
     format ($metadata_array | get 0) ($metadata_array | get 1) ($metadata_array | get 2) ($metadata_array | get 3) $"($music_volume_percent)%" $"($system_volume)%" ($metadata_array | get 4)
   '';
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.utils.hyprlock = {
     enable = mkOption {
       type = types.bool;

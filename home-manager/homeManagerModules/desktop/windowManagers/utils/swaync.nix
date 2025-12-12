@@ -56,6 +56,7 @@ in
             procps
             hyprlock
             wlogout
+            swaynotificationcenter
           ]
         }";
     };
@@ -96,7 +97,6 @@ in
 
         widgets = [
           "title"
-          "dnd"
           "notifications"
           "mpris"
           "volume"
@@ -114,10 +114,6 @@ in
             text = "Notification Center";
             clear-all-button = true;
             button-text = "󰆴 Clear All";
-          };
-
-          dnd = {
-            text = "Do Not Disturb";
           };
 
           label = {
@@ -147,7 +143,7 @@ in
               # }
               {
                 label = "󰌾";
-                command = "hyprlock";
+                command = "/run/system/current/shyprlock";
               }
               {
                 label = "󰍃";
@@ -166,16 +162,25 @@ in
                 command = "serviceToggle rot8";
               }
               {
-                label = "🔆";
+                # label = "🔆";
+                label = "󰃡";
                 type = "toggle";
                 active = true;
                 command = "serviceToggle wluma";
               }
               {
                 label = "☕";
+                # lebel = "󰐨";
                 type = "toggle";
                 active = true;
                 command = "serviceToggle swayidle";
+              }
+
+              {
+                active = false;
+                command = "swaync-client -d";
+                label = "";
+                type = "toggle";
               }
 
               # {
@@ -448,15 +453,28 @@ in
 
           .widget-buttons-grid {
               font-size: x-large;
-              padding: 5px;
-              margin: 5px 10px 10px 10px;
+              # padding: 5px;
+              # margin: 5px 10px 10px 10px;
               border-radius: 5px;
               background: @noti-bg-darker;
+
+              margin: 3px;
+              padding: 4px 30px;
+              transition: background-color 0.15s ease-in-out;
           }
 
           .widget-buttons-grid>flowbox>flowboxchild>button {
-              margin: 3px;
+              margin: 0;
+              padding: 12px 36px;
               background: @cc-bg;
+              border-radius: 5px;
+              color: @text-color;
+          }
+
+          .toggle:checked {
+              margin: 0;
+              padding: 12px 36px;
+              background: @accent-hover;
               border-radius: 5px;
               color: @text-color;
           }
@@ -470,13 +488,6 @@ in
           .topbar-buttons>button {
               border: none;
               background: transparent;
-          }
-
-          .toggle:checked {
-              margin: 3px;
-              background: @accent-hover;
-              border-radius: 5px;
-              color: @text-color;
           }
         '';
     };

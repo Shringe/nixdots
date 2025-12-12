@@ -74,6 +74,7 @@
       },
       "on-click": "swaync-client -t -sw",
       "on-click-right": "swaync-client -d -sw",
+      "on-click-middle": "swaync-client -C -sw",
       "return-type": "json"
     },
     "custom/rightSeparator1": {
