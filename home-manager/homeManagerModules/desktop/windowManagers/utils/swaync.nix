@@ -98,11 +98,11 @@ in
 
         widgets = [
           "title"
-          "notifications"
+          "buttons-grid"
           "mpris"
           "volume"
           "backlight"
-          "buttons-grid"
+          "notifications"
         ];
 
         widget-config = {
@@ -468,7 +468,6 @@ in
               margin: 0;
               padding: 8px 36px;
               background: @cc-bg;
-              border-radius: 12px;
               color: @text-color;
           }
 
@@ -476,7 +475,6 @@ in
               margin: 0;
               padding: 8px 36px;
               background: @accent-hover;
-              border-radius: 12px;
               color: @text-color;
           }
 
