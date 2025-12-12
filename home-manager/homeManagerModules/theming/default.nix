@@ -85,8 +85,8 @@ in
       };
 
       opacity = {
-        terminal = 0.88;
-        desktop = 0.88;
+        terminal = 0.7;
+        desktop = 0.7;
       };
     };
   };
