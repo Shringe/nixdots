@@ -17,6 +17,7 @@
       office.enable = true;
       windowManagers = {
         enable = true;
+        hyprland.uid = 1001;
         utils = {
           rot8.enable = true;
           wluma.enable = true;
