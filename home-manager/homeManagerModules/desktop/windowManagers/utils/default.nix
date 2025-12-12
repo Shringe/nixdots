@@ -21,5 +21,6 @@
     ./wluma.nix
     ./blueman.nix
     ./kclock.nix
+    ./walker.nix
   ];
 }
