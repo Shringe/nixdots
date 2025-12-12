@@ -10,6 +10,15 @@ let
   targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
   scripts = config.homeManagerModules.desktop.windowManagers.utils.scripts;
 
+  mkToggleService = onCmd: offCmd: {
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = onCmd;
+      ExecStop = offCmd;
+    };
+  };
+
   serviceToggle = pkgs.writeShellApplication {
     name = "serviceToggle";
     runtimeInputs = with pkgs; [
@@ -18,9 +27,9 @@ let
 
     text = ''
       if [[ $SWAYNC_TOGGLE_STATE == true ]]; then
-        systemctl --user start "$1"
+        systemctl --user start "$1" --no-block
       else
-        systemctl --user stop "$1"
+        systemctl --user stop "$1 --no-block"
       fi
     '';
   };
@@ -36,6 +45,11 @@ in
     # home.packages = with pkgs; [
     # swaynotificationcenter
     # ];
+
+    systemd.user.services = {
+      disable_touchpad = {
+      };
+    };
 
     systemd.user.services.swaync = {
       Install.WantedBy = mkForce targets;
