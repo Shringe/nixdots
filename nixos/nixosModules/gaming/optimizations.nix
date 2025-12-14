@@ -45,8 +45,8 @@ in
     boot = {
       tmp.useTmpfs = true;
 
-      # kernelPackages = pkgs.linuxKernel.kernels.linux_zen;
-      kernelPackages = pkgs.linuxPackages_zen;
+      # kernelPackages = pkgs.linuxPackages_zen;
+      kernelPackages = pkgs.linuxPackages_xanmod_latest;
     };
 
     environment = {
