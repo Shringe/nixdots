@@ -104,9 +104,6 @@ with lib;
     gaming = {
       tooling.enable = mkEnableOption "Extra tooling";
 
-      optimizations = {
-        enable = mkEnableOption "Full optimizations";
-      };
       steam = {
         enable = mkEnableOption "Steam configuration";
       };
@@ -132,8 +129,6 @@ with lib;
     };
 
     gaming = {
-      # optimizations = mkDefault config.nixosModules.gaming.optimizations.enable {
-      # };
       games = mkIf config.nixosModules.gaming.games.enable {
         prismlauncher.enable = mkDefault true;
       };
