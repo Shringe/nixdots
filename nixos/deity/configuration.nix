@@ -147,6 +147,7 @@
       };
 
       optimizations.enable = true;
+      optimizations.conservePower = false;
       tooling.enable = true;
       steam.enable = true;
       games.enable = true;
