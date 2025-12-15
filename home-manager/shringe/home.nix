@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-
+{ pkgs, lib, ... }:
+with lib;
 {
   homeManagerModules = {
     tooling.enable = true;
@@ -18,9 +18,14 @@
       windowManagers = {
         enable = true;
         hyprland.uid = 1001;
+        hyprland.hyprpaper.enable = mkForce false;
         utils = {
           rot8.enable = true;
           wluma.enable = true;
+          # mpvpaper = {
+          #   enable = true;
+          #   laptop.enable = true;
+          # };
         };
       };
       email.enable = true;

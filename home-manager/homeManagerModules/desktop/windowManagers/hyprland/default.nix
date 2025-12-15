@@ -329,7 +329,6 @@ in
 
         windowrulev2 = [
           "workspace 6 silent, class:^(steam)$"
-          "pin, class:^(steam)$"
         ];
 
         decoration = {
