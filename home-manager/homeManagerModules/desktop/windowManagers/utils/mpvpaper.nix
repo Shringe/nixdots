@@ -1,22 +1,33 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.mpvpaper;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
 
-  f = order: "${pkgs.mpvpaper}/bin/mpvpaper -p -o 'no-audio loop --gpu-api=vulkan hwdec=auto' ${order.display} ${order.wallpaper}";
+  f =
+    order:
+    "${pkgs.mpvpaper}/bin/mpvpaper -p -o 'no-audio loop --gpu-api=vulkan hwdec=auto' ${order.display} ${order.wallpaper}";
   g = order: {
     Unit = {
       Description = "Mpvpaper video wallpaper for display a specific display.";
+      After = mkForce targets;
+      PartOf = mkForce targets;
     };
     Install = {
-      # WantedBy = [ "sway-session.target" ];
+      WantedBy = mkForce targets;
     };
     Service = {
       ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
       ExecStart = (f order);
     };
   };
-in {
+in
+{
   options.homeManagerModules.desktop.windowManagers.utils.mpvpaper = {
     enable = mkEnableOption "Mpvpaper video wallpapers";
 
@@ -62,9 +73,9 @@ in {
 
   config = mkIf cfg.enable {
     systemd.user.services = {
-      mpvpaper_primary = (g cfg.primary);
-      mpvpaper_secondary = (g cfg.secondary);
-      mpvpaper_laptop = (g cfg.laptop);
+      mpvpaper_primary = mkIf cfg.primary.enable (g cfg.primary);
+      mpvpaper_secondary = mkIf cfg.secondary.enable (g cfg.secondary);
+      mpvpaper_laptop = mkIf cfg.laptop.enable (g cfg.laptop);
     };
   };
 }
