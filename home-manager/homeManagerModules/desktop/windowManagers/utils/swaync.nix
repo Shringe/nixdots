@@ -19,24 +19,38 @@ let
     };
   };
 
-  serviceToggle = pkgs.writeShellApplication {
-    name = "serviceToggle";
-    runtimeInputs = with pkgs; [
-      systemdMinimal
-    ];
+  serviceToggle = pkgs.writers.writeDashBin "serviceToggle" ''
+    if [ "$2" = true ]; then
+      state="false"
+    else
+      state="true"
+    fi
 
-    text = ''
-      if [[ $SWAYNC_TOGGLE_STATE == true ]]; then
-        systemctl --user start "$1" --no-block
-      else
-        systemctl --user stop "$1 --no-block"
-      fi
-    '';
-  };
+    if [ "$SWAYNC_TOGGLE_STATE" = "$state" ]; then
+      ${pkgs.systemd}/bin/systemctl --user --no-block start "$1"
+    else
+      ${pkgs.systemd}/bin/systemctl --user --no-block stop "$1"
+    fi
+  '';
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.swaync = {
     enable = mkEnableOption "Sway notification center";
+
+    widgets = {
+      touchpad = {
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+        };
+
+        device = mkOption {
+          type = types.str;
+          default = "msft0001:01-04f3:3138-touchpad";
+          description = "Hyprland touchpad to turn off";
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -47,8 +61,13 @@ in
     # ];
 
     systemd.user.services = {
-      disable_touchpad = {
-      };
+      disable_touchpad = mkIf cfg.widgets.touchpad.enable (
+        mkToggleService "${pkgs.hyprland}/bin/hyprctl keyword 'device[${cfg.widgets.touchpad.device}]:enabled' false" "${pkgs.hyprland}/bin/hyprctl keyword 'device[${cfg.widgets.touchpad.device}]:enabled' true"
+      );
+
+      enable_touchpad_while_typing = mkIf cfg.widgets.touchpad.enable (
+        mkToggleService "${pkgs.hyprland}/bin/hyprctl keyword 'input:touchpad:disable_while_typing' false" "${pkgs.hyprland}/bin/hyprctl keyword 'input:touchpad:disable_while_typing' true"
+      );
     };
 
     systemd.user.services.swaync = {
@@ -111,7 +130,6 @@ in
         script-fail-notify = true;
 
         widgets = [
-          "title"
           "buttons-grid"
           "mpris"
           "volume"
@@ -148,18 +166,18 @@ in
 
           buttons-grid = {
             actions = [
-              {
-                label = "󰐥";
-                command = "systemctl poweroff";
-              }
+              # {
+              #   label = "󰐥";
+              #   command = "systemctl poweroff";
+              # }
               # {
               #   label = "󰜉";
               #   command = "systemvctl reboot";
               # }
-              {
-                label = "󰌾";
-                command = "loginctl lock-session";
-              }
+              # {
+              #   label = "󰌾";
+              #   command = "loginctl lock-session";
+              # }
               {
                 label = "󰍃";
                 command = "wlogout";
@@ -180,15 +198,15 @@ in
                 # label = "🔆";
                 label = "󰃡";
                 type = "toggle";
-                active = true;
-                command = "serviceToggle wluma";
+                active = false;
+                command = "serviceToggle wluma true";
               }
               {
                 label = "☕";
                 # lebel = "󰐨";
                 type = "toggle";
-                active = true;
-                command = "serviceToggle swayidle";
+                active = false;
+                command = "serviceToggle swayidle true";
               }
 
               {
@@ -222,6 +240,20 @@ in
               #   label = "";
               #   command = "obs";
               # }
+            ]
+            ++ optionals cfg.widgets.touchpad.enable [
+              {
+                active = false;
+                command = "serviceToggle disable_touchpad";
+                label = "🖱";
+                type = "toggle";
+              }
+              {
+                active = false;
+                command = "serviceToggle enable_touchpad_while_typing";
+                label = "🎮";
+                type = "toggle";
+              }
             ];
           };
         };
