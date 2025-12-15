@@ -88,7 +88,7 @@ in
             coreutils
             procps
             hyprlock
-            wlogout
+            wleave
             swaynotificationcenter
             systemd
           ]
@@ -180,7 +180,7 @@ in
               # }
               {
                 label = "󰍃";
-                command = "wlogout";
+                command = "wleave";
               }
               {
                 label = "󰤄";
