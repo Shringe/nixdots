@@ -197,7 +197,7 @@ in
           "$mod, s, exec, nc -U /run/user/${toString cfg.uid}/walker/walker.sock"
           # "$mod, p, exec, wofi-hyprswitch"
           # # "$mod, x, exec, wofi-power-menu"
-          # "$mod, x, exec, wlogout"
+          "$mod, x, exec, wleave"
           # "$mod, c, exec, wofi-emoji"
           # "$mod, d, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
 
@@ -367,10 +367,12 @@ in
           ${layerBlur "walker"}
           ${layerBlur "swayosd"}
           ${layerBlur "logout_dialog"}
+          ${layerBlur "wleave"}
 
           ${layerFade "swayosd"}
           ${layerFade "walker"}
           ${layerFade "logout_dialog"}
+          ${layerFade "wleave"}
           ${layerFade "selection"}
 
           animations {
