@@ -9,6 +9,15 @@ let
   cfg = config.homeManagerModules.desktop.windowManagers.hyprland;
   rgb = color: "rgb(${config.lib.stylix.colors.${color}})";
   # rgba = color: "rgba(${config.lib.stylix.colors.${color}}90)";
+
+  # Allows minimizing certain apps like steam to tray instead of killing them
+  killactive_wrapped = pkgs.writers.writeDash "killactive_wrapped" ''
+    if [ "$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r ".class")" = "Steam" ]; then
+        ${pkgs.xdotool}/bin/xdotool getactivewindow windowunmap
+    else
+        ${pkgs.hyprland}/bin/hyprctl dispatch killactive ""
+    fi
+  '';
 in
 {
   imports = [
@@ -181,7 +190,7 @@ in
           # Applications
           "$mod, r, exec, zen-twilight"
           "$mod, Return, exec, wezterm"
-          "$mod, w, killactive"
+          "$mod, w, exec, ${killactive_wrapped}"
           "$mod, Space, toggleFloating"
           "$mod, t, fullscreen"
 
@@ -319,8 +328,8 @@ in
         ];
 
         windowrulev2 = [
-          # "workspace 7, class:discord"
-          # "workspace 9, class:steam"
+          "workspace 6 silent, class:^(steam)$"
+          "pin, class:^(steam)$"
         ];
 
         decoration = {
