@@ -124,7 +124,7 @@ in
 
           mpris = {
             image-size = 96;
-            image-radius = 7;
+            image-radius = 8;
           };
 
           volume = {
@@ -269,7 +269,6 @@ in
 
           .notification {
               background: @base00;
-              border-radius: 8px;
               font-size: 14px;
 
               margin: 0px;
@@ -281,7 +280,6 @@ in
           # .notification-content {
           #     background: @cc-bg;
           #     padding: 7px;
-          #     border-radius: 8px;
           #     margin: 0;
           # }
 
@@ -290,7 +288,6 @@ in
               color: @cc-bg;
               text-shadow: none;
               padding: 0;
-              border-radius: 0px;
               margin-top: 5px;
               margin-right: 5px;
           }
@@ -305,7 +302,6 @@ in
           .notification-action {
               color: @text-color-alt;
               border-top: none;
-              border-radius: 0px;
               background: @cc-bg;
           }
 
@@ -351,7 +347,6 @@ in
           .control-center {
               background: @cc-bg;
               border: 2px solid @border-color;
-              border-radius: 0px;
           }
 
           .control-center-list,
@@ -369,7 +364,6 @@ in
               padding: 5px 10px;
               margin: 10px 10px 5px 10px;
               font-size: 1.5rem;
-              border-radius: 5px;
           }
 
           .widget-title>button {
@@ -378,7 +372,6 @@ in
               text-shadow: none;
               background: @noti-bg;
               box-shadow: none;
-              border-radius: 5px;
           }
 
           .widget-title>button:hover {
@@ -390,13 +383,11 @@ in
               background: @noti-bg-darker;
               padding: 5px 10px;
               margin: 5px 10px 10px 10px;
-              border-radius: 5px;
               font-size: large;
               color: @text-color;
           }
 
           .widget-dnd>switch {
-              border-radius: 4px;
               background: @dnd-bg;
           }
 
@@ -408,7 +399,6 @@ in
           .widget-dnd>switch slider,
           .widget-dnd>switch:checked slider {
               background: @cc-bg;
-              border-radius: 5px;
           }
 
           .widget-label {
@@ -424,11 +414,9 @@ in
               color: @text-color;
               padding: 5px 10px 0px 0px;
               margin: 5px 10px 5px 10px;
-              border-radius: 0px;
           }
 
           .widget-mpris > box > button {
-              border-radius: 5px;
           }
 
           .widget-mpris-player {

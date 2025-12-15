@@ -95,6 +95,8 @@ in
           enable_swallow = true;
           swallow_regex = "org.wezfurlong.wezterm";
           disable_autoreload = true;
+          # animate_mouse_windowdragging = true;
+          # animate_manual_resizes = true;
         };
 
         env = [
@@ -261,7 +263,7 @@ in
             position = "0x0";
             scale = 1;
             bitdepth = 10;
-            vrr = 1;
+            vrr = 0;
           }
           {
             output = "DP-1";
@@ -364,9 +366,12 @@ in
           ${layerBlur "swaync-notification-window"}
           ${layerBlur "walker"}
           ${layerBlur "swayosd"}
+          ${layerBlur "logout_dialog"}
 
           ${layerFade "swayosd"}
           ${layerFade "walker"}
+          ${layerFade "logout_dialog"}
+          ${layerFade "selection"}
 
           animations {
               enabled = 1
