@@ -195,6 +195,7 @@
                   "https://install.determinate.systems?priority=2"
                   "https://nix-community.cachix.org?priority=3"
                   "https://hyprland.cachix.org?priority=4"
+                  "https://nix-gaming.cachix.org?priority=5"
                   "https://walker.cachix.org?priority=6"
                   "https://walker-git.cachix.org?priority=8"
                 ];
@@ -205,6 +206,7 @@
                   "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
                   "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
                   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                  "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
                 ];
               };
             }
