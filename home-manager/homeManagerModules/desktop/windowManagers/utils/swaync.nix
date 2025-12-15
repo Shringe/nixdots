@@ -19,6 +19,15 @@ let
     };
   };
 
+  serviceTest = pkgs.writers.writeDashBin "serviceTest" ''
+    if [ "$2" = true ]; then
+      ${pkgs.systemd}/bin/systemctl --user --quiet is-active "$1" && echo false || echo true
+    else
+      ${pkgs.systemd}/bin/systemctl --user --quiet is-active "$1" && echo true || echo false
+    fi
+
+  '';
+
   serviceToggle = pkgs.writers.writeDashBin "serviceToggle" ''
     if [ "$2" = true ]; then
       state="false"
@@ -84,6 +93,7 @@ in
           makeBinPath [
             scripts.toggleGammastep
             serviceToggle
+            serviceTest
 
             coreutils
             procps
@@ -187,12 +197,14 @@ in
                 type = "toggle";
                 active = false;
                 command = "serviceToggle gammastep";
+                update-command = "serviceTest gammastep";
               }
               {
                 label = "🗘";
                 type = "toggle";
                 active = false;
                 command = "serviceToggle rot8";
+                update-command = "serviceTest rot8";
               }
               {
                 # label = "🔆";
@@ -200,13 +212,15 @@ in
                 type = "toggle";
                 active = false;
                 command = "serviceToggle wluma true";
+                update-command = "serviceTest wluma true";
               }
               {
                 label = "☕";
                 # lebel = "󰐨";
                 type = "toggle";
                 active = false;
-                command = "serviceToggle swayidle true";
+                command = "serviceToggle hypridle true";
+                update-command = "serviceTest hypridle true";
               }
 
               {
@@ -245,15 +259,17 @@ in
             ++ optionals cfg.widgets.touchpad.enable [
               {
                 active = false;
-                command = "serviceToggle disable_touchpad";
                 label = "🖱";
                 type = "toggle";
+                command = "serviceToggle disable_touchpad";
+                update-command = "serviceTest disable_touchpad";
               }
               {
                 active = false;
-                command = "serviceToggle enable_touchpad_while_typing";
                 label = "🎮";
                 type = "toggle";
+                command = "serviceToggle enable_touchpad_while_typing";
+                update-command = "serviceTest enable_touchpad_while_typing";
               }
             ];
           };
