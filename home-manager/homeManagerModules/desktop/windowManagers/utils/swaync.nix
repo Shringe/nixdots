@@ -211,9 +211,10 @@ in
 
               {
                 active = false;
-                command = "swaync-client -d";
                 label = "";
                 type = "toggle";
+                command = "swaync-client --toggle-dnd";
+                update-command = "swaync-client --get-dnd";
               }
 
               # {
