@@ -30,7 +30,8 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf (!cfg.conservePower) {
-      services.pipewire.lowLatency.enable = true;
+      # TODO: try enabling in the future
+      # services.pipewire.lowLatency.enable = true;
 
       # make pipewire realtime-capable
       security.rtkit.enable = true;
