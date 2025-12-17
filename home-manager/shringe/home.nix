@@ -18,7 +18,7 @@ with lib;
       windowManagers = {
         enable = true;
         hyprland.uid = 1001;
-        hyprland.hyprpaper.enable = mkForce false;
+        # hyprland.hyprpaper.enable = mkForce false;
         utils = {
           rot8.enable = true;
           wluma.enable = true;
