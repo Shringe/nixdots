@@ -17,17 +17,23 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs.kdePackages; [
-      korganizer
-      okular
-      dolphin
-      ark
-      accounts-qt
-      akonadi
-      kdepim-runtime
-      gwenview
-      elisa
-      isoimagewriter
+    home.packages = mkMerge [
+      (with pkgs.kdePackages; [
+        korganizer
+        okular
+        dolphin
+        ark
+        accounts-qt
+        akonadi
+        kdepim-runtime
+        gwenview
+        elisa
+        isoimagewriter
+      ])
+
+      (with pkgs; [
+        haruna
+      ])
     ];
   };
 }

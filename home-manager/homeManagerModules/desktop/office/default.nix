@@ -14,5 +14,6 @@
     ./llm.nix
     ./systemMonitor.nix
     ./weather.nix
+    ./mpv.nix
   ];
 }
