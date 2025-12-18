@@ -24,7 +24,6 @@ in
       usbutils
       libnotify
       cmatrix
-      mpvpaper
       scc
     ];
   };
