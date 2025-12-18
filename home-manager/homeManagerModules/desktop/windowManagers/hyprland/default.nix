@@ -256,13 +256,13 @@ in
         };
 
         cursor = {
-          no_break_fs_vrr = true;
+          no_break_fs_vrr = false;
         };
 
         render = {
           cm_auto_hdr = 1;
-          cm_fs_passthrough = 2;
-          direct_scanout = 2;
+          cm_fs_passthrough = 1;
+          direct_scanout = 1;
         };
 
         monitorv2 = [
@@ -280,7 +280,7 @@ in
             position = "auto-left";
             scale = 1;
             bitdepth = 8;
-            vrr = 2;
+            vrr = 1;
           }
           {
             output = "HDMI-A-1";
@@ -288,7 +288,7 @@ in
             position = "0x0";
             scale = 1;
             bitdepth = 12;
-            vrr = 2;
+            vrr = 1;
 
             # cm = "hdr";
             supports_hdr = 1;
