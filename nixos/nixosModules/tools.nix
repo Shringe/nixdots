@@ -25,6 +25,7 @@ in
       libnotify
       cmatrix
       mpvpaper
+      scc
     ];
   };
 }
