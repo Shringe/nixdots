@@ -22,6 +22,7 @@ with lib;
         utils = {
           rot8.enable = true;
           wluma.enable = true;
+          swaync.laptopWidgets.enable = true;
           # mpvpaper = {
           #   enable = true;
           #   laptop.enable = true;
