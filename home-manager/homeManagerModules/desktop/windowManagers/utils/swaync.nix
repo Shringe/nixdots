@@ -46,11 +46,17 @@ in
   options.homeManagerModules.desktop.windowManagers.utils.swaync = {
     enable = mkEnableOption "Sway notification center";
 
-    widgets = {
+    laptopWidgets = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enables extra widgets for laptops such as auto brighness and rotation";
+      };
+
       touchpad = {
         enable = mkOption {
           type = types.bool;
-          default = true;
+          default = cfg.laptopWidgets.enable;
         };
 
         device = mkOption {
@@ -70,11 +76,11 @@ in
     # ];
 
     systemd.user.services = {
-      disable_touchpad = mkIf cfg.widgets.touchpad.enable (
-        mkToggleService "${pkgs.hyprland}/bin/hyprctl keyword 'device[${cfg.widgets.touchpad.device}]:enabled' false" "${pkgs.hyprland}/bin/hyprctl keyword 'device[${cfg.widgets.touchpad.device}]:enabled' true"
+      disable_touchpad = mkIf cfg.laptopWidgets.touchpad.enable (
+        mkToggleService "${pkgs.hyprland}/bin/hyprctl keyword 'device[${cfg.laptopWidgets.touchpad.device}]:enabled' false" "${pkgs.hyprland}/bin/hyprctl keyword 'device[${cfg.laptopWidgets.touchpad.device}]:enabled' true"
       );
 
-      enable_touchpad_while_typing = mkIf cfg.widgets.touchpad.enable (
+      enable_touchpad_while_typing = mkIf cfg.laptopWidgets.touchpad.enable (
         mkToggleService "${pkgs.hyprland}/bin/hyprctl keyword 'input:touchpad:disable_while_typing' false" "${pkgs.hyprland}/bin/hyprctl keyword 'input:touchpad:disable_while_typing' true"
       );
     };
@@ -200,23 +206,7 @@ in
                 update-command = "serviceTest gammastep";
               }
               {
-                label = "🗘";
-                type = "toggle";
-                active = false;
-                command = "serviceToggle rot8";
-                update-command = "serviceTest rot8";
-              }
-              {
-                # label = "🔆";
-                label = "󰃡";
-                type = "toggle";
-                active = false;
-                command = "serviceToggle wluma true";
-                update-command = "serviceTest wluma true";
-              }
-              {
                 label = "☕";
-                # lebel = "󰐨";
                 type = "toggle";
                 active = false;
                 command = "serviceToggle hypridle true";
@@ -256,7 +246,7 @@ in
               #   command = "obs";
               # }
             ]
-            ++ optionals cfg.widgets.touchpad.enable [
+            ++ optionals cfg.laptopWidgets.touchpad.enable [
               {
                 active = false;
                 label = "🖱";
@@ -270,6 +260,22 @@ in
                 type = "toggle";
                 command = "serviceToggle enable_touchpad_while_typing";
                 update-command = "serviceTest enable_touchpad_while_typing";
+              }
+            ]
+            ++ optionals cfg.laptopWidgets.enable [
+              {
+                label = "🗘";
+                type = "toggle";
+                active = false;
+                command = "serviceToggle rot8";
+                update-command = "serviceTest rot8";
+              }
+              {
+                label = "󰃡";
+                type = "toggle";
+                active = false;
+                command = "serviceToggle wluma true";
+                update-command = "serviceTest wluma true";
               }
             ];
           };
