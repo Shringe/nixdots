@@ -33,6 +33,7 @@ in
       "preshared/K_Laptop" = key;
       "preshared/L_Laptop" = key;
       "preshared/L_Phone2" = key;
+      "preshared/S_Desktop" = key;
     };
 
     networking.wireguard.interfaces.wg0.peers = [
@@ -45,6 +46,7 @@ in
       (mkPeer 4 "K_Laptop" "znkrk3a5TOuL4YCLC5096aIzYAY7Zfgl/RS0BvX8Pk0=")
       (mkPeer 5 "L_Laptop" "ybqPkNqZFQDef2p+Xi/OyFphMOt/ADvidA1OdWz6eEg=")
       (mkPeer 6 "L_Phone2" "zV6eHqtCYkyzxdQC17hNlfQcHxk93GkCaV7gQ1wXqVc=")
+      (mkPeer 7 "S_Desktop" "kZdVsGoasFoQakKY8zaqVAohmMXNYIV3ZyLWfBOCdCo=")
     ];
   };
 }
