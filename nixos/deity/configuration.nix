@@ -172,6 +172,11 @@
 
   boot.loader.systemd-boot.memtest86.enable = true;
 
+  # Zenpower driver
+  boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
+  boot.kernelModules = [ "zenpower" ];
+  boot.blacklistedKernelModules = [ "k10temp" ];
+
   # $ nix search wget
   environment = {
     sessionVariables = {
