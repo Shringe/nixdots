@@ -185,9 +185,9 @@ in
           "CTRL, XF86MonBrightnessUp, exec, playerctl loop None"
           "CTRL, XF86MonBrightnessDown, exec, playerctl loop Playlist"
 
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioPlay, exec, ${swayosd} --playerctl play-pause"
+          ", XF86AudioNext, exec, ${swayosd} --playerctl next"
+          ", XF86AudioPrev, exec, ${swayosd} --playerctl previous"
 
           # Applications
           "$mod, r, exec, zen-twilight"
