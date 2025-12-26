@@ -69,6 +69,10 @@ in
           "preempt=full"
           "nohz_full=all"
         ];
+
+        kernelModules = [
+          "ntsync"
+        ];
       };
 
       environment = {

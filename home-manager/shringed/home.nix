@@ -72,7 +72,26 @@ with lib;
       };
     };
   };
-  #
+
+  systemd.user.services.set-primary-display = {
+    Unit = {
+      Description = "Set primary X display to HDMI-A-1";
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "DISPLAY";
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-1 --primary";
+      RemainAfterExit = true;
+    };
+
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+  };
+
   # xdg.configFile."openvr/openvrpaths.vrpath".text = ''
   #   {
   #     "config" :
