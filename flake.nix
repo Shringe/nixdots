@@ -55,6 +55,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    swayosd_main_monitor = {
+      url = "github:Shringe/swayosd_main_monitor";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -118,6 +123,7 @@
         # Customized builds
         (self: super: {
           nf = inputs.nf.packages.${system}.default;
+          swayosd_main_monitor = inputs.swayosd_main_monitor.packages.${system}.default;
           wait-online = inputs.wait-online.packages.${system}.default;
           torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
