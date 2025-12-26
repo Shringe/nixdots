@@ -38,6 +38,7 @@ in
             border-radius: 8px;
             border: 2px solid ${base07};
             background: ${base00};
+            font-size: 14px;
           }
         ''
       );
