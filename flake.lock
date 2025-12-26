@@ -1928,11 +1928,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766732564,
-        "narHash": "sha256-o8Q4EF8+NXJsFq1nEFSr2d/FRqNBJZmyEGxl/rrsY60=",
+        "lastModified": 1766733952,
+        "narHash": "sha256-lmjVWrG3enaoHVm3WC/arCqkvZhcwYB4SXdiFPYs8w8=",
         "owner": "Shringe",
         "repo": "swayosd_main_monitor",
-        "rev": "d018d65f8d4328c683ffda1142a27f01ea326c3e",
+        "rev": "bd576b4a86f94138695ea2c8f3b99a8fd720b6ff",
         "type": "github"
       },
       "original": {
