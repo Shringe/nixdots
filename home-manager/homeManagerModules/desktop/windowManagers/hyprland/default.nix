@@ -11,7 +11,7 @@ let
   # rgba = color: "rgba(${config.lib.stylix.colors.${color}}90)";
 
   # Make swayosd only open on active monitor
-  swayosd = "/home/shringed/Documents/Code/Rust/swayosd_main_monitor/target/release/swayosd_main_monitor";
+  swayosd = "${pkgs.swayosd_main_monitor}/bin/swayosd_main_monitor";
 
   # Allows minimizing certain apps like steam to tray instead of killing them
   killactive_wrapped = pkgs.writers.writeDash "killactive_wrapped" ''
