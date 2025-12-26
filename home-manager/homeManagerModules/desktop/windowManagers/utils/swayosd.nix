@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.swayosd;
@@ -24,6 +29,18 @@ in
 
     services.swayosd = {
       enable = true;
+
+      stylePath = pkgs.writeText "style.css" (
+        with config.lib.stylix.colors.withHashtag;
+        # with config.stylix.opacity;
+        ''
+          window#osd {
+            border-radius: 8px;
+            border: 2px solid ${base07};
+            background: ${base00};
+          }
+        ''
+      );
     };
   };
 }

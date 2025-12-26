@@ -10,6 +10,9 @@ let
   rgb = color: "rgb(${config.lib.stylix.colors.${color}})";
   # rgba = color: "rgba(${config.lib.stylix.colors.${color}}90)";
 
+  # Make swayosd only open on active monitor
+  swayosd = "/home/shringed/Documents/Code/Rust/swayosd_main_monitor/target/release/swayosd_main_monitor";
+
   # Allows minimizing certain apps like steam to tray instead of killing them
   killactive_wrapped = pkgs.writers.writeDash "killactive_wrapped" ''
     if [ "$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r ".class")" = "Steam" ]; then
@@ -109,9 +112,10 @@ in
         };
 
         env = [
+          "XCURSOR_SIZE,20"
           "GDK_BACKEND,wayland,x11,*"
           "QT_QPA_PLATFORM,wayland;xcb"
-          "SDL_VIDEODRIVER,wayland"
+          "SDL_VIDEODRIVER,wayland,x11"
           "CLUTTER_BACKEND,wayland"
           "XDG_CURRENT_DESKTOP,Hyprland"
           "XDG_SESSION_TYPE,wayland"
@@ -140,19 +144,17 @@ in
         # Repeating
         binde = [
           # Media
-          ",XF86AudioRaiseVolume,exec,swayosd-client --output-volume raise"
-          ",XF86AudioLowerVolume,exec,swayosd-client --output-volume lower"
-          "CTRL,XF86AudioRaiseVolume,exec,swayosd-client --input-volume raise"
-          "CTRL,XF86AudioLowerVolume,exec,swayosd-client --input-volume lower"
+          "CTRL,XF86AudioRaiseVolume,exec,${swayosd} --input-volume raise"
+          "CTRL,XF86AudioLowerVolume,exec,${swayosd} --input-volume lower"
 
-          ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
-          ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+          ", XF86AudioRaiseVolume, exec, ${swayosd} --output-volume raise"
+          ", XF86AudioLowerVolume, exec, ${swayosd} --output-volume lower"
 
-          "CTRL, XF86AudioRaiseVolume, exec, swayosd-client --input-volume raise"
-          "CTRL, XF86AudioLowerVolume, exec, swayosd-client --input-volume lower"
+          "CTRL, XF86AudioRaiseVolume, exec, ${swayosd} --input-volume raise"
+          "CTRL, XF86AudioLowerVolume, exec, ${swayosd} --input-volume lower"
 
-          ", XF86MonBrightnessUp, exec, swayosd-client --brightness raise"
-          ", XF86MonBrightnessDown, exec, swayosd-client --brightness lower"
+          ", XF86MonBrightnessUp, exec, ${swayosd} --brightness raise"
+          ", XF86MonBrightnessDown, exec, ${swayosd} --brightness lower"
 
           "SHIFT, XF86AudioRaiseVolume, exec, playerctl volume 0.1+"
           "SHIFT, XF86AudioLowerVolume, exec, playerctl volume 0.1-"
@@ -174,8 +176,8 @@ in
           "$mod, v, exec, swaync-client -t -sw"
 
           # Media
-          ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
-          "CTRL, XF86AudioMute, exec, swayosd-client --input-volume mute-toggle"
+          ", XF86AudioMute, exec, ${swayosd} --output-volume mute-toggle"
+          "CTRL, XF86AudioMute, exec, ${swayosd} --input-volume mute-toggle"
 
           "SHIFT, XF86MonBrightnessUp, exec, playerctl shuffle Toggle"
           "SHIFT, XF86MonBrightnessDown, exec, playerctl loop Track"

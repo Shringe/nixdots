@@ -313,7 +313,7 @@ in
           @define-color border-color       @base07;
           @define-color dnd-bg             @base02;
           @define-color dnd-checked-bg     @base0A;
-          @define-color border             @base0D;
+          @define-color border             @base07;
 
 
           * {
