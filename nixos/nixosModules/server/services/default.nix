@@ -11,6 +11,7 @@ with lib;
     ./minecraft.nix
     ./traccar.nix
     ./whalecrab.nix
+    ./tmodloader.nix
   ];
 
   options.nixosModules.server.services = {

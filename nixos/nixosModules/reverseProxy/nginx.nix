@@ -24,10 +24,16 @@ let
       "${subdomain}.${domain}" = mkReverseProxy module.url domain;
     };
 
+  # Reverse proxy subdomain
   rps = subdomain: module: reverseProxySubdomain subdomain cfg.domain module;
+
+  # Reverse proxy domain
   # rpd = module: reverseProxyDomain cfg.domain module;
 
-  rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
+  # Revrese proxy anon subdomain
+  # rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
+
+  # Revrese proxy anon domain
   rpad = module: reverseProxyDomain cfg.aDomain module;
 in
 {
@@ -97,6 +103,7 @@ in
           (rps "ssh" server.ssh)
           (rps "paperless" server.services.paperless)
           (rps "searxng" server.services.searxng)
+          (rps "tmodloader" server.services.tmodloader)
 
           # Public services
           (rpad social.matrix.conduit)
