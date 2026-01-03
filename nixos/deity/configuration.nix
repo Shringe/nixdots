@@ -35,7 +35,7 @@
   };
 
   # Useful for filtering out failed builds from source
-  nix.settings.max-jobs = 1;
+  # nix.settings.max-jobs = 1;
 
   nixosModules = {
     info.system = {
