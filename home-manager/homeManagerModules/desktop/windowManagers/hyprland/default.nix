@@ -258,7 +258,7 @@ in
         };
 
         cursor = {
-          no_break_fs_vrr = false;
+          no_break_fs_vrr = true;
         };
 
         render = {
@@ -289,12 +289,12 @@ in
             mode = "3440x1440@175";
             position = "0x0";
             scale = 1;
-            bitdepth = 12;
+            bitdepth = 10;
             vrr = 1;
 
             # cm = "hdr";
-            supports_hdr = 1;
-            supports_wide_color = 1;
+            # supports_hdr = 1;
+            # supports_wide_color = 1;
             # sdrbrightness = 1.0;
             # sdrsaturation = 1.0;
             # sdr_min_luminance = 0.005;

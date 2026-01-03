@@ -173,8 +173,16 @@
   boot.loader.systemd-boot.memtest86.enable = true;
 
   # Zenpower driver
-  boot.extraModulePackages = [ config.boot.kernelPackages.zenpower ];
-  boot.kernelModules = [ "zenpower" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    zenpower
+    nct6687d
+  ];
+
+  boot.kernelModules = [
+    "zenpower"
+    "nct6687"
+  ];
+
   boot.blacklistedKernelModules = [ "k10temp" ];
 
   # $ nix search wget
@@ -215,6 +223,8 @@
     enable = true;
     enableSSHSupport = false;
   };
+
+  programs.coolercontrol.enable = true;
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }
