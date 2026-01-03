@@ -1,8 +1,14 @@
-{ config, lib, inputs, ... }:
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.vpn.airvpn;
-in {
+in
+{
   imports = [
     inputs.vpn-confinement.nixosModules.default
   ];
@@ -12,7 +18,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."wireguard/airvpn" = {};
+    systemd.services.airvpn.serviceConfig = {
+      Restart = "always";
+    };
+
+    sops.secrets."wireguard/airvpn" = { };
     vpnNamespaces.airvpn = {
       enable = true;
       wireguardConfigFile = config.sops.secrets."wireguard/airvpn".path;
