@@ -185,6 +185,8 @@
 
   boot.blacklistedKernelModules = [ "k10temp" ];
 
+  programs.gpu-screen-recorder.enable = true;
+
   # $ nix search wget
   environment = {
     sessionVariables = {
@@ -213,6 +215,8 @@
       btrfs-progs
       compsize
       cryptsetup
+
+      gpu-screen-recorder-gtk
     ];
   };
 
