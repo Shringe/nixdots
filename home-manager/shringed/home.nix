@@ -52,6 +52,24 @@ with lib;
     neovide_refresh_rate = 175;
   };
 
+  stylix.targets.hyprpaper.enable = mkForce false;
+  services.hyprpaper.settings =
+    let
+      wall = toString ../../assets/wallpapers/2b-nier-automata_2560x1440.png;
+      wall2 = toString ../../assets/wallpapers/grassmastersword_3440x1440.png;
+    in
+    {
+      preload = [
+        wall
+        wall2
+      ];
+
+      wallpaper = [
+        "DP-1,${wall}"
+        "HDMI-A-1,${wall2}"
+      ];
+    };
+
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   programs = {
