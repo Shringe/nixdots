@@ -55,7 +55,7 @@ with lib;
   stylix.targets.hyprpaper.enable = mkForce false;
   services.hyprpaper.settings =
     let
-      wall = toString ../../assets/wallpapers/2b-nier-automata_2560x1440.png;
+      wall = toString ../../assets/wallpapers/2b_nier_automata_2560x1440.png;
       wall2 = toString ../../assets/wallpapers/grassmastersword_3440x1440.png;
     in
     {
