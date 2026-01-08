@@ -195,6 +195,7 @@ in
           "$mod, w, exec, ${killactive_wrapped}"
           "$mod, Space, toggleFloating"
           "$mod, t, fullscreen"
+          "$mod, c, exec, $HOME/.local/bin/clip-manager menu"
 
           # Wofi
           # "$mod, s, exec, wofi --show drun"
@@ -380,6 +381,7 @@ in
           ${layerBlur "wleave"}
 
           ${layerFade "swayosd"}
+          ${layerFade "hyprpaper"}
           ${layerFade "walker"}
           ${layerFade "logout_dialog"}
           ${layerFade "wleave"}

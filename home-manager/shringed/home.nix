@@ -45,6 +45,7 @@ with lib;
     dotfiles.enable = true;
     sops.enable = true;
     gaming.enable = true;
+    gaming.recording.enable = true;
   };
 
   programs.neovide.settings.vsync = false;

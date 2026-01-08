@@ -4,6 +4,13 @@ let
   cfg = config.homeManagerModules.gaming.mangohud;
 in
 {
+  options.homeManagerModules.gaming.mangohud = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.homeManagerModules.gaming.enable;
+    };
+  };
+
   config = mkIf cfg.enable {
     stylix.targets.mangohud.enable = false;
 
