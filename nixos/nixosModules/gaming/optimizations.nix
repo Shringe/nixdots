@@ -95,10 +95,13 @@ in
             renice = 10;
           };
 
-          # custom = {
-          # start = "${pkgs.sway}/bin/swaymsg output HDMI-A-1 adaptive_sync on";
-          # end = "${pkgs.sway}/bin/swaymsg output HDMI-A-1 adaptive_sync off";
-          # };
+          custom = {
+            # start = "${pkgs.sway}/bin/swaymsg output HDMI-A-1 adaptive_sync on";
+            # end = "${pkgs.sway}/bin/swaymsg output HDMI-A-1 adaptive_sync off";
+
+            start = "$HOME/.local/bin/gamemode_start.sh";
+            end = "$HOME/.local/bin/gamemode_end.sh";
+          };
         };
       };
     }

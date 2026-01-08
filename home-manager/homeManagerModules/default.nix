@@ -20,11 +20,6 @@ with lib;
       systemMonitors.enable = mkEnableOption "systemMonitors";
     };
 
-    gaming = {
-      enable = mkEnableOption "All gaming settings";
-      mangohud.enable = mkEnableOption "Mangohud configuration";
-    };
-
     sops = {
       enable = mkEnableOption "Generate sops keys";
     };
@@ -106,10 +101,6 @@ with lib;
   config.homeManagerModules = {
     tooling = mkIf config.homeManagerModules.tooling.enable {
       systemMonitors.enable = mkDefault true;
-    };
-
-    gaming = mkIf config.homeManagerModules.gaming.enable {
-      mangohud.enable = mkDefault true;
     };
 
     scripts = {
