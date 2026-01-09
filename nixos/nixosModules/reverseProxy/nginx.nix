@@ -62,6 +62,9 @@ in
       recommendedProxySettings = true;
       # recommendedZstdSettings = true;
 
+      # Max file upload size
+      clientMaxBodySize = "5G";
+
       virtualHosts =
         with config.nixosModules;
         mkMerge [

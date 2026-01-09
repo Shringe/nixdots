@@ -54,7 +54,8 @@ let
     def "main start" [] {
       notify "media-record" "Background Recording Started"
 
-      exec ${pkgs.gpu-screen-recorder}/bin/gpu-screen-recorder -w ${cfg.monitor} -c mkv -o $"($env.HOME)/Videos/Replay/clips" -ro $"($env.HOME)/Videos/Replay/recordings" -a "default_output" -r 300
+      exec ${pkgs.gpu-screen-recorder}/bin/gpu-screen-recorder -w ${cfg.monitor} -c mkv -o $"($env.HOME)/Videos/Replay/clips" -ro $"($env.HOME)/Videos/Replay/recordings" -a "default_output" -r 300 -k hevc_10bit -cr full -bm cbr -q 25000
+      # exec ${pkgs.gpu-screen-recorder}/bin/gpu-screen-recorder -w ${cfg.monitor} -c mkv -o $"($env.HOME)/Videos/Replay/clips" -ro $"($env.HOME)/Videos/Replay/recordings" -a "default_output" -r 300
       # exec ${pkgs.gpu-screen-recorder}/bin/gpu-screen-recorder -w ${cfg.monitor} -c mkv -o $"($env.HOME)/Videos/Replay/clips" -ro $"($env.HOME)/Videos/Replay/recordings" -a "default_output|default_input" -r 300
     }
 
