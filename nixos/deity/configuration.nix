@@ -56,7 +56,7 @@
       smedia1.enable = true;
       smedia2.enable = true;
       steamssd1.enable = true;
-      steamssd2.enable = true;
+      steamssd2.enable = false;
     };
 
     # btrfs send/receive seems to be creating more errors on bad disk
@@ -91,12 +91,12 @@
     torrent.qbittorrent.enable = true;
 
     arrs = {
-      lidarr.enable = true;
-      sonarr.enable = true;
-      prowlarr.enable = true;
+      lidarr.enable = false;
+      sonarr.enable = false;
+      prowlarr.enable = false;
       # radarr.enable = true;
-      flaresolverr.enable = true;
-      vpn.enable = true;
+      flaresolverr.enable = false;
+      vpn.enable = false;
     };
 
     linkwarden.enable = true;
