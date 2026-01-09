@@ -7,6 +7,15 @@
 with lib;
 let
   util = import ./util.nix { inherit config lib pkgs; };
+
+  mkSteam = subvolume: {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [
+      "subvol=${subvolume}"
+      "noatime"
+    ];
+  };
 in
 {
   config = mkMerge [
@@ -28,6 +37,9 @@ in
             "compress=zstd"
           ];
         };
+
+        "/mnt/Steam/Main" = mkSteam "_active/steam_main";
+        "/mnt/Steam/libraries/SSD3" = mkSteam "_active/steam_library";
       };
 
       services.btrbk.instances = {
