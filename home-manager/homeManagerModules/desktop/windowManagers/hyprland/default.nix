@@ -283,6 +283,7 @@ in
             scale = 1;
             bitdepth = 8;
             vrr = 1;
+            transform = 3;
           }
           {
             output = "HDMI-A-1";
