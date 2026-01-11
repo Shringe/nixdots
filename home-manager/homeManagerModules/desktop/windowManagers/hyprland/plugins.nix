@@ -32,7 +32,7 @@ in
 
       settings = {
         plugin = {
-          hyprtrails.color = rgb "base07";
+          # hyprtrails.color = rgb "base07";
           hyprscrolling = {
             fullscreen_on_one_column = true;
             column_width = 0.7;
