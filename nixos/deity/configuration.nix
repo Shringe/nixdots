@@ -88,7 +88,7 @@
       atuin.server.enable = true;
     };
 
-    torrent.qbittorrent.enable = true;
+    torrent.qbittorrent.enable = false;
 
     arrs = {
       lidarr.enable = false;

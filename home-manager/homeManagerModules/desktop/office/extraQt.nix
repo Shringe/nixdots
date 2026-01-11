@@ -17,6 +17,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    programs.freetube.enable = true;
+
     home.packages = mkMerge [
       (with pkgs.kdePackages; [
         korganizer
@@ -33,6 +35,7 @@ in
 
       (with pkgs; [
         haruna
+        qtscrcpy
       ])
     ];
   };

@@ -102,7 +102,6 @@ in
         "$d1" = cfg.monitors.primary;
         "$d2" = cfg.monitors.secondary;
 
-        experimental.xx_color_management_v4 = "true";
         misc = {
           enable_swallow = true;
           swallow_regex = "org.wezfurlong.wezterm";
@@ -330,8 +329,8 @@ in
           "10, monitor:$d2, persistent:true"
         ];
 
-        windowrulev2 = [
-          "workspace 6 silent, class:^(steam)$"
+        windowrule = [
+          "match:class ^(steam)$, workspace 6 silent"
         ];
 
         decoration = {
@@ -363,13 +362,13 @@ in
       extraConfig =
         let
           layerBlur = name: ''
-            layerrule = blur, ${name}
-            layerrule = ignorezero, ${name}
-            layerrule = ignorealpha 0.5, ${name}
+            layerrule = blur on, match:namespace ${name}
+            # layerrule = ignorezero, match:namespace ${name}
+            layerrule = ignore_alpha 0.5, match:namespace ${name}
           '';
 
           layerFade = name: ''
-            layerrule = animation liner, ${name}
+            layerrule = animation liner, match:namespace ${name}
           '';
         in
         ''

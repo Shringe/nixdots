@@ -29,6 +29,7 @@ with lib;
           primary = "HDMI-A-1";
           secondary = "DP-1";
         };
+        hyprland.plugins.enable = true;
 
         utils = {
           swayidle.suspend = false;
