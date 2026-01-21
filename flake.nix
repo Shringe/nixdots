@@ -198,6 +198,7 @@
                 max-substitution-jobs = 128;
 
                 substituters = [
+                  "https://devenv.cachix.org"
                   "https://install.determinate.systems?priority=2"
                   "https://nix-community.cachix.org?priority=3"
                   "https://hyprland.cachix.org?priority=4"
@@ -213,6 +214,7 @@
                   "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
                   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
                   "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+                  "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
                 ];
               };
             }
