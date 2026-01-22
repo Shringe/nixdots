@@ -20,7 +20,7 @@
 
   # Basic static ip for faster boot
   networking = {
-    dhcpcd.enable = false;
+    dhcpcd.enable = true;
     interfaces.enp42s0 = {
       ipv4.addresses = [
         {
@@ -39,7 +39,7 @@
 
   nixosModules = {
     info.system = {
-      ips.local = "192.168.0.165";
+      ips.local = "192.168.0.136";
     };
 
     reporting.enable = true;
