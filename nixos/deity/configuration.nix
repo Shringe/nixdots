@@ -39,7 +39,7 @@
 
   nixosModules = {
     info.system = {
-      ips.local = "192.168.0.136";
+      ips.local = "192.168.0.165";
     };
 
     reporting.enable = true;
