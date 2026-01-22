@@ -277,7 +277,7 @@ in
             vrr = 0;
           }
           {
-            output = "DP-1";
+            output = "DP-2";
             mode = "2560x1440@165";
             position = "auto-left";
             scale = 1;
@@ -286,7 +286,7 @@ in
             transform = 3;
           }
           {
-            output = "HDMI-A-1";
+            output = "HDMI-A-2";
             mode = "3440x1440@175";
             position = "0x0";
             scale = 1;

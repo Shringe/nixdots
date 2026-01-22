@@ -26,8 +26,8 @@ with lib;
         enable = true;
         hyprland.uid = 1000;
         hyprland.monitors = {
-          primary = "HDMI-A-1";
-          secondary = "DP-1";
+          primary = "HDMI-A-2";
+          secondary = "DP-2";
         };
         hyprland.plugins.enable = true;
 
@@ -67,8 +67,8 @@ with lib;
       ];
 
       wallpaper = [
-        "DP-1,${wall}"
-        "HDMI-A-1,${wall2}"
+        "DP-2,${wall}"
+        "HDMI-A-2,${wall2}"
       ];
     };
 
@@ -95,7 +95,7 @@ with lib;
 
   systemd.user.services.set-primary-display = {
     Unit = {
-      Description = "Set primary X display to HDMI-A-1";
+      Description = "Set primary X display to HDMI-A-2";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
       ConditionEnvironment = "DISPLAY";
@@ -103,7 +103,7 @@ with lib;
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-1 --primary";
+      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-2 --primary";
       RemainAfterExit = true;
     };
 
