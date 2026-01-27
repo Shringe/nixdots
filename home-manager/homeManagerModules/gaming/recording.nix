@@ -79,7 +79,7 @@ in
 
     monitor = mkOption {
       type = types.str;
-      default = "HDMI-A-1";
+      default = "HDMI-A-2";
       description = "Monitor to record";
     };
   };

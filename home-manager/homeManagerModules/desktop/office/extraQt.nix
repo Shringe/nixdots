@@ -36,6 +36,7 @@ in
       (with pkgs; [
         haruna
         qtscrcpy
+        lxqt.pavucontrol-qt
       ])
     ];
   };

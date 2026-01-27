@@ -258,7 +258,7 @@ in
         };
 
         cursor = {
-          no_break_fs_vrr = true;
+          # no_break_fs_vrr = true;
         };
 
         render = {
@@ -281,7 +281,7 @@ in
             mode = "2560x1440@165";
             position = "auto-left";
             scale = 1;
-            bitdepth = 8;
+            bitdepth = 10;
             vrr = 1;
             transform = 3;
           }
@@ -291,7 +291,7 @@ in
             position = "0x0";
             scale = 1;
             bitdepth = 10;
-            vrr = 1;
+            vrr = 2;
 
             # cm = "hdr";
             # supports_hdr = 1;
