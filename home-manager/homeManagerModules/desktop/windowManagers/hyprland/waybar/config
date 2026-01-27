@@ -107,7 +107,7 @@
         "3": "",
         "4": "󰯙",
         "5": "",
-        "6": "󰓓",
+        "6": " 󰓓 ",
         "7": "󰎆",
         "8": "",
         "9": "󰇮",
@@ -186,7 +186,7 @@
         "portable": ""
       },
       "format-muted": "{volume}% 🔇",
-      "on-click": "pavucontrol",
+      "on-click": "pavucontrol-qt",
       "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle"
     },
     "tray": {
@@ -373,7 +373,7 @@
         "portable": ""
       },
       "format-muted": "{volume}% 🔇",
-      "on-click": "pavucontrol",
+      "on-click": "pavucontrol-qt",
       "on-click-right": "wpctl set-mute @DEFAULT_SINK@ toggle"
     },
     "tray": {
