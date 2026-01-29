@@ -26,6 +26,13 @@ in
       mutableSettings = false;
 
       settings = {
+        users = [
+          {
+            name = "adguardhome";
+            pass = "$2y$10$gL8RqhisgdunuvVBt8HudORlQTaXxw6JPjw.gUdlDeWKWJ2BALGSO";
+          }
+        ];
+
         dns = {
           upstream_dns = [
             "https://dns.quad9.net/dns-query"
@@ -53,12 +60,12 @@ in
         };
 
         querylog = {
-          enabled = true;
+          enabled = false;
           interval = "6h";
         };
 
         statistics = {
-          enabled = true;
+          enabled = false;
           interval = "6h";
         };
 
