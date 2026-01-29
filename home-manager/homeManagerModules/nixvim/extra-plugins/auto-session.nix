@@ -1,5 +1,5 @@
 {
   plugins.auto-session = {
-    enable = false;
+    enable = true;
   };
 }

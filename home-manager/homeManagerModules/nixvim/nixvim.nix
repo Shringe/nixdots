@@ -62,6 +62,9 @@
       number = true;
       relativenumber = true;
 
+      # Autoreload
+      autoread = true;
+
       # Saves undo history to swapfile
       undofile = true;
 
