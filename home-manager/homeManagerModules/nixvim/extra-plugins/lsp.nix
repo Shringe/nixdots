@@ -53,13 +53,27 @@
         #   };
         # };
 
+        nixd.enable = true;
+        nil_ls = {
+          enable = true;
+          settings.nix = {
+            # Default 2560
+            maxMemoryMB = 4096;
+            flake = {
+              # Improve autocomplete at the expense of resources
+              autoArchive = true;
+              autoEvalInputs = true;
+            };
+          };
+        };
+
         bashls.enable = true;
         fish_lsp.enable = true;
-        nixd.enable = true;
-        nil_ls.enable = true;
         lua_ls.enable = true;
         nushell.enable = true;
         slint_lsp.enable = true;
+        # omnisharp.enable = true;
+        # csharp_ls.enable = true;
       };
     };
 
