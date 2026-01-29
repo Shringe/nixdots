@@ -103,7 +103,7 @@ in
         "$d2" = cfg.monitors.secondary;
 
         misc = {
-          enable_swallow = true;
+          # enable_swallow = true;
           swallow_regex = "org.wezfurlong.wezterm";
           disable_autoreload = true;
           # animate_mouse_windowdragging = true;

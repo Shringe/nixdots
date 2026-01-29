@@ -139,6 +139,11 @@
           };
         })
 
+        # Waiting for binary cache
+        (self: super: {
+          collabora-online = self.old.collabora-online;
+        })
+
         # # Frequently slow or unreliable builds
         # (self: super: {
         #   opencv = self.stable.opencv;
