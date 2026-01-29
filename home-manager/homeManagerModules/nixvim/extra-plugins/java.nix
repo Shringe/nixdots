@@ -1,6 +1,6 @@
 {
-  plugins.java.enable = false;
-  performance.combinePlugins.standalonePlugins = [
-    "mason.nvim"
-  ];
+  # plugins.java.enable = false;
+  # performance.combinePlugins.standalonePlugins = [
+  #   "mason.nvim"
+  # ];
 }
