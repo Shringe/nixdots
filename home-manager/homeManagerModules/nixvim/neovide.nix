@@ -52,7 +52,7 @@ in
         enable = true;
 
         settings = {
-          fork = false;
+          fork = true;
           # no-multigrid = true;
           # font = with config.lib.stylix.fonts; {
           # Default is fira code
