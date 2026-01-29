@@ -18,7 +18,7 @@ in
         -- default_prog = { "/usr/bin/env", "fish", "-C", "fastfetch" },
         default_prog = { "/usr/bin/env", "${config.homeManagerModules.shells.default}", "--execute", "fastfetch" },
 
-        font = wezterm.font("JetBrains Mono"),
+        font = wezterm.font("JetBrainsMono Nerd Font"),
         -- font_size = 16,
         enable_tab_bar = false,
         -- window_decorations
