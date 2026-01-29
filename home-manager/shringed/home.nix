@@ -137,6 +137,7 @@ with lib;
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
     #neovim
+    dotnetCorePackages.sdk_8_0-bin
     fzf
     git
     btop
