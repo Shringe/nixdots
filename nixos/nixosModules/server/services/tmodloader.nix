@@ -60,6 +60,9 @@ in
         ExecStart = server;
         Restart = "always";
         User = "shringed";
+        # StandardInput = "file:/var/run/tmodloader.stdin";
+        # ExecStartPre = "${pkgs.coreutils}/bin/mkfifo /var/run/tmodloader.stdin";
+        # ExecStopPost = "${pkgs.coreutils}/bin/rm /var/run/tmodloader.stdin";
       };
     };
   };
