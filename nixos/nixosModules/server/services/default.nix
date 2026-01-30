@@ -12,6 +12,7 @@ with lib;
     ./traccar.nix
     ./whalecrab.nix
     ./tmodloader.nix
+    ./mumble.nix
   ];
 
   options.nixosModules.server.services = {
