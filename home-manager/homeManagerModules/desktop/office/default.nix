@@ -15,5 +15,6 @@
     ./systemMonitor.nix
     ./weather.nix
     ./mpv.nix
+    ./mumble.nix
   ];
 }
