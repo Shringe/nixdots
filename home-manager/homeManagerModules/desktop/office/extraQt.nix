@@ -37,6 +37,7 @@ in
         haruna
         qtscrcpy
         lxqt.pavucontrol-qt
+        helvum
       ])
     ];
   };
