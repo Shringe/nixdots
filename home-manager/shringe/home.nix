@@ -70,7 +70,6 @@ with lib;
     bat
     eza
     btop
-    pavucontrol
     nh
 
     meslo-lgs-nf

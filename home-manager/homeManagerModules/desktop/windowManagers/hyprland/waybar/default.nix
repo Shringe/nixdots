@@ -77,7 +77,7 @@ in
               coreutils
               procps
               swaynotificationcenter
-              pavucontrol
+              lxqt.pavucontrol-qt
               iwgtk
               curl
               libnotify

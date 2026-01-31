@@ -1,3 +1,3 @@
 {
-  plugins.easy-dotnet.enable = true;
+  lsp.servers.omnisharp.enable = true;
 }
