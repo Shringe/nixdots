@@ -1,11 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.music;
-in {
+in
+{
   imports = [
     ./termusic.nix
     ./supersonic.nix
+    ./rename_devices.nix
   ];
 
   config = mkIf cfg.enable {
