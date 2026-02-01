@@ -19,7 +19,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.airvpn.serviceConfig = {
-      Restart = "always";
+      # Restart = "always";
     };
 
     sops.secrets."wireguard/airvpn" = { };
