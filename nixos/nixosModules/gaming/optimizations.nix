@@ -31,7 +31,11 @@ in
   config = mkIf cfg.enable (mkMerge [
     (mkIf (!cfg.conservePower) {
       # TODO: try enabling in the future
-      # services.pipewire.lowLatency.enable = true;
+      services.pipewire.lowLatency = {
+        enable = true;
+        quantum = 512;
+        alsa.enable = true;
+      };
 
       # make pipewire realtime-capable
       security.rtkit.enable = true;
