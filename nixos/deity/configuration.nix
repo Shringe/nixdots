@@ -183,7 +183,7 @@
     "nct6687"
   ];
 
-  boot.blacklistedKernelModules = [ "k10temp" ];
+  # boot.blacklistedKernelModules = [ "k10temp" ];
 
   programs.gpu-screen-recorder.enable = true;
 

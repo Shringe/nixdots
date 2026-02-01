@@ -109,8 +109,12 @@ in
       ".local/bin/clip-manager".source = clip-manager;
 
       # Gamemode hooks
-      ".local/bin/gamemode_start.sh".source =
-        pkgs.writers.writeDash "gamemode_start" "${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block";
+      ".local/bin/gamemode_start.sh".source = pkgs.writers.writeDash "gamemode_start" ''
+        ${pkgs.util-linux}/bin/renice --priority -15 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire)
+        ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire-pulse)
+        ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
+        ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
+      '';
       ".local/bin/gamemode_end.sh".source =
         pkgs.writers.writeDash "gamemode_end" "${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block";
     };
