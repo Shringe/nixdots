@@ -88,15 +88,15 @@
       atuin.server.enable = true;
     };
 
-    torrent.qbittorrent.enable = false;
+    torrent.qbittorrent.enable = true;
 
     arrs = {
       lidarr.enable = false;
-      sonarr.enable = false;
-      prowlarr.enable = false;
+      sonarr.enable = true;
+      prowlarr.enable = true;
       # radarr.enable = true;
-      flaresolverr.enable = false;
-      vpn.enable = false;
+      flaresolverr.enable = true;
+      vpn.enable = true;
     };
 
     linkwarden.enable = true;
