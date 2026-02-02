@@ -9,7 +9,7 @@ let
   cfg = config.nixosModules.server.services.tmodloader;
   domain = config.nixosModules.reverseProxy.domain;
   secret = "server/services/tmodloader_serverconfig_txt";
-  server = ''${pkgs.steam-run}/bin/steam-run /mnt/Steam/libraries/SSD3/SteamLibrary/steamapps/common/tModLoader/start-tModLoaderServer.sh -steam -config "${
+  server = ''${pkgs.steam-run}/bin/steam-run /mnt/Steam/libraries/SSD3/SteamLibrary/steamapps/common/tModLoader/start-tModLoaderServer.sh -nosteam -config "${
     config.sops.secrets.${secret}.path
   }"'';
 in
