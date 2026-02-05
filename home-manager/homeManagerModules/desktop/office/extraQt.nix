@@ -31,6 +31,7 @@ in
         gwenview
         elisa
         isoimagewriter
+        kdenlive
       ])
 
       (with pkgs; [
