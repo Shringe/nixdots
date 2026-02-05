@@ -7,6 +7,7 @@ with lib;
     ./syncthing.nix
     ./compat.nix
     ./gpm.nix
+    ./udisks.nix
   ];
 
   options.nixosModules.desktop = {
