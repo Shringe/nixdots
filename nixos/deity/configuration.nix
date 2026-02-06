@@ -20,8 +20,8 @@
 
   # Basic static ip for faster boot
   networking = {
-    dhcpcd.enable = true;
-    interfaces.enp42s0 = {
+    dhcpcd.enable = false;
+    interfaces.eno1 = {
       ipv4.addresses = [
         {
           address = config.nixosModules.info.system.ips.local;
