@@ -24,6 +24,7 @@ in
 
     # Intended to be started AFTER multi-user.target has completed, and getty/login is starting
     systemd.targets.post-interactive = {
+      enable = false;
       after = [ "multi-user.target" ];
       wants = [ "multi-user.target" ];
       wantedBy = [ "multi-user.target" ];
