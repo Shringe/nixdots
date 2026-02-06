@@ -5,6 +5,7 @@ with lib;
     ./loader
     ./graphical
     ./zswap.nix
+    ./optimizations.nix
   ];
 
   options.nixosModules.boot = {
