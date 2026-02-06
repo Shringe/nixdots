@@ -26,8 +26,8 @@ with lib;
         enable = true;
         hyprland.uid = 1000;
         hyprland.monitors = {
-          primary = "HDMI-A-2";
-          secondary = "DP-2";
+          primary = "HDMI-A-1";
+          secondary = "DP-1";
         };
         hyprland.plugins.enable = true;
 
@@ -67,8 +67,8 @@ with lib;
       ];
 
       wallpaper = [
-        "DP-2,${wall}"
-        "HDMI-A-2,${wall2}"
+        "DP-1,${wall}"
+        "HDMI-A-1,${wall2}"
       ];
     };
 
@@ -138,6 +138,8 @@ with lib;
   home.packages = with pkgs; [
     #neovim
     dotnet-sdk_8
+    sysbench
+    stress
     fzf
     git
     btop

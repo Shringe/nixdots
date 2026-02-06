@@ -24,7 +24,6 @@ in
         full = true;
         no_display = true;
         toggle_hud = "Shift_L + F12";
-        gpu_list = [ 1 ];
         font_size = 20;
       };
     };
