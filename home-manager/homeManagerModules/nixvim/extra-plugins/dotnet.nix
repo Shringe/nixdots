@@ -3,7 +3,11 @@
     enable = true;
 
     # https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
-    settings = {
+    config = {
+      formattingOptions = {
+        tabSize = 2;
+      };
+
       RoslynExtensionsOptions = {
         enableDecompilationSupport = true;
         enableImportCompletion = true;
