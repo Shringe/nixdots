@@ -3,9 +3,10 @@
     enable = true;
 
     # https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
-    config = {
-      formattingOptions = {
-        tabSize = 2;
+    settings = {
+      FormattingOptions = {
+        TabSize = 2;
+        IndentationSize = 2;
       };
 
       RoslynExtensionsOptions = {
