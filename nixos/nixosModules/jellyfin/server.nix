@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.jellyfin.server;
@@ -34,7 +39,7 @@ in
 
     directory = mkOption {
       type = types.str;
-      default = "/mnt/server/local/jellyfin";
+      default = "/var/lib/jellyfin";
     };
   };
 
@@ -42,7 +47,11 @@ in
     nixosModules.jellyfin.jellyseerr.enable = mkDefault false;
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    users.users.jellyfin.extraGroups = [ "music" "movies" "shows" ];
+    users.users.jellyfin.extraGroups = [
+      "music"
+      "movies"
+      "shows"
+    ];
 
     services.jellyfin = {
       enable = true;
