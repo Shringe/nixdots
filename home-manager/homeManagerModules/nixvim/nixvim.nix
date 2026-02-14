@@ -91,6 +91,13 @@
 
       {
         mode = "n";
+        key = "<leader>w";
+        action = "<cmd>WhichKey<CR>";
+        options.silent = true;
+      }
+
+      {
+        mode = "n";
         key = "<leader><Up>";
         options.silent = true;
         action = "<cmd>wincmd k<CR>";

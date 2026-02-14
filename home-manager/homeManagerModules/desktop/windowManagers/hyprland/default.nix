@@ -169,7 +169,7 @@ in
         bind = [
           # Hyprland
           "$mod CTRL, q, exit"
-          ", Print, exec, hyprshot --mode region"
+          ", Print, exec, hyprshot --output-folder $HOME/Pictures/screenshots/hyprland --mode region --notif-timeout --silent"
           "$mod, m, exec, hyprctl keyword general:layout master"
           "$mod, k, exec, hyprctl keyword general:layout dwindle"
           "$mod, v, exec, swaync-client -t -sw"
