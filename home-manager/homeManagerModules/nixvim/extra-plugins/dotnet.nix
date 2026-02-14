@@ -3,7 +3,7 @@
     enable = true;
 
     # https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
-    settings = {
+    config = {
       FormattingOptions = {
         TabSize = 2;
         IndentationSize = 2;

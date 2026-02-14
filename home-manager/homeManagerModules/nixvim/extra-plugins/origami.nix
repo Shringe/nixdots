@@ -1,0 +1,3 @@
+{
+  plugins.origami.enable = false;
+}
