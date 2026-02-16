@@ -6,7 +6,7 @@
       local original_nix_develop = require("nix-develop").nix_develop
       require("nix-develop").nix_develop = function(args)
         original_nix_develop(args)
-        vim.defer_fn(vim.cmd.LspRestart, 1000)
+        vim.defer_fn(vim.cmd.LspRestart, 3000)
       end
 
       vim.api.nvim_create_autocmd("VimEnter", {

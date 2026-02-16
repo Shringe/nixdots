@@ -43,7 +43,8 @@ in
 
     directory = mkOption {
       type = types.str;
-      default = "/mnt/server/critical/linkwarden";
+      # default = "/mnt/server/critical/linkwarden";
+      default = "/var/lib/linkwarden";
     };
   };
 

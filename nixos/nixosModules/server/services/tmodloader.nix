@@ -17,7 +17,8 @@ in
   options.nixosModules.server.services.tmodloader = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.server.services.enable;
+      default = false;
+      # default = config.nixosModules.server.services.enable;
     };
 
     host = mkOption {
