@@ -39,7 +39,7 @@ in
 
     directory = mkOption {
       type = types.str;
-      default = "/mnt/server/local/kavita";
+      default = "/var/lib/kavita";
     };
   };
 
