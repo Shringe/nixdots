@@ -11,7 +11,7 @@
 
       vim.api.nvim_create_autocmd("VimEnter", {
         callback = function()
-          if vim.fn.filereadable("flake.nix") == 1 then
+          if vim.env.IN_NIX_SHELL == nil and vim.fn.filereadable("flake.nix") == 1 then
             vim.cmd.NixDevelop()
           end
         end,

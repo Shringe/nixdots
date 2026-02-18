@@ -62,7 +62,7 @@
             flake = {
               # Improve autocomplete at the expense of resources
               autoArchive = true;
-              autoEvalInputs = true;
+              autoEvalInputs = false;
             };
           };
         };
