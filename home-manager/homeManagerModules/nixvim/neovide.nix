@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.nixvim.neovide;
-  winblend = 20;
+  winblend = 0;
 in
 {
   options.homeManagerModules.nixvim.neovide = {

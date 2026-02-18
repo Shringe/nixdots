@@ -73,6 +73,9 @@
       shiftwidth = 2;
       expandtab = true;
       softtabstop = 2;
+
+      # 24 bit colors
+      termguicolors = true;
     };
 
     globals = {
@@ -81,14 +84,6 @@
 
     # vim.api.nvim_set_keymap(  't'  ,  '<Leader><ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
     keymaps = [
-      {
-        # Esc in terminal mode
-        mode = "t";
-        key = "n<ESC>";
-        action = "<C-\\><C-n>";
-        options.silent = true;
-      }
-
       {
         mode = "n";
         key = "<leader>w";
