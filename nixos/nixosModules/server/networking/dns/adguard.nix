@@ -35,14 +35,15 @@ in
 
         dns = {
           upstream_dns = [
-            "https://dns.quad9.net/dns-query"
             "tls://dns.quad9.net"
           ];
 
-          # fallback_dns = [
-          #   "8.8.8.8"
-          #   "9.9.9.9"
-          # ];
+          fallback_dns = [
+            "https://dns.quad9.net/dns-query"
+            "9.9.9.9"
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
 
           bootstrap_dns = [
             "9.9.9.9"
@@ -53,6 +54,7 @@ in
           aaaa_disabled = true;
 
           upstream_mode = "parallel";
+          # upstream_mode = "fastest_addr";
           cache_optimistic = true;
           ratelimit = 0;
           enable_dnssec = true;
