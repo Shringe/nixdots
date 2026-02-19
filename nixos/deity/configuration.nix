@@ -112,6 +112,7 @@
     wireguard = {
       enable = true;
       server.enable = true;
+      server.interface = "eno1";
     };
 
     jellyfin = {

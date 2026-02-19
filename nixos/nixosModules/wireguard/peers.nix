@@ -34,6 +34,7 @@ in
       "preshared/L_Laptop" = key;
       "preshared/L_Phone2" = key;
       "preshared/S_Desktop" = key;
+      "preshared/L_Phone3" = key;
     };
 
     networking.wireguard.interfaces.wg0.peers = [
@@ -41,12 +42,13 @@ in
       #   publicKey = "3HSS1loEZSCGjfqOLm/dyZpPfwzT31wKvw8Ygrl5czE=";
       #   allowedIPs = [ "${cfg.private_ip}.3/32" ];
       # }
-      (mkPeer 2 "L_Phone" "5PfQalJfIoZwTCD7pjamN1PjsqC4V7wWfg0M1kIvqUo=")
+      # (mkPeer 2 "L_Phone" "5PfQalJfIoZwTCD7pjamN1PjsqC4V7wWfg0M1kIvqUo=")
       (mkPeer 3 "K_Phone" "IDVL+7WJv1H5RDUtFszbKxzdSlY+VXNqCiyDmqZIqko=")
       (mkPeer 4 "K_Laptop" "znkrk3a5TOuL4YCLC5096aIzYAY7Zfgl/RS0BvX8Pk0=")
       (mkPeer 5 "L_Laptop" "ybqPkNqZFQDef2p+Xi/OyFphMOt/ADvidA1OdWz6eEg=")
-      (mkPeer 6 "L_Phone2" "zV6eHqtCYkyzxdQC17hNlfQcHxk93GkCaV7gQ1wXqVc=")
+      # (mkPeer 6 "L_Phone2" "zV6eHqtCYkyzxdQC17hNlfQcHxk93GkCaV7gQ1wXqVc=")
       (mkPeer 7 "S_Desktop" "kZdVsGoasFoQakKY8zaqVAohmMXNYIV3ZyLWfBOCdCo=")
+      (mkPeer 8 "L_Phone3" "yl7mycKMPt+66RMLFYyIbKY2rUOh0DVDQh+yC3HtOk4=")
     ];
   };
 }
