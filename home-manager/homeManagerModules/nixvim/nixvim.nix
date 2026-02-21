@@ -23,7 +23,6 @@
     plugins = {
       nvim-autopairs.enable = true;
       web-devicons.enable = true;
-      nvim-surround.enable = true;
       gitsigns.enable = true;
       which-key.enable = true;
       spectre.enable = true;
