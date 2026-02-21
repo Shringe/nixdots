@@ -73,8 +73,9 @@
       expandtab = true;
       softtabstop = 2;
 
-      # 24 bit colors
+      # Misc
       termguicolors = true;
+      scrolloff = 6;
     };
 
     globals = {
