@@ -105,6 +105,8 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      # Possible options: "cpp" "lix" "detsys"
+      nixDistribution = "cpp";
 
       overlays = [
         inputs.nur.overlays.default
@@ -162,7 +164,8 @@
           universal-android-debloater = self.old.universal-android-debloater;
           searxng = self.old.searxng;
         })
-
+      ]
+      ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
         # Use lix for supported tools
         (self: super: {
           inherit (super.lixPackageSets.stable)
@@ -192,10 +195,6 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
           modules = [
-            # Binary cache provided here
-            # https://docs.determinate.systems/guides/advanced-installation#nixos
-            # inputs.determinate.nixosModules.default
-
             ./nixos/${name}/configuration.nix
             ./nixos/nixosModules
             ./shared
@@ -203,7 +202,7 @@
             {
               networking.hostName = name;
               nixpkgs = pkgConfig;
-              nix.package = pkgs.lixPackageSets.stable.lix;
+              documentation.enable = false; # Building docs is slow
               nix.settings = {
                 experimental-features = [
                   "nix-command"
@@ -215,24 +214,48 @@
 
                 substituters = [
                   "https://devenv.cachix.org"
-                  # "https://install.determinate.systems?priority=2"
                   "https://nix-community.cachix.org?priority=3"
                   "https://hyprland.cachix.org?priority=4"
                   "https://nix-gaming.cachix.org?priority=5"
                   "https://walker.cachix.org?priority=6"
                   "https://walker-git.cachix.org?priority=8"
+                ]
+                ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
+                  "https://install.determinate.systems?priority=2"
                 ];
 
                 trusted-public-keys = [
-                  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
                   "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
                   "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
                   "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
                   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
                   "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
                   "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+                ]
+                ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
+                  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
                 ];
               };
+            }
+          ]
+          ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
+            # Binary cache provided here
+            # https://docs.determinate.systems/guides/advanced-installation#nixos
+            inputs.determinate.nixosModules.default
+            {
+              nix.settings = {
+                substituters = [
+                  "https://install.determinate.systems?priority=2"
+                ];
+                trusted-public-keys = [
+                  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+                ];
+              };
+            }
+          ]
+          ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
+            {
+              nix.package = pkgs.lixPackageSets.stable.lix;
             }
           ];
         };
