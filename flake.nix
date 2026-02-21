@@ -106,7 +106,7 @@
     let
       system = "x86_64-linux";
       # Possible options: "cpp" "lix" "detsys"
-      nixDistribution = "cpp";
+      nixDistribution = "detsys";
 
       overlays = [
         inputs.nur.overlays.default
