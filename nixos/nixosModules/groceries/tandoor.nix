@@ -2,7 +2,8 @@
 with lib;
 let
   cfg = config.nixosModules.groceries.tandoor;
-in {
+in
+{
   options.nixosModules.groceries.tandoor = {
     enable = mkEnableOption "Tandoor grocery list and manager";
     port = mkOption {
@@ -37,12 +38,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services = {
-      tandoor-recipes = {
-        enable = true;
-        address = cfg.ip;
-        port = cfg.port;
-      };
+    services.tandoor-recipes = {
+      enable = true;
+      address = cfg.ip;
+      port = cfg.port;
+      extraConfig.MEDIA_ROOT = "/var/lib/tandoor-recipes/media";
     };
 
     systemd.services.tandoor-recipes = {
