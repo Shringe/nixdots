@@ -162,6 +162,16 @@
           universal-android-debloater = self.old.universal-android-debloater;
           searxng = self.old.searxng;
         })
+
+        # Use lix for supported tools
+        (self: super: {
+          inherit (super.lixPackageSets.stable)
+            nixpkgs-review
+            nix-eval-jobs
+            nix-fast-build
+            colmena
+            ;
+        })
       ];
 
       pkgs = import nixpkgs pkgConfig;
@@ -184,7 +194,7 @@
           modules = [
             # Binary cache provided here
             # https://docs.determinate.systems/guides/advanced-installation#nixos
-            inputs.determinate.nixosModules.default
+            # inputs.determinate.nixosModules.default
 
             ./nixos/${name}/configuration.nix
             ./nixos/nixosModules
@@ -193,6 +203,7 @@
             {
               networking.hostName = name;
               nixpkgs = pkgConfig;
+              nix.package = pkgs.lixPackageSets.stable.lix;
               nix.settings = {
                 experimental-features = [
                   "nix-command"
@@ -204,7 +215,7 @@
 
                 substituters = [
                   "https://devenv.cachix.org"
-                  "https://install.determinate.systems?priority=2"
+                  # "https://install.determinate.systems?priority=2"
                   "https://nix-community.cachix.org?priority=3"
                   "https://hyprland.cachix.org?priority=4"
                   "https://nix-gaming.cachix.org?priority=5"
