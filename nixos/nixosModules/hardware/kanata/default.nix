@@ -20,6 +20,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    systemd.services.kanata-default.serviceConfig.Restart = "always";
     services.kanata = {
       enable = true;
       keyboards.default = {
