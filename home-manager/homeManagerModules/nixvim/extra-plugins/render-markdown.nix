@@ -1,9 +1,13 @@
 {
-  programs.nixvim.plugins.render-markdown = {
+  plugins.render-markdown = {
     enable = true;
     settings.file_types = [
       "markdown"
       "codecompanion"
     ];
+
+    lazyLoad.settings = {
+      ft = "markdown";
+    };
   };
 }

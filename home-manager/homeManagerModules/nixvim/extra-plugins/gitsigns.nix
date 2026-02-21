@@ -1,5 +1,5 @@
 {
-  plugins.indent-blankline = {
+  plugins.gitsigns = {
     enable = true;
 
     lazyLoad.settings = {

@@ -8,8 +8,8 @@
   imports = [
     inputs.nixvim.homeModules.nixvim
     ./extra-plugins
-    ./optimizations.nix
     ./extra.nix
+    ./optimizations.nix
   ];
 
   stylix.targets.nixvim.enable = false;
@@ -18,16 +18,6 @@
     enable = true;
     colorschemes.catppuccin.enable = true;
     # colorschemes.tokyonight.enable = true;
-
-    # Simple plugins
-    plugins = {
-      nvim-autopairs.enable = true;
-      web-devicons.enable = true;
-      gitsigns.enable = true;
-      which-key.enable = true;
-      spectre.enable = true;
-      zellij.enable = true;
-    };
 
     autoCmd = [
       # { # Makes _ a valid wordbreak in rust
@@ -84,13 +74,6 @@
 
     # vim.api.nvim_set_keymap(  't'  ,  '<Leader><ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
     keymaps = [
-      {
-        mode = "n";
-        key = "<leader>w";
-        action = "<cmd>WhichKey<CR>";
-        options.silent = true;
-      }
-
       {
         mode = "n";
         key = "<leader><Up>";
