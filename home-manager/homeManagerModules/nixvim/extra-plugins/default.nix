@@ -40,27 +40,54 @@ let
 
   # Determine and pass plugin enabled status
   # Pass a function rather than a bool, so it's evaluated lazily with config
-  shouldProvideIsEnabled =
-    file: config: config.plugins.${lib.removeSuffix ".nix" (baseNameOf (toString file))}.enable;
+  isEnabledFor =
+    file: isWrappedNixvim: config:
+    let
+      fileName = lib.removeSuffix ".nix" (baseNameOf (toString file));
+    in
+    if isWrappedNixvim then
+      config.programs.nixvim.plugins.${fileName}.enable
+    else
+      config.plugins.${fileName}.enable;
 
   provideIsEnabled =
-    file:
+    file: isWrappedNixvim:
     let
       module = import file;
-      isEnabledFn = shouldProvideIsEnabled file;
+      isEnabledFn = isEnabledFor file isWrappedNixvim;
     in
     if builtins.isFunction module then
-      lib.setFunctionArgs (args: module (args // { isEnabled = isEnabledFn args.config; })) (
-        builtins.functionArgs module
-        // {
-          isEnabled = true;
-          config = true;
-        }
-      )
+      lib.setFunctionArgs
+        (
+          args:
+          let
+            isEnabled = isEnabledFn args.config;
+          in
+          module (
+            args
+            // {
+              inherit isEnabled;
+              ifIsEnabled = lib.mkIf isEnabled;
+              ifNotEnabled = lib.mkIf (!isEnabled);
+            }
+          )
+        )
+        (
+          builtins.functionArgs module
+          // {
+            isEnabled = true;
+            ifIsEnabled = true;
+            ifNotEnabled = true;
+            config = true;
+          }
+        )
     else
       module;
+
+  provideIsEnabledWrapped = file: provideIsEnabled file true;
+  provideIsEnabledUnwrapped = file: provideIsEnabled file false;
 in
 {
-  programs.nixvim.imports = map provideIsEnabled unwrappedFiles;
-  imports = map provideIsEnabled wrappedFiles;
+  programs.nixvim.imports = map provideIsEnabledUnwrapped unwrappedFiles;
+  imports = map provideIsEnabledWrapped wrappedFiles;
 }

@@ -1,12 +1,8 @@
-{
-  lib,
-  isEnabled,
-  ...
-}:
+{ ifNotEnabled, ... }:
 {
   # This removes the delay from nvim waiting for chords while typing
   plugins.better-escape = {
-    enable = true;
+    enable = false;
 
     settings = {
       default_mappings = false;
@@ -17,7 +13,7 @@
     };
   };
 
-  keymaps = lib.mkIf (!isEnabled) [
+  keymaps = ifNotEnabled [
     {
       # Esc in terminal mode
       mode = "t";
