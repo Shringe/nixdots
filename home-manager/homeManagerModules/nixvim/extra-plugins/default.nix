@@ -37,8 +37,30 @@ let
   partitionedFiles = partition (file: fileDefinesNixvim file) (validFiles ./.);
   unwrappedFiles = partitionedFiles.wrong;
   wrappedFiles = partitionedFiles.right;
+
+  # Determine and pass plugin enabled status
+  # Pass a function rather than a bool, so it's evaluated lazily with config
+  shouldProvideIsEnabled =
+    file: config: config.plugins.${lib.removeSuffix ".nix" (baseNameOf (toString file))}.enable;
+
+  provideIsEnabled =
+    file:
+    let
+      module = import file;
+      isEnabledFn = shouldProvideIsEnabled file;
+    in
+    if builtins.isFunction module then
+      lib.setFunctionArgs (args: module (args // { isEnabled = isEnabledFn args.config; })) (
+        builtins.functionArgs module
+        // {
+          isEnabled = true;
+          config = true;
+        }
+      )
+    else
+      module;
 in
 {
-  programs.nixvim.imports = unwrappedFiles;
-  imports = wrappedFiles;
+  programs.nixvim.imports = map provideIsEnabled unwrappedFiles;
+  imports = map provideIsEnabled wrappedFiles;
 }
