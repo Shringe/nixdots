@@ -1,5 +1,5 @@
 {
-  programs.nixvim.plugins.alpha = {
+  plugins.alpha = {
     enable = true;
     theme = "startify";
   };

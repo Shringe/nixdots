@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  programs.nixvim.plugins = {
+  plugins = {
     treesitter = {
       enable = true;
 

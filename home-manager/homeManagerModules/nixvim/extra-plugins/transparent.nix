@@ -1,6 +1,7 @@
 {
-  programs.nixvim.plugins.transparent = {
+  plugins.transparent = {
     enable = true;
+
     settings = {
       groups = [
         "Normal"

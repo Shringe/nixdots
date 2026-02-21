@@ -35,6 +35,16 @@ in
         ${mkTuiAppLua "lazygit"}
         ${mkTuiAppLua "yazi"}
       '';
+
+      lazyLoad.enable = false;
+      lazyLoad.settings = {
+        cmd = "ToggleTerm";
+        keys = [
+          "<leader>tt"
+          "<leader>tl"
+          "<leader>ty"
+        ];
+      };
     };
 
     keymaps = [

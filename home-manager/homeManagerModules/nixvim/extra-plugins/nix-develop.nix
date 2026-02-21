@@ -17,5 +17,10 @@
         end,
       })
     '';
+
+    lazyLoad.settings.cmd = [
+      "NixDevelop"
+      "NixShell"
+    ];
   };
 }

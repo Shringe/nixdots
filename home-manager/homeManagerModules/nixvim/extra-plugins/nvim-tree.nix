@@ -73,6 +73,23 @@
           -- END_DEFAULT_ON_ATTACH
         end
       '';
+
+      lazyLoad.settings = {
+        cmd = [
+          "NvimTreeToggle"
+          "NvimTreeClipboard"
+          "NvimTreeClose"
+          "NvimTreeCollapse"
+          "NvimTreeCollapseKeepBuffers"
+          "NvimTreeFindFile"
+          "NvimTreeFindFileToggle"
+          "NvimTreeFocus"
+          "NvimTreeHiTest"
+          "NvimTreeOpen"
+          "NvimTreeRefresh"
+          "NvimTreeResize"
+        ];
+      };
     };
 
     keymaps = [
