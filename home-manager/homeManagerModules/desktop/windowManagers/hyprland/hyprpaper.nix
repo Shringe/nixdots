@@ -21,6 +21,7 @@ in
       Unit = {
         After = mkForce [ "hyprland-session.target" ];
         PartOf = mkForce [ "hyprland-session.target" ];
+        X-Restart-Triggers = mkForce [ ]; # Otherwise hyprpaper restarts on every home-manager switch
       };
     };
 
