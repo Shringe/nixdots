@@ -9,5 +9,6 @@
     # gparted
     # tree
     zellij
+    exfat
   ];
 }

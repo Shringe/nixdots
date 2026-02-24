@@ -78,6 +78,9 @@ in
         User = "qbittorrent";
         Group = "qbittorrent";
         ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.ports.webui}";
+        Nice = 17;
+        IOSchedulingClass = "idle";
+        # IOSchedulingClass = "best-effort";
       };
 
       wantedBy = [ "multi-user.target" ];
