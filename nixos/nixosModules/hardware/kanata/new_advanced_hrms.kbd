@@ -18,11 +18,11 @@
 )
 
 (defvar
-  tot 110  ;; tot=time out tap
-  npinky 300
-  nring 250
-  nmiddle 200
-  nindex 150
+  tot 100  ;; tot=time out tap
+  npinky 270
+  nring 220
+  nmiddle 170
+  nindex 120
 )
 
 (deftemplate homerowmod (timeouttap timeouthold keytap keyhold)
