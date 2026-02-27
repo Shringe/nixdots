@@ -1,6 +1,10 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.ripgrep ];
+  home.packages = [
+    pkgs.ripgrep
+    pkgs.imagemagick
+  ];
+
   programs.nixvim = {
     # keymaps = [
     #   {# Delete current buffer with control d in buffer mode
