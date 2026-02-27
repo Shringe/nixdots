@@ -69,6 +69,10 @@ in
 
         server_name = "collabora.${domain}";
       };
+
+      extraArgs = [
+        "--o:security.capabilities=false" # Allows export to pdf
+      ];
     };
 
     services.nginx.virtualHosts."collabora.${domain}" = {
