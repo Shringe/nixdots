@@ -213,12 +213,13 @@
                 max-substitution-jobs = 128;
 
                 substituters = [
-                  "https://devenv.cachix.org"
+                  "https://devenv.cachix.org?priority=12"
                   "https://nix-community.cachix.org?priority=3"
                   "https://hyprland.cachix.org?priority=4"
                   "https://nix-gaming.cachix.org?priority=5"
                   "https://walker.cachix.org?priority=6"
                   "https://walker-git.cachix.org?priority=8"
+                  "https://cache.nixos-cuda.org?priority=10"
                 ]
                 ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
                   "https://install.determinate.systems?priority=2"
@@ -231,6 +232,7 @@
                   "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
                   "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
                   "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+                  "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
                 ]
                 ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
                   "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="

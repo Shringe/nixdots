@@ -26,7 +26,7 @@ in
       {
         "Social" =
           [ ]
-          ++ mkService "Ollama" llm.ollama.webui { }
+          ++ mkService "Ollama" ollama.webui { }
           ++ mkService "Tandoor" groceries.tandoor {
             widget = {
               type = "tandoor";

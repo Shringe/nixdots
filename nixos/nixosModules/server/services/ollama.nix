@@ -1,17 +1,20 @@
 { config, lib, ... }:
 with lib;
 let
-  cfg = config.nixosModules.llm.ollama;
+  cfg = config.nixosModules.server.services.ollama;
 
   domain = config.nixosModules.reverseProxy.domain;
 in
 {
-  options.nixosModules.llm.ollama = {
-    enable = mkEnableOption "Ollama llm";
+  options.nixosModules.server.services.ollama = {
+    enable = mkOption {
+      type = types.bool;
+      default = config.nixosModules.server.services.enable;
+    };
 
     enableCuda = mkOption {
       type = types.bool;
-      default = false;
+      default = config.nixpkgs.config.cudaSupport;
     };
 
     host = mkOption {
@@ -31,15 +34,18 @@ in
 
     furl = mkOption {
       type = types.str;
-      default = "https://ollama.${domain}/api";
+      default = "https://ollama.${domain}";
     };
 
     webui = {
-      enable = mkEnableOption "Web frontend";
+      enable = mkOption {
+        type = types.bool;
+        default = cfg.enable;
+      };
 
       host = mkOption {
         type = types.str;
-        default = config.nixosModules.info.system.ips.local;
+        default = cfg.host;
       };
 
       port = mkOption {
@@ -64,7 +70,7 @@ in
 
       furl = mkOption {
         type = types.str;
-        default = "https://ollama.${domain}";
+        default = "https://oi.${domain}";
       };
     };
   };
@@ -80,27 +86,52 @@ in
         acceleration = mkIf cfg.enableCuda "cuda";
 
         loadModels = [
-          "llama3.1"
-          "deekseek-r1:14b"
-          "renchris/qwen3-coder:30b-gguf-unsloth"
+          "phi3:mini-4k"
         ];
       };
 
-      nextjs-ollama-llm-ui = mkIf cfg.webui.enable {
+      open-webui = mkIf cfg.webui.enable {
         enable = true;
-        hostname = cfg.webui.host;
+        openFirewall = false;
+        host = cfg.webui.host;
         port = cfg.webui.port;
-        ollamaUrl = cfg.furl;
+
+        environment = {
+          ANONYMIZED_TELEMETRY = "False";
+          DO_NOT_TRACK = "True";
+          SCARF_NO_ANALYTICS = "True";
+          OLLAMA_API_BASE_URL = "${cfg.furl}/api";
+          OLLAMA_BASE_URL = cfg.furl;
+          ENABLE_OATH_WITHOUT_EMAIL = "True";
+          BYPASS_MODEL_ACCESS_CONTROL = "True";
+        };
       };
+
+      # nextjs-ollama-llm-ui = mkIf cfg.webui.enable {
+      #   enable = true;
+      #   hostname = cfg.webui.host;
+      #   port = cfg.webui.port;
+      #   ollamaUrl = cfg.furl;
+      # };
 
       nginx.virtualHosts = {
         "ollama.${domain}" = {
           useACMEHost = domain;
           onlySSL = true;
 
-          locations = {
-            "/".proxyPass = cfg.webui.url;
-            "/api".proxyPass = cfg.url;
+          locations."/" = {
+            proxyPass = cfg.url;
+            proxyWebsockets = true;
+          };
+        };
+
+        "oi.${domain}" = mkIf cfg.webui.enable {
+          useACMEHost = domain;
+          onlySSL = true;
+
+          locations."/" = {
+            proxyPass = cfg.webui.url;
+            proxyWebsockets = true;
           };
         };
       };

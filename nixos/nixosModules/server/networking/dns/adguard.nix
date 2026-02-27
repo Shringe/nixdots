@@ -82,6 +82,7 @@ in
           (rp "immich")
           (rp "radicale")
           (rp "ollama")
+          (rp "oi")
           (rp "router")
           (rp "lidarr")
           (rp "radarr")

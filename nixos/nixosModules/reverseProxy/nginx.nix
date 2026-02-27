@@ -89,7 +89,6 @@ in
           (rps "dns" server.networking.dns)
           (rps "immich" server.services.immich)
           (rps "radicale" caldav.radicale)
-          # (rps "ollama" llm.ollama.webui)
           (rps "lidarr" arrs.lidarr)
           (rps "radarr" arrs.radarr)
           (rps "sonarr" arrs.sonarr)
@@ -107,6 +106,7 @@ in
           (rps "paperless" server.services.paperless)
           (rps "searxng" server.services.searxng)
           (rps "tmodloader" server.services.tmodloader)
+          # (rps "ollama" server.services.ollama)
 
           # Public services
           (rpad social.matrix.conduit)

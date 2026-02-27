@@ -84,7 +84,8 @@ in
             (mkMonitor "Kavita" kavita)
             (mkMonitor "Tandoor" groceries.tandoor)
             (mkMonitor "Immich" immich)
-            (mkMonitor "Ollama" llm.ollama.webui)
+            (mkMonitor "Ollama WebUI" ollama.webui)
+            (mkMonitor "Ollama" ollama)
 
             (mkMonitor "Automatic Ripping Machine" docker.automaticrippingmachine)
             (mkMonitor "Lidarr" arrs.lidarr)
