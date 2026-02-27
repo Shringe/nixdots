@@ -128,7 +128,7 @@ window#waybar {
 
 #clock {
   color: @active;
-  margin-right: 5px;
+  margin-right: 7px;
 }
 
 #custom-notification {
@@ -156,8 +156,8 @@ window#waybar {
   font-weight: bold;
   color: @b04;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 3px;
+  padding-right: 3px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0px;
@@ -183,14 +183,45 @@ window#waybar {
   margin-top: 0px;
 }
 
+#custom-midSeparator1 {
+  font-size: 14px;
+  font-weight: bold;
+  color: @b04;
+  padding: 0px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  margin-left: 100px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#custom-midSeparator2 {
+  font-size: 14px;
+  font-weight: bold;
+  color: @b04;
+  padding: 0px;
+  padding-left: 2px;
+  padding-right: 4px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin: 0px;
+  margin-left: 0px;
+  margin-right: 100px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
 
 #custom-rightSeparator1 {
   font-size: 14px;
   font-weight: bold;
   color: @b04;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 2px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0px;
@@ -205,8 +236,8 @@ window#waybar {
   font-weight: bold;
   color: @b04;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 2px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0px;
@@ -221,8 +252,8 @@ window#waybar {
   font-weight: bold;
   color: @b04;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 2px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0px;
@@ -237,8 +268,8 @@ window#waybar {
   font-weight: bold;
   color: @b04;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 2px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0px;
@@ -253,8 +284,8 @@ window#waybar {
   font-weight: bold;
   color: @b04;
   padding: 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 2px;
   padding-bottom: 0px;
   padding-top: 0px;
   margin: 0px;
