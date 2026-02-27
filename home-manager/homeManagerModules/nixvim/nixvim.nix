@@ -65,7 +65,7 @@
 
       # Misc
       termguicolors = true;
-      scrolloff = 6;
+      scrolloff = 8;
     };
 
     globals = {
@@ -76,54 +76,54 @@
     keymaps = [
       {
         mode = "n";
-        key = "<leader><Up>";
+        key = "<leader>i";
         options.silent = true;
         action = "<cmd>wincmd k<CR>";
       }
       {
         mode = "n";
-        key = "<leader><Down>";
+        key = "<leader>e";
         options.silent = true;
         action = "<cmd>wincmd j<CR>";
       }
       {
         mode = "n";
-        key = "<leader><Left>";
+        key = "<leader>n";
         options.silent = true;
         action = "<cmd>wincmd h<CR>";
       }
       {
         mode = "n";
-        key = "<leader><Right>";
+        key = "<leader>o";
         options.silent = true;
         action = "<cmd>wincmd l<CR>";
       }
 
-      {
-        mode = "n";
-        key = "<leader>k";
-        options.silent = true;
-        action = "<cmd>wincmd k<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>j";
-        options.silent = true;
-        action = "<cmd>wincmd j<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>h";
-        options.silent = true;
-        action = "<cmd>wincmd h<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>l";
-        options.silent = true;
-        action = "<cmd>wincmd l<CR>";
-      }
-
+      # {
+      #   mode = "n";
+      #   key = "<leader>k";
+      #   options.silent = true;
+      #   action = "<cmd>wincmd k<CR>";
+      # }
+      # {
+      #   mode = "n";
+      #   key = "<leader>j";
+      #   options.silent = true;
+      #   action = "<cmd>wincmd j<CR>";
+      # }
+      # {
+      #   mode = "n";
+      #   key = "<leader>h";
+      #   options.silent = true;
+      #   action = "<cmd>wincmd h<CR>";
+      # }
+      # {
+      #   mode = "n";
+      #   key = "<leader>l";
+      #   options.silent = true;
+      #   action = "<cmd>wincmd l<CR>";
+      # }
+      #
       {
         mode = "n";
         key = "<leader>ss";

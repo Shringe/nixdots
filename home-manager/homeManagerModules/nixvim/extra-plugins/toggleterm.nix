@@ -3,23 +3,6 @@ let
     # "t"
     "n"
   ];
-
-  mkTuiAppLua = cmd: ''
-    local ${cmd} = Terminal:new({
-      cmd = "${cmd}",
-      hidden = true,
-    })
-
-    function _${cmd}_toggle()
-      ${cmd}:toggle()
-    end
-  '';
-
-  mkTuiAppKey = app: key: {
-    inherit mode key;
-
-    action = "<cmd>lua _${app}_toggle()<CR>";
-  };
 in
 {
   programs.nixvim = {
@@ -27,13 +10,54 @@ in
       enable = true;
 
       settings = {
-        direction = "float";
+        # direction = "float";
+        direction = "vertical";
+        size = 80;
       };
 
       luaConfig.post = ''
-        local Terminal = require('toggleterm.terminal').Terminal
-        ${mkTuiAppLua "lazygit"}
-        ${mkTuiAppLua "yazi"}
+        local Terminal = require("toggleterm.terminal").Terminal
+
+        local lazygit = Terminal:new({
+          display_name = "Lazygit",
+          cmd = "lazygit",
+          hidden = true,
+          direction = "float",
+          on_open = function(term)
+            vim.cmd.stopinsert()
+          end,
+        })
+
+        local yazi = Terminal:new({
+          display_name = "Yazi",
+          cmd = "yazi",
+          hidden = true,
+          direction = "float",
+          on_open = function(term)
+            vim.cmd.stopinsert()
+          end,
+        })
+
+        local shell = Terminal:new({
+          display_name = "Shell",
+          cmd = "nu",
+          hidden = true,
+          on_open = function(term)
+            vim.cmd.stopinsert()
+          end,
+        })
+
+        function _lazygit_toggle()
+          lazygit:toggle()
+        end
+
+        function _yazi_toggle()
+          yazi:toggle()
+        end
+
+        function _shell_toggle()
+          shell:toggle()
+        end
       '';
 
       lazyLoad.enable = false;
@@ -50,12 +74,22 @@ in
     keymaps = [
       {
         inherit mode;
-
         key = "<leader>tt";
-        action = "<cmd>ToggleTerm<CR>";
+        action = "<cmd>lua _shell_toggle()<CR>";
+        options.silent = true;
       }
-      (mkTuiAppKey "lazygit" "<leader>tl")
-      (mkTuiAppKey "yazi" "<leader>ty")
+      {
+        inherit mode;
+        key = "<leader>tl";
+        action = "<cmd>lua _lazygit_toggle()<CR>";
+        options.silent = true;
+      }
+      {
+        inherit mode;
+        key = "<leader>ty";
+        action = "<cmd>lua _yazi_toggle()<CR>";
+        options.silent = true;
+      }
     ];
   };
 }
