@@ -11,7 +11,8 @@
   keymaps = [
     {
       mode = "n";
-      key = "<leader>w";
+      # key = "<Alt-w>";
+      key = "<Alt-w>";
       action = "<cmd>WhichKey<CR>";
       options.silent = true;
     }
