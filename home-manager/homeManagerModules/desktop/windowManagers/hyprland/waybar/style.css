@@ -58,8 +58,8 @@ window#waybar {
 #workspaces {
   color: @text;
   font-weight: bold;
-  padding-left: 0px;
-  padding-right: 2px;
+  padding-left: 2px;
+  padding-right: 4px;
   margin-right: 0px;
   margin-left: 0px;
 }
@@ -68,7 +68,7 @@ window#waybar {
   color: @b03;
   font-weight: bold;
   padding-left: 2px;
-  padding-right: 2px;
+  padding-right: 4px;
   margin-right: 0px;
   margin-left: 0px;
 }
@@ -77,7 +77,7 @@ window#waybar {
   color: @text;
   font-weight: bold;
   padding-left: 2px;
-  padding-right: 2px;
+  padding-right: 4px;
   margin-right: 0px;
   margin-left: 0px;
 }
@@ -86,7 +86,7 @@ window#waybar {
   color: @highlight;
   font-weight: bold;
   padding-left: 2px;
-  padding-right: 2px;
+  padding-right: 4px;
   margin-right: 0px;
   margin-left: 0px;
   ; border-bottom: 1px solid @highlight;
