@@ -104,6 +104,20 @@ in
 
         "Nix HomeManager Options" = mkSearchixSearch "options/home-manager" "@nh";
         "Nix User Repository" = mkSearchixSearch "packages/nur" "@nu";
+        "Nixvim" = {
+          urls = [
+            {
+              template = "https://nix-community.github.io/nixvim/?search={searchTerms}";
+              params = [
+                {
+                  name = "query";
+                  value = "{searchTerms}";
+                }
+              ];
+            }
+          ];
+          definedAliases = [ "@nv" ];
+        };
 
         "SearBe" = mkSxngSearch "searx.be" "@sxb";
         "SeekFYI" = mkSxngSearch "seek.fyi" "@sxf";

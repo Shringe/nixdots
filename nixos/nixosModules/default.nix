@@ -7,7 +7,6 @@ with lib;
     ./sops
     ./users
     ./mouse
-    ./llm
     ./packages
     ./firewall
     ./vpn
@@ -71,13 +70,6 @@ with lib;
       enable = mkEnableOption "Enables firewall";
       kdeconnect.enable = mkEnableOption "Enables kdeconnect firewall ports";
       yuzu.enable = mkEnableOption "Enables yuzu LAN firewall ports";
-    };
-
-    llm = {
-      gpt4all = {
-        enable = mkEnableOption "Default gpt4all";
-        cuda = mkEnableOption "Use Cuda";
-      };
     };
 
     mouse = {

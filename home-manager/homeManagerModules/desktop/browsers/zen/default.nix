@@ -33,6 +33,7 @@ in
 
       programs.zen-browser = {
         enable = true;
+        suppressXdgMigrationWarning = true;
 
         policies = {
           DisableAppUpdate = true;
@@ -61,7 +62,7 @@ in
       home.file =
         let
           mkLnk = file: {
-            ".zen/default/chrome/${file}" = {
+            "~/.config/zen/default/chrome/${file}" = {
               source = ./${file};
               # force = true;
             };

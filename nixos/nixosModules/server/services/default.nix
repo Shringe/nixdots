@@ -13,6 +13,7 @@ with lib;
     ./whalecrab.nix
     ./tmodloader.nix
     ./mumble.nix
+    ./ollama.nix
   ];
 
   options.nixosModules.server.services = {
