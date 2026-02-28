@@ -62,8 +62,16 @@ in
       port = cfg.port;
       environmentFile = config.sops.secrets."linkwarden".path;
       storageLocation = cfg.directory;
-
       enableRegistration = true;
+
+      environment = {
+        NEXT_PUBLIC_OLLAMA_ENDPOINT_URL = config.nixosModules.server.services.ollama.furl;
+        OLLAMA_MODEL = "phi3:mini-4k";
+        # OLLAMA_MODEL = "granite4:3b";
+        # OLLAMA_MODEL = "qwen3:8b";
+        # OLLAMA_MODEL = "qwen3:4b";
+        BASE_URL = cfg.furl;
+      };
     };
   };
 }
