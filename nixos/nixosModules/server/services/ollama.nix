@@ -76,6 +76,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    # If this is enabled, it annoyingly gets started on every nixos-rebuild switch
+    systemd.services.ollama-model-loader.enable = false;
+
     services = {
       ollama = {
         enable = true;
