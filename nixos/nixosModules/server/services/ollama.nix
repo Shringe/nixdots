@@ -78,6 +78,7 @@ in
   config = mkIf cfg.enable {
     # If this is enabled, it annoyingly gets started on every nixos-rebuild switch
     systemd.services.ollama-model-loader.enable = false;
+    systemd.services.ollama.serviceConfig.Nice = 12;
 
     services = {
       ollama = {
@@ -90,6 +91,10 @@ in
 
         loadModels = [
           "phi3:mini-4k"
+          "granite4:3b"
+          "qwen3:4b"
+          "qwen3:1.7b"
+          "qwen3:8b"
         ];
       };
 
