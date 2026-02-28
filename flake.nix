@@ -35,6 +35,11 @@
       inputs.elephant.follows = "elephant";
     };
 
+    ark-server = {
+      url = "git+https://codeberg.org/Txrxn25/NixOS-Ark-Survival-Evolved-flake.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";

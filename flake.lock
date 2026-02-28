@@ -33,6 +33,26 @@
         "type": "github"
       }
     },
+    "ark-server": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736882833,
+        "narHash": "sha256-lLXYf1bPtB3lGiRto0D7V1qiSsszmRGnl+5xSlFBuK8=",
+        "ref": "refs/heads/main",
+        "rev": "576bf562368146120f92cca9e58a4d18a48e40ac",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://codeberg.org/Txrxn25/NixOS-Ark-Survival-Evolved-flake.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/Txrxn25/NixOS-Ark-Survival-Evolved-flake.git"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1753,6 +1773,7 @@
     },
     "root": {
       "inputs": {
+        "ark-server": "ark-server",
         "determinate": "determinate",
         "disko": "disko",
         "dwl": "dwl",
