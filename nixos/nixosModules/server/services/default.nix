@@ -14,6 +14,7 @@ with lib;
     ./tmodloader.nix
     ./mumble.nix
     ./ollama.nix
+    ./ark.nix
   ];
 
   options.nixosModules.server.services = {
