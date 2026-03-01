@@ -14,7 +14,7 @@ with lib;
     nixvim.enable = true;
     desktop = {
       enable = true;
-      # discord.enable = true;
+      discord.enable = true;
       kdeconnect.enable = true;
       music.enable = true;
       browsers.enable = true;

@@ -126,12 +126,13 @@ in
           };
 
           "google" = {
-            disabled = true;
+            disabled = false;
             weight = googleWeight;
+            use_mobile_ui = true;
           };
 
           "mullvadleta" = {
-            disabled = false;
+            disabled = true;
             weight = googleWeight;
           };
 
@@ -142,7 +143,7 @@ in
           };
 
           "mullvadleta brave" = {
-            disabled = false;
+            disabled = true;
             weight = braveWeight;
           };
 

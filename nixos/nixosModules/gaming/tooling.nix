@@ -19,7 +19,6 @@ in
     pkgs.wine64
 
     # pkgs.protonhax
-    pkgs.discord
     pkgs.pulsemixer
   ];
 
