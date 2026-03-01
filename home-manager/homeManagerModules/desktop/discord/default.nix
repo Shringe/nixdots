@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 with lib;
 let
   cfg = config.homeManagerModules.desktop.discord;
@@ -19,9 +25,23 @@ in
     programs.nixcord = {
       enable = true;
 
+      discord = {
+        autoscroll.enable = true;
+      };
+
       config = {
         frameless = true;
-        transparent = true;
+        transparent = false;
+
+        plugins = {
+          # betterFolders.enable = true;
+          betterSettings.enable = true;
+          # alwaysAnimate.enable = true;
+          ClearURLs.enable = true;
+          callTimer.enable = true;
+          # CustomRPC.enable = true;
+          fakeNitro.enable = true;
+        };
       };
     };
   };
