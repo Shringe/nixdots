@@ -15,6 +15,7 @@ with lib;
     ./mumble.nix
     ./ollama.nix
     ./ark.nix
+    ./samba.nix
   ];
 
   options.nixosModules.server.services = {
