@@ -331,7 +331,7 @@ in
         ];
 
         windowrule = [
-          # "match:class ^(steam)$, workspace 6 silent"
+          "match:class ^(steam)$, workspace 6 silent"
         ];
 
         decoration = {
