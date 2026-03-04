@@ -27,7 +27,7 @@ in
       plugins = with inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}; [
         # hyprtrails
         hyprexpo
-        hyprscrolling
+        # hyprscrolling # broken right now
       ];
 
       settings = {
@@ -38,12 +38,17 @@ in
             column_width = 0.7;
             focus_fit_method = 1;
           };
+
+          hyprexpo = {
+            # https://code.hyprland.org/hyprwm/hyprland-plugins/src/branch/main/hyprexpo
+            workspace_method = "first 1";
+          };
         };
 
         bind = [
           # Plugins
           "$mod, f, hyprexpo:expo, toggle"
-          "$mod, j, exec, hyprctl keyword general:layout scrolling"
+          # "$mod, j, exec, hyprctl keyword general:layout scrolling"
         ];
       };
     };
