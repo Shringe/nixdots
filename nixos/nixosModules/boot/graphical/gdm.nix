@@ -11,8 +11,8 @@ in
   options.nixosModules.boot.graphical.gdm = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.boot.graphical.enable;
-      # default = false;
+      # default = config.nixosModules.boot.graphical.enable;
+      default = false;
     };
   };
 
