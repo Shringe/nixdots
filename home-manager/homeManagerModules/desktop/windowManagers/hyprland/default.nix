@@ -363,9 +363,9 @@ in
       extraConfig =
         let
           layerBlur = name: ''
-            # layerrule = blur on, match:namespace ${name}
+            layerrule = blur on, match:namespace ${name}
             # layerrule = ignorezero, match:namespace ${name}
-            # layerrule = ignore_alpha 0.5, match:namespace ${name}
+            layerrule = ignore_alpha 0.5, match:namespace ${name}
           '';
 
           layerFade = name: ''
