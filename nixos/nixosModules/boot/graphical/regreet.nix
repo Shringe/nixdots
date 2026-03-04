@@ -8,33 +8,19 @@ with lib;
 let
   cfg = config.nixosModules.boot.graphical.regreet;
 
-  swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "${pkgs.regreet}/bin/regreet; ${pkgs.sway}/bin/swaymsg exit"
-    # seat "*" xcursor_theme "${config.stylix.cursor.name}" ${toString config.stylix.cursor.size}
+  niri-config = pkgs.writeText "niri-config" ''
+    hotkey-overlay {
+      skip-at-startup
+    }
 
-    # input "*" {
-    #   accel_profile flat
-    #   pointer_accel -0.675
-    # }
+    environment {
+      GTK_USE_PORTAL "0"
+      GDK_DEBUG "no-portals"
+    }
 
-    # input type:touchpad {
-    #   accel_profile adaptive
-    #   pointer_accel 0.0
-    # }
+    // other settings
 
-    # output "eDP-1" {
-    #   mode 1920x1080@60Hz
-    #   render_bit_depth 10
-    # }
-
-    # output "DP-1" {
-    #   disable
-    # }
-
-    # output "HDMI-A-1" {
-    #   mode 3440x1440@175Hz
-    #   render_bit_depth 10
-    # }
+    spawn-at-startup "${pkgs.bash}/bin/bash" "-c" "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.niri}/bin/niri msg action quit --skip-confirmation"
   '';
 in
 {
@@ -50,9 +36,15 @@ in
     stylix.targets.regreet.useWallpaper = false;
     programs.regreet.settings.background.path = config.nixosModules.theming.wallpapers.secondary;
 
-    services.greetd.settings.default_session.command =
-      "${pkgs.sway}/bin/sway --unsupported-gpu --config ${swayConfig}";
-    environment.etc."greetd/sway".source = swayConfig;
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.niri}/bin/niri -c ${niri-config}";
+          user = "greeter";
+        };
+      };
+    };
 
     programs.regreet.enable = true;
   };
