@@ -6,5 +6,6 @@
     ./hyprland
     ./sway
     ./mango
+    ./niri
   ];
 }

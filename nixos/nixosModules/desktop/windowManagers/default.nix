@@ -7,6 +7,7 @@ with lib;
     ./sway.nix
     ./dwl.nix
     ./mango.nix
+    ./niri.nix
   ];
 
   options.nixosModules.desktop.windowManagers = {
