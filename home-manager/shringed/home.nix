@@ -31,6 +31,14 @@ with lib;
         };
         hyprland.plugins.enable = true;
 
+        niri = {
+          enable = true;
+          monitors = {
+            primary = "HDMI-A-1";
+            secondary = "DP-1";
+          };
+        };
+
         utils = {
           swayidle.suspend = false;
           openrgb.enable = true;
@@ -71,6 +79,13 @@ with lib;
         "HDMI-A-1,${wall2}"
       ];
     };
+
+  systemd.user.services.swaybg.Service.ExecStart =
+    let
+      wall = "/nixdots/assets/wallpapers/2b_nier_automata_2560x1440.png";
+      wall2 = "/nixdots/assets/wallpapers/grassmastersword_3440x1440.png";
+    in
+    mkForce "${pkgs.swaybg}/bin/swaybg --output HDMI-A-1 --image ${wall2} --output DP-1 --image ${wall}";
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 

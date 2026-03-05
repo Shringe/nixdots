@@ -41,6 +41,17 @@
           "*.kbd"
         ];
       }
+      # {
+      #   # Niri config files
+      #   command = "set shiftwidth=4";
+      #   event = [
+      #     "BufNewFile"
+      #     "BufRead"
+      #   ];
+      #   pattern = [
+      #     "*.kdl"
+      #   ];
+      # }
     ];
 
     opts = {

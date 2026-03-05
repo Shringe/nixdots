@@ -7,6 +7,7 @@
 with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.swaybg;
+  targets = config.homeManagerModules.desktop.windowManagers.utils.systemd.waylandTargets;
 in
 {
   options.homeManagerModules.desktop.windowManagers.utils.swaybg = {
@@ -20,8 +21,8 @@ in
     systemd.user.services.swaybg = {
       Unit = {
         Description = "Sets wallpaper with SwayBG";
-        PartOf = [ config.wayland.systemd.target ];
-        After = [ config.wayland.systemd.target ];
+        PartOf = targets;
+        After = targets;
         ConditionEnvironment = "WAYLAND_DISPLAY";
       };
 
@@ -30,7 +31,7 @@ in
         Restart = "on-failure";
       };
 
-      Install.WantedBy = [ config.wayland.systemd.target ];
+      Install.WantedBy = targets;
     };
   };
 }
