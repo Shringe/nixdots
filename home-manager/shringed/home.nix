@@ -58,7 +58,7 @@ with lib;
     gaming.recording.enable = true;
   };
 
-  programs.neovide.settings.vsync = false;
+  # programs.neovide.settings.vsync = false;
   programs.nixvim.globals = {
     neovide_refresh_rate = 175;
   };
