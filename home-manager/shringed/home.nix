@@ -67,30 +67,30 @@ with lib;
     neovide_refresh_rate = 175;
   };
 
-  stylix.targets.hyprpaper.enable = mkForce false;
-  services.hyprpaper.settings =
-    let
-      wall = "/nixdots/assets/wallpapers/2b_nier_automata_2560x1440.png";
-      wall2 = "/nixdots/assets/wallpapers/grassmastersword_3440x1440.png";
-    in
-    {
-      preload = [
-        wall
-        wall2
-      ];
+  # stylix.targets.hyprpaper.enable = mkForce false;
+  # services.hyprpaper.settings =
+  #   let
+  #     wall = "/nixdots/assets/wallpapers/2b_nier_automata_2560x1440.png";
+  #     wall2 = "/nixdots/assets/wallpapers/grassmastersword_3440x1440.png";
+  #   in
+  #   {
+  #     preload = [
+  #       wall
+  #       wall2
+  #     ];
+  #
+  #     wallpaper = [
+  #       "DP-1,${wall}"
+  #       "HDMI-A-1,${wall2}"
+  #     ];
+  #   };
 
-      wallpaper = [
-        "DP-1,${wall}"
-        "HDMI-A-1,${wall2}"
-      ];
-    };
-
-  systemd.user.services.swaybg.Service.ExecStart =
-    let
-      wall = "/nixdots/assets/wallpapers/2b_nier_automata_2560x1440.png";
-      wall2 = "/nixdots/assets/wallpapers/grassmastersword_3440x1440.png";
-    in
-    mkForce "${pkgs.swaybg}/bin/swaybg --output HDMI-A-1 --image ${wall2} --output DP-1 --image ${wall}";
+  # systemd.user.services.swaybg.Service.ExecStart =
+  #   let
+  #     wall = "/nixdots/assets/wallpapers/2b_nier_automata_2560x1440.png";
+  #     wall2 = "/nixdots/assets/wallpapers/grassmastersword_3440x1440.png";
+  #   in
+  #   mkForce "${pkgs.swaybg}/bin/swaybg --output HDMI-A-1 --image ${wall2} --output DP-1 --image ${wall}";
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 

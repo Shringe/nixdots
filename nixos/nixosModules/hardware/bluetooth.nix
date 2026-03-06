@@ -12,7 +12,7 @@ in
 
     blueman = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Whether to also enable blueman service";
     };
   };
