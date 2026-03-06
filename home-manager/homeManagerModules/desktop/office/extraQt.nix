@@ -39,6 +39,7 @@ in
         qtscrcpy
         lxqt.pavucontrol-qt
         helvum
+        obs-studio
       ])
     ];
   };
