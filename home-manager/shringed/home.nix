@@ -29,6 +29,7 @@ with lib;
           primary = "HDMI-A-1";
           secondary = "DP-1";
         };
+        hyprland.enable = false;
         hyprland.plugins.enable = true;
 
         niri = {

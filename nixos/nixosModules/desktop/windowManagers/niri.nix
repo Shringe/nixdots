@@ -17,28 +17,54 @@ in
   };
 
   config = mkIf cfg.enable {
-    # environment.etc."systemd/user/niri.service".text = mkForce ''
-    #   [Unit]
-    #   Description=A scrollable-tiling Wayland compositor
-    #   BindsTo=graphical-session.target
-    #   Before=graphical-session.target
-    #   Wants=graphical-session-pre.target
-    #   After=graphical-session-pre.target
-    #
-    #   # Wants=xdg-desktop-autostart.target
-    #   # Before=xdg-desktop-autostart.target
-    #
+    # Doesn't work
+    # systemd.user.units."niri.service".text = ''
     #   [Service]
-    #   Slice=session.slice
-    #   Type=notify
-    #   ExecStart=${config.programs.niri.package}/bin/niri --session
+    #   Nice=-2
     # '';
 
-    systemd.user.targets."xdg-desktop-autostart".enable = mkForce false;
+    # systemd.user.targets."xdg-desktop-autostart".enable = mkForce false;
 
     programs.niri = {
       enable = true;
-      useNautilus = false;
+      # useNautilus = false;
+    };
+
+    # xdg.portal = {
+    #   enable = true;
+    #   xdgOpenUsePortal = true;
+    #   extraPortals = [
+    #     pkgs.xdg-desktop-portal-gtk
+    #     pkgs.xdg-desktop-portal-gnome
+    #     pkgs.xdg-desktop-portal-wlr
+    #   ];
+    #   config = {
+    #     common.default = [ "wlr" ];
+    #   };
+    # };
+
+    xdg.portal = {
+      enable = true;
+      # config.common.default = [ "wlr" ];
+      xdgOpenUsePortal = true;
+
+      extraPortals = with pkgs; [
+        # xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-gnome
+      ];
+
+      config.niri = {
+        default = [
+          "gnome"
+          "gtk"
+        ];
+
+        "org.freedesktop.impl.portal.Access" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Notification" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+      };
     };
 
     environment.sessionVariables.NIXOS_OZONE_WL = "1";

@@ -79,6 +79,10 @@ let
       xcursor-size ${toString config.stylix.cursor.size}
     }
 
+    layout {
+      background-color "#000000"
+    }
+
     input {
       keyboard {
         repeat-delay 500
@@ -114,7 +118,7 @@ let
 
     }
 
-    spawn-sh-at-startup "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.niri}/bin/niri msg action quit --skip-confirmation"
+    spawn-sh-at-startup "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.coreutils}/bin/sleep 0.5; ${pkgs.niri}/bin/niri msg action quit --skip-confirmation"
   '';
 in
 {
