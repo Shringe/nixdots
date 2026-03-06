@@ -110,18 +110,18 @@ in
           # animate_manual_resizes = true;
         };
 
-        env = [
-          "XCURSOR_SIZE,20"
-          "GDK_BACKEND,wayland,x11,*"
-          "QT_QPA_PLATFORM,wayland;xcb"
-          "SDL_VIDEODRIVER,wayland,x11"
-          "CLUTTER_BACKEND,wayland"
-          "XDG_CURRENT_DESKTOP,Hyprland"
-          "XDG_SESSION_TYPE,wayland"
-          "XDG_SESSION_DESKTOP,Hyprland"
-          "__GL_GSYNC_ALLOWED,1"
-          "__GL_VRR_ALLOWED,1"
-        ];
+        # env = [
+        #   "XCURSOR_SIZE,20"
+        #   "GDK_BACKEND,wayland,x11,*"
+        #   "QT_QPA_PLATFORM,wayland;xcb"
+        #   "SDL_VIDEODRIVER,wayland,x11"
+        #   "CLUTTER_BACKEND,wayland"
+        #   "XDG_CURRENT_DESKTOP,Hyprland"
+        #   "XDG_SESSION_TYPE,wayland"
+        #   "XDG_SESSION_DESKTOP,Hyprland"
+        #   "__GL_GSYNC_ALLOWED,1"
+        #   "__GL_VRR_ALLOWED,1"
+        # ];
 
         # Mouse
         bindm = [

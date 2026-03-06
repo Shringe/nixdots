@@ -13,7 +13,8 @@ in
   options.nixosModules.desktop.windowManagers.hyprland = {
     enable = mkOption {
       type = types.bool;
-      default = config.nixosModules.desktop.windowManagers.enable;
+      # default = config.nixosModules.desktop.windowManagers.enable;
+      default = false;
     };
   };
 

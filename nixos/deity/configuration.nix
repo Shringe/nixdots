@@ -202,9 +202,6 @@
       sops
 
       vim-startuptime
-      fastfetch
-      neovim
-      picom
 
       fish
       btop
