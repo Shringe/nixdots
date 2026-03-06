@@ -2,7 +2,7 @@
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -106,6 +106,7 @@
       self,
       nixpkgs,
       nixpkgs-old,
+      nixpkgs-unstable,
       ...
     }@inputs:
     let
@@ -122,6 +123,11 @@
         # Large overlay sets
         (self: super: {
           old = import nixpkgs-old {
+            inherit system;
+            config.allowUnfree = true;
+          };
+
+          unstable = import nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
           };
@@ -151,6 +157,11 @@
           collabora-online = self.old.collabora-online;
         })
 
+        # Backporting packages from unstable into stable
+        (self: super: {
+          hyprlax = self.unstable.hyprlax;
+        })
+
         # # Frequently slow or unreliable builds
         # (self: super: {
         #   opencv = self.stable.opencv;
@@ -163,6 +174,7 @@
 
         # Broken builds
         (self: super: {
+          # TODO, retry these in stable
           jellyfin = self.old.jellyfin;
           jellyfin-media-player = self.old.jellyfin-media-player;
           immich-machine-learning = self.old.immich-machine-learning;
