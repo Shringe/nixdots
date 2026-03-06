@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./waybar
+    ./hyprlax.nix
   ];
 
   options.homeManagerModules.desktop.windowManagers.niri = {
