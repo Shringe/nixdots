@@ -78,11 +78,11 @@ in
           monitor =
           path = 
           size = 300
-          rounding = 10
+          rounding = 8
           border_size = 0
           reload_time = 2
           reload_cmd = ${pkgs.playerctl}/bin/playerctl metadata mpris:artUrl
-          position = -190, -220
+          position = 0, -220
           halign = center
           valign = center
         }
@@ -95,9 +95,9 @@ in
           # font_family = JetBrains Mono Nerd Font Mono 
           font_family = JetBrains Mono Nerd Font Mono ExtraBold
           color = rgb(${base07})
-          position = 49%, -220
-          halign = none
-          valign = center
+          position = 15, -13
+          halign = left
+          valign = top
         }
 
         # -- greeting --

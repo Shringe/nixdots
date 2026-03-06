@@ -33,10 +33,17 @@ in
   };
 
   config = mkIf cfg.enable {
+    services.swayidle.systemdTarget = "niri.service";
     homeManagerModules.desktop.windowManagers.utils = {
       systemd = {
         enable = true;
         waylandTargets = [ "niri.service" ];
+      };
+
+      swayidle = {
+        enable = true;
+        turnOffScreenCmd = "${pkgs.niri}/bin/niri msg action power-off-monitors";
+        turnOnScreenCmd = "${pkgs.niri}/bin/niri msg action power-on-monitors";
       };
 
       # wofi.enable = true;
