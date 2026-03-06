@@ -19,6 +19,11 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     wait-online = {
       url = "github:Shringe/wait-online";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -160,6 +165,7 @@
         # Backporting packages from unstable into stable
         (self: super: {
           hyprlax = self.unstable.hyprlax;
+          dgop = self.unstable.dgop;
         })
 
         # # Frequently slow or unreliable builds
