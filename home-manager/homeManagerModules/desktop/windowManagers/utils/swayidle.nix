@@ -53,6 +53,18 @@ in
       default = true;
       description = "Whether or not to dim the device.";
     };
+
+    turnOffScreenCmd = mkOption {
+      type = types.str;
+      default = "${pkgs.wlopm}/bin/wlopm --off '*'";
+      description = "The cmd to turn off the screen.";
+    };
+
+    turnOnScreenCmd = mkOption {
+      type = types.str;
+      default = "${pkgs.wlopm}/bin/wlopm --on '*'";
+      description = "The cmd to turn on the screen.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -91,8 +103,8 @@ in
       ++ optionals (!cfg.suspend) [
         {
           timeout = 330;
-          command = "${pkgs.wlopm}/bin/wlopm --off '*'";
-          resumeCommand = "${pkgs.wlopm}/bin/wlopm --on '*'";
+          command = cfg.turnOffScreenCmd;
+          resumeCommand = cfg.turnOnScreenCmd;
         }
       ]
       ++ optionals cfg.dim [

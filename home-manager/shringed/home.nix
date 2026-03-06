@@ -41,7 +41,11 @@ with lib;
         };
 
         utils = {
-          swayidle.suspend = false;
+          swayidle = {
+            suspend = false;
+            dim = false;
+          };
+
           openrgb.enable = true;
           wluma.enable = mkForce false;
         };
