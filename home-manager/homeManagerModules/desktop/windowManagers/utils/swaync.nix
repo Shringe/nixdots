@@ -209,8 +209,8 @@ in
                 label = "☕";
                 type = "toggle";
                 active = false;
-                command = "serviceToggle hypridle true";
-                update-command = "serviceTest hypridle true";
+                command = "serviceToggle swayidle true";
+                update-command = "serviceTest swayidle true";
               }
 
               {
