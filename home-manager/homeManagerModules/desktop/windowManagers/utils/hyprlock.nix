@@ -9,26 +9,68 @@ let
   cfg = config.homeManagerModules.desktop.windowManagers.utils.hyprlock;
 
   mediaWidget = pkgs.writers.writeNuBin "mediaWidget" ''
-    def format [artist: string, album: string, title: string, length: string, music_volume: string, system_volume: string, status: string] {
-      print $"Artist: ($artist)"
-      print $"Album:  ($album)"
-      print $"Title:  ($title)"
-      print $"Length: ($length)"
-      print ""
-      print $"Music:  ($music_volume)"
-      print $"System: ($system_volume)"
-      print $"Status: ($status)"
+    def format_widget [artist: string, album: string, title: string, length: string, music_volume: string, system_volume: string, status: string] {
+      $"Artist: ($artist)\nAlbum: ($album)\nTitle: ($title)\nLength: ($length)\n\nMusic: ($music_volume)\nSystem: ($system_volume)\nStatus: ($status)"
     }
 
-    let data = (${pkgs.playerctl}/bin/playerctl metadata --format "{{artist}};{{album}};{{title}};{{duration(mpris:length)}};{{status}};{{volume}}")
-    let metadata_array = ($data | split row ";")
-    let system_volume = (${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | str replace "Volume: " "" | into float | $in * 100 | math round)
+    def align_widget [lines: list<string>] {
+      mut max_width = 0
+      for line in $lines {
+        let len = $line | split row ": " | last | str length
+        if $len > $max_width {
+          $max_width = $len
+        }
+      }
 
-    # Convert music volume to percentage and format
-    let music_volume_percent = ($metadata_array | get 5 | into float | $in * 100 | math round)
+      let max_width = $max_width
+      let separator = "" | fill -w ($max_width + 7) -c "="
 
-    # Call the format function with the parsed data
-    format ($metadata_array | get 0) ($metadata_array | get 1) ($metadata_array | get 2) ($metadata_array | get 3) $"($music_volume_percent)%" $"($system_volume)%" ($metadata_array | get 4)
+      let aligned = $lines | each { |line|
+        $line | fill -a center -w $max_width
+      }
+
+      [$separator] ++ $aligned ++ [$separator]
+    }
+
+    def render_widget [] {
+      let data = ${pkgs.playerctl}/bin/playerctl metadata --format "{{artist}};{{album}};{{title}};{{duration(mpris:length)}};{{status}};{{volume}}"
+      let metadata_array = $data | split row ";"
+      let system_volume = ${pkgs.wireplumber}/bin/wpctl get-volume @DEFAULT_AUDIO_SINK@ | str replace "Volume: " "" | into float | $in * 100 | math round
+
+      # Convert music volume to percentage and format
+      let music_volume_percent = $metadata_array | get 5 | into float | $in * 100 | math round
+
+      # Call the format function with the parsed data
+      let raw_render = format_widget ($metadata_array | get 0) ($metadata_array | get 1) ($metadata_array | get 2) ($metadata_array | get 3) $"($music_volume_percent)%" $"($system_volume)%" ($metadata_array | get 4)
+      align_widget ($raw_render | lines) | str join "\n"
+    }
+
+
+    def check_cache [] {
+      let cache_file = "/tmp/media_paragraph.cache"
+      if ($cache_file | path exists) {
+        let age = ls $cache_file | get modified.0
+        let cutoff = (date now) - 10sec
+        if $age > $cutoff {
+          open $cache_file
+        }
+      }
+    }
+
+    def populate_cache [] {
+      let cache_file = "/tmp/media_paragraph.cache"
+      let rendered = render_widget
+      $rendered | save -f $cache_file
+      $rendered
+    }
+
+
+    let cached = check_cache
+    if ($cached | is-empty) {
+      populate_cache
+    } else {
+      $cached
+    }
   '';
 in
 {
@@ -82,7 +124,7 @@ in
           border_size = 0
           reload_time = 2
           reload_cmd = ${pkgs.playerctl}/bin/playerctl metadata mpris:artUrl
-          position = 0, -220
+          position = 0, 350
           halign = center
           valign = center
         }
@@ -95,9 +137,10 @@ in
           # font_family = JetBrains Mono Nerd Font Mono 
           font_family = JetBrains Mono Nerd Font Mono ExtraBold
           color = rgb(${base07})
-          position = 15, -13
-          halign = left
-          valign = top
+          # color = rgb(${base05})
+          position = 0, -220
+          halign = center
+          valign = center
         }
 
         # -- greeting --
