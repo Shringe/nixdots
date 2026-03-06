@@ -24,8 +24,8 @@ in
 
         globals = {
           # neovide_cursor_vfx_mode = "ripple";
-          # neovide_opacity = config.stylix.opacity.terminal;
-          # neovide_normal_opacity = config.stylix.opacity.terminal;
+          neovide_opacity = config.stylix.opacity.terminal;
+          neovide_normal_opacity = config.stylix.opacity.terminal;
           neovide_floating_corner_radius = 0.2;
           neovide_floating_shadow = true;
           neovide_padding_top = 2;
@@ -34,8 +34,8 @@ in
           neovide_padding_right = 2;
 
           # Fancy
-          neovide_cursor_vfx_particle_density = 3.0;
-          neovide_cursor_vfx_particle_lifetime = 1.0;
+          neovide_cursor_vfx_particle_density = 1.0;
+          neovide_cursor_vfx_particle_lifetime = 1.5;
           neovide_cursor_vfx_particle_highlight_lifetime = 0.4;
           neovide_cursor_vfx_mode = [
             "ripple"

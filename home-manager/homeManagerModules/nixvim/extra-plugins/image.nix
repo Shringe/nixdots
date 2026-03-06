@@ -1,6 +1,6 @@
 {
   plugins.image = {
-    enable = true;
+    enable = false;
 
     settings = {
       backend = "kitty";
