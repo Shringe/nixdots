@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   inputs,
   ...
 }:
@@ -15,17 +14,15 @@ in
   ];
 
   config = mkIf cfg.enable {
-    # pkgs.config.allowUnfree = true;
-    home.packages = with pkgs; [
-      # ripcord
-      # discord
-      # vencord
-    ];
-
     programs.nixcord = {
       enable = true;
 
       discord = {
+        enable = false;
+      };
+
+      vesktop = {
+        enable = true;
         autoscroll.enable = true;
       };
 
