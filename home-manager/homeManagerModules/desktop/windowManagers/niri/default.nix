@@ -11,6 +11,7 @@ in
 {
   imports = [
     ./waybar
+    ./dms
     ./hyprlax.nix
   ];
 
@@ -42,23 +43,23 @@ in
       };
 
       swayidle = {
-        enable = true;
+        enable = false;
         turnOffScreenCmd = "${pkgs.niri}/bin/niri msg action power-off-monitors";
         turnOnScreenCmd = "${pkgs.niri}/bin/niri msg action power-on-monitors";
       };
 
       # wofi.enable = true;
-      walker.enable = true;
-      swaync.enable = true;
-      cliphist.enable = true;
-      swayosd.enable = true;
+      walker.enable = false;
+      swaync.enable = false;
+      cliphist.enable = false;
+      swayosd.enable = false;
       dolphin.enable = true;
-      wluma.enable = true;
+      wluma.enable = false;
       kclock.enable = true;
-      polkit.enable = true;
-      hyprlock.enable = true;
-      wlogout.enable = true;
-      swaybg.enable = true;
+      polkit.enable = false;
+      hyprlock.enable = false;
+      wlogout.enable = false;
+      swaybg.enable = false;
     };
 
     # home.packages = with pkgs; [
