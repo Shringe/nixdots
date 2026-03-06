@@ -89,20 +89,20 @@ in
 
       timeouts = [
         {
-          timeout = 300;
+          timeout = 330;
           command = lockCmd;
         }
       ]
       ++ optionals cfg.suspend [
         {
-          timeout = 330;
+          timeout = 360;
           # command = "${pkgs.systemdMinimal}/bin/systemctl suspend";
           command = "systemctl suspend";
         }
       ]
       ++ optionals (!cfg.suspend) [
         {
-          timeout = 330;
+          timeout = 300;
           command = cfg.turnOffScreenCmd;
           resumeCommand = cfg.turnOnScreenCmd;
         }
