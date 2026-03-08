@@ -142,14 +142,14 @@
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
           });
 
-          mpv = super.mpv.override {
-            scripts = with self.mpvScripts; [
-              mpris
-              dynamic-crop
-              thumbfast
-              quack
-            ];
-          };
+          # mpv = super.mpv.override {
+          #   scripts = with self.mpvScripts; [
+          #     mpris
+          #     dynamic-crop
+          #     thumbfast
+          #     quack
+          #   ];
+          # };
         })
 
         # Waiting for binary cache

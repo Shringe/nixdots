@@ -40,16 +40,16 @@ output "eDP-1" {
 output "DP-1" {
   mode "2560x1440@164.999"
   position x=0 y=0
-  // variable-refresh-rate
   // transform "270"
 }
 
 output "HDMI-A-1" {
   mode "3440x1440@174.962"
   position x=2560 y=0
-  // variable-refresh-rate ondemand=true
+  variable-refresh-rate on-demand=true
   focus-at-startup
 }
+
 
 window-rule {
   // opacity = 0.5
@@ -70,6 +70,11 @@ window-rule {
   clip-to-geometry true
   geometry-corner-radius 8
   draw-border-with-background false
+}
+
+window-rule {
+  match is-focused=true app-id="steam_app_\\d+"
+  variable-refresh-rate true
 }
 
 // Indicate screencasted windows with red colors.

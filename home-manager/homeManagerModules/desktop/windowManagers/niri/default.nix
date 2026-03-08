@@ -61,9 +61,9 @@ in
       swaybg.enable = true;
     };
 
-    # home.packages = with pkgs; [
-    #   niri
-    # ];
+    home.packages = with pkgs; [
+      xwayland-satellite
+    ];
 
     xdg.configFile."niri/config.kdl".source =
       config.lib.file.mkOutOfStoreSymlink "/nixdots/home-manager/homeManagerModules/desktop/windowManagers/niri/config.kdl";
