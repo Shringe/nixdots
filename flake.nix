@@ -142,6 +142,8 @@
             env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
           });
 
+          searxng = self.unstable.searxng;
+
           # mpv = super.mpv.override {
           #   scripts = with self.mpvScripts; [
           #     mpris
@@ -154,7 +156,7 @@
 
         # Waiting for binary cache
         (self: super: {
-          collabora-online = self.old.collabora-online;
+          # collabora-online = self.old.collabora-online;
         })
 
         # Backporting packages from unstable into stable
@@ -175,11 +177,11 @@
         # Broken builds
         (self: super: {
           # TODO, retry these in stable
-          jellyfin = self.old.jellyfin;
-          jellyfin-media-player = self.old.jellyfin-media-player;
-          immich-machine-learning = self.old.immich-machine-learning;
-          universal-android-debloater = self.old.universal-android-debloater;
-          searxng = self.old.searxng;
+          # jellyfin = self.old.jellyfin;
+          # jellyfin-media-player = self.old.jellyfin-media-player;
+          # immich-machine-learning = self.old.immich-machine-learning;
+          # universal-android-debloater = self.old.universal-android-debloater;
+          # searxng = self.old.searxng;
         })
       ]
       ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
