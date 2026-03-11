@@ -9,14 +9,16 @@ let
   cfg = config.nixosModules.drives.root;
   util = import ./util.nix { inherit config lib pkgs; };
 
-  mkSteam = subvolume: {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "btrfs";
-    options = [
-      "subvol=${subvolume}"
-      "noatime"
-    ];
-  };
+  mkSteam =
+    subvolume:
+    mkIf cfg.steam {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [
+        "subvol=${subvolume}"
+        "noatime"
+      ];
+    };
 in
 {
   options.nixosModules.drives.root = {
@@ -24,6 +26,8 @@ in
       type = types.bool;
       default = false;
     };
+
+    steam = mkEnableOption "steam mounts";
   };
 
   config = mkMerge [
