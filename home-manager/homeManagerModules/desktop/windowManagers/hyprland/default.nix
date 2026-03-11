@@ -35,7 +35,7 @@ in
   options.homeManagerModules.desktop.windowManagers.hyprland = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.enable;
+      default = false;
     };
 
     monitors = {
