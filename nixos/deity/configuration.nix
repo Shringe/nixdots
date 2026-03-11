@@ -52,6 +52,8 @@
     };
 
     drives = {
+      root.enable = true;
+      root.steam = true;
       backups1.enable = false;
       smedia1.enable = true;
       smedia2.enable = true;
