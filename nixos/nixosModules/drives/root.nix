@@ -6,6 +6,7 @@
 }:
 with lib;
 let
+  cfg = config.nixosModules.drives.root;
   util = import ./util.nix { inherit config lib pkgs; };
 
   mkSteam = subvolume: {
@@ -18,6 +19,13 @@ let
   };
 in
 {
+  options.nixosModules.drives.root = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+    };
+  };
+
   config = mkMerge [
     {
       systemd.tmpfiles.rules = [
@@ -28,7 +36,7 @@ in
         "d /mnt/btr/pool/root 0755 root root -"
       ];
 
-      fileSystems = {
+      fileSystems = mkIf cfg.enable {
         "/mnt/btr/pool/root" = {
           device = "/dev/disk/by-label/nixos";
           fsType = "btrfs";
