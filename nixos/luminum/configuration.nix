@@ -17,6 +17,7 @@ with lib;
   ];
 
   nixosModules = {
+    backups.btrbk.enable = true;
     theming.enable = true;
     jellyfin.enable = true;
     networking.wireless = {
