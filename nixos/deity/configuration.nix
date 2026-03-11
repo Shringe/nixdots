@@ -52,6 +52,7 @@
     };
 
     drives = {
+      root.enable = true;
       backups1.enable = false;
       smedia1.enable = true;
       smedia2.enable = true;
