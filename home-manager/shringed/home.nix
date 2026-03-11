@@ -123,7 +123,7 @@ with lib;
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-2 --primary";
+      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-1 --primary";
       RemainAfterExit = true;
     };
 
