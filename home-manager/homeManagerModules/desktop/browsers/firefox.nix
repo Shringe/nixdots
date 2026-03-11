@@ -85,7 +85,7 @@ in
       type = types.attrs;
       default = {
         force = true;
-        default = "SearBe";
+        default = "SearXNG";
         order = [
           "SearXNG"
           "SearBe"

@@ -118,7 +118,7 @@ let
 
     }
 
-    spawn-sh-at-startup "${pkgs.greetd.regreet}/bin/regreet; ${pkgs.coreutils}/bin/sleep 0.5; ${pkgs.niri}/bin/niri msg action quit --skip-confirmation"
+    spawn-sh-at-startup "${pkgs.regreet}/bin/regreet; ${pkgs.coreutils}/bin/sleep 0.5; ${pkgs.niri}/bin/niri msg action quit --skip-confirmation"
   '';
 in
 {
