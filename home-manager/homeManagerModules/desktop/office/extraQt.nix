@@ -40,6 +40,7 @@ in
         lxqt.pavucontrol-qt
         helvum
         obs-studio
+        pipe-viewer
       ])
     ];
   };
