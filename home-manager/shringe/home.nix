@@ -17,6 +17,7 @@ with lib;
       office.enable = true;
       windowManagers = {
         enable = true;
+        walker.uid = 1001;
       };
       email.enable = true;
     };

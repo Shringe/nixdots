@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib;
 let
   cfg = config.homeManagerModules.desktop.windowManagers.niri;
+
+  # string `echo arg1 arg2` -> string `"echo" "arg1" "arg2"`
+  quoteWords = s: lib.concatMapStringsSep " " (w: ''"${w}"'') (lib.splitString " " s);
 in
 {
   imports = [
@@ -15,25 +17,25 @@ in
   ];
 
   options.homeManagerModules.desktop.windowManagers.niri = {
-    enable = mkOption {
-      type = types.bool;
+    enable = lib.mkOption {
+      type = lib.types.bool;
       default = config.homeManagerModules.desktop.windowManagers.enable;
     };
 
     monitors = {
-      primary = mkOption {
-        type = types.str;
+      primary = lib.mkOption {
+        type = lib.types.str;
         default = "eDP-1";
       };
 
-      secondary = mkOption {
-        type = types.str;
+      secondary = lib.mkOption {
+        type = lib.types.str;
         default = cfg.monitors.primary;
       };
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.swayidle.systemdTarget = "niri.service";
     homeManagerModules.desktop.windowManagers.utils = {
       systemd = {
@@ -68,7 +70,7 @@ in
     xdg.configFile."niri/config.kdl".source =
       config.lib.file.mkOutOfStoreSymlink "/nixdots/home-manager/homeManagerModules/desktop/windowManagers/niri/config.kdl";
 
-    xdg.configFile."niri/vars.kdl".text = with config.lib.stylix.colors.withHashtag; ''
+    xdg.configFile."niri/immutable.kdl".text = with config.lib.stylix.colors.withHashtag; ''
       window-rule {
         border {
           // active-gradient from="#80c8ff" to="#bbddff" angle=45
@@ -88,6 +90,10 @@ in
       cursor {
         xcursor-theme "${config.stylix.cursor.name}"
         xcursor-size ${toString config.stylix.cursor.size}
+      }
+
+      binds {
+        Mod+S hotkey-overlay-title="Run an Application: walker" { spawn ${quoteWords config.homeManagerModules.desktop.windowManagers.utils.walker.cmd}; }
       }
     '';
   };
