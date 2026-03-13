@@ -24,13 +24,6 @@ with lib;
       office.enable = true;
       windowManagers = {
         enable = true;
-        hyprland.uid = 1000;
-        hyprland.monitors = {
-          primary = "HDMI-A-1";
-          secondary = "DP-1";
-        };
-        hyprland.enable = false;
-        hyprland.plugins.enable = true;
 
         niri = {
           enable = true;
@@ -48,6 +41,7 @@ with lib;
 
           openrgb.enable = true;
           wluma.enable = mkForce false;
+          walker.uid = 1000;
         };
       };
       email.enable = true;

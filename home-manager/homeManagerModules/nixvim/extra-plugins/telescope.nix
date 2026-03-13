@@ -2,7 +2,7 @@
 {
   home.packages = [
     pkgs.ripgrep
-    pkgs.imagemagick
+    # pkgs.imagemagick
   ];
 
   programs.nixvim = {
@@ -44,7 +44,7 @@
 
         set_env.COLORTERM = "truecolor";
         pickers.buffers = {
-          sort_mru = true;
+          # sort_mru = true;
           sort_lastused = true;
         };
       };

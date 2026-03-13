@@ -1,4 +1,4 @@
-include "vars.kdl"
+include "immutable.kdl"
 
 prefer-no-csd
 
@@ -123,7 +123,6 @@ binds {
 
   // Suggested binds for running programs: terminal, app launcher, screen locker.
   Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
-  Mod+S hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
   Mod+A hotkey-overlay-title="Open a Browser: zen-twilight" { spawn "zen-twilight"; }
   Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
   Mod+P hotkey-overlay-title="Open Notification Panel: SwayNC" { spawn "swaync-client" "-t" "-sw"; }

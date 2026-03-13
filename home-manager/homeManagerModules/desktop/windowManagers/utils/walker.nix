@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  pkgs,
   ...
 }:
 with lib;
@@ -17,6 +18,22 @@ in
     enable = mkOption {
       type = types.bool;
       default = false;
+    };
+
+    uid = mkOption {
+      type = types.nullOr types.int;
+      description = "Used to spawn walker faster";
+      default = null;
+    };
+
+    cmd = mkOption {
+      type = types.str;
+      description = "Command to spawn walker";
+      default =
+        if cfg.uid == null then
+          "${config.programs.walker.package}/bin/walker"
+        else
+          "${pkgs.netcat}/bin/nc -U /run/user/${toString cfg.uid}/walker/walker.sock";
     };
   };
 
