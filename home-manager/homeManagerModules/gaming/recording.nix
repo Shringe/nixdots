@@ -84,39 +84,55 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    systemd.user.tmpfiles.rules = [
-      "d %h/Videos 0755"
-      "d %h/Videos/Replay 0755"
-      "d %h/Videos/Replay/clips 0755"
-      "d %h/Videos/Replay/recordings 0755"
-    ];
+  config = mkMerge [
+    (mkIf cfg.enable {
+      systemd.user.tmpfiles.rules = [
+        "d %h/Videos 0755"
+        "d %h/Videos/Replay 0755"
+        "d %h/Videos/Replay/clips 0755"
+        "d %h/Videos/Replay/recordings 0755"
+      ];
 
-    systemd.user.services.clip-manager = {
-      Unit = {
-        Description = "Background recording of games for clips";
-        ConditionEnvironment = "WAYLAND_DISPLAY";
+      systemd.user.services.clip-manager = {
+        Unit = {
+          Description = "Background recording of games for clips";
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+        };
+
+        Service = {
+          ExecStart = "${clip-manager} start";
+          ExecStop = "${clip-manager} end";
+          Restart = "on-failure";
+        };
       };
+    })
 
-      Service = {
-        ExecStart = "${clip-manager} start";
-        ExecStop = "${clip-manager} end";
-        Restart = "on-failure";
+    (mkIf cfg.enable {
+      home.file = {
+        ".local/bin/clip-manager".source = clip-manager;
+        ".local/bin/gamemode_start.sh".source = pkgs.writers.writeDash "gamemode_start" ''
+          ${pkgs.util-linux}/bin/renice --priority -15 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire)
+          ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire-pulse)
+          ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
+          ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
+        '';
+        ".local/bin/gamemode_end.sh".source =
+          pkgs.writers.writeDash "gamemode_end" "${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block";
       };
-    };
+    })
 
-    home.file = {
-      ".local/bin/clip-manager".source = clip-manager;
-
-      # Gamemode hooks
-      ".local/bin/gamemode_start.sh".source = pkgs.writers.writeDash "gamemode_start" ''
-        ${pkgs.util-linux}/bin/renice --priority -15 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire)
-        ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire-pulse)
-        ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
-        ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
-      '';
-      ".local/bin/gamemode_end.sh".source =
-        pkgs.writers.writeDash "gamemode_end" "${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block";
-    };
-  };
+    (mkIf (!cfg.enable) {
+      home.file = {
+        # ".local/bin/clip-manager".source = clip-manager;
+        ".local/bin/gamemode_start.sh".source = pkgs.writers.writeDash "gamemode_start" ''
+          ${pkgs.util-linux}/bin/renice --priority -15 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire)
+          ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire-pulse)
+          ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
+          # ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
+        '';
+        # ".local/bin/gamemode_end.sh".source =
+        #   pkgs.writers.writeDash "gamemode_end" "${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block";
+      };
+    })
+  ];
 }
