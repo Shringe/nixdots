@@ -13,6 +13,7 @@ in
 {
   imports = [
     ./waybar
+    ./quickshell
     ./hyprlax.nix
   ];
 
