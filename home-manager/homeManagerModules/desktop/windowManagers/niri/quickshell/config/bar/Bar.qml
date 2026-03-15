@@ -52,6 +52,6 @@ PanelWindow {
             verticalCenter: parent.verticalCenter
         }
 
-        // todo
+        Clock {}
     }
 }
