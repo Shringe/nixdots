@@ -1,10 +1,14 @@
 {
-  programs.nixvim.plugins.none-ls = {
-    enable = false;
+  plugins.none-ls = {
+    enable = true;
     sources = {
       diagnostics = {
-        mypy.enable = true;
+        # mypy.enable = true;
+        # qmllint.enable = true;
+      };
 
+      formatting = {
+        qmlformat.enable = true;
       };
     };
   };

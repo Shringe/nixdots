@@ -54,6 +54,15 @@
       # }
     ];
 
+    files."ftplugin/qml.lua" = {
+      localOpts = {
+        expandtab = true;
+        shiftwidth = 4;
+        tabstop = 4;
+        softtabstop = 4;
+      };
+    };
+
     opts = {
       # shell = "fish";
       shell = config.homeManagerModules.shells.default;
@@ -69,9 +78,9 @@
       undofile = true;
 
       # 2 spaces for tab
-      tabstop = 2;
-      shiftwidth = 2;
       expandtab = true;
+      shiftwidth = 2;
+      tabstop = 2;
       softtabstop = 2;
 
       # Misc
