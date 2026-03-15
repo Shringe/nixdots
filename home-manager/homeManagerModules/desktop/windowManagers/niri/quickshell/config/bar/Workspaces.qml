@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell.Widgets
 import ".."
 import "../.."
 
@@ -16,22 +17,18 @@ Row {
     Repeater {
         model: niri.workspaces
 
-        Rectangle {
+        WrapperMouseArea {
             width: 22
             height: 24
+
+            hoverEnabled: true
+            onClicked: niri.focusWorkspaceById(model.id)
+            cursorShape: Qt.PointingHandCursor
 
             WorkspaceIcon {
                 text: workspaceNames[model.index - 1] ?? model.index
                 textColor: model.isActive ? Config.colors.base0E : model.activeWindowId != "" ? Config.colors.base05 : Config.colors.base03
-                bgColor: mouseArea.containsMouse ? Config.colors.base02 : Config.colors.base00
-            }
-
-            MouseArea {
-                id: mouseArea
-                anchors.fill: parent
-                hoverEnabled: true
-                onClicked: niri.focusWorkspaceById(model.id)
-                cursorShape: Qt.PointingHandCursor
+                bgColor: containsMouse ? Config.colors.base02 : Config.colors.base00
             }
         }
     }
