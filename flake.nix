@@ -313,10 +313,6 @@
         };
     in
     {
-      devShells.x86_64-linux.default = import ./devshell.nix {
-        inherit pkgs;
-      };
-
       nixosConfigurations = {
         deity = mkNixos "deity";
         luminum = mkNixos "luminum";
@@ -325,6 +321,51 @@
       homeConfigurations = {
         shringe = mkHome "shringe";
         shringed = mkHome "shringed";
+      };
+
+      devShells.${system} = rec {
+        old = import ./devshell.nix { inherit pkgs; };
+        bootstrap = pkgs.mkShell {
+          packages = with pkgs; [
+            bash
+            nushell
+            zellij
+            btop
+            htop
+            acpi
+
+            compose2nix
+
+            git
+            vim
+            yazi
+            kanata
+
+            xorg.xev
+            wev
+
+            gparted
+            parted
+
+            disko
+            util-linux
+            cryptsetup
+            btrfs-progs
+
+            age
+            ssh-to-age
+            sops
+          ];
+        };
+
+        qml = pkgs.mkShell {
+          packages = [
+            inputs.qml-niri.packages.${system}.quickshell
+            inputs.qml-niri.packages.${system}.qml-niri
+          ];
+        };
+
+        default = bootstrap;
       };
     };
 }
