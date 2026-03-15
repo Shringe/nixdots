@@ -72,7 +72,6 @@
         lua_ls.enable = true;
         nushell.enable = true;
         slint_lsp.enable = true;
-        qmlls.enable = true;
         # omnisharp.enable = true;
         # csharp_ls.enable = true;
       };
