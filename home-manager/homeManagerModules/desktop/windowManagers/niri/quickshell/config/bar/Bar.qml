@@ -6,6 +6,8 @@ import "separators"
 import "widgets"
 
 PanelWindow {
+    id: panelWindow
+
     anchors {
         top: true
         left: true
@@ -35,6 +37,8 @@ PanelWindow {
             verticalCenter: parent.verticalCenter
         }
 
+        SystemTray {}
+        LeftSeparator {}
         WindowTitle {
             niri: niri
         }

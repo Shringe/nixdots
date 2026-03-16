@@ -35,6 +35,6 @@ Row {
     TextIcon {
         icon: ""
         lpad: 7
-        rpad: 3
+        rpad: 2
     }
 }

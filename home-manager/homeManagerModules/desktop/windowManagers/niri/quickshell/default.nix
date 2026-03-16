@@ -40,8 +40,8 @@ in
       config.lib.file.mkOutOfStoreSymlink "/nixdots/home-manager/homeManagerModules/desktop/windowManagers/niri/quickshell/config";
 
     xdg.configFile."quickshell/shell.qml".text = ''
-      import Quickshell
-      import "./inner"
+      //@ pragma UseQApplication
+      import "inner"
 
       Main {}
     '';
