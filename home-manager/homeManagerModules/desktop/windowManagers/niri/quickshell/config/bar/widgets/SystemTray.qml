@@ -30,7 +30,7 @@ Row {
                 if (event.button === Qt.LeftButton)
                     modelData.activate();
                 else
-                    modelData.display(panelWindow, event.x, event.y);
+                    modelData.display(panelWindow, event.x, 24);
             }
 
             PopupWindow {}
