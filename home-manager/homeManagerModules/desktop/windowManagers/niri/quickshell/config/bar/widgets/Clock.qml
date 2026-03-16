@@ -22,31 +22,19 @@ Row {
         id: datePart
     }
 
-    Spacer {
-        width: 7
-    }
-
-    Stext {
-        text: ""
-    }
-
-    Spacer {
-        width: 5
+    TextIcon {
+        icon: ""
+        lpad: 7
+        rpad: 5
     }
 
     Stext {
         id: timePart
     }
 
-    Spacer {
-        width: 7
-    }
-
-    Stext {
-        text: ""
-    }
-
-    Spacer {
-        width: 3
+    TextIcon {
+        icon: ""
+        lpad: 7
+        rpad: 3
     }
 }
