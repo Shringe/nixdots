@@ -1,5 +1,7 @@
 import QtQuick
+import "../.."
 import ".."
+import "../utils"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
