@@ -4,6 +4,7 @@ import Quickshell.Widgets
 import ".."
 import "../.."
 import "../../.."
+import "../../Data" as Dat
 import "../utils"
 
 Row {
@@ -13,17 +14,17 @@ Row {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.RightButton
-        onClicked: Pipewire.toggleMute(Pipewire.sink)
-        onWheel: event => Pipewire.wheelAction(event, Pipewire.sink)
+        onClicked: Dat.Pipewire.toggleMute(Dat.Pipewire.sink)
+        onWheel: event => Dat.Pipewire.wheelAction(event, Dat.Pipewire.sink)
 
         Row {
             anchors.verticalCenter: parent.verticalCenter
 
             Stext {
-                text: Math.round(Pipewire.sinkVolume * 100) + "%"
+                text: Math.round(Dat.Pipewire.sinkVolume * 100) + "%"
             }
             TextIcon {
-                icon: Pipewire.sinkIcon
+                icon: Dat.Pipewire.sinkIcon
                 lpad: 4
             }
         }
@@ -37,17 +38,17 @@ Row {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.RightButton
-        onClicked: Pipewire.toggleMute(Pipewire.source)
-        onWheel: event => Pipewire.wheelAction(event, Pipewire.source)
+        onClicked: Dat.Pipewire.toggleMute(Dat.Pipewire.source)
+        onWheel: event => Dat.Pipewire.wheelAction(event, Dat.Pipewire.source)
 
         Row {
             anchors.verticalCenter: parent.verticalCenter
 
             Stext {
-                text: Math.round(Pipewire.sourceVolume * 100) + "%"
+                text: Math.round(Dat.Pipewire.sourceVolume * 100) + "%"
             }
             TextIcon {
-                icon: Pipewire.sourceIcon
+                icon: Dat.Pipewire.sourceIcon
                 lpad: 4
             }
         }
