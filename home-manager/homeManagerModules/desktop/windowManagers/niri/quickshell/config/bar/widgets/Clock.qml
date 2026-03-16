@@ -1,40 +1,62 @@
+import Quickshell
+import Quickshell.Widgets
 import QtQuick
 import "../.."
+import "../../.."
 import ".."
 import "../utils"
+import "../../Data" as Dat
 
-Row {
-    anchors.verticalCenter: parent.verticalCenter
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: {
-            var now = new Date();
-            datePart.text = Qt.formatDateTime(now, "ddd dd MMM");
-            timePart.text = Qt.formatDateTime(now, "hh:mm AP");
+DropDown {
+    content: Component {
+        Rectangle {
+            width: 300
+            height: 200
+            color: Config.colors.base08
         }
     }
 
-    Stext {
-        id: datePart
-    }
+    Row {
+        Timer {
+            interval: 1000
+            running: true
+            repeat: true
+            triggeredOnStart: true
+            onTriggered: {
+                var now = new Date();
+                datePart.text = Qt.formatDateTime(now, "ddd dd MMM");
+                timePart.text = Qt.formatDateTime(now, "hh:mm AP");
+            }
+        }
 
-    TextIcon {
-        icon: ""
-        lpad: 7
-        rpad: 5
-    }
+        Stext {
+            text: Dat.Notifications.notifCount
+        }
 
-    Stext {
-        id: timePart
-    }
+        TextIcon {
+            icon: ""
+            lpad: 5
+            rpad: 8
+        }
 
-    TextIcon {
-        icon: ""
-        lpad: 7
-        rpad: 2
+        Stext {
+            id: datePart
+        }
+
+        TextIcon {
+            icon: ""
+            lpad: 7
+            rpad: 8
+        }
+
+        Stext {
+            id: timePart
+        }
+
+        TextIcon {
+            icon: ""
+            lpad: 7
+            rpad: 2
+        }
     }
 }
