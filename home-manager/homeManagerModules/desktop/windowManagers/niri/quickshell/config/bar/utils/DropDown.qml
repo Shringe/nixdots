@@ -19,7 +19,9 @@ Item {
 
     PopupWindow {
         visible: open
-        anchor.rect.y: 24
+        color: "transparent"
+
+        anchor.rect.y: 22
         anchor.item: mouseArea
 
         implicitWidth: container.implicitWidth
