@@ -20,13 +20,11 @@ Row {
             anchors.verticalCenter: parent.verticalCenter
 
             Stext {
-                text: Pipewire.sinkIcon
-            }
-            Spacer {
-                width: 5
-            }
-            Stext {
                 text: Math.round(Pipewire.sinkVolume * 100) + "%"
+            }
+            TextIcon {
+                icon: Pipewire.sinkIcon
+                lpad: 4
             }
         }
     }
@@ -46,13 +44,11 @@ Row {
             anchors.verticalCenter: parent.verticalCenter
 
             Stext {
-                text: Pipewire.sourceIcon
-            }
-            Spacer {
-                width: 5
-            }
-            Stext {
                 text: Math.round(Pipewire.sourceVolume * 100) + "%"
+            }
+            TextIcon {
+                icon: Pipewire.sourceIcon
+                lpad: 4
             }
         }
     }
