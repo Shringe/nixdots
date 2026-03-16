@@ -5,10 +5,12 @@ import "../../.."
 Item {
     id: root
 
+    default property alias content: inner.data
+
     readonly property real flare: 16
     readonly property real curveStart: flare * 0.5  // 0.0 = sharp, flare = full quarter-ellipse
     readonly property real r: 8
-    readonly property color backgroundColor: Config.colors.base08
+    property color backgroundColor: Config.colors.base00
 
     implicitWidth: inner.implicitWidth + flare * 2
     implicitHeight: inner.implicitHeight
@@ -17,7 +19,7 @@ Item {
         anchors.fill: parent
 
         ShapePath {
-            fillColor: root.backgroundColor
+            fillColor: backgroundColor
             strokeWidth: -1
 
             startX: root.flare + root.r
@@ -86,7 +88,7 @@ Item {
     Item {
         id: inner
         x: root.flare
-        implicitWidth: 300
-        implicitHeight: 200
+        implicitWidth: childrenRect.width
+        implicitHeight: childrenRect.height
     }
 }

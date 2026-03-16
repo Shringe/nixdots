@@ -10,7 +10,13 @@ import "../../Data" as Dat
 
 DropDown {
     content: Component {
-        Tombstone {}
+        Tombstone {
+            Rectangle {
+                width: 300
+                height: 300
+                color: Config.colors.base00
+            }
+        }
     }
 
     Row {
