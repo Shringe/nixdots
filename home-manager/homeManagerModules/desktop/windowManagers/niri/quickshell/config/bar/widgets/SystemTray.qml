@@ -13,6 +13,7 @@ Row {
     spacing: 6
 
     required property PanelWindow panelWindow
+    property var openPopup: null
 
     Repeater {
         model: ScriptModel {
@@ -37,8 +38,14 @@ Row {
 
                 onVisibleChanged: {
                     if (visible) {
+                        if (parent.openPopup && parent.openPopup !== menuPopup)
+                            parent.openPopup.visible = false;
+                        parent.openPopup = menuPopup;
                         trayMenuContent.menu = null;
                         trayMenuContent.menu = modelData.menu;
+                    } else {
+                        if (parent.openPopup === menuPopup)
+                            parent.openPopup = null;
                     }
                 }
 

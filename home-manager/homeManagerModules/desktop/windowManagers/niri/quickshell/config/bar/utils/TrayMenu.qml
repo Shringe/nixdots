@@ -16,29 +16,18 @@ StackView {
     implicitHeight: currentItem?.implicitHeight ?? 0
     width: 200
 
-    initialItem: SubMenu {
-        handle: root.menu
+    pushEnter: null
+    pushExit: null
+    popEnter: null
+    popExit: null
+
+    onVisibleChanged: {
+        if (!visible)
+            root.pop(null);
     }
 
-    pushEnter: Transition {
-        NumberAnimation {
-            duration: 0
-        }
-    }
-    pushExit: Transition {
-        NumberAnimation {
-            duration: 0
-        }
-    }
-    popEnter: Transition {
-        NumberAnimation {
-            duration: 0
-        }
-    }
-    popExit: Transition {
-        NumberAnimation {
-            duration: 0
-        }
+    initialItem: SubMenu {
+        handle: root.menu
     }
 
     component SubMenu: Column {
@@ -63,7 +52,7 @@ StackView {
 
                 width: 200
                 height: modelData.isSeparator ? 1 : 28
-                color: modelData.isSeparator ? Config.colors.base02 : mouseArea.containsMouse && modelData.enabled ? Config.colors.base01 : Config.colors.base00
+                color: modelData.isSeparator ? Config.colors.base02 : mouseArea.containsMouse && modelData.enabled ? Config.colors.base02 : Config.colors.base00
 
                 MouseArea {
                     id: mouseArea
@@ -74,10 +63,10 @@ StackView {
                         if (!modelData.enabled)
                             return;
                         if (modelData.hasChildren)
-                            root.push(subMenuComp.createObject(null, {
+                            root.push(subMenuComp, {
                                 handle: modelData,
                                 isSubMenu: true
-                            }));
+                            });
                         else
                             modelData.triggered();
                     }
@@ -120,11 +109,13 @@ StackView {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: root.pop()
+            width: 200
+            height: 28
 
             Rectangle {
                 width: 200
                 height: 28
-                color: parent.containsMouse ? Config.colors.base01 : Config.colors.base00
+                color: parent.containsMouse ? Config.colors.base02 : Config.colors.base00
 
                 Stext {
                     anchors.verticalCenter: parent.verticalCenter
