@@ -2,6 +2,8 @@ import Quickshell
 import QtQuick
 import Niri
 import "../.."
+import "separators"
+import "widgets"
 
 PanelWindow {
     anchors {
@@ -35,6 +37,7 @@ PanelWindow {
         WindowTitle {
             niri: niri
         }
+        LeftSeparator {}
     }
 
     // Center
@@ -52,6 +55,9 @@ PanelWindow {
             verticalCenter: parent.verticalCenter
         }
 
+        RightSeparator {}
+        HardwareMonitor {}
+        RightSeparator {}
         Clock {}
     }
 }

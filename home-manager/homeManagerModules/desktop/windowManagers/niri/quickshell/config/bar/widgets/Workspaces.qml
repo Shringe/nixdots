@@ -2,6 +2,8 @@ import QtQuick
 import Quickshell.Widgets
 import ".."
 import "../.."
+import "../../.."
+import "../utils"
 
 Row {
     required property var niri

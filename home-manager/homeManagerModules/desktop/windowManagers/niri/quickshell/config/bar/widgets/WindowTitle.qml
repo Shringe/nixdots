@@ -1,4 +1,4 @@
-import ".."
+import "../.."
 
 Stext {
     anchors.verticalCenter: parent.verticalCenter
