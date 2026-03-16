@@ -1,7 +1,6 @@
 import QtQuick
 import ".."
 import "../.."
-import "bar"
 
 Row {
     required property string icon
