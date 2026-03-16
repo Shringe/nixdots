@@ -56,6 +56,8 @@ PanelWindow {
         }
 
         RightSeparator {}
+        Audio {}
+        RightSeparator {}
         HardwareMonitor {}
         RightSeparator {}
         Clock {}
