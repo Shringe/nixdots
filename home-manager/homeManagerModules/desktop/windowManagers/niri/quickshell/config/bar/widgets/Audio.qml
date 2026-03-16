@@ -9,6 +9,33 @@ import "../utils"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
+    spacing: 8
+
+    WrapperMouseArea {
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.BackButton | Qt.ForwardButton
+        onClicked: event => {
+            if (event.button === Qt.LeftButton)
+                Dat.Mpris.playPause();
+            else if (event.button === Qt.RightButton)
+                Dat.Mpris.stop();
+            else if (event.button === Qt.BackButton)
+                Dat.Mpris.prev();
+            else if (event.button === Qt.ForwardButton)
+                Dat.Mpris.next();
+        }
+        onWheel: event => Dat.Mpris.wheelAction(event)
+
+        Row {
+            anchors.verticalCenter: parent.verticalCenter
+
+            Stext {
+                text: Dat.Mpris.trackTitle
+                visible: Dat.Mpris.trackTitle !== ""
+            }
+        }
+    }
 
     WrapperMouseArea {
         hoverEnabled: true
@@ -28,10 +55,6 @@ Row {
                 lpad: 4
             }
         }
-    }
-
-    Spacer {
-        width: 8
     }
 
     WrapperMouseArea {
