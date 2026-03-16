@@ -11,11 +11,7 @@ import "../../Data" as Dat
 DropDown {
     content: Component {
         Tombstone {
-            Rectangle {
-                width: 300
-                height: 300
-                color: Config.colors.base00
-            }
+            NotificationMenu {}
         }
     }
 
