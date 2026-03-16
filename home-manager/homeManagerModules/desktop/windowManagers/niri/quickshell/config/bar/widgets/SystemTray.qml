@@ -6,38 +6,65 @@ import Quickshell.Widgets
 import ".."
 import "../.."
 import "../../.."
+import "../utils"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
     spacing: 6
+
+    required property PanelWindow panelWindow
 
     Repeater {
         model: ScriptModel {
             values: [...SystemTray.items.values].reverse()
         }
 
-        WrapperMouseArea {
+        Item {
             required property SystemTrayItem modelData
 
             anchors.verticalCenter: parent.verticalCenter
             width: 16
             height: 16
 
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
-            onClicked: event => {
-                if (event.button === Qt.LeftButton)
-                    modelData.activate();
-                else
-                    modelData.display(panelWindow, event.x, 24);
+            PopupWindow {
+                id: menuPopup
+                color: Config.colors.base00
+                implicitWidth: 200
+                implicitHeight: trayMenuContent.height
+                anchor.window: panelWindow
+                anchor.rect.x: 0
+                anchor.rect.y: panelWindow.height
+
+                onVisibleChanged: {
+                    if (visible) {
+                        trayMenuContent.menu = null;
+                        trayMenuContent.menu = modelData.menu;
+                    }
+                }
+
+                TrayMenu {
+                    id: trayMenuContent
+                    width: 200
+                    menu: modelData.menu
+                }
             }
 
-            PopupWindow {}
-
-            IconImage {
+            WrapperMouseArea {
                 anchors.fill: parent
-                source: modelData.icon
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                onClicked: event => {
+                    if (event.button === Qt.LeftButton)
+                        modelData.activate();
+                    else
+                        menuPopup.visible = !menuPopup.visible;
+                }
+
+                IconImage {
+                    anchors.fill: parent
+                    source: modelData.icon
+                }
             }
         }
     }

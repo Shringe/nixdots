@@ -37,7 +37,9 @@ PanelWindow {
             verticalCenter: parent.verticalCenter
         }
 
-        SystemTray {}
+        SystemTray {
+            panelWindow: panelWindow
+        }
         LeftSeparator {}
         WindowTitle {
             niri: niri
