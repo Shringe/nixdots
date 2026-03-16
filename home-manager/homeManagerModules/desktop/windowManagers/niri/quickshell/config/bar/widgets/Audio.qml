@@ -12,6 +12,7 @@ Row {
     spacing: 8
 
     WrapperMouseArea {
+        anchors.verticalCenter: parent.verticalCenter
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.BackButton | Qt.ForwardButton
@@ -37,7 +38,10 @@ Row {
         }
     }
 
+    Cava {}
+
     WrapperMouseArea {
+        anchors.verticalCenter: parent.verticalCenter
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.RightButton
@@ -58,6 +62,7 @@ Row {
     }
 
     WrapperMouseArea {
+        anchors.verticalCenter: parent.verticalCenter
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.RightButton
