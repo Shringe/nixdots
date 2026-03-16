@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Shapes
 import "../.."
 import "../../.."
 import ".."
@@ -9,11 +10,7 @@ import "../../Data" as Dat
 
 DropDown {
     content: Component {
-        Rectangle {
-            width: 300
-            height: 200
-            color: Config.colors.base08
-        }
+        Tombstone {}
     }
 
     Row {
