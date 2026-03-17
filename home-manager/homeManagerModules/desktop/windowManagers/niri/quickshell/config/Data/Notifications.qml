@@ -8,8 +8,9 @@ Singleton {
 
     property bool dndEnabled: false
     property int notifCount: notifServer.trackedNotifications.values.length
-    property ScriptModel notifications: serverNotifications
     property NotificationServer server: notifServer
+    property var latestNotification: null
+    signal notificationReceived(var notification)
 
     function clearNotifs() {
         [...notifServer.trackedNotifications.values].forEach(elem => {
@@ -29,12 +30,10 @@ Singleton {
         imageSupported: true
         persistenceSupported: true
 
-        onNotification: n => n.tracked = true
-    }
-
-    ScriptModel {
-        id: serverNotifications
-
-        values: [...notifServer.trackedNotifications.values].reverse()
+        onNotification: n => {
+            n.tracked = true;
+            notif.latestNotification = n;
+            notif.notificationReceived(n);
+        }
     }
 }

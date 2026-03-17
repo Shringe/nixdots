@@ -12,6 +12,7 @@ Item {
     width: 300
     height: mainLayout.implicitHeight
     property int maxHeight: 520
+    property bool previewMode: false
 
     ColumnLayout {
         id: mainLayout
@@ -74,8 +75,16 @@ Item {
                 // verticalLayoutDirection: ListView.BottomToTop
                 ScrollBar.vertical: ScrollBar {}
 
-                model: Dat.Notifications.server.trackedNotifications
-                delegate: NotificationBubble {}
+                model: root.previewMode ? (Dat.Notifications.latestNotification ? [Dat.Notifications.latestNotification] : []) : Dat.Notifications.server.trackedNotifications
+                delegate: NotificationBubble {
+                    onDismissed: {
+                        modelData.dismiss();
+                        if (previewMode) {
+                            open = false;
+                            previewMode = false;
+                        }
+                    }
+                }
             }
         }
     }

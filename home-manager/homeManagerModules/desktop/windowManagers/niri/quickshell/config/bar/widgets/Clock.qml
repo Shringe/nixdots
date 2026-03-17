@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Widgets
+import Quickshell.Services.Notifications
 import QtQuick
 import QtQuick.Shapes
 import "../.."
@@ -9,13 +10,34 @@ import "../utils"
 import "../../Data" as Dat
 
 DropDown {
+    id: dropdown
+
+    onOpenChanged: if (!open)
+        isPreviewing = false
+
     content: Component {
         Tombstone {
-            NotificationMenu {}
+            NotificationMenu {
+                previewMode: dropdown.isPreviewing
+            }
         }
     }
 
     Row {
+        Connections {
+            target: Dat.Notifications
+            function onNotificationReceived(n) {
+                if (Dat.Notifications.dndEnabled || dropdown.open)
+                    return;
+                const duration = ({
+                        [NotificationUrgency.Low]: 2000,
+                        [NotificationUrgency.Normal]: 5000,
+                        [NotificationUrgency.Critical]: 10000
+                    })[n.urgency] ?? 5000;
+                dropdown.previewDisplay(duration);
+            }
+        }
+
         Timer {
             interval: 1000
             running: true

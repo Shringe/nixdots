@@ -9,14 +9,33 @@ Item {
     property int menuButton: Qt.LeftButton
     property int xOffset: 0
     property int yOffset: 22
+    property bool isPreviewing: false
+    property int previewDuration: 2000
     signal activated
 
     implicitWidth: mouseArea.implicitWidth
     implicitHeight: mouseArea.implicitHeight
 
+    function previewDisplay(duration) {
+        isPreviewing = true;
+        open = true;
+        previewTimer.interval = duration ?? previewDuration;
+        previewTimer.restart();
+    }
+
+    Timer {
+        id: previewTimer
+        interval: previewDuration
+        onTriggered: open = false
+    }
+
     MenuClickMask {
-        visible: open
-        onCloseRequested: open = false
+        visible: open && !isPreviewing
+        onCloseRequested: {
+            previewTimer.stop();
+            isPreviewing = false;
+            open = false;
+        }
     }
 
     WrapperMouseArea {
@@ -25,6 +44,7 @@ Item {
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: event => {
+            previewTimer.stop();
             if (event.button === menuButton)
                 open = !open;
             else

@@ -5,6 +5,7 @@ import "../.."
 
 Rectangle {
     required property var modelData
+    signal dismissed
 
     width: ListView.view.width
     height: notifContent.implicitHeight + 16
@@ -49,7 +50,7 @@ Rectangle {
 
         TextButton {
             text: "X"
-            onClicked: modelData.dismiss()
+            onClicked: dismissed()
         }
     }
 }
