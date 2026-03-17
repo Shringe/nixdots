@@ -5,5 +5,10 @@ import ".."
 import "bar"
 
 ShellRoot {
-    Bar {}
+    Variants {
+        model: Quickshell.screens
+        delegate: Component {
+            Bar {}
+        }
+    }
 }
