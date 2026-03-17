@@ -13,6 +13,7 @@ Item {
     height: mainLayout.implicitHeight
     property int maxHeight: 520
     property bool previewMode: false
+    signal closePreview
 
     ColumnLayout {
         id: mainLayout
@@ -35,8 +36,13 @@ Item {
 
             TextButton {
                 visible: Dat.Notifications.notifCount > 0
-                text: "Clear all"
-                onClicked: Dat.Notifications.clearNotifs()
+                text: previewMode ? "Dismiss" : "Clear all"
+                onClicked: {
+                    if (!previewMode)
+                        Dat.Notifications.clearNotifs();
+                    open = false;
+                    closePreview();
+                }
             }
 
             Spacer {
