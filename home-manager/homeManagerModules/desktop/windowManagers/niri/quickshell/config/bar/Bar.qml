@@ -8,6 +8,9 @@ import "widgets"
 PanelWindow {
     id: panelWindow
 
+    required property var modelData
+    screen: modelData
+
     anchors {
         top: true
         left: true
@@ -16,7 +19,6 @@ PanelWindow {
 
     implicitHeight: 24
     color: Config.colors.base00
-    // color: Config.colors.base08
 
     Niri {
         id: niri
