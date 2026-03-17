@@ -50,7 +50,7 @@ StackView {
             delegate: Rectangle {
                 required property QsMenuEntry modelData
 
-                width: 200
+                width: root.width
                 height: modelData.isSeparator ? 1 : 28
                 color: modelData.isSeparator ? Config.colors.base02 : mouseArea.containsMouse && modelData.enabled ? Config.colors.base02 : Config.colors.base00
 
@@ -109,11 +109,11 @@ StackView {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: root.pop()
-            width: 200
+            width: root.width
             height: 28
 
             Rectangle {
-                width: 200
+                width: root.width
                 height: 28
                 color: parent.containsMouse ? Config.colors.base02 : Config.colors.base00
 

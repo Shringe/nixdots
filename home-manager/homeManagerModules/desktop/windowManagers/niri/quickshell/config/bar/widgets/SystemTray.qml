@@ -12,66 +12,46 @@ Row {
     anchors.verticalCenter: parent.verticalCenter
     spacing: 6
 
-    required property PanelWindow panelWindow
-    property var openPopup: null
+    property DropDown openDropDown: null
 
     Repeater {
         model: ScriptModel {
             values: [...SystemTray.items.values].reverse()
         }
 
-        Item {
+        DropDown {
             required property SystemTrayItem modelData
+            property var itemMenu: modelData.menu
 
             anchors.verticalCenter: parent.verticalCenter
-            width: 16
-            height: 16
+            xOffset: -1000
+            yOffset: 20
 
-            PopupWindow {
-                id: menuPopup
-                color: Config.colors.base00
-                implicitWidth: 200
-                implicitHeight: trayMenuContent.height
-                anchor.window: panelWindow
-                anchor.rect.x: 0
-                anchor.rect.y: panelWindow.height
+            menuButton: Qt.RightButton
+            onActivated: modelData.activate()
 
-                onVisibleChanged: {
-                    if (visible) {
-                        if (parent.openPopup && parent.openPopup !== menuPopup)
-                            parent.openPopup.visible = false;
-                        parent.openPopup = menuPopup;
-                        trayMenuContent.menu = null;
-                        trayMenuContent.menu = modelData.menu;
-                    } else {
-                        if (parent.openPopup === menuPopup)
-                            parent.openPopup = null;
+            onOpenChanged: {
+                if (open) {
+                    if (parent.openDropDown && parent.openDropDown !== this)
+                        parent.openDropDown.open = false;
+                    parent.openDropDown = this;
+                } else if (parent.openDropDown === this)
+                    parent.openDropDown = null;
+            }
+
+            content: Component {
+                Tombstone {
+                    TrayMenu {
+                        width: 300
+                        menu: itemMenu
                     }
-                }
-
-                TrayMenu {
-                    id: trayMenuContent
-                    width: 200
-                    menu: modelData.menu
                 }
             }
 
-            WrapperMouseArea {
-                anchors.fill: parent
-                hoverEnabled: true
-                cursorShape: Qt.PointingHandCursor
-                acceptedButtons: Qt.LeftButton | Qt.RightButton
-                onClicked: event => {
-                    if (event.button === Qt.LeftButton)
-                        modelData.activate();
-                    else
-                        menuPopup.visible = !menuPopup.visible;
-                }
-
-                IconImage {
-                    anchors.fill: parent
-                    source: modelData.icon
-                }
+            IconImage {
+                implicitWidth: 16
+                implicitHeight: 16
+                source: modelData.icon
             }
         }
     }
