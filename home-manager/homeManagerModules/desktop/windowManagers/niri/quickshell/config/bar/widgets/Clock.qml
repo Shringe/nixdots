@@ -19,6 +19,7 @@ DropDown {
         Tombstone {
             NotificationMenu {
                 previewMode: dropdown.isPreviewing
+                onClosePreview: dropdown.isPreviewing = false
             }
         }
     }
