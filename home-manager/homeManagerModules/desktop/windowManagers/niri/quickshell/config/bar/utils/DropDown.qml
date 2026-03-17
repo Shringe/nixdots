@@ -10,6 +10,11 @@ Item {
     implicitWidth: mouseArea.implicitWidth
     implicitHeight: mouseArea.implicitHeight
 
+    MenuClickMask {
+        visible: open
+        onCloseRequested: open = false
+    }
+
     WrapperMouseArea {
         id: mouseArea
         hoverEnabled: true
@@ -20,7 +25,6 @@ Item {
     PopupWindow {
         visible: open
         color: "transparent"
-
         anchor.rect.y: 22
         anchor.item: mouseArea
 

@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import Niri
 import "../.."
@@ -7,10 +8,10 @@ import "widgets"
 
 PanelWindow {
     id: panelWindow
+    WlrLayershell.layer: WlrLayer.Overlay
 
     required property var modelData
     screen: modelData
-
     anchors {
         top: true
         left: true
