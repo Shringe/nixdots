@@ -1,7 +1,6 @@
 import QtQuick
-import Quickshell
-import Quickshell.Io
 import "../../.."
+import "../../Data" as Dat
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
@@ -10,30 +9,12 @@ Row {
     topPadding: 2
     bottomPadding: 2
 
-    property list<int> bars: Array.from({
-        length: 16
-    }, () => 1)
-
-    Process {
-        id: cavaProc
-        command: ["cava", "-p", Quickshell.shellDir + "/inner/bar/utils/cavaconfig/config"]
-        running: true
-        stdout: SplitParser {
-            onRead: line => {
-                var values = line.trim().split(";").filter(v => v !== "");
-                if (values.length === 0)
-                    return;
-                bars = values.map(v => parseInt(v));
-            }
-        }
-    }
-
     Repeater {
-        model: bars.length
+        model: Dat.Cava.bars.length
 
         Rectangle {
             width: 4
-            height: Math.max(2, bars[index] / 50)
+            height: Math.max(2, Dat.Cava.bars[index] / 50)
             anchors.bottom: parent.bottom
             color: Config.colors.base05
         }
