@@ -22,7 +22,7 @@ DropDown {
             repeat: true
             triggeredOnStart: true
             onTriggered: {
-                var now = new Date();
+                const now = new Date();
                 datePart.text = Qt.formatDateTime(now, "ddd dd MMM");
                 timePart.text = Qt.formatDateTime(now, "hh:mm AP");
             }
