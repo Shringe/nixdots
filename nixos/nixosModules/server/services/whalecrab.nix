@@ -63,9 +63,12 @@ in
           in
           "${python}/bin/python lichess-bot.py";
         WorkingDirectory = cfg.directory;
-        Restart = "always";
+        Restart = "on-failure";
         User = "whalecrab";
       };
+
+      startLimitIntervalSec = 300;
+      startLimitBurst = 5;
 
       environment = {
         PYTHONUNBUFFERED = "1";
