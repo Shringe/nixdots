@@ -9,7 +9,6 @@ import "../utils"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
-    spacing: 8
 
     WrapperMouseArea {
         anchors.verticalCenter: parent.verticalCenter
@@ -33,12 +32,20 @@ Row {
 
             Stext {
                 text: Dat.Mpris.trackTitle
-                visible: Dat.Mpris.trackTitle !== ""
+                visible: Dat.Mpris.trackHasTitle
             }
         }
     }
 
+    Spacer {
+        width: Dat.Mpris.trackHasTitle ? 8 : 4
+    }
+
     Cava {}
+
+    Spacer {
+        width: 8
+    }
 
     WrapperMouseArea {
         anchors.verticalCenter: parent.verticalCenter
@@ -59,6 +66,10 @@ Row {
                 lpad: 4
             }
         }
+    }
+
+    Spacer {
+        width: 8
     }
 
     WrapperMouseArea {
