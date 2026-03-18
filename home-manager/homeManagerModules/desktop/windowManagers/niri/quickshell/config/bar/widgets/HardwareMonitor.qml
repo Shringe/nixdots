@@ -2,14 +2,19 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import "../.."
+import "../../.."
 import ".."
 import "../utils"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
 
+    property bool laptop: false
+
     property real cpuPercent: 0
     property real ramPercent: 0
+    property real batteryPercent: 0
+    property bool batteryCharging: false
 
     // Previous CPU stats for delta calculation
     property var prevCpu: null
@@ -67,6 +72,35 @@ Row {
             var available = parseInt(lines.find(l => l.startsWith("MemAvailable:")).split(/\s+/)[1]);
             ramPercent = Math.round((1 - available / total) * 100);
         }
+    }
+
+    FileView {
+        id: batteryCapacityFile
+        path: "/sys/class/power_supply/BAT0/capacity"
+        onTextChanged: {
+            batteryPercent = parseInt(batteryCapacityFile.text().trim());
+        }
+    }
+
+    FileView {
+        id: batteryStatusFile
+        path: "/sys/class/power_supply/BAT0/status"
+        onTextChanged: {
+            var status = batteryStatusFile.text().trim();
+            batteryCharging = (status === "Charging" || status === "Full");
+        }
+    }
+
+    Stext {
+        visible: laptop
+        text: laptop ? batteryPercent + "%" : ""
+    }
+    TextIcon {
+        visible: laptop
+        icon: batteryPercent > 90 ? "" : batteryPercent > 60 ? "" : batteryPercent > 40 ? "" : batteryPercent > 20 ? "" : ""
+        label.color: batteryCharging ? Config.colors.base0C : batteryPercent > 40 ? Config.colors.base05 : batteryPercent > 20 ? Config.colors.base0A : Config.colors.base08
+        lpad: 4
+        rpad: 8
     }
 
     Stext {

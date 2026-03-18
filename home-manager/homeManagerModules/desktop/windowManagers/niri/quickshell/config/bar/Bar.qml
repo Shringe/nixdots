@@ -11,6 +11,8 @@ PanelWindow {
     // WlrLayershell.layer: WlrLayer.Overlay
 
     required property var modelData
+    property bool laptop: false
+
     screen: modelData
     anchors {
         top: true
@@ -67,7 +69,9 @@ PanelWindow {
         RightSeparator {}
         Audio {}
         RightSeparator {}
-        HardwareMonitor {}
+        HardwareMonitor {
+            laptop: true
+        }
         RightSeparator {}
         Clock {}
     }
