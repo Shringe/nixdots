@@ -6,6 +6,9 @@ PanelWindow {
     property string name: "DarkNord_3440x1440.png"
     readonly property string wallpaperDir: "/nixdots/assets/wallpapers/"
 
+    // Used only to remove warnings in quickshell logs
+    property var modelData
+
     anchors {
         top: true
         bottom: true
