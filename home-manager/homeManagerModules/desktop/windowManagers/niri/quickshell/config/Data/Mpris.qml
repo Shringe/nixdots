@@ -6,6 +6,7 @@ import Quickshell.Services.Mpris
 Singleton {
     readonly property MprisPlayer player: Mpris.players.values[0] ?? null
     readonly property string trackTitle: player?.trackTitle ?? ""
+    readonly property bool trackHasTitle: trackTitle !== ""
     readonly property string artist: player?.identity ?? ""
     readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
     // readonly property string playerIcon: isPlaying ? "󰐊" : "󰏤"
