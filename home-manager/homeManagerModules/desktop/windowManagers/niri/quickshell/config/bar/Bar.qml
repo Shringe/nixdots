@@ -70,7 +70,7 @@ PanelWindow {
         Audio {}
         RightSeparator {}
         HardwareMonitor {
-            laptop: true
+            laptop: laptop
         }
         RightSeparator {}
         Clock {}
