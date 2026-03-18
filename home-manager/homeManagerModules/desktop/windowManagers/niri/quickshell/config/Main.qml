@@ -9,6 +9,7 @@ ShellRoot {
         model: Quickshell.screens.filter(s => s.name === "eDP-1")
         Bar {
             screen: Quickshell.screens.find(s => s.name === "eDP-1")
+            laptop: true
         }
     }
     Variants {
