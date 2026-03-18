@@ -41,7 +41,8 @@ in
   options.homeManagerModules.desktop.windowManagers.niri.waybar = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.windowManagers.niri.enable;
+      # default = config.homeManagerModules.desktop.windowManagers.niri.enable;
+      default = false;
     };
   };
 
