@@ -17,20 +17,30 @@ Row {
     property bool batteryCharging: false
 
     // Previous CPU stats for delta calculation
-    property var prevCpu: null
+    property int prevCpuIdle: 0
+    property int prevCpuTotal: 0
+    // A full reload happens every fifth tick, and a partial reload happens every tick
+    property int ticksSinceLastFullReload: 0
 
     Timer {
-        interval: 5000
+        interval: 1000
         running: true
         repeat: true
         triggeredOnStart: false
         onTriggered: {
-            cpuFile.reload();
-            ramFile.reload();
-            if (laptop) {
-                batteryCapacityFile.reload();
-                batteryStatusFile.reload();
+            const isFullReload = ticksSinceLastFullReload > 3;
+            if (isFullReload) {
+                ticksSinceLastFullReload = 0;
+                cpuFile.reload();
+                ramFile.reload();
+                if (laptop)
+                    batteryCapacityFile.reload();
+            } else {
+                ticksSinceLastFullReload += 1;
             }
+
+            if (laptop)
+                batteryStatusFile.reload();
         }
     }
 
@@ -41,6 +51,7 @@ Row {
             const line = cpuFile.text().split("\n").find(l => l.startsWith("cpu "));
             if (!line)
                 return;
+
             const parts = line.trim().split(/\s+/);
             const user = parseInt(parts[1]);
             const nice = parseInt(parts[2]);
@@ -54,16 +65,12 @@ Row {
             const totalBusy = user + nice + system + irq + softirq;
             const total = totalIdle + totalBusy;
 
-            if (prevCpu) {
-                const diffIdle = totalIdle - prevCpu.idle;
-                const diffTotal = total - prevCpu.total;
-                cpuPercent = Math.round((1 - diffIdle / diffTotal) * 100);
-            }
+            const diffIdle = totalIdle - prevCpuIdle;
+            const diffTotal = total - prevCpuTotal;
+            cpuPercent = Math.round((1 - diffIdle / diffTotal) * 100);
 
-            prevCpu = {
-                idle: totalIdle,
-                total: total
-            };
+            prevCpuIdle = totalIdle;
+            prevCpuTotal = total;
         }
     }
 
