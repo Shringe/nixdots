@@ -8,7 +8,7 @@ import "widgets"
 
 PanelWindow {
     id: panelWindow
-    WlrLayershell.layer: WlrLayer.Overlay
+    // WlrLayershell.layer: WlrLayer.Overlay
 
     required property var modelData
     screen: modelData
