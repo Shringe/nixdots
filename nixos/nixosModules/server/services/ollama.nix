@@ -40,7 +40,8 @@ in
     webui = {
       enable = mkOption {
         type = types.bool;
-        default = cfg.enable;
+        # default = cfg.enable;
+        default = false;
       };
 
       host = mkOption {
