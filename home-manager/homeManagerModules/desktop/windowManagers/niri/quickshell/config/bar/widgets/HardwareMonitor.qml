@@ -27,6 +27,10 @@ Row {
         onTriggered: {
             cpuFile.reload();
             ramFile.reload();
+            if (laptop) {
+                batteryCapacityFile.reload();
+                batteryStatusFile.reload();
+            }
         }
     }
 
@@ -34,25 +38,25 @@ Row {
         id: cpuFile
         path: "/proc/stat"
         onTextChanged: {
-            var line = cpuFile.text().split("\n").find(l => l.startsWith("cpu "));
+            const line = cpuFile.text().split("\n").find(l => l.startsWith("cpu "));
             if (!line)
                 return;
-            var parts = line.trim().split(/\s+/);
-            var user = parseInt(parts[1]);
-            var nice = parseInt(parts[2]);
-            var system = parseInt(parts[3]);
-            var idle = parseInt(parts[4]);
-            var iowait = parseInt(parts[5]);
-            var irq = parseInt(parts[6]);
-            var softirq = parseInt(parts[7]);
+            const parts = line.trim().split(/\s+/);
+            const user = parseInt(parts[1]);
+            const nice = parseInt(parts[2]);
+            const system = parseInt(parts[3]);
+            const idle = parseInt(parts[4]);
+            const iowait = parseInt(parts[5]);
+            const irq = parseInt(parts[6]);
+            const softirq = parseInt(parts[7]);
 
-            var totalIdle = idle + iowait;
-            var totalBusy = user + nice + system + irq + softirq;
-            var total = totalIdle + totalBusy;
+            const totalIdle = idle + iowait;
+            const totalBusy = user + nice + system + irq + softirq;
+            const total = totalIdle + totalBusy;
 
             if (prevCpu) {
-                var diffIdle = totalIdle - prevCpu.idle;
-                var diffTotal = total - prevCpu.total;
+                const diffIdle = totalIdle - prevCpu.idle;
+                const diffTotal = total - prevCpu.total;
                 cpuPercent = Math.round((1 - diffIdle / diffTotal) * 100);
             }
 
@@ -67,9 +71,9 @@ Row {
         id: ramFile
         path: "/proc/meminfo"
         onTextChanged: {
-            var lines = ramFile.text().split("\n");
-            var total = parseInt(lines.find(l => l.startsWith("MemTotal:")).split(/\s+/)[1]);
-            var available = parseInt(lines.find(l => l.startsWith("MemAvailable:")).split(/\s+/)[1]);
+            const lines = ramFile.text().split("\n");
+            const total = parseInt(lines.find(l => l.startsWith("MemTotal:")).split(/\s+/)[1]);
+            const available = parseInt(lines.find(l => l.startsWith("MemAvailable:")).split(/\s+/)[1]);
             ramPercent = Math.round((1 - available / total) * 100);
         }
     }
@@ -86,7 +90,7 @@ Row {
         id: batteryStatusFile
         path: "/sys/class/power_supply/BAT0/status"
         onTextChanged: {
-            var status = batteryStatusFile.text().trim();
+            const status = batteryStatusFile.text().trim();
             batteryCharging = (status === "Charging" || status === "Full");
         }
     }
