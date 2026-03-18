@@ -36,9 +36,6 @@ StackView {
         required property QsMenuHandle handle
         property bool isSubMenu: false
 
-        padding: 4
-        spacing: 2
-
         QsMenuOpener {
             id: opener
             menu: menu.handle
@@ -96,7 +93,7 @@ StackView {
                     Stext {
                         anchors.verticalCenter: parent.verticalCenter
                         text: "›"
-                        color: Config.colors.base03
+                        color: Config.colors.base0F
                         visible: modelData.hasChildren
                     }
                 }
@@ -122,7 +119,7 @@ StackView {
                     anchors.left: parent.left
                     anchors.leftMargin: 8
                     text: "‹ Back"
-                    color: Config.colors.base0E
+                    color: Config.colors.base09
                 }
             }
         }
