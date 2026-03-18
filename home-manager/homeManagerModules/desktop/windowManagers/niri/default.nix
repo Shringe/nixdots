@@ -52,7 +52,7 @@ in
 
       # wofi.enable = true;
       walker.enable = true;
-      swaync.enable = true;
+      swaync.enable = false;
       cliphist.enable = true;
       swayosd.enable = true;
       dolphin.enable = true;
