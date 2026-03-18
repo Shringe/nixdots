@@ -61,7 +61,7 @@ in
       polkit.enable = true;
       hyprlock.enable = true;
       wlogout.enable = true;
-      swaybg.enable = true;
+      # swaybg.enable = true;
     };
 
     home.packages = with pkgs; [
