@@ -70,7 +70,7 @@ PanelWindow {
 
         TextButton {
             text: "Night"
-            verticalPadding: 4
+            verticalPadding: 0
             onClicked: Dat.NightLight.toggle()
         }
 
