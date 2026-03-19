@@ -359,9 +359,11 @@
         };
 
         qml = pkgs.mkShell {
-          packages = [
+          packages = with pkgs; [
             inputs.qml-niri.packages.${system}.quickshell
             inputs.qml-niri.packages.${system}.qml-niri
+            cava
+            gammastep
           ];
         };
 

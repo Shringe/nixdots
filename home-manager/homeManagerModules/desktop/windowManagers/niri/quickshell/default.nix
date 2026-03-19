@@ -33,6 +33,14 @@ in
           inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
         }/bin/quickshell";
         Restart = "on-failure";
+        Environment =
+          with pkgs;
+          "PATH=$PATH:${
+            makeBinPath [
+              gammastep
+              cava
+            ]
+          }";
       };
     };
 
