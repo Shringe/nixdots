@@ -3,6 +3,8 @@ import Quickshell.Wayland
 import QtQuick
 import Niri
 import "../.."
+import "../Data" as Dat
+import "utils"
 import "separators"
 import "widgets"
 
@@ -64,6 +66,12 @@ PanelWindow {
             right: parent.right
             rightMargin: 5
             verticalCenter: parent.verticalCenter
+        }
+
+        TextButton {
+            text: "Night"
+            verticalPadding: 4
+            onClicked: Dat.NightLight.toggle()
         }
 
         RightSeparator {}

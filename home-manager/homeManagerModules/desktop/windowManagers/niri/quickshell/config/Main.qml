@@ -3,6 +3,7 @@ import QtQuick
 import Niri
 import ".."
 import "bar"
+import "Data" as Dat
 
 ShellRoot {
     Variants {
@@ -47,4 +48,12 @@ ShellRoot {
             name: "grassmastersword_3440x1440.png"
         }
     }
+
+    // Variants {
+    //     model: Quickshell.screens
+    //     NightLight {
+    //         property var modelData
+    //         screen: modelData
+    //     }
+    // }
 }
