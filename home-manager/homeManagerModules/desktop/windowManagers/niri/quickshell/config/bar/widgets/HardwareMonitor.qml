@@ -85,33 +85,36 @@ Row {
         }
     }
 
-    FileView {
-        id: batteryCapacityFile
-        path: "/sys/class/power_supply/BAT0/capacity"
-        onTextChanged: {
-            batteryPercent = parseInt(batteryCapacityFile.text().trim());
-        }
-    }
+    Loader {
+        active: laptop
+        sourceComponent: Row {
+            FileView {
+                id: batteryCapacityFile
+                path: "/sys/class/power_supply/BAT0/capacity"
+                onTextChanged: {
+                    batteryPercent = parseInt(batteryCapacityFile.text().trim());
+                }
+            }
+            FileView {
+                id: batteryStatusFile
+                path: "/sys/class/power_supply/BAT0/status"
+                onTextChanged: {
+                    const status = batteryStatusFile.text().trim();
+                    batteryCharging = (status === "Charging" || status === "Full");
+                }
+            }
 
-    FileView {
-        id: batteryStatusFile
-        path: "/sys/class/power_supply/BAT0/status"
-        onTextChanged: {
-            const status = batteryStatusFile.text().trim();
-            batteryCharging = (status === "Charging" || status === "Full");
-        }
-    }
+            Stext {
+                text: batteryPercent + "%"
+            }
 
-    Stext {
-        visible: laptop
-        text: laptop ? batteryPercent + "%" : ""
-    }
-    TextIcon {
-        visible: laptop
-        icon: batteryPercent > 90 ? "" : batteryPercent > 60 ? "" : batteryPercent > 40 ? "" : batteryPercent > 20 ? "" : ""
-        label.color: batteryCharging ? Config.colors.base0C : batteryPercent > 40 ? Config.colors.base05 : batteryPercent > 20 ? Config.colors.base0A : Config.colors.base08
-        lpad: 4
-        rpad: 8
+            TextIcon {
+                icon: batteryPercent > 90 ? "" : batteryPercent > 60 ? "" : batteryPercent > 40 ? "" : batteryPercent > 20 ? "" : ""
+                label.color: batteryCharging ? Config.colors.base0C : batteryPercent > 40 ? Config.colors.base05 : batteryPercent > 20 ? Config.colors.base0A : Config.colors.base08
+                lpad: 4
+                rpad: 8
+            }
+        }
     }
 
     Stext {
