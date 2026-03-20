@@ -7,14 +7,15 @@ import "../bar/utils"
 Scope {
     id: root
 
-    property bool shouldShowOsd: false
-    property bool isSource: false
+    // 0 => disabled
+    // 1 => pipewire sink
+    // 2 => pipewire source
+    property int indicator: 0
 
     Connections {
         target: Dat.Pipewire
-        function onVolumeUpdate(isSource: bool) {
-            root.isSource = isSource;
-            root.shouldShowOsd = true;
+        function onVolumeUpdate(indicator: int) {
+            root.indicator = indicator;
             hideTimer.restart();
         }
     }
@@ -22,11 +23,11 @@ Scope {
     Timer {
         id: hideTimer
         interval: 1500
-        onTriggered: root.shouldShowOsd = false
+        onTriggered: root.indicator = 0
     }
 
     LazyLoader {
-        active: root.shouldShowOsd
+        active: root.indicator != 0
 
         PanelWindow {
             id: panel
@@ -56,7 +57,7 @@ Scope {
                         height: panel.height
                         TextIcon {
                             anchors.centerIn: parent
-                            icon: Dat.Pipewire.sinkIcon
+                            icon: root.indicator == 2 ? Dat.Pipewire.sourceIcon : Dat.Pipewire.sinkIcon
                             label.font.pixelSize: 40
                         }
                     }
@@ -70,14 +71,14 @@ Scope {
                             radius: widget.radius
                             implicitHeight: 10
                             implicitWidth: panel.implicitWidth - 80
-                            color: (root.isSource ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base02 : Config.colors.base04
+                            color: (root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base02 : Config.colors.base04
 
                             Rectangle {
                                 anchors.left: parent.left
                                 radius: parent.radius
                                 implicitHeight: parent.implicitHeight
-                                implicitWidth: parent.width * (root.isSource ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume)
-                                color: (root.isSource ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base03 : Config.colors.base05
+                                implicitWidth: parent.width * (root.indicator == 2 ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume)
+                                color: (root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base03 : Config.colors.base05
                             }
                         }
                     }
