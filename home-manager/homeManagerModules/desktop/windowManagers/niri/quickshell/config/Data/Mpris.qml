@@ -7,7 +7,7 @@ Singleton {
     readonly property MprisPlayer player: Mpris.players.values[0] ?? null
     readonly property string trackTitle: player?.trackTitle ?? ""
     readonly property bool trackHasTitle: trackTitle !== ""
-    readonly property string artist: player?.identity ?? ""
+    readonly property string artist: player?.trackArtist ?? ""
     readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
     readonly property real volume: player?.volume
