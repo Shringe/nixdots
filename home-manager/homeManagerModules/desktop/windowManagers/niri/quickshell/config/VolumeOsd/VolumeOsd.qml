@@ -8,16 +8,12 @@ Scope {
     id: root
 
     property bool shouldShowOsd: false
-    property real volume
-    property string icon
-    property bool isMuted
+    property bool isSource: false
 
     Connections {
         target: Dat.Pipewire
-        function onVolumeUpdate(volume: real, icon: string, isMuted: bool, isSource: bool) {
-            root.volume = volume;
-            root.icon = icon;
-            root.isMuted = isMuted;
+        function onVolumeUpdate(isSource: bool) {
+            root.isSource = isSource;
             root.shouldShowOsd = true;
             hideTimer.restart();
         }
@@ -60,7 +56,7 @@ Scope {
                         height: panel.height
                         TextIcon {
                             anchors.centerIn: parent
-                            icon: root.icon
+                            icon: Dat.Pipewire.sinkIcon
                             label.font.pixelSize: 40
                         }
                     }
@@ -74,14 +70,14 @@ Scope {
                             radius: widget.radius
                             implicitHeight: 10
                             implicitWidth: panel.implicitWidth - 80
-                            color: root.isMuted ? Config.colors.base02 : Config.colors.base04
+                            color: (root.isSource ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base02 : Config.colors.base04
 
                             Rectangle {
                                 anchors.left: parent.left
                                 radius: parent.radius
                                 implicitHeight: parent.implicitHeight
-                                implicitWidth: parent.width * root.volume
-                                color: root.isMuted ? Config.colors.base03 : Config.colors.base05
+                                implicitWidth: parent.width * (root.isSource ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume)
+                                color: (root.isSource ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base03 : Config.colors.base05
                             }
                         }
                     }

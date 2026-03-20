@@ -17,7 +17,7 @@ Singleton {
     readonly property real sourceVolume: source?.audio.volume
     readonly property string sourceIcon: (sourceMuted) ? "󰍭" : "󰍬"
 
-    signal volumeUpdate(volume: real, icon: string, isMuted: bool, isSource: bool)
+    signal volumeUpdate(isSource: bool)
 
     function toggleMute(node: PwNode) {
         node.audio.muted = !node.audio.muted;
@@ -43,22 +43,22 @@ Singleton {
     }
 
     Connections {
-        target: sink?.audio
+        target: sink.audio
         function onVolumeChanged() {
-            volumeUpdate(sinkVolume, sinkIcon, sinkMuted, false);
+            volumeUpdate(false);
         }
         function onMutedChanged() {
-            volumeUpdate(sinkVolume, sinkIcon, sinkMuted, false);
+            volumeUpdate(false);
         }
     }
 
     Connections {
-        target: source?.audio
+        target: source.audio
         function onVolumeChanged() {
-            volumeUpdate(sourceVolume, sourceIcon, sourceMuted, true);
+            volumeUpdate(true);
         }
         function onMutedChanged() {
-            volumeUpdate(sourceVolume, sourceIcon, sourceMuted, true);
+            volumeUpdate(true);
         }
     }
 }
