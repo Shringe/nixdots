@@ -5,20 +5,19 @@ import Quickshell
 import Quickshell.Services.Pipewire
 
 Singleton {
-    id: root
-
-    readonly property var muted: sink?.audio.muted
     readonly property PwNode sink: Pipewire.defaultAudioSink
+    readonly property bool sinkMuted: sink?.audio.muted
+    readonly property real sinkVolume: sink?.audio.volume
     readonly property string sinkIcon: {
-        (muted) ? "󰝟" : (volume > 0.5) ? "󰕾" : (volume > 0.01) ? "󰖀" : "󰕿";
+        (sinkMuted) ? "󰝟" : (sinkVolume > 0.5) ? "󰕾" : (sinkVolume > 0.01) ? "󰖀" : "󰕿";
     }
-    readonly property var sinkMuted: sink?.audio.muted
-    readonly property var sinkVolume: sink?.audio.volume
+
     readonly property PwNode source: Pipewire.defaultAudioSource
-    readonly property string sourceIcon: (this.sourceMuted) ? "󰍭" : "󰍬"
-    readonly property var sourceMuted: source?.audio.muted
-    readonly property var sourceVolume: source?.audio.volume
-    readonly property var volume: sink?.audio.volume
+    readonly property bool sourceMuted: source?.audio.muted
+    readonly property real sourceVolume: source?.audio.volume
+    readonly property string sourceIcon: (sourceMuted) ? "󰍭" : "󰍬"
+
+    signal volumeUpdate(volume: real, icon: string, isMuted: bool, isSource: bool)
 
     function toggleMute(node: PwNode) {
         node.audio.muted = !node.audio.muted;
@@ -34,12 +33,32 @@ Singleton {
         if (node.audio.volume > 1.3) {
             node.audio.volume = 1.3;
         }
-        if (root.sink.audio.volume < 0) {
+        if (sink.audio.volume < 0) {
             node.audio.volume = 0.0;
         }
     }
 
     PwObjectTracker {
-        objects: [root.sink, root.source]
+        objects: [sink, source]
+    }
+
+    Connections {
+        target: sink?.audio
+        function onVolumeChanged() {
+            volumeUpdate(sinkVolume, sinkIcon, sinkMuted, false);
+        }
+        function onMutedChanged() {
+            volumeUpdate(sinkVolume, sinkIcon, sinkMuted, false);
+        }
+    }
+
+    Connections {
+        target: source?.audio
+        function onVolumeChanged() {
+            volumeUpdate(sourceVolume, sourceIcon, sourceMuted, true);
+        }
+        function onMutedChanged() {
+            volumeUpdate(sourceVolume, sourceIcon, sourceMuted, true);
+        }
     }
 }
