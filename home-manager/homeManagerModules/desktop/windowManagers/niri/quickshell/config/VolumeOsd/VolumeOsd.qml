@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import "../Data" as Dat
 import "../.."
 import ".."
@@ -122,12 +123,15 @@ Scope {
         PanelWindow {
             id: trackPanel
 
+            readonly property string displayText: Dat.Mpris.artist + " - " + Dat.Mpris.trackTitle
+
             anchors.bottom: true
             margins.bottom: screen.height / 6
             exclusiveZone: 0
+            WlrLayershell.layer: WlrLayer.Overlay
 
-            // Rough estimation of text length
-            implicitWidth: Math.max(200, Math.min(screen.width / 4, Dat.Mpris.trackTitle.length * 11 + 80))
+            // Estimation of text length. This assumes your font's width is exactly 60% of its height, and that it is monospaced
+            implicitWidth: Math.max(200, Math.min(screen.width / 4, Math.ceil(trackPanel.displayText.length * trackText.font.pixelSize * 0.6) + 100))
             implicitHeight: 60
             color: "transparent"
 
@@ -160,8 +164,8 @@ Scope {
                             id: trackText
                             anchors.centerIn: parent
                             width: parent.width - 20
-                            text: Dat.Mpris.trackTitle
-                            font.pixelSize: 16
+                            text: trackPanel.displayText
+                            font.pixelSize: 18
                             elide: Text.ElideRight
                         }
                     }
