@@ -9,7 +9,8 @@ Singleton {
     readonly property bool trackHasTitle: trackTitle !== ""
     readonly property string artist: player?.identity ?? ""
     readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
-    // readonly property string playerIcon: isPlaying ? "󰐊" : "󰏤"
+    readonly property string icon: isPlaying ? "󰐊" : "󰏤"
+    readonly property real volume: player?.volume
 
     function playPause() {
         player?.togglePlaying();
