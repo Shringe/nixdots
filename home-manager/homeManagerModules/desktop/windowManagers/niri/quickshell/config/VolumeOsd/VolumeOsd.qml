@@ -12,11 +12,28 @@ Scope {
     // 2 => pipewire source
     property int indicator: 0
 
+    function display(indicator: int) {
+        root.indicator = indicator;
+        hideTimer.restart();
+    }
+
     Connections {
-        target: Dat.Pipewire
-        function onVolumeUpdate(indicator: int) {
-            root.indicator = indicator;
-            hideTimer.restart();
+        target: Dat.Pipewire.sink.audio
+        function onVolumeChanged() {
+            display(1);
+        }
+        function onMutedChanged() {
+            display(1);
+        }
+    }
+
+    Connections {
+        target: Dat.Pipewire.source.audio
+        function onVolumeChanged() {
+            display(2);
+        }
+        function onMutedChanged() {
+            display(2);
         }
     }
 
