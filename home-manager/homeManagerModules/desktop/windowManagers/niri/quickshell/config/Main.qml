@@ -3,6 +3,7 @@ import QtQuick
 import Niri
 import ".."
 import "bar"
+import "VolumeOsd"
 import "Data" as Dat
 
 ShellRoot {
@@ -48,6 +49,8 @@ ShellRoot {
             name: "grassmastersword_3440x1440.png"
         }
     }
+
+    VolumeOsd {}
 
     // Variants {
     //     model: Quickshell.screens
