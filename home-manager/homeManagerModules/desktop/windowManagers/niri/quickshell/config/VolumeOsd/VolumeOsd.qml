@@ -12,8 +12,7 @@ Scope {
     // 0 => disabled
     // 1 => pipewire sink
     // 2 => pipewire source
-    // 3 => mpris volume
-    // 4 => mpris track or playback
+    // 3 => mpris
     property int indicator: 0
 
     function display(indicator: int) {
@@ -43,10 +42,10 @@ Scope {
             display(3);
         }
         function onIsPlayingChanged() {
-            display(4);
+            display(3);
         }
         function onTrackTitleChanged() {
-            display(4);
+            display(3);
         }
     }
 
@@ -57,7 +56,7 @@ Scope {
     }
 
     LazyLoader {
-        active: root.indicator == 1 || root.indicator == 2 || root.indicator == 3
+        active: root.indicator == 1 || root.indicator == 2
 
         PanelWindow {
             id: panel
@@ -87,7 +86,7 @@ Scope {
                         height: panel.height
                         TextIcon {
                             anchors.centerIn: parent
-                            icon: root.indicator == 3 ? Dat.Mpris.icon : root.indicator == 2 ? Dat.Pipewire.sourceIcon : Dat.Pipewire.sinkIcon
+                            icon: root.indicator == 2 ? Dat.Pipewire.sourceIcon : Dat.Pipewire.sinkIcon
                             label.font.pixelSize: 40
                         }
                     }
@@ -96,20 +95,12 @@ Scope {
                         width: panel.width - 60
                         height: panel.height
 
-                        Rectangle {
-                            anchors.verticalCenter: parent.verticalCenter
+                        VolumeBar {
                             radius: widget.radius
-                            implicitHeight: 10
+                            anchors.verticalCenter: parent.verticalCenter
                             implicitWidth: panel.implicitWidth - 80
-                            color: (root.indicator == 3 ? false : root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base02 : Config.colors.base04
-
-                            Rectangle {
-                                anchors.left: parent.left
-                                radius: parent.radius
-                                implicitHeight: parent.implicitHeight
-                                implicitWidth: parent.width * (root.indicator == 3 ? Dat.Mpris.volume : root.indicator == 2 ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume)
-                                color: (root.indicator == 3 ? false : root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted) ? Config.colors.base03 : Config.colors.base05
-                            }
+                            volume: root.indicator == 3 ? Dat.Mpris.volume : root.indicator == 2 ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume
+                            muted: root.indicator == 3 ? false : root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted
                         }
                     }
                 }
@@ -118,7 +109,7 @@ Scope {
     }
 
     LazyLoader {
-        active: root.indicator == 4
+        active: root.indicator == 3
 
         PanelWindow {
             id: trackPanel
@@ -139,6 +130,7 @@ Scope {
             mask: Region {}
 
             Rectangle {
+                id: trackWidget
                 anchors.fill: parent
                 radius: 6
                 color: Config.colors.base00
@@ -160,13 +152,23 @@ Scope {
                         width: trackPanel.width - 60
                         height: trackPanel.height
 
-                        Stext {
-                            id: trackText
+                        Column {
                             anchors.centerIn: parent
-                            width: parent.width - 20
-                            text: trackPanel.displayText
-                            font.pixelSize: 18
-                            elide: Text.ElideRight
+                            spacing: 6
+
+                            Stext {
+                                id: trackText
+                                width: trackPanel.width - 80
+                                text: trackPanel.displayText
+                                font.pixelSize: 18
+                                elide: Text.ElideRight
+                            }
+
+                            VolumeBar {
+                                radius: trackWidget.radius
+                                implicitWidth: trackPanel.implicitWidth - 80
+                                volume: Dat.Mpris.volume
+                            }
                         }
                     }
                 }
