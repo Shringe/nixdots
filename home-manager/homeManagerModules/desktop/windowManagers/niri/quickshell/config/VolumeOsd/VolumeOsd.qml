@@ -6,6 +6,9 @@ import "../.."
 import ".."
 import "../bar/utils"
 
+// TODO: add brightness indicator
+// TODO: add rust cli that functions like swayosd-client for lower latency indicator updates and nicer window manager keybinds
+
 Scope {
     id: root
 
