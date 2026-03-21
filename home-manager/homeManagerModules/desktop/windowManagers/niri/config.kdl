@@ -129,24 +129,24 @@ binds {
   // "$mod, v, exec, swaync-client -t -sw"
 
   // Media
-  // Audio output (swayosd)
-  XF86AudioMute                allow-when-locked=true hotkey-overlay-title="Mute Audio Output"        { spawn-sh "swayosd-client --output-volume mute-toggle; rm -f /tmp/media_paragraph.cache"; }
-  XF86AudioRaiseVolume         allow-when-locked=true hotkey-overlay-title="Raise Output Volume"      { spawn-sh "swayosd-client --output-volume raise; rm -f /tmp/media_paragraph.cache"; }
-  XF86AudioLowerVolume         allow-when-locked=true hotkey-overlay-title="Lower Output Volume"      { spawn-sh "swayosd-client --output-volume lower; rm -f /tmp/media_paragraph.cache"; }
+  // Audio output (wpctl)
+  XF86AudioMute                allow-when-locked=true hotkey-overlay-title="Mute Audio Output"        { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioRaiseVolume         allow-when-locked=true hotkey-overlay-title="Raise Output Volume"      { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.0; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioLowerVolume         allow-when-locked=true hotkey-overlay-title="Lower Output Volume"      { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; rm -f /tmp/media_paragraph.cache"; }
 
-  // Audio input (swayosd-client)
-  Ctrl+XF86AudioMute           allow-when-locked=true hotkey-overlay-title="Mute Audio Input"         { spawn "swayosd-client" "--input-volume" "mute-toggle"; }
-  Ctrl+XF86AudioRaiseVolume    allow-when-locked=true hotkey-overlay-title="Raise Input Volume"       { spawn "swayosd-client" "--input-volume" "raise"; }
-  Ctrl+XF86AudioLowerVolume    allow-when-locked=true hotkey-overlay-title="Lower Input Volume"       { spawn "swayosd-client" "--input-volume" "lower"; }
+  // Audio input (wpctl)
+  Ctrl+XF86AudioMute           allow-when-locked=true hotkey-overlay-title="Mute Audio Input"         { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+  Ctrl+XF86AudioRaiseVolume    allow-when-locked=true hotkey-overlay-title="Raise Input Volume"       { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SOURCE@" "5%+" "--limit" "1.0"; }
+  Ctrl+XF86AudioLowerVolume    allow-when-locked=true hotkey-overlay-title="Lower Input Volume"       { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SOURCE@" "5%-"; }
 
-  // Media playback (swayosd-client)
-  XF86AudioPlay                allow-when-locked=true hotkey-overlay-title="Play/Pause"               { spawn-sh "swayosd-client --playerctl play-pause; rm -f /tmp/media_paragraph.cache"; }
-  XF86AudioNext                allow-when-locked=true hotkey-overlay-title="Play the Next Track"      { spawn-sh "swayosd-client --playerctl next; rm -f /tmp/media_paragraph.cache"; }
-  XF86AudioPrev                allow-when-locked=true hotkey-overlay-title="Play the Previous Track"  { spawn-sh "swayosd-client --playerctl previous; rm -f /tmp/media_paragraph.cache"; }
+  // Media playback (playerctl)
+  XF86AudioPlay                allow-when-locked=true hotkey-overlay-title="Play/Pause"               { spawn-sh "playerctl play-pause; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioNext                allow-when-locked=true hotkey-overlay-title="Play the Next Track"      { spawn-sh "playerctl next; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioPrev                allow-when-locked=true hotkey-overlay-title="Play the Previous Track"  { spawn-sh "playerctl previous; rm -f /tmp/media_paragraph.cache"; }
 
   // Player volume (playerctl)
-  Shift+XF86AudioRaiseVolume   allow-when-locked=true hotkey-overlay-title="Raise Player Volume"      { spawn-sh "playerctl volume 0.1+; rm -f /tmp/media_paragraph.cache"; }
-  Shift+XF86AudioLowerVolume   allow-when-locked=true hotkey-overlay-title="Lower Player Volume"      { spawn-sh "playerctl volume 0.1-; rm -f /tmp/media_paragraph.cache"; }
+  Shift+XF86AudioRaiseVolume   allow-when-locked=true hotkey-overlay-title="Raise Player Volume"      { spawn-sh "playerctl volume 0.05+; rm -f /tmp/media_paragraph.cache"; }
+  Shift+XF86AudioLowerVolume   allow-when-locked=true hotkey-overlay-title="Lower Player Volume"      { spawn-sh "playerctl volume 0.05-; rm -f /tmp/media_paragraph.cache"; }
   Shift+XF86AudioMute          allow-when-locked=true hotkey-overlay-title="Mute Player"              { spawn-sh "playerctl volume 0; rm -f /tmp/media_paragraph.cache"; }
 
   // Player loop/shuffle (playerctl)
@@ -155,9 +155,9 @@ binds {
   Ctrl+XF86MonBrightnessUp     allow-when-locked=true hotkey-overlay-title="Disable Loop"             { spawn "playerctl" "loop" "None"; }
   Ctrl+XF86MonBrightnessDown   allow-when-locked=true hotkey-overlay-title="Loop Playlist"            { spawn "playerctl" "loop" "Playlist"; }
 
-  // Brightness (swayosd-client)
-  XF86MonBrightnessUp          allow-when-locked=true hotkey-overlay-title="Raise Brightness"         { spawn "swayosd-client" "--brightness" "raise"; }
-  XF86MonBrightnessDown        allow-when-locked=true hotkey-overlay-title="Lower Brightness"         { spawn "swayosd-client" "--brightness" "lower"; }
+  // Brightness (brightnessctl) (temporarily disabled)
+  // XF86MonBrightnessUp          allow-when-locked=true hotkey-overlay-title="Raise Brightness"         { spawn "brightnessctl" "set" "5%+"; }
+  // XF86MonBrightnessDown        allow-when-locked=true hotkey-overlay-title="Lower Brightness"         { spawn "brightnessctl" "set" "5%-"; }
 
 
   // // Example volume keys mappings for PipeWire & WirePlumber.
