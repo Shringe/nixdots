@@ -166,7 +166,7 @@ Scope {
 
                             VolumeBar {
                                 radius: trackWidget.radius
-                                implicitWidth: trackPanel.implicitWidth - 80
+                                implicitWidth: trackPanel.implicitWidth - 100
                                 volume: Dat.Mpris.volume
                             }
                         }
