@@ -50,18 +50,19 @@ in
         turnOnScreenCmd = "${pkgs.niri}/bin/niri msg action power-on-monitors";
       };
 
-      # wofi.enable = true;
+      wofi.enable = false;
       walker.enable = true;
       swaync.enable = false;
       cliphist.enable = true;
-      swayosd.enable = true;
-      dolphin.enable = true;
+      swayosd.enable = false;
       wluma.enable = true;
-      kclock.enable = true;
-      polkit.enable = true;
       hyprlock.enable = true;
       wlogout.enable = true;
-      # swaybg.enable = true;
+      swaybg.enable = false;
+
+      dolphin.enable = true;
+      polkit.enable = true;
+      kclock.enable = true;
     };
 
     home.packages = with pkgs; [
