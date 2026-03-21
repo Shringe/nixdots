@@ -67,6 +67,7 @@ Scope {
             anchors.bottom: true
             margins.bottom: screen.height / 6
             exclusiveZone: 0
+            WlrLayershell.layer: WlrLayer.Overlay
 
             implicitWidth: 250
             implicitHeight: 60
