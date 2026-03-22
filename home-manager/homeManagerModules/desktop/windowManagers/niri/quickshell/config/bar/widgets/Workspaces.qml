@@ -9,8 +9,6 @@ Row {
     required property var niri
     readonly property list<string> workspaceNames: ["", "󰈹", "", "󰯙", "󰔍", "󰓓", "󰎆", "", "󰇮", "󰍔"]
 
-    anchors.verticalCenter: parent.verticalCenter
-
     WorkspaceIcon {
         text: ""
         textColor: Config.colors.base04
