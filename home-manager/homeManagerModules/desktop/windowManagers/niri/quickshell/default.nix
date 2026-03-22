@@ -87,6 +87,11 @@ in
               readonly property string family: "JetBrainsMono Nerd Font"
               readonly property int size: 14
           }
+
+          readonly property QtObject borders: QtObject {
+              readonly property int size: 2
+              readonly property int radius: 6
+          }
       }
     '';
   };

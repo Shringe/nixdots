@@ -9,7 +9,7 @@ import "separators"
 import "widgets"
 
 PanelWindow {
-    id: panelWindow
+    id: root
     // WlrLayershell.layer: WlrLayer.Overlay
 
     required property var modelData
@@ -22,65 +22,103 @@ PanelWindow {
         right: true
     }
 
-    implicitHeight: 24
-    color: Config.colors.base00
+    mask: itemsRegions
+    color: "transparent"
+    implicitHeight: screen.height
+    // this reserves the space for the bar
+    exclusiveZone: bar.visible ? bar.height + 0 : 0
+    // implicitHeight: 24
 
-    Niri {
-        id: niri
-        Component.onCompleted: connect()
+    Rectangle {
+        id: bar
+        y: 0
+        implicitWidth: root.screen.width
+        implicitHeight: 24
+        width: root.screen.width
+        height: 24
+        color: Config.colors.base00
+        radius: 0
 
-        onConnected: console.debug("Connected to niri")
-        onErrorOccurred: function (error) {
-            console.error("Niri error:", error);
+        DynamicFrame {
+            barWidth: bar.width
+            barHeight: bar.height
         }
-    }
 
-    // Left
-    Row {
-        spacing: 5
-        anchors {
-            left: parent.left
-            leftMargin: 5
-            verticalCenter: parent.verticalCenter
+        Niri {
+            id: niri
+            Component.onCompleted: connect()
+
+            onConnected: console.debug("Connected to niri")
+            onErrorOccurred: function (error) {
+                console.error("Niri error:", error);
+            }
         }
 
-        // panelWindow: panelWindow
-        SystemTray {}
-        LeftSeparator {}
-        WindowTitle {
+        // iterates over all window components and
+        // creates their regions
+        Variants {
+            id: regions
+            model: root.contentItem.children
+
+            delegate: Region {
+                required property Item modelData
+                item: modelData
+            }
+        }
+
+        // regions for all window components
+        Region {
+            id: itemsRegions
+            regions: regions.instances
+        }
+
+        // Left
+        Row {
+            spacing: 5
+            anchors {
+                left: parent.left
+                leftMargin: 5
+                verticalCenter: parent.verticalCenter
+            }
+
+            // panelWindow: panelWindow
+            SystemTray {}
+            LeftSeparator {}
+            WindowTitle {
+                niri: niri
+            }
+            LeftSeparator {}
+        }
+
+        // Center
+        Workspaces {
             niri: niri
-        }
-        LeftSeparator {}
-    }
-
-    // Center
-    Workspaces {
-        niri: niri
-        anchors.centerIn: parent
-    }
-
-    // Right
-    Row {
-        spacing: 5
-        anchors {
-            right: parent.right
-            rightMargin: 5
-            verticalCenter: parent.verticalCenter
+            anchors.centerIn: parent
         }
 
-        TextButton {
-            text: "Night"
-            verticalPadding: 0
-            onClicked: Dat.NightLight.toggle()
-        }
+        // Right
+        Row {
+            spacing: 5
+            anchors {
+                right: parent.right
+                rightMargin: 5
+                verticalCenter: parent.verticalCenter
+            }
 
-        RightSeparator {}
-        Audio {}
-        RightSeparator {}
-        HardwareMonitor {
-            laptop: laptop
+            TextButton {
+                text: "Night"
+                verticalPadding: 0
+                onClicked: Dat.NightLight.toggle()
+            }
+
+            RightSeparator {}
+            Audio {}
+            RightSeparator {}
+            HardwareMonitor {
+                laptop: laptop
+            }
+            RightSeparator {}
+            Clock {}
         }
-        RightSeparator {}
-        Clock {}
     }
 }
