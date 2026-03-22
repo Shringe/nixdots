@@ -41,6 +41,8 @@ in
             "ripple"
             "pixiedust"
           ];
+
+          neovide_refresh_rate = config.homeManagerModules.info.fps;
         };
 
         opts = {
