@@ -33,9 +33,9 @@ PanelWindow {
         id: bar
         y: 0
         implicitWidth: root.screen.width
-        implicitHeight: 24
+        implicitHeight: 26
         width: root.screen.width
-        height: 24
+        height: 26
         color: Config.colors.base00
         radius: 0
 
