@@ -11,6 +11,7 @@ with lib;
     ./gaming
     ./theming
     ./tooling
+    ./info.nix
   ];
 
   # Defines all options for homeManagerModules
