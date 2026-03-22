@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import QtQuick.Layouts
 import Niri
 import "../.."
 import "../Data" as Dat
@@ -26,16 +27,14 @@ PanelWindow {
     color: "transparent"
     implicitHeight: screen.height
     // this reserves the space for the bar
-    exclusiveZone: bar.visible ? bar.height + 0 : 0
-    // implicitHeight: 24
+    exclusiveZone: bar.visible ? bar.height : 0
 
     Rectangle {
         id: bar
         y: 0
         implicitWidth: root.screen.width
-        implicitHeight: 26
+        implicitHeight: 24 + Config.borders.size
         width: root.screen.width
-        height: 26
         color: Config.colors.base00
         radius: 0
 
@@ -72,53 +71,50 @@ PanelWindow {
             regions: regions.instances
         }
 
-        // Left
-        Row {
-            spacing: 5
-            anchors {
-                left: parent.left
-                leftMargin: 5
-                verticalCenter: parent.verticalCenter
+        Item {
+            anchors.fill: parent
+            anchors.leftMargin: 5
+            anchors.rightMargin: 5
+            anchors.bottomMargin: Config.borders.size
+
+            // Left
+            Row {
+                anchors.left: parent.left
+                spacing: 5
+                SystemTray {}
+                LeftSeparator {}
+                WindowTitle {
+                    niri: niri
+                }
+                LeftSeparator {}
             }
 
-            // panelWindow: panelWindow
-            SystemTray {}
-            LeftSeparator {}
-            WindowTitle {
+            // Center
+            Workspaces {
+                anchors.centerIn: parent
                 niri: niri
             }
-            LeftSeparator {}
-        }
 
-        // Center
-        Workspaces {
-            niri: niri
-            anchors.centerIn: parent
-        }
+            // Right
+            Row {
+                anchors.right: parent.right
+                spacing: 5
 
-        // Right
-        Row {
-            spacing: 5
-            anchors {
-                right: parent.right
-                rightMargin: 5
-                verticalCenter: parent.verticalCenter
+                TextButton {
+                    text: "Night"
+                    verticalPadding: 0
+                    onClicked: Dat.NightLight.toggle()
+                }
+
+                RightSeparator {}
+                Audio {}
+                RightSeparator {}
+                HardwareMonitor {
+                    laptop: laptop
+                }
+                RightSeparator {}
+                Clock {}
             }
-
-            TextButton {
-                text: "Night"
-                verticalPadding: 0
-                onClicked: Dat.NightLight.toggle()
-            }
-
-            RightSeparator {}
-            Audio {}
-            RightSeparator {}
-            HardwareMonitor {
-                laptop: laptop
-            }
-            RightSeparator {}
-            Clock {}
         }
     }
 }
