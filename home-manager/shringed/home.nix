@@ -10,6 +10,10 @@ with lib;
       };
     };
 
+    info = {
+      fps = 175;
+    };
+
     tooling.enable = true;
     nixvim.enable = true;
     desktop = {
@@ -54,11 +58,6 @@ with lib;
     sops.enable = true;
     gaming.enable = true;
     # gaming.recording.enable = true;
-  };
-
-  # programs.neovide.settings.vsync = false;
-  programs.nixvim.globals = {
-    neovide_refresh_rate = 175;
   };
 
   stylix.targets.hyprpaper.enable = mkForce false;

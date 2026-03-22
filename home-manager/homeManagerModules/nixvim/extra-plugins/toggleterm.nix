@@ -10,8 +10,8 @@ in
       enable = true;
 
       settings = {
-        # direction = "float";
-        direction = "vertical";
+        direction = "float";
+        # direction = "vertical";
         size = 80;
       };
 
