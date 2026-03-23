@@ -50,14 +50,14 @@ Item {
             const centered = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) + xOffset;
             const screenWidth = root.Window.window ? root.Window.window.width : 0;
             const out = Math.max(root.minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - root.minimumDistanceFromScreenEdge)) - Config.borders.size * 2;
-            console.debug(`Dropdown ${debugName} x: ${out}`);
+            // console.debug(`Dropdown ${debugName} x: ${out}`);
             return out;
         }
 
         y: {
             const mapped = getAbsolutePosition(root.boxParent);
             const out = mapped.y + root.boxParent.height + Config.borders.size + 1 + yOffset;
-            console.debug(`Dropdown ${debugName} y: ${out}`);
+            // console.debug(`Dropdown ${debugName} y: ${out}`);
             return out;
         }
 
@@ -237,6 +237,12 @@ Item {
                 } else {
                     hideTimer.start();
                 }
+            }
+        }
+
+        onHeightChanged: {
+            if (root.show && States.dropdownOwner === root) {
+                States.dropdownHeight = dropdown.height + (Config.borders.size * 2);
             }
         }
     }
