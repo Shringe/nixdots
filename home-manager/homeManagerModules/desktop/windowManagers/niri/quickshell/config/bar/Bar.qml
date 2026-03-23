@@ -82,7 +82,6 @@ PanelWindow {
         y: 0
         implicitWidth: root.screen.width
         implicitHeight: 24 + Config.borders.size
-        width: root.screen.width
         color: Config.colors.base00
         radius: 0
 
@@ -115,6 +114,7 @@ PanelWindow {
                     color: "red"
                     implicitWidth: 180
                     implicitHeight: 80
+                    radius: 8
 
                     ColumnLayout {
                         anchors.fill: parent
