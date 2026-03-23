@@ -10,8 +10,8 @@ Shape {
     required property int barHeight
 
     readonly property int sw: Config.borders.size
-    readonly property int cr: 0
-    readonly property int ramp: Config.borders.radius * 2
+    readonly property int cr: Config.borders.radius
+    readonly property int ramp: cr * 2
 
     preferredRendererType: Shape.CurveRenderer
     width: barWidth + sw
