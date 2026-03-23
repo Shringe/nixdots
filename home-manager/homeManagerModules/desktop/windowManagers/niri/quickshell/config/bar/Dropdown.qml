@@ -18,8 +18,18 @@ Item {
     required property var boxParent
     // the content of the dropdown
     default property alias content: contentArea.data
-    property int xOffset: -4
-    property int yOffset: 13
+
+    function getAbsolutePosition(node) {
+        let returnPos = {};
+        returnPos.x = 0;
+        returnPos.y = 0;
+        if (node !== undefined && node !== null) {
+            const parentValue = getAbsolutePosition(node.parent);
+            returnPos.x = parentValue.x + node.x;
+            returnPos.y = parentValue.y + node.y;
+        }
+        return returnPos;
+    }
 
     Item {
         id: dropdown
@@ -29,22 +39,19 @@ Item {
         height: contentArea.implicitHeight
 
         x: {
-            return States.dropdownX + xOffset;
-            return 500;
-            const boxScene = root.boxParent.mapToItem(null, 0, 0);
-            const rootScene = root.mapToItem(null, 0, 0);
-            return boxScene.x - rootScene.x + (root.boxParent.width / 2) - (dropdown.width / 2);
+            const mapped = getAbsolutePosition(root.boxParent);
+            const out = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) - Config.borders.size * 2;
+            return out;
         }
+
         y: {
-            // half of
-            return States.dropdownY + yOffset;
             if (root.offset > 0) {
                 return root.offset;
             }
 
-            const boxScene = root.boxParent.mapToItem(null, 0, 0);
-            const rootScene = root.mapToItem(null, 0, 0);
-            return boxScene.y - rootScene.y + root.boxParent.height - 1;
+            const mapped = getAbsolutePosition(root.boxParent);
+            const out = mapped.y + root.boxParent.height + Config.borders.size + 1;
+            return out;
         }
 
         opacity: 0
