@@ -106,7 +106,7 @@ Shape {
         }
 
         // dropdown left edge up
-        PathMove {
+        PathLine {
             x: States.dropdownRevealed ? States.dropdownX : root.cr
             y: States.dropdownRevealed ? bar.height + root.ramp : bar.height
         }
