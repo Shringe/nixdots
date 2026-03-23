@@ -22,6 +22,24 @@ Item {
     default property alias content: contentArea.data
     property string debugName: "unknown"
 
+    // Request to open the dropdown
+    function open() {
+        root.show = true;
+        States.dashboardPresent = true;
+    }
+
+    // Prop the dropdown open for a specified time, then close
+    function propOpen(duration) {
+        open();
+        close(duration);
+    }
+
+    // Request to close the dropdown
+    function close(duration) {
+        root.timer.interval = duration ?? 120;
+        root.timer.restart();
+    }
+
     function getAbsolutePosition(node) {
         let returnPos = {};
         returnPos.x = 0;

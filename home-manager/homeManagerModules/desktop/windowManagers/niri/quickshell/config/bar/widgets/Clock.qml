@@ -15,31 +15,30 @@ Row {
 
     required property Dropdown dropdown
 
-    // Connections {
-    //     target: Dat.Notifications
-    //     function onNotificationReceived(n) {
-    //         if (Dat.Notifications.dndEnabled || dropdown.open)
-    //             return;
-    //         const duration = ({
-    //                 [NotificationUrgency.Low]: 2000,
-    //                 [NotificationUrgency.Normal]: 5000,
-    //                 [NotificationUrgency.Critical]: 10000
-    //             })[n.urgency] ?? 5000;
-    //         dropdown.previewDisplay(duration);
-    //     }
-    // }
+    Connections {
+        target: Dat.Notifications
+        function onNotificationReceived(n) {
+            if (Dat.Notifications.dndEnabled)
+                return;
+            const duration = ({
+                    [NotificationUrgency.Low]: 2000,
+                    [NotificationUrgency.Normal]: 5000,
+                    [NotificationUrgency.Critical]: 10000
+                })[n.urgency] ?? 5000;
+            dropdown.propOpen(duration);
+        }
+    }
 
     WrapperMouseArea {
         id: mouseArea
         hoverEnabled: true
 
         onEntered: {
-            dropdown.show = true;
-            States.dashboardPresent = true;
+            dropdown.open();
         }
 
         onExited: {
-            dropdown.timer.start();
+            dropdown.close();
         }
 
         Row {

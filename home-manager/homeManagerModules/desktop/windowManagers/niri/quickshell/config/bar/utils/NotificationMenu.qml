@@ -40,7 +40,7 @@ Item {
                 onClicked: {
                     if (!previewMode)
                         Dat.Notifications.clearNotifs();
-                    open = false;
+                    // open = false;
                     closePreview();
                 }
             }
@@ -86,7 +86,7 @@ Item {
                     onDismissed: {
                         modelData.dismiss();
                         if (previewMode) {
-                            open = false;
+                            // open = false;
                             previewMode = false;
                         }
                     }
