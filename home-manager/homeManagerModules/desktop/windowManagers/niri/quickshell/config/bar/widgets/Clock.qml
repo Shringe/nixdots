@@ -13,6 +13,8 @@ import "../../Data" as Dat
 Row {
     id: root
 
+    required property Dropdown dropdown
+
     // Connections {
     //     target: Dat.Notifications
     //     function onNotificationReceived(n) {
@@ -27,41 +29,17 @@ Row {
     //     }
     // }
 
-    Dropdown {
-        id: dashboard
-        boxParent: root
-
-        Rectangle {
-            color: "red"
-            implicitWidth: 180
-            implicitHeight: 80
-
-            ColumnLayout {
-                anchors.fill: parent
-                spacing: 4
-
-                Stext {
-                    text: "Volume"
-                    color: Config.colors.base07
-                    Layout.fillWidth: true
-                }
-            }
-        }
-    }
-
     WrapperMouseArea {
         id: mouseArea
-        // cursorShape: Qt.PointingHandCursor
         hoverEnabled: true
 
         onEntered: {
-            dashboard.show = true;
+            dropdown.show = true;
             States.dashboardPresent = true;
         }
 
         onExited: {
-            // do not close it right away
-            dashboard.timer.start();
+            dropdown.timer.start();
         }
 
         Row {

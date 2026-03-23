@@ -18,6 +18,7 @@ Item {
     required property var boxParent
     // the content of the dropdown
     default property alias content: contentArea.data
+    property string debugName: "unknown"
 
     function getAbsolutePosition(node) {
         let returnPos = {};
@@ -41,6 +42,7 @@ Item {
         x: {
             const mapped = getAbsolutePosition(root.boxParent);
             const out = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) - Config.borders.size * 2;
+            console.debug(`Dropdown ${debugName} x: ${out}`);
             return out;
         }
 
@@ -51,6 +53,7 @@ Item {
 
             const mapped = getAbsolutePosition(root.boxParent);
             const out = mapped.y + root.boxParent.height + Config.borders.size + 1;
+            console.debug(`Dropdown ${debugName} y: ${out}`);
             return out;
         }
 

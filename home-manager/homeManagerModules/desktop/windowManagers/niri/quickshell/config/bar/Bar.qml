@@ -109,6 +109,29 @@ PanelWindow {
             Dropdown {
                 id: dropdown
                 boxParent: mouseArea
+                debugName: "Demo"
+
+                Rectangle {
+                    color: "red"
+                    implicitWidth: 180
+                    implicitHeight: 80
+                    radius: 8
+
+                    ColumnLayout {
+                        anchors.fill: parent
+                        spacing: 4
+
+                        Stext {
+                            text: "Content Area"
+                        }
+                    }
+                }
+            }
+
+            Dropdown {
+                id: clockDown
+                boxParent: clock
+                debugName: "Clockdown"
 
                 Rectangle {
                     color: "red"
@@ -189,7 +212,10 @@ PanelWindow {
                     laptop: laptop
                 }
                 RightSeparator {}
-                Clock {}
+                Clock {
+                    id: clock
+                    dropdown: clockDown
+                }
             }
         }
     }
