@@ -18,6 +18,8 @@ Item {
     required property var boxParent
     // the content of the dropdown
     default property alias content: contentArea.data
+    property int xOffset: -4
+    property int yOffset: 13
 
     Item {
         id: dropdown
@@ -27,30 +29,22 @@ Item {
         height: contentArea.implicitHeight
 
         x: {
-            // Defaulting here?
-            const mapped = root.boxParent.mapToItem(root.boxParent, 100, 0);
-            return mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2);
+            return States.dropdownX + xOffset;
+            return 500;
+            const boxScene = root.boxParent.mapToItem(null, 0, 0);
+            const rootScene = root.mapToItem(null, 0, 0);
+            return boxScene.x - rootScene.x + (root.boxParent.width / 2) - (dropdown.width / 2);
         }
         y: {
+            // half of
+            return States.dropdownY + yOffset;
             if (root.offset > 0) {
                 return root.offset;
             }
 
-            let topItem = root.parent;
-            while (topItem && topItem.parent) {
-                topItem = topItem.parent;
-            }
-
-            if (topItem) {
-                const boxToTop = root.boxParent.mapToItem(topItem, 0, 0);
-                const parentToTop = root.parent.mapToItem(topItem, 0, 0);
-                const result = boxToTop.y - parentToTop.y + root.boxParent.height - 1;
-                return result;
-            }
-
-            const mapped = root.boxParent.mapToItem(root.parent, 0, 0);
-            const result = mapped.y + root.boxParent.height + -1;
-            return result;
+            const boxScene = root.boxParent.mapToItem(null, 0, 0);
+            const rootScene = root.mapToItem(null, 0, 0);
+            return boxScene.y - rootScene.y + root.boxParent.height - 1;
         }
 
         opacity: 0

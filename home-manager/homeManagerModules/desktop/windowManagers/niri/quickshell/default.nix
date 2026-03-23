@@ -92,6 +92,8 @@ in
               readonly property int size: 2
               readonly property int radius: 6
           }
+
+          readonly property int barHeight: 24
       }
     '';
   };
