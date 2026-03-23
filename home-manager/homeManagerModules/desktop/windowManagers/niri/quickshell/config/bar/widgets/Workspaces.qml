@@ -18,14 +18,15 @@ Row {
         model: niri.workspaces
 
         WrapperMouseArea {
-            width: 22
-            height: 24
+            width: icon.implicitWidth
+            height: icon.impicitHeight
 
             hoverEnabled: true
             onClicked: niri.focusWorkspaceById(model.id)
             cursorShape: Qt.PointingHandCursor
 
             WorkspaceIcon {
+                id: icon
                 text: workspaceNames[model.index - 1] ?? model.index
                 textColor: model.isActive ? Config.colors.base0E : model.activeWindowId != "" ? Config.colors.base05 : Config.colors.base03
                 bgColor: containsMouse ? Config.colors.base02 : Config.colors.base00

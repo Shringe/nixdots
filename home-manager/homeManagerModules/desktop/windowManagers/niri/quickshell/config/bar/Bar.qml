@@ -81,7 +81,7 @@ PanelWindow {
         id: bar
         y: 0
         implicitWidth: root.screen.width
-        implicitHeight: 24 + Config.borders.size
+        implicitHeight: 24
         color: Config.colors.base00
 
         bottomLeftRadius: Config.borders.radius
@@ -106,29 +106,6 @@ PanelWindow {
             anchors.fill: parent
             anchors.leftMargin: 5
             anchors.rightMargin: 5
-            anchors.bottomMargin: Config.borders.size
-
-            Dropdown {
-                id: dropdown
-                boxParent: mouseArea
-                debugName: "Demo"
-
-                Rectangle {
-                    color: "red"
-                    implicitWidth: 180
-                    implicitHeight: 80
-                    radius: 8
-
-                    ColumnLayout {
-                        anchors.fill: parent
-                        spacing: 4
-
-                        Stext {
-                            text: "Content Area"
-                        }
-                    }
-                }
-            }
 
             Dropdown {
                 id: clockDown
@@ -147,6 +124,7 @@ PanelWindow {
 
             // Left
             Row {
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 spacing: 5
                 SystemTray {}
@@ -165,39 +143,14 @@ PanelWindow {
 
             // Right
             Row {
+                anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.right
                 spacing: 5
-
-                Rectangle {
-                    color: Config.colors.base02
-                    radius: Config.borders.radius
-                    implicitWidth: 100
-                    implicitHeight: 24
-                    Stext {
-                        anchors.centerIn: parent
-                        text: "Hover Area"
-                    }
-
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-
-                        onEntered: {
-                            dropdown.show = true;
-                            States.dashboardPresent = true;
-                        }
-
-                        onExited: {
-                            dropdown.timer.start();
-                        }
-                    }
-                }
 
                 RightSeparator {}
                 TextButton {
                     text: "Night"
-                    verticalPadding: 0
+                    verticalPadding: 1
                     onClicked: Dat.NightLight.toggle()
                 }
                 RightSeparator {}
