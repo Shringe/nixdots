@@ -42,6 +42,7 @@ Row {
         }
 
         Row {
+            // TODO: switch to quickshell Clock service
             Timer {
                 interval: 1000
                 running: true
