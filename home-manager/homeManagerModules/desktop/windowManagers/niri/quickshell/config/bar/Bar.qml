@@ -83,7 +83,9 @@ PanelWindow {
         implicitWidth: root.screen.width
         implicitHeight: 24 + Config.borders.size
         color: Config.colors.base00
-        radius: 0
+
+        bottomLeftRadius: Config.borders.radius
+        bottomRightRadius: Config.borders.radius
 
         DynamicFrame {
             barWidth: bar.width
