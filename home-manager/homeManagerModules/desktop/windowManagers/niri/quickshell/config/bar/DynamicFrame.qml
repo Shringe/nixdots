@@ -20,7 +20,7 @@ Shape {
     y: -sw / 2
 
     ShapePath {
-        strokeColor: Config.colors.base07
+        strokeColor: Config.colors.base02
         strokeWidth: root.sw
         fillColor: "transparent"
 
