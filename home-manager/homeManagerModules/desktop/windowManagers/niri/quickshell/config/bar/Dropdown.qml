@@ -12,8 +12,10 @@ Item {
 
     property alias timer: hideTimer
     property bool show: false
-    // manual vertical offset
-    property int offset: 0
+    property int xOffset: 0
+    property int yOffset: 0
+    property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
+
     // the source of the menu
     required property var boxParent
     // the content of the dropdown
@@ -32,6 +34,10 @@ Item {
         return returnPos;
     }
 
+    function getScreenWidth() {
+        return root.Window.window ? root.Window.window.width : 0;
+    }
+
     Item {
         id: dropdown
 
@@ -41,18 +47,16 @@ Item {
 
         x: {
             const mapped = getAbsolutePosition(root.boxParent);
-            const out = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) - Config.borders.size * 2;
+            const centered = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) + xOffset;
+            const screenWidth = root.Window.window ? root.Window.window.width : 0;
+            const out = Math.max(root.minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - root.minimumDistanceFromScreenEdge)) - Config.borders.size * 2;
             console.debug(`Dropdown ${debugName} x: ${out}`);
             return out;
         }
 
         y: {
-            if (root.offset > 0) {
-                return root.offset;
-            }
-
             const mapped = getAbsolutePosition(root.boxParent);
-            const out = mapped.y + root.boxParent.height + Config.borders.size + 1;
+            const out = mapped.y + root.boxParent.height + Config.borders.size + 1 + yOffset;
             console.debug(`Dropdown ${debugName} y: ${out}`);
             return out;
         }
@@ -220,8 +224,8 @@ Item {
             id: contentArea
             z: 0
 
-            implicitWidth: children.length > 0 ? children[0].implicitWidth : 0
-            implicitHeight: children.length > 0 ? children[0].implicitHeight : 0
+            implicitWidth: children.length > 0 ? children[0].width ?? children[0].implicitWidth : 0
+            implicitHeight: children.length > 0 ? children[0].height ?? children[0].implicitHeight : 0
         }
 
         HoverHandler {
@@ -263,13 +267,15 @@ Item {
                 barItem = barItem.parent;
             }
 
-            const mapped = root.boxParent.mapToItem(barItem, 0, 0);
-            const centerX = mapped.x - (dropdown.width / 2) + (root.boxParent.width / 2);
+            const mapped = getAbsolutePosition(root.boxParent);
+            const centered = mapped.x - (dropdown.width / 2) + (root.boxParent.width / 2) + xOffset;
+            const screenWidth = root.Window.window ? root.Window.window.width : 0;
+            const clampedX = Math.max(minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - minimumDistanceFromScreenEdge));
 
-            States.dropdownX = centerX;
+            States.dropdownX = clampedX;
+            States.dropdownY = dropdown.y + yOffset;
             States.dropdownWidth = dropdown.width + (Config.borders.size * 2);
             States.dropdownHeight = dropdown.height + (Config.borders.size * 2);
-            States.dropdownY = dropdown.y;
         }
     }
 }

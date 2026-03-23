@@ -74,7 +74,7 @@ Item {
                 anchors.fill: parent
                 anchors.margins: 12
                 visible: Dat.Notifications.notifCount > 0
-                // clip: true
+                clip: true
                 interactive: true
                 spacing: 6
 

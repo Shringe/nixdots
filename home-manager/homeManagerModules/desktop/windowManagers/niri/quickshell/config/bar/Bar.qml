@@ -134,18 +134,11 @@ PanelWindow {
                 debugName: "Clockdown"
 
                 Rectangle {
-                    color: "red"
-                    implicitWidth: 180
-                    implicitHeight: 80
-                    radius: 8
-
-                    ColumnLayout {
-                        anchors.fill: parent
-                        spacing: 4
-
-                        Stext {
-                            text: "Content Area"
-                        }
+                    color: Config.colors.base00
+                    width: menu.width
+                    height: menu.height
+                    NotificationMenu {
+                        id: menu
                     }
                 }
             }
