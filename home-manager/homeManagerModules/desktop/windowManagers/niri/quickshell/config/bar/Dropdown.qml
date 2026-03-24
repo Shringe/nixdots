@@ -10,6 +10,7 @@ import qs
 Item {
     id: root
 
+    required property bool onBottom
     property alias timer: hideTimer
     property bool show: false
     property int xOffset: 0
@@ -74,14 +75,14 @@ Item {
 
         y: {
             const mapped = getAbsolutePosition(root.boxParent);
-            const out = mapped.y + root.boxParent.height + Config.borders.size + 1 + yOffset;
+            const out = root.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height - Config.borders.size - 1 + yOffset : mapped.y + root.boxParent.height + Config.borders.size + 1 + yOffset;
             // console.debug(`Dropdown ${debugName} y: ${out}`);
             return out;
         }
 
         opacity: 0
         scale: 0
-        transformOrigin: Item.Top
+        transformOrigin: root.onBottom ? Item.Bottom : Item.Top
 
         states: [
             State {
@@ -182,6 +183,11 @@ Item {
             id: ramp
             preferredRendererType: Shape.CurveRenderer
             anchors.fill: parent
+
+            transform: Scale {
+                yScale: root.onBottom ? -1 : 1
+                origin.y: ramp.height / 2
+            }
 
             ShapePath {
                 strokeColor: "transparent"

@@ -8,6 +8,7 @@ Shape {
 
     required property int barWidth
     required property int barHeight
+    required property bool onBottom
 
     readonly property int sw: Config.borders.size
     readonly property int cr: Config.borders.radius
@@ -18,6 +19,12 @@ Shape {
     height: barHeight + sw
     x: -sw / 2
     y: -sw / 2
+
+    // Mirroring vertically on rot.onBottom
+    transform: Scale {
+        yScale: root.onBottom ? -1 : 1
+        origin.y: root.height / 2
+    }
 
     ShapePath {
         strokeColor: Config.colors.base02
