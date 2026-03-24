@@ -165,6 +165,7 @@ PanelWindow {
                 Clock {
                     id: clock
                     dropdown: clockDown
+                    trunk: root
                 }
             }
         }

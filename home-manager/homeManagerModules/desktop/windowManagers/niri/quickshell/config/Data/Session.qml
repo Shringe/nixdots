@@ -6,7 +6,7 @@ import Quickshell
 import Niri
 
 Singleton {
-    property ShellScreen currentScreen: Quickshell.screens[0]
+    property ShellScreen currentScreen
     property Niri niri: _niri
 
     Niri {
@@ -28,7 +28,7 @@ Singleton {
             onIsFocusedChanged: {
                 if (isFocused) {
                     const screen = Quickshell.screens.find(s => s.name === output);
-                    if (screen !== currentScreen) {
+                    if (screen && screen !== currentScreen) {
                         currentScreen = screen;
                     }
                 }
