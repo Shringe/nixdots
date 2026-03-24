@@ -4,9 +4,9 @@ import ".."
 import "../.."
 import "../../.."
 import "../utils"
+import qs.inner.Data as Dat
 
 Row {
-    required property var niri
     readonly property list<string> workspaceNames: ["", "󰈹", "", "󰯙", "󰔍", "󰓓", "󰎆", "", "󰇮", "󰍔"]
 
     WorkspaceIcon {
@@ -15,14 +15,14 @@ Row {
     }
 
     Repeater {
-        model: niri.workspaces
+        model: Dat.Session.niri.workspaces
 
         WrapperMouseArea {
             width: icon.implicitWidth
             height: icon.impicitHeight
 
             hoverEnabled: true
-            onClicked: niri.focusWorkspaceById(model.id)
+            onClicked: Dat.Session.niri.focusWorkspaceById(model.id)
             cursorShape: Qt.PointingHandCursor
 
             WorkspaceIcon {

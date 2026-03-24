@@ -1,6 +1,6 @@
 import "../.."
+import qs.inner.Data as Dat
 
 Stext {
-    required property var niri
-    text: niri.focusedWindow?.title ?? ""
+    text: Dat.Session.niri.focusedWindow?.title ?? ""
 }

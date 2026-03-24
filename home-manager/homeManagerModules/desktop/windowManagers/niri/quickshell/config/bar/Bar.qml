@@ -97,16 +97,6 @@ PanelWindow {
             onBottom: root.onBottom
         }
 
-        Niri {
-            id: niri
-            Component.onCompleted: connect()
-
-            onConnected: console.debug("Connected to niri")
-            onErrorOccurred: function (error) {
-                console.error("Niri error:", error);
-            }
-        }
-
         Item {
             anchors.fill: parent
             anchors.leftMargin: 5
@@ -136,16 +126,13 @@ PanelWindow {
                 spacing: 5
                 SystemTray {}
                 LeftSeparator {}
-                WindowTitle {
-                    niri: niri
-                }
+                WindowTitle {}
                 LeftSeparator {}
             }
 
             // Center
             Workspaces {
                 anchors.centerIn: parent
-                niri: niri
             }
 
             // Right
