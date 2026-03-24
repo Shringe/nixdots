@@ -1,5 +1,3 @@
-// Note: this type is not meant to be called by children of the bar. It should be instantiated by the bar directly, then passed in to the children widget that need it. If a child tries to intantiate this type directly, it might not be able to render or be shown.
-
 pragma ComponentBehavior: Bound
 
 import Quickshell
@@ -26,6 +24,10 @@ Item {
     // the content of the dropdown
     default property alias content: contentArea.data
     property string debugName: "unknown"
+
+    Component.onCompleted: {
+        dropdown.parent = trunk.barItem;
+    }
 
     // Request to open the dropdown
     function open() {
@@ -72,7 +74,7 @@ Item {
         x: {
             const mapped = getAbsolutePosition(root.boxParent);
             const centered = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) + xOffset;
-            const screenWidth = root.Window.window ? root.Window.window.width : 0;
+            const screenWidth = getScreenWidth();
             const out = Math.max(root.minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - root.minimumDistanceFromScreenEdge)) - Config.borders.size * 2;
             // console.debug(`Dropdown ${debugName} x: ${out}`);
             return out;
@@ -80,7 +82,7 @@ Item {
 
         y: {
             const mapped = getAbsolutePosition(root.boxParent);
-            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height - Config.borders.size - 1 + yOffset : mapped.y + root.boxParent.height + Config.borders.size + 1 + yOffset;
+            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset : mapped.y + root.boxParent.height + yOffset;
             // console.debug(`Dropdown ${debugName} y: ${out}`);
             return out;
         }

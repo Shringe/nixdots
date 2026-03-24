@@ -14,7 +14,23 @@ Row {
     id: root
 
     required property PanelWindow trunk
-    required property Dropdown dropdown
+
+    Dropdown {
+        id: dropdown
+        trunk: root.trunk
+        boxParent: root
+        debugName: "Clockdown"
+
+        Rectangle {
+            color: Config.colors.base00
+            width: menu.width
+            height: menu.height
+            NotificationMenu {
+                id: menu
+                trunk: root.trunk
+            }
+        }
+    }
 
     Connections {
         target: Dat.Notifications

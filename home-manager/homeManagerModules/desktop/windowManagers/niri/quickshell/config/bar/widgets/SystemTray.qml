@@ -12,6 +12,7 @@ Row {
     anchors.verticalCenter: parent.verticalCenter
     spacing: 6
 
+    // required property Dropdown dropdown
     property DropDown openDropDown: null
 
     Repeater {
@@ -40,8 +41,12 @@ Row {
             }
 
             content: Component {
-                Tombstone {
+                Rectangle {
+                    color: Config.colors.base00
+                    width: menu.width
+                    height: menu.height
                     TrayMenu {
+                        id: menu
                         width: 300
                         menu: itemMenu
                     }
