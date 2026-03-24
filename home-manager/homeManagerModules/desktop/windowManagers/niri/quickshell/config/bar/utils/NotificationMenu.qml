@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Widgets
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -11,7 +12,7 @@ Item {
     id: root
     width: 300
     height: mainLayout.implicitHeight
-    required property bool onBottom
+    required property PanelWindow trunk
     property int maxHeight: 520
     property bool previewMode: false
     signal closePreview
@@ -25,7 +26,7 @@ Item {
         // Header row
         RowLayout {
             Layout.fillWidth: true
-            Layout.row: root.onBottom ? 1 : 0
+            Layout.row: trunk.onBottom ? 1 : 0
 
             Spacer {
                 width: 5
@@ -56,7 +57,7 @@ Item {
         // Body
         Rectangle {
             Layout.fillWidth: true
-            Layout.row: root.onBottom ? 0 : 1
+            Layout.row: trunk.onBottom ? 0 : 1
             radius: 6
             color: Config.colors.base01
             implicitHeight: Dat.Notifications.notifCount === 0 ? 60 : Math.min(notificationList.contentHeight + 24, root.maxHeight)
@@ -82,7 +83,7 @@ Item {
                 interactive: true
                 spacing: 6
 
-                verticalLayoutDirection: root.onBottom ? ListView.BottomToTop : ListView.TopToBottom
+                verticalLayoutDirection: trunk.onBottom ? ListView.BottomToTop : ListView.TopToBottom
                 ScrollBar.vertical: ScrollBar {}
 
                 model: root.previewMode ? (Dat.Notifications.latestNotification ? [Dat.Notifications.latestNotification] : []) : Dat.Notifications.server.trackedNotifications

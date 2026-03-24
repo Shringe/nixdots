@@ -15,6 +15,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Top
 
     required property var modelData
+    readonly property Rectangle bar: bar
     property bool laptop: false
     property bool onBottom: true
 
@@ -92,9 +93,7 @@ PanelWindow {
         topRightRadius: root.onBottom ? Config.borders.radius : 0
 
         DynamicFrame {
-            barWidth: bar.width
-            barHeight: bar.height
-            onBottom: root.onBottom
+            trunk: root
         }
 
         Item {
@@ -104,7 +103,7 @@ PanelWindow {
 
             Dropdown {
                 id: clockDown
-                onBottom: root.onBottom
+                trunk: root
                 boxParent: clock
                 debugName: "Clockdown"
 
@@ -114,7 +113,7 @@ PanelWindow {
                     height: menu.height
                     NotificationMenu {
                         id: menu
-                        onBottom: root.onBottom
+                        trunk: root
                     }
                 }
             }

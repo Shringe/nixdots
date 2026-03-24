@@ -6,9 +6,10 @@ import qs
 Shape {
     id: root
 
-    required property int barWidth
-    required property int barHeight
-    required property bool onBottom
+    required property PanelWindow trunk
+    property int barWidth: trunk.bar.width
+    property int barHeight: trunk.bar.height
+    property bool onBottom: trunk.onBottom
 
     readonly property int sw: Config.borders.size
     readonly property int cr: Config.borders.radius
