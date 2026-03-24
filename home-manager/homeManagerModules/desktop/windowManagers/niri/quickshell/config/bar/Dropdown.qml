@@ -1,3 +1,5 @@
+// Note: this type is not meant to be called by children of the bar. It should be instantiated by the bar directly, then passed in to the children widget that need it. If a child tries to intantiate this type directly, it might not be able to render or be shown.
+
 pragma ComponentBehavior: Bound
 
 import Quickshell
