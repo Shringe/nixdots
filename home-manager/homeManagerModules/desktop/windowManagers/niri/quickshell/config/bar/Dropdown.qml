@@ -13,6 +13,7 @@ import qs.inner.Data as Dat
 Item {
     id: root
 
+    readonly property alias dropdownItem: dropdown
     required property PanelWindow trunk
     property alias timer: hideTimer
     property bool show: false
@@ -261,6 +262,8 @@ Item {
 
             onHoveredChanged: {
                 if (hovered) {
+                    if (hideTimer.interval > 120)
+                        hideTimer.interval = 120;
                     hideTimer.stop();
                 } else {
                     hideTimer.start();

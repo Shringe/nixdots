@@ -6,7 +6,7 @@ import Quickshell
 import Niri
 
 Singleton {
-    property ShellScreen currentScreen
+    property ShellScreen currentScreen: Quickshell.screens[Quickshell.screens.length - 1]
     property Niri niri: _niri
 
     Niri {
