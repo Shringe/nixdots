@@ -16,10 +16,19 @@ PanelWindow {
 
     required property var modelData
     readonly property Rectangle bar: bar
+    readonly property ShellScreen output: modelData
     property bool laptop: false
     property bool onBottom: true
+    property QtObject dropdown: QtObject {
+        property bool revealed: false
+        property var owner: null
+        property int x: 0
+        property int y: 0
+        property int height: 0
+        property int width: 0
+    }
 
-    screen: modelData
+    screen: output
     anchors {
         top: !onBottom
         bottom: onBottom
@@ -43,7 +52,7 @@ PanelWindow {
     // creates their regions
     Variants {
         id: regions
-        model: States.dropdownRevealed ? getAllVisibleItems() : root.contentItem.children
+        model: root.dropdown.revealed ? getAllVisibleItems() : root.contentItem.children
 
         delegate: Region {
             required property Item modelData
@@ -52,10 +61,10 @@ PanelWindow {
     }
 
     Connections {
-        target: States
+        target: root.dropdown
 
-        function onDropdownRevealedChanged() {
-            regions.model = States.dropdownRevealed ? getAllVisibleItems() : root.contentItem.children;
+        function onRevealedChanged() {
+            regions.model = root.dropdown.revealed ? getAllVisibleItems() : root.contentItem.children;
             itemsRegions.changed();
         }
     }
