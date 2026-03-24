@@ -8,8 +8,7 @@ import QtQuick
 import QtQuick.Shapes
 
 import qs
-
-// import qs.inner.bar
+import qs.inner.Data as Dat
 
 Item {
     id: root
@@ -29,8 +28,9 @@ Item {
 
     // Request to open the dropdown
     function open() {
+        if (trunk.output !== Dat.Session.currentScreen)
+            return;
         root.show = true;
-        States.dashboardPresent = true;
     }
 
     // Prop the dropdown open for a specified time, then close
@@ -137,8 +137,8 @@ Item {
                     }
 
                     PropertyAction {
-                        target: States
-                        property: "dropdownRevealed"
+                        target: trunk.dropdown
+                        property: "revealed"
                         value: true
                     }
                 }
@@ -170,12 +170,12 @@ Item {
 
                     ScriptAction {
                         script: {
-                            if (States.dropdownOwner === root) {
-                                States.dropdownX = 0;
-                                States.dropdownWidth = 0;
-                                States.dropdownHeight = 0;
-                                States.dropdownY = 0;
-                                States.dropdownOwner = null;
+                            if (trunk.dropdown.owner === root) {
+                                trunk.dropdown.x = 0;
+                                trunk.dropdown.width = 0;
+                                trunk.dropdown.height = 0;
+                                trunk.dropdown.y = 0;
+                                trunk.dropdown.owner = null;
                             }
                         }
                     }
@@ -269,8 +269,8 @@ Item {
         }
 
         onHeightChanged: {
-            if (root.show && States.dropdownOwner === root) {
-                States.dropdownHeight = dropdown.height + (Config.borders.size * 2);
+            if (root.show && trunk.dropdown.owner === root) {
+                trunk.dropdown.height = dropdown.height + (Config.borders.size * 2);
             }
         }
     }
@@ -283,33 +283,24 @@ Item {
         onTriggered: {
             if (!dropdownHover.hovered) {
                 root.show = false;
-                States.dropdownRevealed = false;
+                trunk.dropdown.revealed = false;
             }
-
-            if (States.dashboardPresent)
-                States.dashboardPresent = false;
         }
     }
 
     onShowChanged: {
         if (show) {
-            States.dropdownOwner = root;
-
-            let barItem = root.parent;
-
-            while (barItem && barItem.parent && barItem.parent.parent) {
-                barItem = barItem.parent;
-            }
+            trunk.dropdown.owner = root;
 
             const mapped = getAbsolutePosition(root.boxParent);
             const centered = mapped.x - (dropdown.width / 2) + (root.boxParent.width / 2) + xOffset;
             const screenWidth = root.Window.window ? root.Window.window.width : 0;
             const clampedX = Math.max(minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - minimumDistanceFromScreenEdge));
 
-            States.dropdownX = clampedX;
-            States.dropdownY = dropdown.y + yOffset;
-            States.dropdownWidth = dropdown.width + (Config.borders.size * 2);
-            States.dropdownHeight = dropdown.height + (Config.borders.size * 2);
+            trunk.dropdown.x = clampedX;
+            trunk.dropdown.y = dropdown.y + yOffset;
+            trunk.dropdown.width = dropdown.width + (Config.borders.size * 2);
+            trunk.dropdown.height = dropdown.height + (Config.borders.size * 2);
         }
     }
 }
