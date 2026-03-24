@@ -13,12 +13,13 @@ import "../../Data" as Dat
 Row {
     id: root
 
+    required property PanelWindow trunk
     required property Dropdown dropdown
 
     Connections {
         target: Dat.Notifications
         function onNotificationReceived(n) {
-            if (Dat.Notifications.dndEnabled)
+            if (Dat.Notifications.dndEnabled || trunk.output !== Dat.Session.currentScreen)
                 return;
             const duration = ({
                     [NotificationUrgency.Low]: 2000,
