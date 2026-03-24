@@ -36,57 +36,20 @@ PanelWindow {
         right: true
     }
 
-    mask: itemsRegions
     color: "transparent"
     implicitHeight: screen.height
     // this reserves the space for the bar
     exclusiveZone: bar.visible ? bar.height : 0
 
-    // regions for all window components
-    Region {
-        id: itemsRegions
-        regions: regions.instances
-    }
-
-    // iterates over all window components and
-    // creates their regions
-    Variants {
-        id: regions
-        model: root.dropdown.revealed ? getAllVisibleItems() : root.contentItem.children
-
-        delegate: Region {
-            required property Item modelData
-            item: modelData
-        }
-    }
-
-    Connections {
-        target: root.dropdown
-
-        function onRevealedChanged() {
-            regions.model = root.dropdown.revealed ? getAllVisibleItems() : root.contentItem.children;
-            itemsRegions.changed();
-        }
-    }
-
-    function getAllVisibleItems() {
-        const items = [];
-
-        function collect(item) {
-            if (!item)
-                return;
-
-            items.push(item);
-
-            for (const child of item.children) {
-                if (child.visible) {
-                    collect(child);
-                }
+    mask: Region {
+        regions: [
+            Region {
+                item: bar
+            },
+            Region {
+                item: root.dropdown.revealed && root.dropdown.owner ? root.dropdown.owner.dropdownItem : null
             }
-        }
-
-        collect(root.contentItem);
-        return items;
+        ]
     }
 
     Rectangle {
