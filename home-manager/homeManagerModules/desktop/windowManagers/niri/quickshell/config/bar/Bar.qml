@@ -16,6 +16,7 @@ PanelWindow {
 
     required property var modelData
     readonly property Rectangle bar: bar
+    readonly property Item barItem: barItem
     readonly property ShellScreen output: modelData
     property bool laptop: false
     property bool onBottom: true
@@ -69,26 +70,10 @@ PanelWindow {
         }
 
         Item {
+            id: barItem
             anchors.fill: parent
             anchors.leftMargin: 5
             anchors.rightMargin: 5
-
-            Dropdown {
-                id: clockDown
-                trunk: root
-                boxParent: clock
-                debugName: "Clockdown"
-
-                Rectangle {
-                    color: Config.colors.base00
-                    width: menu.width
-                    height: menu.height
-                    NotificationMenu {
-                        id: menu
-                        trunk: root
-                    }
-                }
-            }
 
             // Left
             Row {
@@ -127,7 +112,6 @@ PanelWindow {
                 RightSeparator {}
                 Clock {
                     id: clock
-                    dropdown: clockDown
                     trunk: root
                 }
             }
