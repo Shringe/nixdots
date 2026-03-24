@@ -16,10 +16,12 @@ PanelWindow {
 
     required property var modelData
     property bool laptop: false
+    property bool onBottom: true
 
     screen: modelData
     anchors {
-        top: true
+        top: !onBottom
+        bottom: onBottom
         left: true
         right: true
     }
@@ -79,17 +81,20 @@ PanelWindow {
 
     Rectangle {
         id: bar
-        y: 0
+        y: root.onBottom ? root.screen.height - bar.height : 0
         implicitWidth: root.screen.width
         implicitHeight: 24
         color: Config.colors.base00
 
-        bottomLeftRadius: Config.borders.radius
-        bottomRightRadius: Config.borders.radius
+        bottomLeftRadius: root.onBottom ? 0 : Config.borders.radius
+        bottomRightRadius: root.onBottom ? 0 : Config.borders.radius
+        topLeftRadius: root.onBottom ? Config.borders.radius : 0
+        topRightRadius: root.onBottom ? Config.borders.radius : 0
 
         DynamicFrame {
             barWidth: bar.width
             barHeight: bar.height
+            onBottom: root.onBottom
         }
 
         Niri {
@@ -109,6 +114,7 @@ PanelWindow {
 
             Dropdown {
                 id: clockDown
+                onBottom: root.onBottom
                 boxParent: clock
                 debugName: "Clockdown"
 
@@ -118,6 +124,7 @@ PanelWindow {
                     height: menu.height
                     NotificationMenu {
                         id: menu
+                        onBottom: root.onBottom
                     }
                 }
             }

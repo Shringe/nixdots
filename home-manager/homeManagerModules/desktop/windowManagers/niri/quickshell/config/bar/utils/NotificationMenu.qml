@@ -11,18 +11,21 @@ Item {
     id: root
     width: 300
     height: mainLayout.implicitHeight
+    required property bool onBottom
     property int maxHeight: 520
     property bool previewMode: false
     signal closePreview
 
-    ColumnLayout {
+    GridLayout {
         id: mainLayout
         anchors.fill: parent
-        spacing: 6
+        rowSpacing: 6
+        columns: 1
 
         // Header row
         RowLayout {
             Layout.fillWidth: true
+            Layout.row: root.onBottom ? 1 : 0
 
             Spacer {
                 width: 5
@@ -53,6 +56,7 @@ Item {
         // Body
         Rectangle {
             Layout.fillWidth: true
+            Layout.row: root.onBottom ? 0 : 1
             radius: 6
             color: Config.colors.base01
             implicitHeight: Dat.Notifications.notifCount === 0 ? 60 : Math.min(notificationList.contentHeight + 24, root.maxHeight)
@@ -78,7 +82,7 @@ Item {
                 interactive: true
                 spacing: 6
 
-                // verticalLayoutDirection: ListView.BottomToTop
+                verticalLayoutDirection: root.onBottom ? ListView.BottomToTop : ListView.TopToBottom
                 ScrollBar.vertical: ScrollBar {}
 
                 model: root.previewMode ? (Dat.Notifications.latestNotification ? [Dat.Notifications.latestNotification] : []) : Dat.Notifications.server.trackedNotifications
