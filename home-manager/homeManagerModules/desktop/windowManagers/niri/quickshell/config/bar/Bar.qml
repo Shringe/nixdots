@@ -65,10 +65,6 @@ PanelWindow {
         topLeftRadius: root.onBottom ? Config.borders.radius : 0
         topRightRadius: root.onBottom ? Config.borders.radius : 0
 
-        DynamicFrame {
-            trunk: root
-        }
-
         Item {
             id: barItem
             anchors.fill: parent
@@ -121,6 +117,10 @@ PanelWindow {
                     trunk: root
                 }
             }
+        }
+
+        DynamicFrame {
+            trunk: root
         }
     }
 }
