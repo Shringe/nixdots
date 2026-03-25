@@ -109,7 +109,7 @@ PanelWindow {
                 }
                 RightSeparator {}
                 HardwareMonitor {
-                    laptop: laptop
+                    laptop: root.laptop
                 }
                 RightSeparator {}
                 Clock {
