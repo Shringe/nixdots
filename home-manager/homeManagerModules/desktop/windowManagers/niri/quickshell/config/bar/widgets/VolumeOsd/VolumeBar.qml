@@ -34,7 +34,7 @@ Rectangle {
         anchors.left: root.left
         radius: root.radius
         implicitHeight: root.implicitHeight
-        implicitWidth: root.width * root.volume
+        implicitWidth: root.width * Math.min(1.0, root.volume)
         color: root.muted ? Config.colors.base03 : Config.colors.base05
     }
 }
