@@ -23,6 +23,7 @@ Row {
 
         Rectangle {
             color: Config.colors.base00
+            radius: Config.borders.radius
             width: menu.width
             height: menu.height
             NotificationMenu {

@@ -319,8 +319,8 @@ Item {
 
             trunk.dropdown.x = clampedX;
             trunk.dropdown.y = dropdown.y + yOffset;
-            trunk.dropdown.width = dropdown.width + (Config.borders.size * 2);
-            trunk.dropdown.height = dropdown.height + (Config.borders.size * 2);
+            trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
+            trunk.dropdown.height = dropdown.height + Config.borders.size;
         }
     }
 }
