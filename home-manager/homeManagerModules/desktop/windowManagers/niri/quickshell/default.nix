@@ -17,6 +17,11 @@ in
       default = config.homeManagerModules.desktop.windowManagers.niri.enable;
       # default = false;
     };
+
+    package = mkOption {
+      type = types.package;
+      default = inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -29,9 +34,7 @@ in
       };
 
       Service = {
-        ExecStart = "${
-          inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
-        }/bin/quickshell";
+        ExecStart = "${cfg.package}/bin/quickshell";
         Restart = "on-failure";
         Environment =
           with pkgs;
@@ -43,6 +46,10 @@ in
           }";
       };
     };
+
+    home.packages = [
+      cfg.package
+    ];
 
     xdg.configFile."quickshell/inner".source =
       config.lib.file.mkOutOfStoreSymlink "/nixdots/home-manager/homeManagerModules/desktop/windowManagers/niri/quickshell/config";
