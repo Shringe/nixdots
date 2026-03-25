@@ -37,10 +37,14 @@ Singleton {
         if (player === null)
             return;
 
-        if (event.angleDelta.y < 0)
-            player.volume = _cleanVolume(player.volume - 0.01);
-        else
-            player.volume = _cleanVolume(player.volume + 0.01);
+        const base_increment = 0.01;
+        const increment = event.angleDelta.y < 0 ? -base_increment : base_increment;
+        const incremented = _cleanVolume(player.volume + increment);
+        if (player.volume === incremented) {
+            volumeUpdate();
+        } else {
+            player.volume = incremented;
+        }
     }
 
     function _cleanVolume(volume) {
