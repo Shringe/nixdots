@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Mpris
 
-// TODO: implement custom "muted" state
 // TODO: custom signals for next and previous for better osd info
 
 Singleton {
