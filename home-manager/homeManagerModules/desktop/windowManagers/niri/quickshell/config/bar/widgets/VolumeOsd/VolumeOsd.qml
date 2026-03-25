@@ -1,16 +1,26 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import "../Data" as Dat
-import "../.."
-import ".."
-import "../bar/utils"
+import qs
+import qs.inner
+import qs.inner.bar.utils
+import qs.inner.Data as Dat
 
 // TODO: add brightness indicator
 // TODO: add rust cli that functions like swayosd-client for lower latency indicator updates and nicer window manager keybinds
 
-Scope {
+Rectangle {
     id: root
+
+    // width: widget.implicitWidth
+    // height: widget.implicitHeight
+
+    radius: Config.borders.radius
+    color: Config.colors.base00
+    implicitWidth: 250
+    implicitHeight: 60
+
+    required property PanelWindow trunk
 
     // 0 => disabled
     // 1 => pipewire sink
@@ -18,10 +28,7 @@ Scope {
     // 3 => mpris
     property int indicator: 0
 
-    function display(indicator: int) {
-        root.indicator = indicator;
-        hideTimer.restart();
-    }
+    signal display(ind: int)
 
     Connections {
         target: Dat.Pipewire
@@ -52,62 +59,28 @@ Scope {
         }
     }
 
-    Timer {
-        id: hideTimer
-        interval: 1500
-        onTriggered: root.indicator = 0
-    }
+    Row {
+        visible: root.indicator == 1 || root.indicator == 2
+        Item {
+            width: 60
+            height: root.height
+            TextIcon {
+                anchors.centerIn: parent
+                icon: root.indicator == 2 ? Dat.Pipewire.sourceIcon : Dat.Pipewire.sinkIcon
+                label.font.pixelSize: 40
+            }
+        }
 
-    LazyLoader {
-        active: root.indicator == 1 || root.indicator == 2
+        Item {
+            width: root.width - 60
+            height: root.height
 
-        PanelWindow {
-            id: panel
-
-            anchors.bottom: true
-            margins.bottom: screen.height / 6
-            exclusiveZone: 0
-            WlrLayershell.layer: WlrLayer.Overlay
-
-            implicitWidth: 250
-            implicitHeight: 60
-            color: "transparent"
-
-            // An empty click mask prevents the window from blocking mouse events.
-            mask: Region {}
-
-            Rectangle {
-                id: widget
-                anchors.fill: parent
-                radius: 6
-                color: Config.colors.base00
-                border.color: Config.colors.base07
-                border.width: 2
-
-                Row {
-                    Item {
-                        width: 60
-                        height: panel.height
-                        TextIcon {
-                            anchors.centerIn: parent
-                            icon: root.indicator == 2 ? Dat.Pipewire.sourceIcon : Dat.Pipewire.sinkIcon
-                            label.font.pixelSize: 40
-                        }
-                    }
-
-                    Item {
-                        width: panel.width - 60
-                        height: panel.height
-
-                        VolumeBar {
-                            radius: widget.radius
-                            anchors.verticalCenter: parent.verticalCenter
-                            implicitWidth: panel.implicitWidth - 80
-                            volume: root.indicator == 3 ? Dat.Mpris.volume : root.indicator == 2 ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume
-                            muted: root.indicator == 3 ? false : root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted
-                        }
-                    }
-                }
+            VolumeBar {
+                radius: root.radius
+                anchors.verticalCenter: parent.verticalCenter
+                implicitWidth: root.implicitWidth - 80
+                volume: root.indicator == 3 ? Dat.Mpris.volume : root.indicator == 2 ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume
+                muted: root.indicator == 3 ? false : root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted
             }
         }
     }

@@ -39,7 +39,9 @@ Item {
 
     // Prop the dropdown open for a specified time, then close
     function propOpen(duration) {
-        open();
+        if (!root.timer.running) {
+            open();
+        }
         close(duration);
     }
 

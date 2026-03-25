@@ -6,9 +6,28 @@ import "../.."
 import "../../.."
 import "../../Data" as Dat
 import "../utils"
+import qs.inner.bar.widgets.VolumeOsd
 
 Row {
+    id: root
     anchors.verticalCenter: parent.verticalCenter
+    required property PanelWindow trunk
+    required property var boxParent
+
+    Dropdown {
+        id: dropdown
+        trunk: root.trunk
+        boxParent: root.boxParent
+
+        VolumeOsd {
+            id: osd
+            trunk: root.trunk
+            onDisplay: ind => {
+                osd.indicator = ind;
+                dropdown.propOpen(1500);
+            }
+        }
+    }
 
     WrapperMouseArea {
         anchors.verticalCenter: parent.verticalCenter
@@ -28,8 +47,6 @@ Row {
         onWheel: event => Dat.Mpris.wheelAction(event)
 
         Row {
-            anchors.verticalCenter: parent.verticalCenter
-
             Stext {
                 text: Dat.Mpris.trackTitle
                 visible: Dat.Mpris.trackHasTitle
