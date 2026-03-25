@@ -15,8 +15,10 @@ Singleton {
     readonly property string artist: player?.trackArtist ?? ""
     readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
-    readonly property real volume: player?.volume
+    readonly property real volume: isMuted ? mutedVolume : player?.volume
     property bool skipNextVolumeUpdate: false
+    property bool isMuted: false
+    property real mutedVolume
 
     signal volumeUpdate
     signal playPauseUpdate
@@ -38,6 +40,22 @@ Singleton {
         player?.stop();
     }
 
+    function toggleMute() {
+        if (player === null)
+            return;
+
+        if (isMuted) {
+            isMuted = false;
+            player.volume = mutedVolume;
+        } else {
+            isMuted = true;
+            mutedVolume = player.volume;
+            player.volume = 0.0;
+        }
+
+        volumeUpdate();
+    }
+
     function wheelAction(event: WheelEvent) {
         if (player === null)
             return;
@@ -48,8 +66,11 @@ Singleton {
     }
 
     function _incrementVolume(increment) {
-        const incremented = _cleanVolume(player.volume + increment);
-        if (player.volume === incremented) {
+        const incremented = _cleanVolume(volume + increment);
+        if (isMuted) {
+            mutedVolume = incremented;
+            volumeUpdate();
+        } else if (volume === incremented) {
             volumeUpdate();
         } else {
             player.volume = incremented;
@@ -75,12 +96,19 @@ Singleton {
                 skipNextVolumeUpdate = false;
                 return;
             }
+
+            if (isMuted) {
+                player.volume = 0.0;
+                return;
+            }
+
             const dirty = player.volume;
             const clean = _cleanVolume(dirty);
             if (clean !== dirty) {
                 player.volume = clean;
                 skipNextVolumeUpdate = true;
             }
+
             volumeUpdate();
         }
         function onIsPlayingChanged() {
@@ -93,6 +121,7 @@ Singleton {
 
     IpcHandler {
         target: "mpris"
+
         function increase_volume(): void {
             root._incrementVolume(0.05);
         }
@@ -111,6 +140,10 @@ Singleton {
 
         function previous(): void {
             root.prev();
+        }
+
+        function toggle_mute(): void {
+            root.toggleMute();
         }
     }
 }
