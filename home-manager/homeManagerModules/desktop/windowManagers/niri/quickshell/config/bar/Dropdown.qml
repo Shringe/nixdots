@@ -18,6 +18,7 @@ Item {
     property int xOffset: 0
     property int yOffset: 0
     property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
+    property int gracePeriod: 500
 
     // the source of the menu
     required property var boxParent
@@ -44,7 +45,7 @@ Item {
 
     // Request to close the dropdown
     function close(duration) {
-        root.timer.interval = duration ?? 120;
+        root.timer.interval = duration ?? root.gracePeriod;
         root.timer.restart();
     }
 
@@ -264,8 +265,8 @@ Item {
 
             onHoveredChanged: {
                 if (hovered) {
-                    if (hideTimer.interval > 120)
-                        hideTimer.interval = 120;
+                    if (hideTimer.interval > root.gracePeriod)
+                        hideTimer.interval = root.gracePeriod;
                     hideTimer.stop();
                 } else {
                     hideTimer.start();
@@ -282,7 +283,7 @@ Item {
 
     Timer {
         id: hideTimer
-        interval: 120
+        interval: root.gracePeriod
         repeat: false
 
         onTriggered: {

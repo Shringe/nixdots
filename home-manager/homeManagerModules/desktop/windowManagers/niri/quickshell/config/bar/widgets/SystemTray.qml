@@ -9,38 +9,30 @@ import "../../.."
 import "../utils"
 
 Row {
+    id: root
     anchors.verticalCenter: parent.verticalCenter
     spacing: 6
 
-    // required property Dropdown dropdown
-    property DropDown openDropDown: null
+    required property PanelWindow trunk
+    property Dropdown lastDropdown: null
 
     Repeater {
         model: ScriptModel {
             values: [...SystemTray.items.values].reverse()
         }
 
-        DropDown {
+        Item {
+            id: delegate
             required property SystemTrayItem modelData
-            property var itemMenu: modelData.menu
 
-            anchors.verticalCenter: parent.verticalCenter
-            xOffset: -1000
-            yOffset: 20
+            implicitWidth: iconButton.implicitWidth
+            implicitHeight: iconButton.implicitHeight
 
-            menuButton: Qt.RightButton
-            onActivated: modelData.activate()
+            Dropdown {
+                id: dropdown
+                trunk: root.trunk
+                boxParent: iconButton
 
-            onOpenChanged: {
-                if (open) {
-                    if (parent.openDropDown && parent.openDropDown !== this)
-                        parent.openDropDown.open = false;
-                    parent.openDropDown = this;
-                } else if (parent.openDropDown === this)
-                    parent.openDropDown = null;
-            }
-
-            content: Component {
                 Rectangle {
                     color: Config.colors.base00
                     width: menu.width
@@ -48,15 +40,34 @@ Row {
                     TrayMenu {
                         id: menu
                         width: 300
-                        menu: itemMenu
+                        menu: delegate.modelData.menu
                     }
                 }
             }
 
-            IconImage {
-                implicitWidth: 16
-                implicitHeight: 16
-                source: modelData.icon
+            WrapperMouseArea {
+                id: iconButton
+                acceptedButtons: Qt.LeftButton
+                hoverEnabled: true
+
+                onEntered: {
+                    if (root.lastDropdown && root.lastDropdown !== dropdown)
+                        root.lastDropdown.close(0);
+                    root.lastDropdown = dropdown;
+                    dropdown.open();
+                }
+                onExited: {
+                    dropdown.close();
+                }
+                onClicked: mouse => {
+                    delegate.modelData.activate();
+                }
+
+                IconImage {
+                    implicitWidth: 16
+                    implicitHeight: 16
+                    source: delegate.modelData.icon
+                }
             }
         }
     }
