@@ -3,7 +3,6 @@ import QtQuick
 import Niri
 import ".."
 import "bar"
-import "VolumeOsd"
 import "Data" as Dat
 
 ShellRoot {
@@ -50,7 +49,7 @@ ShellRoot {
         }
     }
 
-    VolumeOsd {}
+    // VolumeOsd {}
 
     // Variants {
     //     model: Quickshell.screens

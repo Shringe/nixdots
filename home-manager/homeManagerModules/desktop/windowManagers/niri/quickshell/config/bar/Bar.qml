@@ -12,7 +12,7 @@ import ".."
 
 PanelWindow {
     id: root
-    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.layer: root.dropdown.revealed ? WlrLayer.Overlay : WlrLayer.Top
 
     required property var modelData
     readonly property Rectangle bar: bar
@@ -90,6 +90,7 @@ PanelWindow {
 
             // Center
             Workspaces {
+                id: workspaces
                 anchors.centerIn: parent
             }
 
@@ -106,7 +107,10 @@ PanelWindow {
                     onClicked: Dat.NightLight.toggle()
                 }
                 RightSeparator {}
-                Audio {}
+                Audio {
+                    trunk: root
+                    boxParent: workspaces
+                }
                 RightSeparator {}
                 HardwareMonitor {
                     laptop: laptop
