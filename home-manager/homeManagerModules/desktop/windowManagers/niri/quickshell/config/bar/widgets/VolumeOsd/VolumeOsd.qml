@@ -129,6 +129,7 @@ Item {
                         radius: trackWidget.radius
                         implicitWidth: trackWidget.width - 100
                         volume: Dat.Mpris.volume
+                        muted: Dat.Mpris.isMuted
                     }
                 }
             }

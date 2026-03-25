@@ -147,7 +147,7 @@ binds {
   // Player volume (playerctl)
   Shift+XF86AudioRaiseVolume   allow-when-locked=true hotkey-overlay-title="Raise Player Volume"      { spawn-sh "quickshell ipc call mpris increase_volume; rm -f /tmp/media_paragraph.cache"; }
   Shift+XF86AudioLowerVolume   allow-when-locked=true hotkey-overlay-title="Lower Player Volume"      { spawn-sh "quickshell ipc call mpris decrease_volume; rm -f /tmp/media_paragraph.cache"; }
-  Shift+XF86AudioMute          allow-when-locked=true hotkey-overlay-title="Mute Player"              { spawn-sh "playerctl volume 0; rm -f /tmp/media_paragraph.cache"; }
+  Shift+XF86AudioMute          allow-when-locked=true hotkey-overlay-title="Mute Player"              { spawn-sh "quickshell ipc call mpris toggle_mute; rm -f /tmp/media_paragraph.cache"; }
 
   // Player loop/shuffle (playerctl)
   Shift+XF86MonBrightnessUp    allow-when-locked=true hotkey-overlay-title="Toggle Shuffle"           { spawn "playerctl" "shuffle" "Toggle"; }
