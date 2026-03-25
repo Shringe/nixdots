@@ -1,9 +1,14 @@
 pragma Singleton
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Mpris
 
+// TODO: implement custom "muted" state
+// TODO: custom signals for next and previous for better osd info
+
 Singleton {
+    id: root
     readonly property MprisPlayer player: Mpris.players.values[0] ?? null
     readonly property string trackTitle: player?.trackTitle ?? ""
     readonly property bool trackHasTitle: trackTitle !== ""
@@ -39,6 +44,10 @@ Singleton {
 
         const base_increment = 0.01;
         const increment = event.angleDelta.y < 0 ? -base_increment : base_increment;
+        _incrementVolume(increment);
+    }
+
+    function _incrementVolume(increment) {
         const incremented = _cleanVolume(player.volume + increment);
         if (player.volume === incremented) {
             volumeUpdate();
@@ -79,6 +88,29 @@ Singleton {
         }
         function onTrackTitleChanged() {
             trackUpdate();
+        }
+    }
+
+    IpcHandler {
+        target: "mpris"
+        function increase_volume(): void {
+            root._incrementVolume(0.05);
+        }
+
+        function decrease_volume(): void {
+            root._incrementVolume(-0.05);
+        }
+
+        function play_pause(): void {
+            root.playPause();
+        }
+
+        function next(): void {
+            root.next();
+        }
+
+        function previous(): void {
+            root.prev();
         }
     }
 }

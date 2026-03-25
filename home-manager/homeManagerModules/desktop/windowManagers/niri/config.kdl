@@ -140,13 +140,13 @@ binds {
   Ctrl+XF86AudioLowerVolume    allow-when-locked=true hotkey-overlay-title="Lower Input Volume"       { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SOURCE@" "5%-"; }
 
   // Media playback (playerctl)
-  XF86AudioPlay                allow-when-locked=true hotkey-overlay-title="Play/Pause"               { spawn-sh "playerctl play-pause; rm -f /tmp/media_paragraph.cache"; }
-  XF86AudioNext                allow-when-locked=true hotkey-overlay-title="Play the Next Track"      { spawn-sh "playerctl next; rm -f /tmp/media_paragraph.cache"; }
-  XF86AudioPrev                allow-when-locked=true hotkey-overlay-title="Play the Previous Track"  { spawn-sh "playerctl previous; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioPlay                allow-when-locked=true hotkey-overlay-title="Play/Pause"               { spawn-sh "quickshell ipc call mpris play_pause; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioNext                allow-when-locked=true hotkey-overlay-title="Play the Next Track"      { spawn-sh "quickshell ipc call mpris next; rm -f /tmp/media_paragraph.cache"; }
+  XF86AudioPrev                allow-when-locked=true hotkey-overlay-title="Play the Previous Track"  { spawn-sh "quickshell ipc call mpris previous; rm -f /tmp/media_paragraph.cache"; }
 
   // Player volume (playerctl)
-  Shift+XF86AudioRaiseVolume   allow-when-locked=true hotkey-overlay-title="Raise Player Volume"      { spawn-sh "playerctl volume 0.05+; rm -f /tmp/media_paragraph.cache"; }
-  Shift+XF86AudioLowerVolume   allow-when-locked=true hotkey-overlay-title="Lower Player Volume"      { spawn-sh "playerctl volume 0.05-; rm -f /tmp/media_paragraph.cache"; }
+  Shift+XF86AudioRaiseVolume   allow-when-locked=true hotkey-overlay-title="Raise Player Volume"      { spawn-sh "quickshell ipc call mpris increase_volume; rm -f /tmp/media_paragraph.cache"; }
+  Shift+XF86AudioLowerVolume   allow-when-locked=true hotkey-overlay-title="Lower Player Volume"      { spawn-sh "quickshell ipc call mpris decrease_volume; rm -f /tmp/media_paragraph.cache"; }
   Shift+XF86AudioMute          allow-when-locked=true hotkey-overlay-title="Mute Player"              { spawn-sh "playerctl volume 0; rm -f /tmp/media_paragraph.cache"; }
 
   // Player loop/shuffle (playerctl)
