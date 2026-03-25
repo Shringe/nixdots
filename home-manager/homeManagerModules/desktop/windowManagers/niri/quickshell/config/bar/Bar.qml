@@ -80,7 +80,9 @@ PanelWindow {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 spacing: 5
-                SystemTray {}
+                SystemTray {
+                    trunk: root
+                }
                 LeftSeparator {}
                 WindowTitle {}
                 LeftSeparator {}
