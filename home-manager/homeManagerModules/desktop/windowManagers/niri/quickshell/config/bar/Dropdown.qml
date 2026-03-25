@@ -276,6 +276,18 @@ Item {
             }
         }
 
+        onXChanged: {
+            if (root.show && trunk.dropdown.owner === root) {
+                trunk.dropdown.x = dropdown.x + (Config.borders.size * 2);
+            }
+        }
+
+        onWidthChanged: {
+            if (root.show && trunk.dropdown.owner === root) {
+                trunk.dropdown.width = dropdown.width + (Config.borders.size * 2);
+            }
+        }
+
         onHeightChanged: {
             if (root.show && trunk.dropdown.owner === root) {
                 trunk.dropdown.height = dropdown.height + (Config.borders.size * 2);

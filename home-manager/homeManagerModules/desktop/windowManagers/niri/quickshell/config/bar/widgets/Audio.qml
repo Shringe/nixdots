@@ -23,8 +23,13 @@ Row {
             id: osd
             trunk: root.trunk
             onDisplay: ind => {
-                osd.indicator = ind;
-                dropdown.propOpen(1500);
+                if (trunk.output === Dat.Session.currentScreen) {
+                    osd.indicator = ind;
+                    dropdown.propOpen(1500);
+                } else {
+                    dropdown.close();
+                    osd.indicator = 0;
+                }
             }
         }
     }
