@@ -102,6 +102,13 @@ PanelWindow {
                     verticalPadding: 1
                     onClicked: Dat.NightLight.toggle()
                 }
+                RightSeparator {
+                    visible: Dat.Privacy.anyPrivacyActive
+                }
+                PrivacyIndicator {
+                    trunk: root
+                    visible: Dat.Privacy.anyPrivacyActive
+                }
                 RightSeparator {}
                 Audio {
                     trunk: root
