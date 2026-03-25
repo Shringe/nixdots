@@ -17,30 +17,39 @@ Singleton {
     readonly property real volume: isMuted ? mutedVolume : player?.volume
     property bool skipNextVolumeUpdate: false
     property bool isMuted: false
-    property real mutedVolume
+    property real mutedVolume: 0.0
+    property MprisLoopState lastLoopState
 
     signal volumeUpdate
     signal playPauseUpdate
     signal trackUpdate
 
     function playPause() {
-        player?.togglePlaying();
+        if (player === null || !player.canControl || !player.canTogglePlaying)
+            return;
+        player.togglePlaying();
     }
 
     function next() {
-        player?.next();
+        if (player === null || !player.canControl || !player.canGoNext)
+            return;
+        player.next();
     }
 
     function prev() {
-        player?.previous();
+        if (player === null || !player.canControl || !player.canGoPrevious)
+            return;
+        player.previous();
     }
 
     function stop() {
-        player?.stop();
+        if (player === null || !player.canControl)
+            return;
+        player.stop();
     }
 
     function toggleMute() {
-        if (player === null)
+        if (player === null || !player.canControl || !player.volumeSupported)
             return;
 
         if (isMuted) {
@@ -55,6 +64,34 @@ Singleton {
         volumeUpdate();
     }
 
+    function toggleShuffle() {
+        if (player === null || !player.canControl || !player.shuffleSupported)
+            return;
+        player.shuffle = !player.shuffle;
+    }
+
+    function toggleLoop(loop) {
+        if (player === null || !player.canControl || !player.loopSupported)
+            return;
+
+        switch (loop) {
+        case "track":
+            player.loopState = MprisLoopState.Track;
+            break;
+        case "playlist":
+            player.loopState = MprisLoopState.Playlist;
+            break;
+        case "none":
+            if (player.loopState === MprisLoopState.None) {
+                player.loopState = lastLoopState ?? MprisLoopState.Playlist;
+            } else {
+                lastLoopState = player.loopState;
+                player.loopState = MprisLoopState.None;
+            }
+            break;
+        }
+    }
+
     function wheelAction(event: WheelEvent) {
         if (player === null)
             return;
@@ -65,6 +102,9 @@ Singleton {
     }
 
     function _incrementVolume(increment) {
+        if (player === null || !player.canControl || !player.volumeSupported)
+            return;
+
         const incremented = _cleanVolume(volume + increment);
         if (isMuted) {
             mutedVolume = incremented;
@@ -143,6 +183,14 @@ Singleton {
 
         function toggle_mute(): void {
             root.toggleMute();
+        }
+
+        function toggle_shuffle(): void {
+            root.toggleShuffle();
+        }
+
+        function toggle_loop(loop: string): void {
+            root.toggleLoop(loop.toLowerCase());
         }
     }
 }
