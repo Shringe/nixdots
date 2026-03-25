@@ -42,13 +42,13 @@ Item {
 
     Connections {
         target: Dat.Mpris
-        function onVolumeChanged() {
+        function onVolumeUpdate() {
             display(3);
         }
-        function onIsPlayingChanged() {
+        function onPlayPauseUpdate() {
             display(3);
         }
-        function onTrackTitleChanged() {
+        function onTrackUpdate() {
             display(3);
         }
     }

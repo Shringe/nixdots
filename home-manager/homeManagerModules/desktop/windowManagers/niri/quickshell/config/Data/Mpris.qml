@@ -11,6 +11,11 @@ Singleton {
     readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
     readonly property real volume: player?.volume
+    property bool skipNextVolumeUpdate: false
+
+    signal volumeUpdate
+    signal playPauseUpdate
+    signal trackUpdate
 
     function playPause() {
         player?.togglePlaying();
@@ -31,10 +36,45 @@ Singleton {
     function wheelAction(event: WheelEvent) {
         if (player === null)
             return;
-        if (event.angleDelta.y < 0) {
-            player.volume = Math.max(0, player.volume - 0.01);
-        } else {
-            player.volume = Math.min(1, player.volume + 0.01);
+
+        if (event.angleDelta.y < 0)
+            player.volume = _cleanVolume(player.volume - 0.01);
+        else
+            player.volume = _cleanVolume(player.volume + 0.01);
+    }
+
+    function _cleanVolume(volume) {
+        return _limitVolume(_roundVolume(volume));
+    }
+
+    function _limitVolume(volume) {
+        return Math.max(0.0, Math.min(1.0, volume));
+    }
+
+    function _roundVolume(volume) {
+        return Math.round(volume * 100) / 100;
+    }
+
+    Connections {
+        target: player
+        function onVolumeChanged() {
+            if (skipNextVolumeUpdate) {
+                skipNextVolumeUpdate = false;
+                return;
+            }
+            const dirty = player.volume;
+            const clean = _cleanVolume(dirty);
+            if (clean !== dirty) {
+                player.volume = clean;
+                skipNextVolumeUpdate = true;
+            }
+            volumeUpdate();
+        }
+        function onIsPlayingChanged() {
+            playPauseUpdate();
+        }
+        function onTrackTitleChanged() {
+            trackUpdate();
         }
     }
 }
