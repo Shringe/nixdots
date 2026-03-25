@@ -150,10 +150,10 @@ binds {
   Shift+XF86AudioMute          allow-when-locked=true hotkey-overlay-title="Mute Player"              { spawn-sh "quickshell ipc call mpris toggle_mute; rm -f /tmp/media_paragraph.cache"; }
 
   // Player loop/shuffle (playerctl)
-  Shift+XF86MonBrightnessUp    allow-when-locked=true hotkey-overlay-title="Toggle Shuffle"           { spawn "playerctl" "shuffle" "Toggle"; }
-  Shift+XF86MonBrightnessDown  allow-when-locked=true hotkey-overlay-title="Loop Track"               { spawn "playerctl" "loop" "Track"; }
-  Ctrl+XF86MonBrightnessUp     allow-when-locked=true hotkey-overlay-title="Disable Loop"             { spawn "playerctl" "loop" "None"; }
-  Ctrl+XF86MonBrightnessDown   allow-when-locked=true hotkey-overlay-title="Loop Playlist"            { spawn "playerctl" "loop" "Playlist"; }
+  Shift+XF86MonBrightnessUp    allow-when-locked=true hotkey-overlay-title="Toggle Shuffle"           { spawn "quickshell" "ipc" "call" "mpris" "toggle_shuffle"; }
+  Shift+XF86MonBrightnessDown  allow-when-locked=true hotkey-overlay-title="Toggle Loop"              { spawn "quickshell" "ipc" "call" "mpris" "toggle_loop" "none"; }
+  Ctrl+XF86MonBrightnessUp     allow-when-locked=true hotkey-overlay-title="Loop Track"               { spawn "quickshell" "ipc" "call" "mpris" "toggle_loop" "track"; }
+  Ctrl+XF86MonBrightnessDown   allow-when-locked=true hotkey-overlay-title="Loop Playlist"            { spawn "quickshell" "ipc" "call" "mpris" "toggle_loop" "playlist"; }
 
   // Brightness (brightnessctl) (temporarily disabled)
   // XF86MonBrightnessUp          allow-when-locked=true hotkey-overlay-title="Raise Brightness"         { spawn "brightnessctl" "set" "5%+"; }
