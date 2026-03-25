@@ -29,18 +29,19 @@ Row {
         triggeredOnStart: false
         onTriggered: {
             const isFullReload = ticksSinceLastFullReload > 3;
+            const isLaptop = laptop && batteryLoader.item;
             if (isFullReload) {
                 ticksSinceLastFullReload = 0;
                 cpuFile.reload();
                 ramFile.reload();
-                if (laptop)
-                    batteryCapacityFile.reload();
+                if (isLaptop)
+                    batteryLoader.item.capacityFile.reload();
             } else {
                 ticksSinceLastFullReload += 1;
             }
 
-            if (laptop)
-                batteryStatusFile.reload();
+            if (isLaptop)
+                batteryLoader.item.statusFile.reload();
         }
     }
 
@@ -86,8 +87,11 @@ Row {
     }
 
     Loader {
+        id: batteryLoader
         active: laptop
         sourceComponent: Row {
+            property alias capacityFile: batteryCapacityFile
+            property alias statusFile: batteryStatusFile
             FileView {
                 id: batteryCapacityFile
                 path: "/sys/class/power_supply/BAT0/capacity"
