@@ -79,7 +79,7 @@ Item {
                 VolumeBar {
                     radius: widget.radius
                     anchors.verticalCenter: parent.verticalCenter
-                    width: root.implicitWidth - 80
+                    implicitWidth: widget.width - 80
                     volume: root.indicator == 3 ? Dat.Mpris.volume : root.indicator == 2 ? Dat.Pipewire.sourceVolume : Dat.Pipewire.sinkVolume
                     muted: root.indicator == 3 ? false : root.indicator == 2 ? Dat.Pipewire.sourceMuted : Dat.Pipewire.sinkMuted
                 }
@@ -127,7 +127,7 @@ Item {
 
                     VolumeBar {
                         radius: trackWidget.radius
-                        implicitWidth: trackWidget.implicitWidth - 100
+                        implicitWidth: trackWidget.width - 100
                         volume: Dat.Mpris.volume
                     }
                 }
