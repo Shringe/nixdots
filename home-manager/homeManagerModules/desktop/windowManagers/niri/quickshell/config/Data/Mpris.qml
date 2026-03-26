@@ -12,13 +12,15 @@ Singleton {
     readonly property string trackTitle: player?.trackTitle ?? ""
     readonly property bool trackHasTitle: trackTitle !== ""
     readonly property string artist: player?.trackArtist ?? ""
-    readonly property bool isPlaying: earlyIsPlayingKnown ? earlyIsPlaying : player?.isPlaying
+    readonly property bool isPlaying: earlyIsPlayingKnown > 0 ? earlyIsPlaying : player?.isPlaying
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
     readonly property real volume: isMuted ? mutedVolume : earlyVolumeKnown ? earlyVolume : player?.volume
 
     property bool earlyIsPlayingKnown: false
     property bool earlyIsPlaying
-    property bool earlyVolumeKnown: false
+
+    // integer to fix weird mpris bugs
+    property int earlyVolumeKnown: 0
     property real earlyVolume
 
     property bool isMuted: false
@@ -120,9 +122,7 @@ Singleton {
         } else if (volume === incremented) {
             volumeUpdate();
         } else {
-            earlyVolume = incremented;
-            earlyVolumeKnown = true;
-            player.volume = incremented;
+            _earlyUpdateVolume(incremented);
         }
     }
 
@@ -138,11 +138,18 @@ Singleton {
         return Math.round(volume * 100) / 100;
     }
 
+    function _earlyUpdateVolume(volume: real) {
+        earlyVolume = volume;
+        earlyVolumeKnown = 3;
+        volumeUpdate();
+        player.volume = volume;
+    }
+
     Connections {
         target: player
         function onVolumeChanged() {
-            if (earlyVolumeKnown) {
-                earlyVolumeKnown = false;
+            if (earlyVolumeKnown > 0) {
+                earlyVolumeKnown -= 1;
                 return;
             }
 
@@ -154,9 +161,8 @@ Singleton {
             const dirty = player.volume;
             const clean = _cleanVolume(dirty);
             if (clean !== dirty) {
-                earlyVolume = clean;
-                earlyVolumeKnown = true;
-                player.volume = clean;
+                _earlyUpdateVolume(clean);
+                return;
             }
 
             volumeUpdate();
