@@ -10,30 +10,30 @@ Item {
     required property PanelWindow trunk
     required property Item triggerContent
     required property Item dropdownContent
+    property Item boxParent: _mouseArea
+    property alias mouseArea: _mouseArea
+    property alias dropdown: _dropdown
 
-    property alias mouseArea: mouseArea
-    property alias dropdown: dropdown
-
-    onTriggerContentChanged: triggerContent.parent = mouseArea
+    onTriggerContentChanged: triggerContent.parent = _mouseArea
     onDropdownContentChanged: {
         dropdownContent.parent = box;
         dropdownContent.anchors.centerIn = box;
     }
 
-    implicitWidth: mouseArea.implicitWidth
-    implicitHeight: mouseArea.implicitHeight
+    implicitWidth: _mouseArea.implicitWidth
+    implicitHeight: _mouseArea.implicitHeight
 
     WrapperMouseArea {
-        id: mouseArea
+        id: _mouseArea
         hoverEnabled: true
-        onEntered: dropdown.open()
-        onExited: dropdown.close()
+        onEntered: _dropdown.open()
+        onExited: _dropdown.close()
     }
 
     Dropdown {
-        id: dropdown
+        id: _dropdown
         trunk: root.trunk
-        boxParent: mouseArea
+        boxParent: root.boxParent
 
         Rectangle {
             id: box
