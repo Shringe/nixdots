@@ -12,62 +12,39 @@ Row {
     id: root
     anchors.verticalCenter: parent.verticalCenter
     spacing: 6
+    layoutDirection: Qt.RightToLeft
 
     required property PanelWindow trunk
     property Dropdown lastDropdown: null
 
     Repeater {
-        model: ScriptModel {
-            values: [...SystemTray.items.values].reverse()
-        }
+        model: SystemTray.items
 
-        Item {
-            id: delegate
+        StyledDropdown {
             required property SystemTrayItem modelData
+            trunk: root.trunk
 
-            implicitWidth: iconButton.implicitWidth
-            implicitHeight: iconButton.implicitHeight
-
-            Dropdown {
-                id: dropdown
-                trunk: root.trunk
-                boxParent: iconButton
-
-                Rectangle {
-                    color: Config.colors.base00
-                    width: menu.width
-                    height: menu.height
-                    TrayMenu {
-                        id: menu
-                        width: 300
-                        menu: delegate.modelData.menu
-                    }
-                }
+            triggerContent: IconImage {
+                implicitWidth: 16
+                implicitHeight: 16
+                source: modelData.icon
             }
 
-            WrapperMouseArea {
-                id: iconButton
-                acceptedButtons: Qt.LeftButton
-                hoverEnabled: true
+            dropdownContent: TrayMenu {
+                width: 300
+                menu: modelData.menu
+            }
 
+            mouseArea {
+                acceptedButtons: Qt.LeftButton
                 onEntered: {
                     if (root.lastDropdown && root.lastDropdown !== dropdown)
                         root.lastDropdown.close(0);
                     root.lastDropdown = dropdown;
                     dropdown.open();
                 }
-                onExited: {
-                    dropdown.close();
-                }
-                onClicked: mouse => {
-                    delegate.modelData.activate();
-                }
-
-                IconImage {
-                    implicitWidth: 16
-                    implicitHeight: 16
-                    source: delegate.modelData.icon
-                }
+                onExited: dropdown.close()
+                onClicked: modelData.activate()
             }
         }
     }
