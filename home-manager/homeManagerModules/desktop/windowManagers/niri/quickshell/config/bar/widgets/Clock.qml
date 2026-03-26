@@ -10,26 +10,55 @@ import ".."
 import "../utils"
 import "../../Data" as Dat
 
-Row {
+StyledDropdown {
     id: root
 
-    required property PanelWindow trunk
+    triggerContent: Row {
+        Stext {
+            text: Dat.Notifications.notifCount
+        }
 
-    Dropdown {
-        id: dropdown
+        TextIcon {
+            icon: ""
+            lpad: 5
+            rpad: 8
+        }
+
+        Stext {
+            id: datePart
+        }
+
+        TextIcon {
+            icon: ""
+            lpad: 7
+            rpad: 8
+        }
+
+        Stext {
+            id: timePart
+        }
+
+        TextIcon {
+            icon: ""
+            lpad: 7
+            rpad: 2
+        }
+    }
+
+    dropdownContent: NotificationMenu {
         trunk: root.trunk
-        boxParent: root
-        debugName: "Clockdown"
+    }
 
-        Rectangle {
-            color: Config.colors.base00
-            radius: Config.borders.radius
-            width: menu.width
-            height: menu.height
-            NotificationMenu {
-                id: menu
-                trunk: root.trunk
-            }
+    // TODO: switch to quickshell Clock service
+    Timer {
+        interval: 1000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: {
+            const now = new Date();
+            datePart.text = Qt.formatDateTime(now, "ddd dd MMM");
+            timePart.text = Qt.formatDateTime(now, "hh:mm AP");
         }
     }
 
@@ -44,64 +73,6 @@ Row {
                     [NotificationUrgency.Critical]: 10000
                 })[n.urgency] ?? 5000;
             dropdown.propOpen(duration);
-        }
-    }
-
-    WrapperMouseArea {
-        id: mouseArea
-        hoverEnabled: true
-
-        onEntered: {
-            dropdown.open();
-        }
-
-        onExited: {
-            dropdown.close();
-        }
-
-        Row {
-            // TODO: switch to quickshell Clock service
-            Timer {
-                interval: 1000
-                running: true
-                repeat: true
-                triggeredOnStart: true
-                onTriggered: {
-                    const now = new Date();
-                    datePart.text = Qt.formatDateTime(now, "ddd dd MMM");
-                    timePart.text = Qt.formatDateTime(now, "hh:mm AP");
-                }
-            }
-
-            Stext {
-                text: Dat.Notifications.notifCount
-            }
-
-            TextIcon {
-                icon: ""
-                lpad: 5
-                rpad: 8
-            }
-
-            Stext {
-                id: datePart
-            }
-
-            TextIcon {
-                icon: ""
-                lpad: 7
-                rpad: 8
-            }
-
-            Stext {
-                id: timePart
-            }
-
-            TextIcon {
-                icon: ""
-                lpad: 7
-                rpad: 2
-            }
         }
     }
 }
