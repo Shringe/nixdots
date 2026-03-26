@@ -11,6 +11,9 @@ Item {
     required property Item triggerContent
     required property Item dropdownContent
 
+    property alias mouseArea: mouseArea
+    property alias dropdown: dropdown
+
     onTriggerContentChanged: triggerContent.parent = mouseArea
     onDropdownContentChanged: {
         dropdownContent.parent = box;
