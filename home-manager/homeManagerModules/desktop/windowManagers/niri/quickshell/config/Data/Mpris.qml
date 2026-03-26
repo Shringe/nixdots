@@ -12,10 +12,15 @@ Singleton {
     readonly property string trackTitle: player?.trackTitle ?? ""
     readonly property bool trackHasTitle: trackTitle !== ""
     readonly property string artist: player?.trackArtist ?? ""
-    readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
+    readonly property bool isPlaying: earlyIsPlayingKnown ? earlyIsPlaying : player?.isPlaying
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
-    readonly property real volume: isMuted ? mutedVolume : player?.volume
-    property bool skipNextUpdate: false
+    readonly property real volume: isMuted ? mutedVolume : earlyVolumeKnown ? earlyVolume : player?.volume
+
+    property bool earlyIsPlayingKnown: false
+    property bool earlyIsPlaying
+    property bool earlyVolumeKnown: false
+    property real earlyVolume
+
     property bool isMuted: false
     property real mutedVolume: 0.0
     property MprisLoopState lastLoopState
@@ -27,8 +32,9 @@ Singleton {
     function playPause() {
         if (player === null || !player.canControl || !player.canTogglePlaying)
             return;
+        earlyIsPlaying = !player.isPlaying;
+        earlyIsPlayingKnown = true;
         playPauseUpdate();
-        skipNextUpdate = true;
         player.togglePlaying();
     }
 
@@ -114,6 +120,8 @@ Singleton {
         } else if (volume === incremented) {
             volumeUpdate();
         } else {
+            earlyVolume = incremented;
+            earlyVolumeKnown = true;
             player.volume = incremented;
         }
     }
@@ -133,8 +141,8 @@ Singleton {
     Connections {
         target: player
         function onVolumeChanged() {
-            if (skipNextUpdate) {
-                skipNextUpdate = false;
+            if (earlyVolumeKnown) {
+                earlyVolumeKnown = false;
                 return;
             }
 
@@ -146,25 +154,22 @@ Singleton {
             const dirty = player.volume;
             const clean = _cleanVolume(dirty);
             if (clean !== dirty) {
+                earlyVolume = clean;
+                earlyVolumeKnown = true;
                 player.volume = clean;
-                skipNextUpdate = true;
             }
 
             volumeUpdate();
         }
         function onIsPlayingChanged() {
-            if (skipNextUpdate) {
-                skipNextUpdate = false;
+            if (earlyIsPlayingKnown) {
+                earlyIsPlayingKnown = false;
                 return;
             }
 
             playPauseUpdate();
         }
         function onTrackTitleChanged() {
-            if (skipNextUpdate) {
-                skipNextUpdate = false;
-                return;
-            }
             trackUpdate();
         }
     }
