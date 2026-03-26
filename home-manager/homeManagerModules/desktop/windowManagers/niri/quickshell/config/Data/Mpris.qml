@@ -15,7 +15,7 @@ Singleton {
     readonly property bool isPlaying: player?.playbackState === MprisPlaybackState.Playing
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
     readonly property real volume: isMuted ? mutedVolume : player?.volume
-    property bool skipNextVolumeUpdate: false
+    property bool skipNextUpdate: false
     property bool isMuted: false
     property real mutedVolume: 0.0
     property MprisLoopState lastLoopState
@@ -27,6 +27,8 @@ Singleton {
     function playPause() {
         if (player === null || !player.canControl || !player.canTogglePlaying)
             return;
+        playPauseUpdate();
+        skipNextUpdate = true;
         player.togglePlaying();
     }
 
@@ -52,6 +54,8 @@ Singleton {
         if (player === null || !player.canControl || !player.volumeSupported)
             return;
 
+        volumeUpdate();
+
         if (isMuted) {
             isMuted = false;
             player.volume = mutedVolume;
@@ -60,8 +64,6 @@ Singleton {
             mutedVolume = player.volume;
             player.volume = 0.0;
         }
-
-        volumeUpdate();
     }
 
     function toggleShuffle() {
@@ -131,8 +133,8 @@ Singleton {
     Connections {
         target: player
         function onVolumeChanged() {
-            if (skipNextVolumeUpdate) {
-                skipNextVolumeUpdate = false;
+            if (skipNextUpdate) {
+                skipNextUpdate = false;
                 return;
             }
 
@@ -145,15 +147,24 @@ Singleton {
             const clean = _cleanVolume(dirty);
             if (clean !== dirty) {
                 player.volume = clean;
-                skipNextVolumeUpdate = true;
+                skipNextUpdate = true;
             }
 
             volumeUpdate();
         }
         function onIsPlayingChanged() {
+            if (skipNextUpdate) {
+                skipNextUpdate = false;
+                return;
+            }
+
             playPauseUpdate();
         }
         function onTrackTitleChanged() {
+            if (skipNextUpdate) {
+                skipNextUpdate = false;
+                return;
+            }
             trackUpdate();
         }
     }
