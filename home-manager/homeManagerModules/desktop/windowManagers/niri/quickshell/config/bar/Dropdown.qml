@@ -314,15 +314,14 @@ Item {
             trunk.dropdown.owner = root;
 
             if (root.wasLimited) {
-                trunk.dropdown.x = dropdown.x;
-                trunk.dropdown.width = dropdown.width;
+                trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
             } else {
-                trunk.dropdown.x = dropdown.x + 1;
-                trunk.dropdown.width = dropdown.width - 1;
+                trunk.dropdown.x = dropdown.x + Config.borders.size * 2 + 1;
             }
 
+            trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
             trunk.dropdown.y = dropdown.y;
-            trunk.dropdown.height = dropdown.height;
+            trunk.dropdown.height = dropdown.height + Config.borders.size;
         }
     }
 }
