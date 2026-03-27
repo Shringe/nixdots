@@ -8,7 +8,7 @@ StyledDropdown {
         icon: "󰑊"
     }
 
-    horizontalPadding: verticalPadding * 2
+    horizontalPadding: verticalPadding * 50
     dropdownContent: Stext {
         text: Dat.Privacy.getPrivacySummary()
     }

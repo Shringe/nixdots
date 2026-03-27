@@ -11,7 +11,7 @@ Singleton {
     readonly property bool laptop: Config.hardware.isLaptop
 
     readonly property QtObject battery: QtObject {
-        property real remaining: 0.0
+        property real remaining: 100.0
         property bool charging: false
         readonly property string icon: remaining > 90 ? "" : remaining > 60 ? "" : remaining > 40 ? "" : remaining > 20 ? "" : ""
         readonly property color color: charging ? Config.colors.base0C : remaining > 40 ? Config.colors.base05 : remaining > 20 ? Config.colors.base0A : Config.colors.base08
@@ -28,7 +28,7 @@ Singleton {
         readonly property real remaining: 100.0 - percent
         readonly property string icon: ""
 
-        readonly property real lowThreshold: 100.0
+        readonly property real lowThreshold: 20.0
         readonly property real reliefThreshold: lowThreshold * 1.1
         readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
         onLowChanged: if (low)
@@ -40,7 +40,7 @@ Singleton {
         readonly property real remaining: 100.0 - percent
         readonly property string icon: ""
 
-        readonly property real lowThreshold: 100.0
+        readonly property real lowThreshold: 10.0
         readonly property real reliefThreshold: lowThreshold * 1.1
         readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
         onLowChanged: if (low)
