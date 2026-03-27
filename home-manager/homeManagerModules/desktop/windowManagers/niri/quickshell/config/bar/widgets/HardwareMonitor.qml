@@ -55,6 +55,7 @@ StyledDropdown {
         }
     }
 
+    horizontalPadding: verticalPadding * 2
     dropdownContent: ColumnLayout {
         spacing: 4
 
