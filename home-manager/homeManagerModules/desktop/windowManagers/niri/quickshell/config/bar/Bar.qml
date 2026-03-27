@@ -14,10 +14,9 @@ PanelWindow {
     id: root
     WlrLayershell.layer: root.dropdown.active ? WlrLayer.Overlay : WlrLayer.Top
 
-    required property var modelData
     readonly property Rectangle bar: bar
     readonly property Item barItem: barItem
-    readonly property ShellScreen output: modelData
+    required property ShellScreen output
     property bool onBottom: true
     property QtObject dropdown: QtObject {
         property bool revealed: false
