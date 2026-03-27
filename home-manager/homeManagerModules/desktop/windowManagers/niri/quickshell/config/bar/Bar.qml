@@ -18,7 +18,6 @@ PanelWindow {
     readonly property Rectangle bar: bar
     readonly property Item barItem: barItem
     readonly property ShellScreen output: modelData
-    property bool laptop: false
     property bool onBottom: true
     property QtObject dropdown: QtObject {
         property bool revealed: false
@@ -97,7 +96,6 @@ PanelWindow {
                 anchors.right: parent.right
                 spacing: 5
 
-                RightSeparator {}
                 TextButton {
                     text: "Night"
                     verticalPadding: 1
@@ -116,9 +114,7 @@ PanelWindow {
                     boxParent: workspaces
                 }
                 RightSeparator {}
-                HardwareMonitor {
-                    laptop: root.laptop
-                }
+                HardwareMonitor {}
                 RightSeparator {}
                 Clock {
                     id: clock

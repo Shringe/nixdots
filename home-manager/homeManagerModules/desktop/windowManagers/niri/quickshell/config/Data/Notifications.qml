@@ -9,13 +9,19 @@ Singleton {
     property bool dndEnabled: false
     property int notifCount: notifServer.trackedNotifications.values.length
     property NotificationServer server: notifServer
-    property var latestNotification: null
-    signal notificationReceived(var notification)
+    property Notification latestNotification: null
+    signal notificationReceived(Notification notification)
 
     function clearNotifs() {
         [...notifServer.trackedNotifications.values].forEach(elem => {
             elem.dismiss();
         });
+    }
+
+    function addNotif(n) {
+        n.tracked = true;
+        notif.latestNotification = n;
+        notif.notificationReceived(n);
     }
 
     NotificationServer {
@@ -30,10 +36,6 @@ Singleton {
         imageSupported: true
         persistenceSupported: true
 
-        onNotification: n => {
-            n.tracked = true;
-            notif.latestNotification = n;
-            notif.notificationReceived(n);
-        }
+        onNotification: n => addNotif(n)
     }
 }

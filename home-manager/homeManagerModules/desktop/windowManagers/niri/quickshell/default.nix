@@ -65,34 +65,34 @@ in
       Main {}
     '';
 
-    xdg.configFile."quickshell/Config.qml".text = with config.lib.stylix.colors.withHashtag; ''
+    xdg.configFile."quickshell/Config.qml".text = ''
       pragma Singleton
       import QtQuick
       import Quickshell
 
       Singleton {
           readonly property QtObject colors: QtObject {
-              readonly property string base00: "${base00}"
-              readonly property string base01: "${base01}"
-              readonly property string base02: "${base02}"
-              readonly property string base03: "${base03}"
-              readonly property string base04: "${base04}"
-              readonly property string base05: "${base05}"
-              readonly property string base06: "${base06}"
-              readonly property string base07: "${base07}"
-              readonly property string base08: "${base08}"
-              readonly property string base09: "${base09}"
-              readonly property string base0A: "${base0A}"
-              readonly property string base0B: "${base0B}"
-              readonly property string base0C: "${base0C}"
-              readonly property string base0D: "${base0D}"
-              readonly property string base0E: "${base0E}"
-              readonly property string base0F: "${base0F}"
+              readonly property color base00: "${config.lib.stylix.colors.withHashtag.base00}"
+              readonly property color base01: "${config.lib.stylix.colors.withHashtag.base01}"
+              readonly property color base02: "${config.lib.stylix.colors.withHashtag.base02}"
+              readonly property color base03: "${config.lib.stylix.colors.withHashtag.base03}"
+              readonly property color base04: "${config.lib.stylix.colors.withHashtag.base04}"
+              readonly property color base05: "${config.lib.stylix.colors.withHashtag.base05}"
+              readonly property color base06: "${config.lib.stylix.colors.withHashtag.base06}"
+              readonly property color base07: "${config.lib.stylix.colors.withHashtag.base07}"
+              readonly property color base08: "${config.lib.stylix.colors.withHashtag.base08}"
+              readonly property color base09: "${config.lib.stylix.colors.withHashtag.base09}"
+              readonly property color base0A: "${config.lib.stylix.colors.withHashtag.base0A}"
+              readonly property color base0B: "${config.lib.stylix.colors.withHashtag.base0B}"
+              readonly property color base0C: "${config.lib.stylix.colors.withHashtag.base0C}"
+              readonly property color base0D: "${config.lib.stylix.colors.withHashtag.base0D}"
+              readonly property color base0E: "${config.lib.stylix.colors.withHashtag.base0E}"
+              readonly property color base0F: "${config.lib.stylix.colors.withHashtag.base0F}"
           }
 
           readonly property QtObject fonts: QtObject {
-              readonly property string family: "JetBrainsMono Nerd Font"
-              readonly property int size: 14
+              readonly property string family: "${config.stylix.fonts.monospace.name}"
+              readonly property int size: ${toString config.stylix.fonts.sizes.terminal}
           }
 
           readonly property QtObject borders: QtObject {
@@ -101,6 +101,10 @@ in
           }
 
           readonly property int barHeight: 24
+
+          readonly property QtObject hardware: QtObject {
+              readonly property bool isLaptop: ${boolToString config.homeManagerModules.info.isLaptop}
+          }
       }
     '';
   };

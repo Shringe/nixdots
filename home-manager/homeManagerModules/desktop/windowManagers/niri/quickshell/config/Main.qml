@@ -10,7 +10,6 @@ ShellRoot {
         model: Quickshell.screens.filter(s => s.name === "eDP-1")
         Bar {
             screen: Quickshell.screens.find(s => s.name === "eDP-1")
-            laptop: true
         }
     }
     Variants {
@@ -48,14 +47,4 @@ ShellRoot {
             name: "grassmastersword_3440x1440.png"
         }
     }
-
-    // VolumeOsd {}
-
-    // Variants {
-    //     model: Quickshell.screens
-    //     NightLight {
-    //         property var modelData
-    //         screen: modelData
-    //     }
-    // }
 }
