@@ -7,7 +7,8 @@ PanelWindow {
     readonly property string wallpaperDir: "/nixdots/assets/wallpapers/"
 
     // Used only to remove warnings in quickshell logs
-    property var modelData
+    required property ShellScreen output
+    screen: output
 
     anchors {
         top: true
