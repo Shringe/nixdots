@@ -11,7 +11,7 @@ Item {
     required property Item triggerContent
     required property Item dropdownContent
     property Item boxParent: _mouseArea
-    property int padding: Config.borders.size * 2
+    property int padding: Config.borders.radius
     property int horizontalPadding: root.padding
     property int verticalPadding: root.padding
     property alias mouseArea: _mouseArea
