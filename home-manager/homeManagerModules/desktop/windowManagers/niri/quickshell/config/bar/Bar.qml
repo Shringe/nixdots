@@ -105,7 +105,7 @@ PanelWindow {
                 }
                 PrivacyIndicator {
                     trunk: root
-                    visible: Dat.Privacy.anyPrivacyActive
+                    visible: true
                 }
                 RightSeparator {}
                 Audio {
