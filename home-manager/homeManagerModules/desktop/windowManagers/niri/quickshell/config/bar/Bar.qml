@@ -12,7 +12,7 @@ import ".."
 
 PanelWindow {
     id: root
-    WlrLayershell.layer: root.dropdown.revealed ? WlrLayer.Overlay : WlrLayer.Top
+    WlrLayershell.layer: root.dropdown.active ? WlrLayer.Overlay : WlrLayer.Top
 
     required property var modelData
     readonly property Rectangle bar: bar
@@ -22,6 +22,7 @@ PanelWindow {
     property bool onBottom: true
     property QtObject dropdown: QtObject {
         property bool revealed: false
+        property bool active: owner !== null
         property var owner: null
         property int x: 0
         property int y: 0
