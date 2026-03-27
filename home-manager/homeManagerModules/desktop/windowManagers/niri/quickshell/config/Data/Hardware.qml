@@ -17,7 +17,7 @@ Singleton {
         readonly property color color: charging ? Config.colors.base0C : remaining > 40 ? Config.colors.base05 : remaining > 20 ? Config.colors.base0A : Config.colors.base08
 
         readonly property real lowThreshold: 20.0
-        readonly property real reliefThreshold: lowThreshold * 1.1
+        readonly property real reliefThreshold: lowThreshold * 1.2
         readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
         onLowChanged: if (low)
             root.resourceLow()
@@ -29,7 +29,7 @@ Singleton {
         readonly property string icon: ""
 
         readonly property real lowThreshold: 20.0
-        readonly property real reliefThreshold: lowThreshold * 1.1
+        readonly property real reliefThreshold: lowThreshold * 1.2
         readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
         onLowChanged: if (low)
             root.resourceLow()
@@ -41,7 +41,7 @@ Singleton {
         readonly property string icon: ""
 
         readonly property real lowThreshold: 10.0
-        readonly property real reliefThreshold: lowThreshold * 1.1
+        readonly property real reliefThreshold: lowThreshold * 1.2
         readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
         onLowChanged: if (low)
             root.resourceLow()
@@ -49,6 +49,18 @@ Singleton {
         // Previous CPU stats for delta calculation
         property int _prevIdle: 0
         property int _prevTotal: 0
+    }
+
+    readonly property QtObject vram: QtObject {
+        property real percent: 0.0
+        readonly property real remaining: 100.0 - percent
+        readonly property string icon: root.memory.icon
+
+        readonly property real lowThreshold: 5.0
+        readonly property real reliefThreshold: lowThreshold * 1.2
+        readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
+        onLowChanged: if (low)
+            root.resourceLow()
     }
 
     // A full reload happens every fifth tick, and a partial reload happens every tick
@@ -70,6 +82,8 @@ Singleton {
                 ramFile.reload();
                 if (isLaptop)
                     batteryLoader.item.capacityFile.reload();
+                else
+                    nvidiaSmi.running = true;
             } else {
                 root._ticksSinceLastFullReload += 1;
             }
@@ -117,6 +131,21 @@ Singleton {
             const total = parseInt(lines.find(l => l.startsWith("MemTotal:")).split(/\s+/)[1]);
             const available = parseInt(lines.find(l => l.startsWith("MemAvailable:")).split(/\s+/)[1]);
             root.memory.percent = Math.round((1 - available / total) * 100);
+        }
+    }
+
+    Process {
+        id: nvidiaSmi
+        running: false
+        command: ["nvidia-smi", "--query-gpu=memory.used,memory.total", "--format=noheader,nounits"]
+        stdout: SplitParser {
+            onRead: data => {
+                const parts = data.trim().split(/\s*,\s*/);
+                const used = parseInt(parts[0]);
+                const total = parseInt(parts[1]);
+                root.vram.percent = Math.round(used / total * 100);
+                nvidiaSmi.running = false;
+            }
         }
     }
 

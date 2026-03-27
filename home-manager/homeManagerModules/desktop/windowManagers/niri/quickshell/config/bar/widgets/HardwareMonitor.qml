@@ -60,24 +60,27 @@ StyledDropdown {
         spacing: 4
 
         Stext {
-            Layout.alignment: Qt.AlignHCenter
             visible: Dat.Hardware.battery.low
             color: Config.colors.base09
-            text: "Device has " + Dat.Hardware.battery.remaining + "% battery remaining"
+            text: Dat.Hardware.battery.icon + " Device has " + Dat.Hardware.battery.remaining + "% battery remaining"
         }
 
         Stext {
-            Layout.alignment: Qt.AlignHCenter
+            visible: Dat.Hardware.vram.low
+            color: Config.colors.base0B
+            text: Dat.Hardware.vram.icon + " Device has only " + Dat.Hardware.vram.remaining + "% VRAM remaining"
+        }
+
+        Stext {
             visible: Dat.Hardware.memory.low
             color: Config.colors.base0A
-            text: "Device has only " + Dat.Hardware.memory.remaining + "% RAM remaining"
+            text: Dat.Hardware.memory.icon + " Device has only " + Dat.Hardware.memory.remaining + "% RAM remaining"
         }
 
         Stext {
-            Layout.alignment: Qt.AlignHCenter
             visible: Dat.Hardware.cpu.low
             color: Config.colors.base0A
-            text: "Device has only " + Dat.Hardware.cpu.remaining + "% CPU remaining"
+            text: Dat.Hardware.cpu.icon + " Device has only " + Dat.Hardware.cpu.remaining + "% CPU remaining"
         }
     }
 }
