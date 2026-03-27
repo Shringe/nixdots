@@ -11,32 +11,40 @@ Singleton {
     readonly property bool laptop: Config.hardware.isLaptop
 
     readonly property QtObject battery: QtObject {
-        property real percent: 100.0
+        property real remaining: 0.0
         property bool charging: false
-        readonly property string icon: percent > 90 ? "" : percent > 60 ? "" : percent > 40 ? "" : percent > 20 ? "" : ""
-        readonly property color color: charging ? Config.colors.base0C : percent > 40 ? Config.colors.base05 : percent > 20 ? Config.colors.base0A : Config.colors.base08
+        readonly property string icon: remaining > 90 ? "" : remaining > 60 ? "" : remaining > 40 ? "" : remaining > 20 ? "" : ""
+        readonly property color color: charging ? Config.colors.base0C : remaining > 40 ? Config.colors.base05 : remaining > 20 ? Config.colors.base0A : Config.colors.base08
 
         readonly property real lowThreshold: 20.0
         readonly property real reliefThreshold: lowThreshold * 1.1
-        readonly property bool low: percent < lowThreshold ? true : percent > reliefThreshold ? false : low
+        readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
+        onLowChanged: if (low)
+            root.resourceLow()
     }
 
     readonly property QtObject memory: QtObject {
         property real percent: 0.0
+        readonly property real remaining: 100.0 - percent
         readonly property string icon: ""
 
-        readonly property real lowThreshold: 80.0
-        readonly property real reliefThreshold: lowThreshold * 0.9
-        readonly property bool low: percent > lowThreshold ? true : percent < reliefThreshold ? false : low
+        readonly property real lowThreshold: 100.0
+        readonly property real reliefThreshold: lowThreshold * 1.1
+        readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
+        onLowChanged: if (low)
+            root.resourceLow()
     }
 
     readonly property QtObject cpu: QtObject {
         property real percent: 0.0
+        readonly property real remaining: 100.0 - percent
         readonly property string icon: ""
 
-        readonly property real lowThreshold: 90.0
-        readonly property real reliefThreshold: lowThreshold * 0.9
-        readonly property bool low: percent > lowThreshold ? true : percent < reliefThreshold ? false : low
+        readonly property real lowThreshold: 100.0
+        readonly property real reliefThreshold: lowThreshold * 1.1
+        readonly property bool low: remaining < lowThreshold ? true : remaining > reliefThreshold ? false : low
+        onLowChanged: if (low)
+            root.resourceLow()
 
         // Previous CPU stats for delta calculation
         property int _prevIdle: 0
@@ -45,6 +53,8 @@ Singleton {
 
     // A full reload happens every fifth tick, and a partial reload happens every tick
     property int _ticksSinceLastFullReload: 0
+
+    signal resourceLow
 
     Timer {
         interval: 1000
@@ -120,7 +130,7 @@ Singleton {
                 id: batteryCapacityFile
                 path: "/sys/class/power_supply/BAT0/capacity"
                 onTextChanged: {
-                    root.battery.percent = parseInt(batteryCapacityFile.text().trim());
+                    root.battery.remaining = parseInt(batteryCapacityFile.text().trim());
                 }
             }
             FileView {
