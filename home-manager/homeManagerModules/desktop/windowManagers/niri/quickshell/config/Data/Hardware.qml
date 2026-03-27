@@ -26,6 +26,12 @@ Singleton {
     // A full reload happens every fifth tick, and a partial reload happens every tick
     property int ticksSinceLastFullReload: 0
 
+    // Activates onLowMemory when rising above this threshold
+    readonly property real lowMemoryThreshold: 30.0
+    // Deactivates onLowMemory when falling below this threshold
+    readonly property real lowMemoryReliefThreshold: lowMemoryThreshold * 0.9
+    readonly property bool onLowMemory: ramPercent > lowMemoryThreshold ? true : ramPercent < lowMemoryReliefThreshold ? false : onLowMemory
+
     Timer {
         interval: 1000
         running: true

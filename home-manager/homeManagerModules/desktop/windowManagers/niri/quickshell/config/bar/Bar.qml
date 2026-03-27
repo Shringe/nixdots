@@ -113,7 +113,9 @@ PanelWindow {
                     boxParent: workspaces
                 }
                 RightSeparator {}
-                HardwareMonitor {}
+                HardwareMonitor {
+                    trunk: root
+                }
                 RightSeparator {}
                 Clock {
                     id: clock
