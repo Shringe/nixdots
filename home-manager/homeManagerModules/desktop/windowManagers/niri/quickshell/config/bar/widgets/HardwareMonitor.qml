@@ -11,16 +11,13 @@ import qs.inner.Data as Dat
 StyledDropdown {
     id: root
 
-    readonly property bool anyLow: Dat.Hardware.memory.low || Dat.Hardware.cpu.low || Dat.Hardware.battery.low
-
     triggerContent: Row {
         anchors.verticalCenter: parent.verticalCenter
 
         Connections {
-            target: root
-            function onAnyLowChanged() {
-                if (root.anyLow)
-                    root.dropdown.propOpen(5000);
+            target: Dat.Hardware
+            function onResourceLow() {
+                root.dropdown.propOpen(5000);
             }
         }
 
@@ -28,7 +25,7 @@ StyledDropdown {
             active: Dat.Hardware.laptop
             sourceComponent: Row {
                 Stext {
-                    text: Dat.Hardware.battery.percent + "%"
+                    text: Dat.Hardware.battery.remaining + "%"
                 }
 
                 TextIcon {
@@ -59,24 +56,27 @@ StyledDropdown {
     }
 
     dropdownContent: ColumnLayout {
-        spacing: 2
+        spacing: 4
+
+        Stext {
+            Layout.alignment: Qt.AlignHCenter
+            visible: Dat.Hardware.battery.low
+            color: Config.colors.base09
+            text: "Device has " + Dat.Hardware.battery.remaining + "% battery remaining"
+        }
 
         Stext {
             Layout.alignment: Qt.AlignHCenter
             visible: Dat.Hardware.memory.low
-            text: "Device is low on RAM!"
+            color: Config.colors.base0A
+            text: "Device has only " + Dat.Hardware.memory.remaining + "% RAM remaining"
         }
 
         Stext {
             Layout.alignment: Qt.AlignHCenter
             visible: Dat.Hardware.cpu.low
-            text: "Device is is low on CPU!"
-        }
-
-        Stext {
-            Layout.alignment: Qt.AlignHCenter
-            visible: Dat.Hardware.battery.low
-            text: "Device is is low on battery!"
+            color: Config.colors.base0A
+            text: "Device has only " + Dat.Hardware.cpu.remaining + "% CPU remaining"
         }
     }
 }
