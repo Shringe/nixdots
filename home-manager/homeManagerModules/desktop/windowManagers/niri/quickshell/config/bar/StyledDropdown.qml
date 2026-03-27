@@ -11,7 +11,7 @@ Item {
     required property Item triggerContent
     required property Item dropdownContent
     property Item boxParent: _mouseArea
-    property int padding: Config.borders.radius
+    property int padding: Config.borders.size * 2
     property int horizontalPadding: root.padding
     property int verticalPadding: root.padding
     property alias mouseArea: _mouseArea
@@ -42,7 +42,7 @@ Item {
             id: box
             width: root.dropdownContent.width + root.horizontalPadding
             height: root.dropdownContent.height + root.verticalPadding
-            color: Config.colors.base00
+            color: Config.colors.base08
             radius: Config.borders.radius
         }
     }

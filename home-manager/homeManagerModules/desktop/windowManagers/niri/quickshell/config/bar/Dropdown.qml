@@ -19,6 +19,7 @@ Item {
     property int yOffset: 0
     property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
     property int gracePeriod: 500
+    property bool wasLimited: false
 
     // the source of the menu
     required property var boxParent
@@ -78,9 +79,9 @@ Item {
             const mapped = getAbsolutePosition(root.boxParent);
             const centered = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) + xOffset;
             const screenWidth = getScreenWidth();
-            const out = Math.max(root.minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - root.minimumDistanceFromScreenEdge)) - Config.borders.size * 2;
-            // console.debug(`Dropdown ${debugName} x: ${out}`);
-            return out;
+            const limited = Math.max(root.minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - root.minimumDistanceFromScreenEdge));
+            root.wasLimited = centered !== limited;
+            return limited;
         }
 
         y: {
@@ -312,15 +313,16 @@ Item {
         if (show) {
             trunk.dropdown.owner = root;
 
-            const mapped = getAbsolutePosition(root.boxParent);
-            const centered = mapped.x - (dropdown.width / 2) + (root.boxParent.width / 2) + xOffset;
-            const screenWidth = root.Window.window ? root.Window.window.width : 0;
-            const clampedX = Math.max(minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - minimumDistanceFromScreenEdge));
+            if (root.wasLimited) {
+                trunk.dropdown.x = dropdown.x;
+                trunk.dropdown.width = dropdown.width;
+            } else {
+                trunk.dropdown.x = dropdown.x + 1;
+                trunk.dropdown.width = dropdown.width - 1;
+            }
 
-            trunk.dropdown.x = clampedX;
-            trunk.dropdown.y = dropdown.y + yOffset;
-            trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
-            trunk.dropdown.height = dropdown.height + Config.borders.size;
+            trunk.dropdown.y = dropdown.y;
+            trunk.dropdown.height = dropdown.height;
         }
     }
 }
