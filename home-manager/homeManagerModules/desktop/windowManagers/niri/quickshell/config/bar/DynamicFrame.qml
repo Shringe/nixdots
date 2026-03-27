@@ -28,7 +28,7 @@ Shape {
     }
 
     ShapePath {
-        strokeColor: Config.colors.base0D
+        strokeColor: Config.colors.base03
         strokeWidth: root.sw
         fillColor: "transparent"
 

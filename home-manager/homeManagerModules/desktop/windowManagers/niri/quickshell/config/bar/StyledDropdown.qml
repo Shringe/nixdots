@@ -42,7 +42,7 @@ Item {
             id: box
             width: root.dropdownContent.width + root.horizontalPadding
             height: root.dropdownContent.height + root.verticalPadding
-            color: Config.colors.base08
+            color: Config.colors.base00
             radius: Config.borders.radius
         }
     }
