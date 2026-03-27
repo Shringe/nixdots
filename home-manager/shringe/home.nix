@@ -2,6 +2,10 @@
 with lib;
 {
   homeManagerModules = {
+    info = {
+      isLaptop = true;
+    };
+
     tooling.enable = true;
     theming.enable = true;
     nixvim.enable = true;

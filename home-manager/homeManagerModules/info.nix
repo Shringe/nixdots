@@ -6,5 +6,11 @@
       default = 60;
       description = "The fps of your highest refreshrate or primary monitor. Used to set the maximum or target framerate in some applications that don't detect it automatically.";
     };
+
+    isLaptop = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether the current device is a laptop";
+    };
   };
 }
