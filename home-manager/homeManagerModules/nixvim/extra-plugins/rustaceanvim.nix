@@ -8,15 +8,27 @@
 
       rustaceanvim = {
         enable = true;
-        settings.server.dap.adapters.lldb = {
-          type = "server";
-          port = "${''$''}{port}";
-          executable = {
-            command = "codelldb";
-            args = [
-              "--port"
-              "${''$''}{port}"
-            ];
+
+        settings = {
+          server = {
+            default_settings.rust-analyzer = {
+              # https://rust-analyzer.github.io/book/configuration.html#diagnostics.disabled
+              diagnostics.disabled = [
+                "inactive-code" # Otherwise conditional exports based on the target architecture cause warnings
+              ];
+            };
+
+            dap.adapters.lldb = {
+              type = "server";
+              port = "${"$"}{port}";
+              executable = {
+                command = "codelldb";
+                args = [
+                  "--port"
+                  "${"$"}{port}"
+                ];
+              };
+            };
           };
         };
       };
