@@ -32,6 +32,8 @@ in
           neovide_padding_bottom = 2;
           neovide_padding_left = 2;
           neovide_padding_right = 2;
+          neovide_confirm_quit = true;
+          neovide_detach_on_quit = "prompt";
 
           # Fancy
           neovide_cursor_vfx_particle_density = 1.0;

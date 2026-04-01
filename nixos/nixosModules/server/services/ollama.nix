@@ -103,7 +103,7 @@ in
           "qwen3:1.7b"
           "qwen3:8b"
           "qwen2.5-coder:3b"
-          # "qwen2.5-coder:7b"
+          "qwen2.5-coder:7b"
         ];
       };
 
