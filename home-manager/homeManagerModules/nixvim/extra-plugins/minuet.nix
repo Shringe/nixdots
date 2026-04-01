@@ -12,14 +12,19 @@ in
       provider = "openai_fim_compatible";
 
       # recommend for local model for resource saving
-      n_completions = 2;
+      n_completions = 1;
+
+      # If completion item has multiple lines, create another completion item
+      # only containing its first line. This option only has impact for cmp and
+      # blink. For virtualtext, no single line entry will be added.
+      add_single_line_entry = false;
 
       # I recommend beginning with a small context window size and incrementally
       # expanding it, depending on your local computing power. A context window
       # of 512, serves as an good starting point to estimate your computing
       # power. Once you have a reliable estimate of your local computing power,
       # you should adjust the context window to a larger value.
-      context_window = 4096;
+      context_window = 8192;
 
       provider_options = {
         openai_fim_compatible = {
@@ -28,12 +33,23 @@ in
           api_key = "TERM";
           name = "Ollama";
           end_point = "${domain}/v1/completions";
-          model = "qwen2.5-coder:3b";
+          model = "qwen2.5-coder:7b";
           optional = {
-            max_tokens = 56;
+            max_tokens = 512;
             top_p = 0.9;
           };
         };
+      };
+    };
+  };
+
+  plugins.web-devicons.settings = ifIsEnabled {
+    override = {
+      "Ollama" = {
+        icon = "󰡙";
+        # https://www.color-hex.com/color-palette/94650
+        color = "#fbf5de";
+        name = "Ollama";
       };
     };
   };
@@ -43,6 +59,39 @@ in
     #   # Manually invoke minuet completion.
     #   "<A-e>" = ''require("minuet").make_blink_map()'';
     # };
+
+    appearance = {
+      # use_nvim_cmp_as_default = true;
+      # nerd_font_variant = "mono";
+      nerd_font_variant = "normal";
+
+      kind_icons =
+        let
+          # icon = "";
+          icon = "󰡙";
+          # icon = "Ollama";
+        in
+        {
+          claude = icon;
+          openai = icon;
+          codestral = icon;
+          gemini = icon;
+          Groq = icon;
+          Openrouter = icon;
+          Ollama = icon;
+          Deepseek = icon;
+
+          # claude = "󰋦";
+          # openai = "󱢆";
+          # codestral = "󱎥";
+          # gemini = "";
+          # Groq = "";
+          # Openrouter = "󱂇";
+          # Ollama = "󰳆";
+          # # ["Llama.cpp"] = "󰳆";
+          # Deepseek = "";
+        };
+    };
 
     sources = {
       # Enable minuet for autocomplete

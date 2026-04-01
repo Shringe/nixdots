@@ -16,6 +16,20 @@
           # Double the default dementions
           min_width = 20;
           max_height = 30;
+
+          draw.columns = [
+            {
+              __unkeyed-1 = "kind_icon";
+            }
+            {
+              __unkeyed-1 = "label";
+              __unkeyed-2 = "label_description";
+              # gap = 1;
+            }
+            {
+              __unkeyed-1 = "kind";
+            }
+          ];
         };
       };
     };
