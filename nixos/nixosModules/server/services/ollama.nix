@@ -77,9 +77,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    # If this is enabled, it annoyingly gets started on every nixos-rebuild switch
-    systemd.services.ollama-model-loader.enable = false;
     systemd.services.ollama.serviceConfig.Nice = 12;
+    # If this is enabled, it annoyingly gets started on every nixos-rebuild switch
+    # systemd.services.ollama-model-loader.enable = false;
+    systemd.services.ollama-model-loader = {
+      after = mkForce [ ];
+      bindsTo = mkForce [ ];
+      wants = mkForce [ ];
+      wantedBy = mkForce [ ];
+    };
 
     services = {
       ollama = {
@@ -96,6 +102,8 @@ in
           "qwen3:4b"
           "qwen3:1.7b"
           "qwen3:8b"
+          "qwen2.5-coder:3b"
+          # "qwen2.5-coder:7b"
         ];
       };
 
