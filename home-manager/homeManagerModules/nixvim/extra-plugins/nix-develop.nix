@@ -2,21 +2,21 @@
   plugins.nix-develop = {
     enable = true;
 
-    luaConfig.post = ''
-      local original_nix_develop = require("nix-develop").nix_develop
-      require("nix-develop").nix_develop = function(args)
-        original_nix_develop(args)
-        vim.defer_fn(vim.cmd.LspRestart, 3000)
-      end
-
-      vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-          if vim.env.IN_NIX_SHELL == nil and vim.fn.filereadable("flake.nix") == 1 then
-            vim.cmd.NixDevelop()
-          end
-        end,
-      })
-    '';
+    # luaConfig.post = ''
+    #   local original_nix_develop = require("nix-develop").nix_develop
+    #   require("nix-develop").nix_develop = function(args)
+    #     original_nix_develop(args)
+    #     vim.defer_fn(vim.cmd.LspRestart, 3000)
+    #   end
+    #
+    #   vim.api.nvim_create_autocmd("VimEnter", {
+    #     callback = function()
+    #       if vim.env.IN_NIX_SHELL == nil and vim.fn.filereadable("flake.nix") == 1 then
+    #         vim.cmd.NixDevelop()
+    #       end
+    #     end,
+    #   })
+    # '';
 
     lazyLoad.settings.cmd = [
       "NixDevelop"
