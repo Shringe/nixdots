@@ -4,6 +4,7 @@ ShellRoot {
     Screen {
         output: "eDP-1"
         wallpaper: "PurpleFluid_1920x1080.png"
+        laptop: true
     }
 
     Screen {
