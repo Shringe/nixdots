@@ -17,7 +17,7 @@ in
       # If completion item has multiple lines, create another completion item
       # only containing its first line. This option only has impact for cmp and
       # blink. For virtualtext, no single line entry will be added.
-      add_single_line_entry = false;
+      add_single_line_entry = true;
 
       # I recommend beginning with a small context window size and incrementally
       # expanding it, depending on your local computing power. A context window
@@ -33,7 +33,7 @@ in
           api_key = "TERM";
           name = "Ollama";
           end_point = "${domain}/v1/completions";
-          model = "qwen2.5-coder:7b";
+          model = "qwen2.5-coder:3b";
           optional = {
             max_tokens = 512;
             top_p = 0.9;
