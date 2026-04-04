@@ -24,6 +24,11 @@
       inputs.quickshell.follows = "quickshell";
     };
 
+    niri = {
+      url = "github:niri-wm/niri/wip/branch";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -154,6 +159,8 @@
           });
 
           searxng = self.unstable.searxng;
+
+          niri = inputs.niri.packages.${system}.niri;
 
           # mpv = super.mpv.override {
           #   scripts = with self.mpvScripts; [

@@ -50,6 +50,12 @@ output "HDMI-A-1" {
   focus-at-startup
 }
 
+blur {
+  // passes 3
+  // offset 3
+  // noise 0.02
+  // saturation 1.5
+}
 
 window-rule {
   // opacity = 0.5
@@ -60,7 +66,11 @@ window-rule {
 
   focus-ring {
     off
-}
+  }
+
+  background-effect {
+    blur true
+  }
 
   border {
     on

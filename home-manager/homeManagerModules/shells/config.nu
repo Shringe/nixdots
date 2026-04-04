@@ -28,6 +28,13 @@ alias phone = kdeconnect-cli --device (kdeconnect-cli --list-available | str rep
 alias ll = ls -l
 alias la = ls -la
 
+# Builds laptop generation on desktop
+def "nh os switch remote" [] {
+  let ssh = "shringed@ssh.deamicis.top"
+  let flake = "/nixdots#luminum"
+  nixos-rebuild switch --sudo --build-host $ssh --flake $flake | nom
+}
+
 def --env ncd [dir: path] {
   mkdir $dir
   cd $dir
