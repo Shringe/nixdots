@@ -113,6 +113,10 @@ in
           readonly property QtObject hardware: QtObject {
               readonly property bool isLaptop: ${boolToString config.homeManagerModules.info.isLaptop}
           }
+
+          readonly property QtObject dependencies: QtObject {
+              readonly property string swww: "${pkgs.swww}/bin/swww"
+          }
       }
     '';
   };

@@ -3,7 +3,8 @@ import Quickshell
 ShellRoot {
     Screen {
         output: "eDP-1"
-        wallpaper: "PurpleFluid_1920x1080.png"
+        // wallpaper: "PurpleFluid_1920x1080.png"
+        wallpaper: "video/wallpaper.webp"
         laptop: true
     }
 
