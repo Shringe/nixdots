@@ -23,8 +23,4 @@ ShellRoot {
         fps: 175
         wallpaper: "grassmastersword_3440x1440.png"
     }
-
-    Stext {
-        text: Dat.auto
-    }
 }
