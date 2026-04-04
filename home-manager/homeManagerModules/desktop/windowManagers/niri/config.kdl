@@ -166,8 +166,8 @@ binds {
   Ctrl+XF86MonBrightnessDown   allow-when-locked=true hotkey-overlay-title="Loop Playlist"            { spawn "quickshell" "ipc" "call" "mpris" "toggle_loop" "playlist"; }
 
   // Brightness (brightnessctl) (temporarily disabled)
-  // XF86MonBrightnessUp          allow-when-locked=true hotkey-overlay-title="Raise Brightness"         { spawn "brightnessctl" "set" "5%+"; }
-  // XF86MonBrightnessDown        allow-when-locked=true hotkey-overlay-title="Lower Brightness"         { spawn "brightnessctl" "set" "5%-"; }
+  XF86MonBrightnessUp          allow-when-locked=true hotkey-overlay-title="Raise Brightness"         { spawn "quickshell" "ipc" "call" "mpris" "increase_brightness"; }
+  XF86MonBrightnessDown        allow-when-locked=true hotkey-overlay-title="Lower Brightness"         { spawn "quickshell" "ipc" "call" "mpris" "decrease_brightness"; }
 
 
   // // Example volume keys mappings for PipeWire & WirePlumber.

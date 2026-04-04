@@ -22,6 +22,11 @@ in
 
     tlp = mkOption {
       type = types.bool;
+      default = false;
+    };
+
+    ppd = mkOption {
+      type = types.bool;
       default = cfg.enable;
     };
   };
@@ -37,8 +42,13 @@ in
     services = {
       thermald.enable = true; # Prevents overheating on Intel
 
+      power-profiles-daemon = mkIf cfg.ppd {
+        enable = true;
+      };
+
       tlp = mkIf cfg.tlp {
         enable = true;
+
         settings = {
           # CPU_SCALING_GOVERNOR_ON_AC = "powersave";
           # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -53,7 +63,7 @@ in
 
           # Optional helps save long term battery health
           START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-          STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+          STOP_CHARGE_THRESH_BAT0 = 90; # 80 and above it stops charging
         };
       };
 
@@ -70,7 +80,7 @@ in
             turbo = "auto";
             enable_thresholds = true;
             start_threshold = 20;
-            stop_threshold = 80;
+            stop_threshold = 90;
           };
         };
       };

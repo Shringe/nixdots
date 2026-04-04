@@ -1,5 +1,8 @@
 import Quickshell
 
+import qs.inner
+import qs.inner.Data as Dat
+
 ShellRoot {
     Screen {
         output: "eDP-1"
@@ -19,5 +22,9 @@ ShellRoot {
         output: "HDMI-A-1"
         fps: 175
         wallpaper: "grassmastersword_3440x1440.png"
+    }
+
+    Stext {
+        text: Dat.auto
     }
 }

@@ -55,7 +55,7 @@ in
       swaync.enable = false;
       cliphist.enable = true;
       swayosd.enable = false;
-      wluma.enable = true;
+      wluma.enable = false;
       hyprlock.enable = true;
       wlogout.enable = true;
       swaybg.enable = false;
