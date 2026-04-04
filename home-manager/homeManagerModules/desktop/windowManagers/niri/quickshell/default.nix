@@ -128,6 +128,8 @@ in
 
           readonly property QtObject dependencies: QtObject {
               readonly property string swww: "${pkgs.swww}/bin/swww"
+              readonly property string brightnessctl: "${pkgs.brightnessctl}/bin/brightnessctl"
+              readonly property string wluma: "${pkgs.wluma}/bin/wluma"
           }
       }
     '';

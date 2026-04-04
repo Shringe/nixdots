@@ -4,6 +4,8 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Mpris
 
+import qs.inner.Data as Dat
+
 // TODO: custom signals for next and previous for better osd info
 
 Singleton {
@@ -213,6 +215,14 @@ Singleton {
 
         function toggle_loop(loop: string): void {
             root.toggleLoop(loop.toLowerCase());
+        }
+
+        function increase_brightness(): void {
+            Dat.Brightness.increaseBrightness();
+        }
+
+        function decrease_brightness(): void {
+            Dat.Brightness.decreaseBrightness();
         }
     }
 }
