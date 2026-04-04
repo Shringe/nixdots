@@ -65,6 +65,7 @@ with lib;
     eza
     btop
     nh
+    nix-output-monitor
 
     meslo-lgs-nf
     jetbrains-mono
