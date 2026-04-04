@@ -25,10 +25,24 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.quickshell = {
+    systemd.user.services.swww = {
       Install.WantedBy = targets;
       Unit = {
         After = targets;
+        PartOf = targets;
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+      };
+
+      Service = {
+        Restart = mkForce "on-failure";
+      };
+    };
+
+    systemd.user.services.quickshell = {
+      Install.WantedBy = targets;
+      Unit = {
+        After = targets ++ [ "swww.service" ];
+        Wants = [ "swww.service" ];
         PartOf = targets;
         ConditionEnvironment = "WAYLAND_DISPLAY";
       };
@@ -52,8 +66,6 @@ in
     services.swww = {
       enable = true;
     };
-
-    systemd.user.services.swww.Install.WantedBy = [ "niri.service" ];
 
     home.packages = [
       cfg.package
