@@ -42,10 +42,18 @@ in
             makeBinPath [
               gammastep
               cava
+              mpvpaper
+              swww
             ]
           }";
       };
     };
+
+    services.swww = {
+      enable = true;
+    };
+
+    systemd.user.services.swww.Install.WantedBy = [ "niri.service" ];
 
     home.packages = [
       cfg.package
