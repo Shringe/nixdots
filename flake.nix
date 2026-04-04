@@ -371,6 +371,8 @@
             inputs.qml-niri.packages.${system}.qml-niri
             cava
             gammastep
+            mpvpaper
+            swww
           ];
         };
 
