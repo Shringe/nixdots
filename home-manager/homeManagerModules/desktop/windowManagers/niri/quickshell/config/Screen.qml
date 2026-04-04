@@ -5,6 +5,7 @@ Variants {
     id: root
 
     required property string output
+    required property int fps
     required property string wallpaper
     property bool laptop: false
 
@@ -18,6 +19,7 @@ Variants {
         }
         Wallpaper {
             output: root.modelData
+            fps: root.fps
             name: root.wallpaper
         }
     }
