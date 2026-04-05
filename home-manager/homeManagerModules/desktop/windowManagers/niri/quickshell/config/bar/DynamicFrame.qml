@@ -136,7 +136,7 @@ Shape {
 
         // bottom-left corner
         PathArc {
-            x: 0
+            x: root.sw
             y: bar.height - root.cr
             radiusX: root.cr
             radiusY: root.cr
