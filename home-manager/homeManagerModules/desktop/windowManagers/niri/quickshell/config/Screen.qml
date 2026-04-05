@@ -13,12 +13,13 @@ Variants {
 
     Scope {
         required property ShellScreen modelData
+
         Bar {
-            output: root.modelData
+            output: modelData
             laptop: root.laptop
         }
         Wallpaper {
-            output: root.modelData
+            output: modelData.name
             fps: root.fps
             name: root.wallpaper
         }
