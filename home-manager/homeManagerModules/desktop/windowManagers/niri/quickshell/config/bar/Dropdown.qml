@@ -313,13 +313,18 @@ Item {
         if (show) {
             trunk.dropdown.owner = root;
 
-            if (root.wasLimited) {
+            // Hack to align drodowns on my desktop for some reason
+            if (trunk.laptop) {
+                trunk.dropdown.x = dropdown.x + Config.borders.size * 2 + 1;
+                trunk.dropdown.width = dropdown.width + Config.borders.size;
+            } else if (root.wasLimited) {
                 trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
+                trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
             } else {
                 trunk.dropdown.x = dropdown.x + Config.borders.size * 2 + 1;
+                trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
             }
 
-            trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
             trunk.dropdown.y = dropdown.y;
             trunk.dropdown.height = dropdown.height + Config.borders.size;
         }
