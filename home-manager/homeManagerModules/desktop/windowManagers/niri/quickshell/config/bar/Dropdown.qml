@@ -86,8 +86,7 @@ Item {
 
         y: {
             const mapped = getAbsolutePosition(root.boxParent);
-            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset : mapped.y + root.boxParent.height + yOffset;
-            // console.debug(`Dropdown ${debugName} y: ${out}`);
+            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset : mapped.y + root.boxParent.height + yOffset + Config.borders.size;
             return out;
         }
 
