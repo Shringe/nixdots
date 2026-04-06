@@ -8,7 +8,7 @@ ShellRoot {
         output: "eDP-1"
         fps: 60
         // wallpaper: "PurpleFluid_1920x1080.png"
-        wallpaper: "video/wallpaper.webp"
+        wallpaper: "video/Blue_1920x1080.webp"
         laptop: true
     }
 
