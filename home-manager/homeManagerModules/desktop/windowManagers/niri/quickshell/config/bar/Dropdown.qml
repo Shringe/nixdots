@@ -321,7 +321,7 @@ Item {
                 trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
                 trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
             } else {
-                trunk.dropdown.x = dropdown.x + Config.borders.size * 2 + 1;
+                trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
                 trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
             }
 
