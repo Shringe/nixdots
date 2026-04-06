@@ -18,7 +18,7 @@ PanelWindow {
     readonly property Item barItem: barItem
     required property ShellScreen output
     required property bool laptop
-    property bool onBottom: false
+    property bool onBottom: true
     property QtObject dropdown: QtObject {
         property bool revealed: false
         property bool active: owner !== null
