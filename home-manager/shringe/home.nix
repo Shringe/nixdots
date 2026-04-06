@@ -53,6 +53,13 @@ with lib;
         ];
       };
     };
+
+    mpv.config = {
+      vo = "gpu-next";
+      gpu-api = "vulkan";
+      hwdec = "vulkan";
+      gpu-context = "waylandvk";
+    };
   };
 
   # The home.packages option allows you to install Nix packages into your

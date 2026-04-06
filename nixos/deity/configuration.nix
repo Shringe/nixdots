@@ -64,8 +64,6 @@
     # btrfs send/receive seems to be creating more errors on bad disk
     backups.btrbk.enable = true;
 
-    players.mpv.enable = true;
-
     server.enable = true;
 
     # TODO: wait for binary cache
