@@ -10,5 +10,6 @@
     # tree
     zellij
     exfat
+    dnslookup
   ];
 }
