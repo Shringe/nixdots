@@ -32,7 +32,7 @@ let
       ip link set "${cfg.interface}0" down
       ip link set "${cfg.interface}0" up
 
-      if ! wait-online --endpoint "wireguard.${config.nixosModules.reverseProxy.domain}" --delay 200 --max-retries 300; then 
+      if ! wait-online --endpoint "wg.${config.nixosModules.reverseProxy.domain}" --delay 200 --max-retries 300; then 
         code="$?"
         systemctl stop iwd
         exit "$code"

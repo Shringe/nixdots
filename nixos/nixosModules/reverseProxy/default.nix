@@ -15,12 +15,18 @@ in
 
     domain = mkOption {
       type = types.str;
-      default = "nsaria.com";
+      default = "lan.nsaria.com";
     };
 
     aDomain = mkOption {
       type = types.str;
       default = "saria.top";
+    };
+
+    pDomain = mkOption {
+      type = types.str;
+      default = "nsaria.com";
+      description = "Public";
     };
   };
 

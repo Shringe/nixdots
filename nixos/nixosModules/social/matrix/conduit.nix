@@ -4,7 +4,8 @@ let
   cfg = config.nixosModules.social.matrix.conduit;
 
   domain = config.nixosModules.reverseProxy.aDomain;
-in {
+in
+{
   options.nixosModules.social.matrix.conduit = {
     enable = mkEnableOption "Matrix conduit server";
 
@@ -30,8 +31,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."social/matrix/conduit" = {};
-    systemd.services.conduit.serviceConfig.EnvironmentFile = config.sops.secrets."social/matrix/conduit".path;
+    sops.secrets."social/matrix/conduit" = { };
+    systemd.services.conduit.serviceConfig.EnvironmentFile =
+      config.sops.secrets."social/matrix/conduit".path;
 
     services.matrix-conduit = {
       enable = true;
