@@ -3,6 +3,7 @@
     "fps": 165,
     "folder": "/usr/local/share/wallpapers/protected/Wanella/GIFs",
     "interval": 13,
+    "shuffle": "first",
     "cycle": [
         "Heat.gif",
         "Fragments.gif",

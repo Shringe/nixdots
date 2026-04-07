@@ -25,6 +25,8 @@ Singleton {
     // Cycling wallpapers - extra fields
     // The current wallpaper that is active
     property list<int> cycleIndex: []
+    // The shuffle type. "none", "first", or "always"
+    property list<string> cycleShuffle: []
     // The timestamp of the last cycle. Real is used because int overflows
     property list<real> lastCycle: []
     // The index of next monitor that needs to cycle
@@ -66,7 +68,7 @@ Singleton {
 
         // Move it to the back, then shuffle the last two thirds
         const deck = [...transition_effects.slice(1), effect];
-        transition_effects = shuffle(deck, Math.floor(deck.length / 3));
+        transition_effects = root.shuffle(deck, Math.floor(deck.length / 3));
 
         return effect;
     }
@@ -104,6 +106,18 @@ Singleton {
         cycleTimer.restart();
     }
 
+    function setCycleWallpaper(cycles, i: int) {
+        let shuffled;
+        if (root.cycleShuffle[i] === "always") {
+            shuffled = root.shuffle(cycles);
+            root.cycle = shuffled.join("||"); // Saving the shuffled state increases variance
+        } else {
+            shuffled = cycles;
+        }
+
+        root._setImg(cycles[root.cycleIndex[i]], root.output[i], root.fps[i]);
+    }
+
     // Skip over to the next wallpaper
     function next(output = "") {
         let i;
@@ -120,7 +134,7 @@ Singleton {
         const cycles = root.cycle[i].split("||");
         root.cycleIndex[i] = (root.cycleIndex[i] + 1) % cycles.length;
         root.lastCycle[i] = (root.lastCycle[i] + root.interval[i] * 60000);
-        root._setImg(cycles[root.cycleIndex[i]], root.output[i], root.fps[i]);
+        root.setCycleWallpaper(cycles, i);
         root._scheduleNext();
     }
 
@@ -136,8 +150,7 @@ Singleton {
             // Advance and display
             root.cycleIndex[i] = (root.cycleIndex[i] + 1) % cycles.length;
             root.lastCycle[i] = Date.now();
-            root._setImg(cycles[root.cycleIndex[i]], root.output[i], root.fps[i]);
-
+            root.setCycleWallpaper(cycles, i);
             root._scheduleNext();
         }
     }
@@ -170,16 +183,31 @@ Singleton {
                     root.interval.splice(i, 1);
                     root.cycle.splice(i, 1);
                     root.cycleIndex.splice(i, 1);
+                    root.cycleShuffle.splice(i, 1);
                     root.lastCycle.splice(i, 1);
                     root._scheduleNext();
                 }
                 root._setImg(`${folder}/${data.static}`, output, fps);
             } else if ("cycle" in data) {
                 if (root.output.length === 0) {
-                    root.transition_effects = shuffle(root.transition_effects);
+                    root.transition_effects = root.shuffle(root.transition_effects);
                 }
 
-                const cycleStr = data.cycle.map(c => `${folder}/${c}`).join("||");
+                // Default to none
+                let shuffle;
+                if ("shuffle" in data) {
+                    shuffle = data.shuffle;
+                } else {
+                    shuffle = "none";
+                }
+
+                // Shuffle the cycle first if requested
+                let cycles = data.cycle;
+                if (shuffle === "first" || shuffle === "always") {
+                    cycles = root.shuffle(cycles);
+                }
+
+                const cycleStr = cycles.map(w => `${folder}/${w}`).join("||");
                 const now = Date.now();
                 const intervalMs = data.interval * 60 * 1000;
                 // Offsets so monitors are unlikely to cycle simultaneously
@@ -192,12 +220,14 @@ Singleton {
                     root.fps[i] = fps;
                     root.interval[i] = data.interval;
                     root.cycle[i] = cycleStr;
+                    root.cycleShuffle.push(shuffle);
                 } else {
                     root.output.push(output);
                     root.fps.push(fps);
                     root.interval.push(data.interval);
                     root.cycle.push(cycleStr);
                     root.cycleIndex.push(0);
+                    root.cycleShuffle.push(shuffle);
                     root.lastCycle.push(now - randomOffset + indexOffset);
                 }
 
