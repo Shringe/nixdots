@@ -20,6 +20,7 @@ in
         "nordvpn"
         "gamemode"
         "lp"
+        "wallie"
       ];
 
       hashedPasswordFile = config.sops.secrets."user_passwords/shringed".path;
