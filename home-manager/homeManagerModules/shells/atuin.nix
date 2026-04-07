@@ -13,7 +13,7 @@ in {
       session_path = config.sops.secrets."atuin/session".path;
       key_path = config.sops.secrets."atuin/key".path;
 
-      sync_address = "https://atuin.deamicis.top";
+      sync_address = "https://atuin.nsaria.com";
       enter_accept = true;
 
       style = "compact";

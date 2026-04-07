@@ -15,7 +15,7 @@ in {
     services = {
       jitsi-meet = {
         enable = true;
-        hostName = "jitsi.deamicis.top";
+        hostName = "jitsi.nsaria.com";
         nginx.enable = true;
         # caddy.enable = true;
         excalidraw.enable = true;

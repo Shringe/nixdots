@@ -1,10 +1,10 @@
 { ifIsEnabled, ... }:
 let
-  domain = "https://ollama.deamicis.top";
+  domain = "https://ollama.nsaria.com";
 in
 {
   plugins.minuet = {
-    enable = true;
+    enable = false;
 
     # https://github.com/milanglacier/minuet-ai.nvim?tab=readme-ov-file
     settings = {
