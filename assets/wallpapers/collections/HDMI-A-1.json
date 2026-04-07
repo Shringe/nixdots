@@ -3,6 +3,7 @@
     "fps": 175,
     "folder": "/usr/local/share/wallpapers/protected/Wanella/GIFs",
     "interval": 19,
+    "shuffle": "always",
     "cycle": [
         "Maybe We Should Stay Here.gif",
         "Dim.gif",
