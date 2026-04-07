@@ -1,5 +1,5 @@
 let
-  domain = "https://ollama.deamicis.top";
+  domain = "https://ollama.nsaria.com";
 in
 {
   programs.nixvim.plugins.avante = {

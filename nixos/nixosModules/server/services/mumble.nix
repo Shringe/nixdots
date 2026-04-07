@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.nixosModules.server.services.mumble;
+  # domain = config.nixosModules.reverseProxy.domain;
   domain = config.nixosModules.reverseProxy.domain;
   sslCertDir = config.security.acme.certs.${domain}.directory;
 in

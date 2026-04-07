@@ -121,7 +121,7 @@ in
 
         "SearBe" = mkSxngSearch "searx.be" "@sxb";
         "SeekFYI" = mkSxngSearch "seek.fyi" "@sxf";
-        "SearXNG" = mkSxngSearch "searxng.deamicis.top" "@sx";
+        "SearXNG" = mkSxngSearch "searxng.nsaria.com" "@sx";
       };
     };
 
@@ -212,7 +212,7 @@ in
           "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
 
-          "browser.startup.homepage" = "https://dash.deamicis.top";
+          "browser.startup.homepage" = "https://dash.nsaria.com";
         };
       };
     };
