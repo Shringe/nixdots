@@ -2,6 +2,7 @@
 with lib;
 let
   cfg = config.nixosModules.reverseProxy.nginx;
+  acme = config.nixosModules.reverseProxy;
 
   mkReverseProxy = url: domain: {
     useACMEHost = domain;
@@ -25,30 +26,20 @@ let
     };
 
   # Reverse proxy subdomain
-  rps = subdomain: module: reverseProxySubdomain subdomain cfg.domain module;
+  rps = subdomain: module: reverseProxySubdomain subdomain acme.domain module;
 
   # Reverse proxy domain
-  # rpd = module: reverseProxyDomain cfg.domain module;
+  # rpd = module: reverseProxyDomain acme.domain module;
 
   # Revrese proxy anon subdomain
-  # rpas = subdomain: module: reverseProxySubdomain subdomain cfg.aDomain module;
+  # rpas = subdomain: module: reverseProxySubdomain subdomain acme.aDomain module;
 
   # Revrese proxy anon domain
-  rpad = module: reverseProxyDomain cfg.aDomain module;
+  rpad = module: reverseProxyDomain acme.aDomain module;
 in
 {
   options.nixosModules.reverseProxy.nginx = {
     enable = mkEnableOption "Nginx";
-
-    domain = mkOption {
-      type = types.str;
-      default = config.nixosModules.reverseProxy.domain;
-    };
-
-    aDomain = mkOption {
-      type = types.str;
-      default = config.nixosModules.reverseProxy.aDomain;
-    };
   };
 
   config = mkIf cfg.enable {

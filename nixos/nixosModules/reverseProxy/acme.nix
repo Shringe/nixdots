@@ -2,40 +2,39 @@
 with lib;
 let
   cfg = config.nixosModules.reverseProxy.acme;
-in {
+  acme = config.nixosModules.reverseProxy;
+in
+{
   options.nixosModules.reverseProxy.acme = {
     enable = mkEnableOption "ACME certs";
-
-    domain = mkOption {
-      type = types.str;
-      default = config.nixosModules.reverseProxy.domain;
-    };
-
-    aDomain = mkOption {
-      type = types.str;
-      default = config.nixosModules.reverseProxy.aDomain;
-    };
   };
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      "ssl/porkbun" = {};
+      "ssl/porkbun" = { };
     };
 
     security.acme = {
       acceptTerms = true;
       defaults.email = "dashingkoso@gmail.com";
 
-      certs."${cfg.domain}" = {
-        domain = cfg.domain;
-        extraDomainNames = [ "*.${cfg.domain}" ];
+      certs."${acme.domain}" = {
+        domain = acme.domain;
+        extraDomainNames = [ "*.${acme.domain}" ];
         dnsProvider = "porkbun";
         credentialsFile = config.sops.secrets."ssl/porkbun".path;
       };
 
-      certs."${cfg.aDomain}" = {
-        domain = cfg.aDomain;
-        extraDomainNames = [ "*.${cfg.aDomain}" ];
+      certs."${acme.aDomain}" = {
+        domain = acme.aDomain;
+        extraDomainNames = [ "*.${acme.aDomain}" ];
+        dnsProvider = "porkbun";
+        credentialsFile = config.sops.secrets."ssl/porkbun".path;
+      };
+
+      certs."${acme.pDomain}" = {
+        domain = acme.pDomain;
+        extraDomainNames = [ "*.${acme.pDomain}" ];
         dnsProvider = "porkbun";
         credentialsFile = config.sops.secrets."ssl/porkbun".path;
       };

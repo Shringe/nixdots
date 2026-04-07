@@ -121,7 +121,7 @@ in
 
         "SearBe" = mkSxngSearch "searx.be" "@sxb";
         "SeekFYI" = mkSxngSearch "seek.fyi" "@sxf";
-        "SearXNG" = mkSxngSearch "searxng.nsaria.com" "@sx";
+        "SearXNG" = mkSxngSearch "searxng.lan.nsaria.com" "@sx";
       };
     };
 
