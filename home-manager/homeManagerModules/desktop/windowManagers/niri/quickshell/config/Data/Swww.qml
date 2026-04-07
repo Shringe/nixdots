@@ -33,6 +33,32 @@ Singleton {
     property list<string> loadQueue: []
     property bool loading: false
 
+    function swww(args) {
+        const cmd = [Config.dependencies.swww, ...args];
+        Quickshell.execDetached(cmd);
+    }
+
+    function _setImg(path: string, output: string, fps: int) {
+        console.info(`Setting wallpaper on ${output} as ${path}`);
+        const effect = getEffect();
+        console.debug("Transition effect:", effect);
+        const args = ["img", path, "--outputs", output, "--transition-fps", fps, "--transition-type", effect, ...extra_args];
+        swww(args);
+    }
+
+    function img(wallpaper: string, output: string, fps: int) {
+        if (wallpaper.endsWith(".json")) {
+            if (root.loading) {
+                loadQueue.push(wallpaper);
+            } else {
+                loading = true;
+                wallpaperJson.path = wallpaper;
+            }
+        } else {
+            _setImg(wallpaper, output, fps);
+        }
+    }
+
     // Chooses a random effect
     function getEffect() {
         // Take from the front of the deck
@@ -178,34 +204,6 @@ Singleton {
             } else {
                 root.loading = false;
             }
-        }
-    }
-
-    function swww(args) {
-        const cmd = [Config.dependencies.swww, ...args];
-        Quickshell.execDetached(cmd);
-    // console.debug(cmd);
-    }
-
-    // Internal: build and fire the swww img command for a resolved path
-    function _setImg(path: string, output: string, fps: int) {
-        console.info("Setting wallpaper:", path);
-        const effect = getEffect();
-        console.debug("Transition effect:", effect);
-        const args = ["img", path, "--outputs", output, "--transition-fps", fps, "--transition-type", effect, ...extra_args];
-        swww(args);
-    }
-
-    function img(wallpaper: string, output: string, fps: int) {
-        if (wallpaper.endsWith(".json")) {
-            if (root.loading) {
-                loadQueue.push(wallpaper);
-            } else {
-                loading = true;
-                wallpaperJson.path = wallpaper;
-            }
-        } else {
-            _setImg(wallpaper, output, fps);
         }
     }
 }
