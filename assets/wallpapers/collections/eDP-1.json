@@ -1,0 +1,13 @@
+{
+    "output": "eDP-1",
+    "fps": 60,
+    "folder": "/usr/local/share/wallpapers/protected/Wanella/GIFs",
+    "interval": 15,
+    "cycle": [
+        "Heat.gif",
+        "Fragments.gif",
+        "Stardust.gif",
+        "Haze.gif",
+        "Full of Hopes.gif"
+    ]
+}

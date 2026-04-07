@@ -11,6 +11,8 @@ let
 in
 {
   imports = [
+    ./wallpapers.nix
+
     inputs.stylix.nixosModules.stylix
   ];
 

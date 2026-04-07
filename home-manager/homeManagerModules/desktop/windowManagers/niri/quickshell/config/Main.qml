@@ -7,20 +7,19 @@ ShellRoot {
     Screen {
         output: "eDP-1"
         fps: 60
-        // wallpaper: "PurpleFluid_1920x1080.png"
-        wallpaper: "video/Blue_1920x1080.webp"
+        wallpaper: "collections/eDP-1.json"
         laptop: true
     }
 
     Screen {
         output: "DP-1"
         fps: 165
-        wallpaper: "2b_nier_automata_2560x1440.png"
+        wallpaper: "collections/DP-1.json"
     }
 
     Screen {
         output: "HDMI-A-1"
         fps: 175
-        wallpaper: "grassmastersword_3440x1440.png"
+        wallpaper: "collections/HDMI-A-1.json"
     }
 }
