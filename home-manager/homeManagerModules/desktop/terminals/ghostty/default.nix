@@ -6,7 +6,10 @@ in
   programs.ghostty = lib.mkIf cfg.enable {
     enable = true;
 
-    enableBashIntegration = true;
-    enableFishIntegration = true;
+    settings = {
+      window-padding-balance = true;
+      window-decoration = "none";
+      command = "direct:nu -e fastfetch";
+    };
   };
 }
