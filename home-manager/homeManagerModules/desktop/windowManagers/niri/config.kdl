@@ -132,7 +132,7 @@ binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
 
   // Suggested binds for running programs: terminal, app launcher, screen locker.
-  Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+  Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
   Mod+A hotkey-overlay-title="Open a Browser: zen-twilight" { spawn "zen-twilight"; }
   Super+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
   Mod+P hotkey-overlay-title="Open Notification Panel: SwayNC" { spawn "swaync-client" "-t" "-sw"; }

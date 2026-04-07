@@ -136,7 +136,7 @@ with lib;
       };
 
       terminals = mkIf config.homeManagerModules.desktop.terminals.enable {
-        wezterm.enable = mkDefault true;
+        ghostty.enable = mkDefault true;
       };
     };
 
