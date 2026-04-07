@@ -19,6 +19,7 @@ in
         "audio"
         "nixdots"
         "nordvpn"
+        "wallie"
       ];
       shell = pkgs.nushell;
       hashedPasswordFile = config.sops.secrets."user_passwords/shringe".path;
