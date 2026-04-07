@@ -104,6 +104,26 @@ Singleton {
         cycleTimer.restart();
     }
 
+    // Skip over to the next wallpaper
+    function next(output = "") {
+        let i;
+        if (output === "") {
+            i = root.nextCycleIndex;
+        } else {
+            i = root.output.indexOf(output);
+            if (i === -1) {
+                console.error(`Can't skip ${output} becuase it doesn't appear to be cycling`);
+                i = root.nextCycleIndex;
+            }
+        }
+
+        const cycles = root.cycle[i].split("||");
+        root.cycleIndex[i] = (root.cycleIndex[i] + 1) % cycles.length;
+        root.lastCycle[i] = (root.lastCycle[i] + root.interval[i] * 60000);
+        root._setImg(cycles[root.cycleIndex[i]], root.output[i], root.fps[i]);
+        root._scheduleNext();
+    }
+
     Timer {
         id: cycleTimer
 
@@ -204,6 +224,14 @@ Singleton {
             } else {
                 root.loading = false;
             }
+        }
+    }
+
+    IpcHandler {
+        target: "swww"
+
+        function next(output: string): void {
+            root.next(output);
         }
     }
 }
