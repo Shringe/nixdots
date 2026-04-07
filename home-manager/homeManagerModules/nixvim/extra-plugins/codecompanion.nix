@@ -1,7 +1,7 @@
 { config, lib, ... }:
 with lib;
 let
-  domain = "https://ollama.deamicis.top";
+  domain = "https://ollama.nsaria.com";
   # model = "qwen2.5-coder:latest";
   model = "deepseek-r1:latest";
   enable = false;

@@ -30,7 +30,7 @@ alias la = ls -la
 
 # Builds laptop generation on desktop
 def "nh os switch remote" [] {
-  let ssh = "shringed@ssh.deamicis.top"
+  let ssh = "shringed@ssh.nsaria.com"
   let flake = "/nixdots#luminum"
   nixos-rebuild switch --sudo --build-host $ssh --flake $flake | nom
 }

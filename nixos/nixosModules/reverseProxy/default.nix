@@ -1,9 +1,9 @@
-
 { config, lib, ... }:
 with lib;
 let
   cfg = config.nixosModules.reverseProxy;
-in {
+in
+{
   imports = [
     ./acme.nix
     ./caddy.nix
@@ -15,7 +15,7 @@ in {
 
     domain = mkOption {
       type = types.str;
-      default = "deamicis.top";
+      default = "nsaria.com";
     };
 
     aDomain = mkOption {

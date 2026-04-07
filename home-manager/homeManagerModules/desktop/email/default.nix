@@ -53,8 +53,8 @@ in {
       maildirBasePath = "Mail";
       accounts = {
         "new" = {
-          address = "dashingkoso@deamicis.top";
-          userName = "dashingkoso@deamicis.top";
+          address = "dashingkoso@nsaria.com";
+          userName = "dashingkoso@nsaria.com";
           realName = "dashingkoso";
 
           primary = true;
