@@ -10,6 +10,7 @@ in
       window-padding-balance = true;
       window-decoration = "none";
       command = "direct:nu -e fastfetch";
+      working-directory = "home";
     };
   };
 }
