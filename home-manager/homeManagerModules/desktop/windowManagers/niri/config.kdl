@@ -84,6 +84,7 @@ window-rule {
 
 window-rule {
   match is-focused=true app-id="steam_app_\\d+"
+  match is-focused=true app-id="org.vinegarhq.Sober"
   variable-refresh-rate true
 }
 

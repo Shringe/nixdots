@@ -104,13 +104,38 @@ Singleton {
         root.nextCycleIndex = nearest;
         cycleTimer.interval = delay;
         cycleTimer.restart();
+        console.debug(`Next cycle in ${root.msToHumanTime(delay)}`);
+    }
+
+    function msToHumanTime(ms) {
+        // Convert milliseconds to total seconds
+        const totalSeconds = Math.floor(ms / 1000);
+
+        // Extract hours, minutes, and seconds
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        // Build the parts array with only non-zero values
+        const parts = [];
+        if (hours > 0)
+            parts.push(`${hours} ${hours === 1 ? "hour" : "hours"}`);
+        if (minutes > 0)
+            parts.push(`${minutes} ${minutes === 1 ? "minute" : "minutes"}`);
+        if (seconds > 0 || parts.length === 0)
+            parts.push(`${seconds} ${seconds === 1 ? "second" : "seconds"}`);
+
+        // Join parts with commas and "and" before the last element
+        if (parts.length === 1)
+            return parts[0];
+        return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
     }
 
     function setCycleWallpaper(cycles, i: int) {
         let shuffled;
         if (root.cycleShuffle[i] === "always") {
             shuffled = root.shuffle(cycles);
-            root.cycle = shuffled.join("||"); // Saving the shuffled state increases variance
+            root.cycle[i] = shuffled.join("||"); // Saving the shuffled state increases variance
         } else {
             shuffled = cycles;
         }
