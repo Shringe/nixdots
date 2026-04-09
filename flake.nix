@@ -250,16 +250,16 @@
                 max-substitution-jobs = 128;
 
                 substituters = [
-                  "https://devenv.cachix.org?priority=12"
-                  "https://nix-community.cachix.org?priority=3"
-                  "https://hyprland.cachix.org?priority=4"
-                  "https://nix-gaming.cachix.org?priority=5"
-                  "https://walker.cachix.org?priority=6"
-                  "https://walker-git.cachix.org?priority=8"
-                  "https://cache.nixos-cuda.org?priority=10"
+                  "https://devenv.cachix.org"
+                  "https://nix-community.cachix.org"
+                  "https://hyprland.cachix.org"
+                  "https://nix-gaming.cachix.org"
+                  "https://walker.cachix.org"
+                  "https://walker-git.cachix.org"
+                  "https://cache.nixos-cuda.org"
                 ]
                 ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
-                  "https://install.determinate.systems?priority=2"
+                  "https://install.determinate.systems"
                 ];
 
                 trusted-public-keys = [
@@ -284,7 +284,7 @@
             {
               nix.settings = {
                 substituters = [
-                  "https://install.determinate.systems?priority=2"
+                  "https://install.determinate.systems"
                 ];
                 trusted-public-keys = [
                   "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
