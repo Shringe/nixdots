@@ -20,13 +20,18 @@ in
       type = types.str;
       default = "/mnt/server/critical/whalecrab";
     };
+
+    package = mkOption {
+      type = types.package;
+      default = pkgs.whalecrab_uci_canary;
+    };
   };
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [
       "d ${cfg.directory} 0700 whalecrab whalecrab -"
       "d ${cfg.directory}/engines 0700 whalecrab whalecrab -"
-      "L+ ${cfg.directory}/engines/whalecrab - - - - ${pkgs.whalecrab_uci}/bin/uci"
+      "L+ ${cfg.directory}/engines/whalecrab - - - - ${cfg.package}/bin/uci"
     ];
 
     users.groups.whalecrab = { };

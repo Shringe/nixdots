@@ -8,7 +8,7 @@
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nf.url = "github:Shringe/nf";
-    whalecrab.url = "github:Shringe/whalecrab";
+    whalecrab.url = "github:Shringe/whalecrab/develop";
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
     nix-gaming.url = "github:fufexan/nix-gaming";
     disko.url = "github:nix-community/disko";
@@ -155,7 +155,7 @@
           swayosd_main_monitor = inputs.swayosd_main_monitor.packages.${system}.default;
           wait-online = inputs.wait-online.packages.${system}.default;
           torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
-            env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=znver3 -mtune=znver3";
+            env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=native -mtune=native";
           });
 
           searxng = self.unstable.searxng;
