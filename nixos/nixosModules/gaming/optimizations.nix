@@ -57,7 +57,7 @@ in
       programs.steam.platformOptimizations.enable = true;
 
       boot.kernel.sysctl = {
-        "vm.swappiness" = 20;
+        "vm.swappiness" = 5;
       };
 
       boot = {
