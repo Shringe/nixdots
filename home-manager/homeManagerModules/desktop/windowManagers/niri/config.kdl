@@ -43,7 +43,7 @@ output "DP-1" {
   // transform "270"
 }
 
-output "HDMI-A-1" {
+output "DP-2" {
   mode "3440x1440@174.962"
   position x=2560 y=0
   variable-refresh-rate on-demand=true

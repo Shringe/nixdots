@@ -91,10 +91,10 @@
     torrent.qbittorrent.enable = true;
 
     arrs = {
-      lidarr.enable = false;
+      lidarr.enable = true;
       sonarr.enable = true;
       prowlarr.enable = true;
-      # radarr.enable = true;
+      radarr.enable = true;
       flaresolverr.enable = true;
       vpn.enable = true;
     };
