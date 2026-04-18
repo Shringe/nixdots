@@ -7,7 +7,8 @@ ShellRoot {
     Screen {
         output: "eDP-1"
         fps: 60
-        wallpaper: "collections/eDP-1.json"
+        // wallpaper: "collections/eDP-1.json"
+        wallpaper: "2b_nier_automata_2560x1440.png<Lanczos3>"
         laptop: true
     }
 
