@@ -33,7 +33,7 @@ with lib;
         niri = {
           enable = true;
           monitors = {
-            primary = "DP-2";
+            primary = "DP-3";
             secondary = "DP-1";
           };
         };
@@ -75,7 +75,7 @@ with lib;
 
       wallpaper = [
         "DP-1,${wall}"
-        "DP-2,${wall2}"
+        "DP-3,${wall2}"
       ];
     };
 
@@ -84,7 +84,7 @@ with lib;
   #     wall = "/nixdots/assets/wallpapers/2b_nier_automata_2560x1440.png";
   #     wall2 = "/nixdots/assets/wallpapers/grassmastersword_3440x1440.png";
   #   in
-  #   mkForce "${pkgs.swaybg}/bin/swaybg --output DP-2 --image ${wall2} --output DP-1 --image ${wall}";
+  #   mkForce "${pkgs.swaybg}/bin/swaybg --output DP-3 --image ${wall2} --output DP-1 --image ${wall}";
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
@@ -115,7 +115,7 @@ with lib;
 
   systemd.user.services.set-primary-display = {
     Unit = {
-      Description = "Set primary X display to DP-2";
+      Description = "Set primary X display to DP-3";
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
       ConditionEnvironment = "DISPLAY";
@@ -123,7 +123,7 @@ with lib;
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --primary";
+      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output DP-3 --primary";
       RemainAfterExit = true;
     };
 

@@ -1,6 +1,6 @@
 [
   {
-    "output": [ "DP-2", "eDP-1" ],
+    "output": [ "DP-3", "eDP-1" ],
     "battery": {
       "bat": "BAT0",
       "format": "{capacity}% {icon}",
