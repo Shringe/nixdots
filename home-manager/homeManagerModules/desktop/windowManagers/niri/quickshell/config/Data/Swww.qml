@@ -10,7 +10,6 @@ import qs
 Singleton {
     id: root
 
-    readonly property list<string> extra_args: ["-f", "Nearest"]
     // Supported:           none | simple | fade | left | right | top | bottom | wipe | wave | grow | center | any | outer
     // We do our own randomization instead of using "random" so that I'm able to exclude certain effects like "none"
     property list<string> transition_effects: ["grow", "wipe", "center", "outer", "wave", "fade"]
@@ -44,7 +43,16 @@ Singleton {
         console.info(`Setting wallpaper on ${output} as ${path}`);
         const effect = getEffect();
         console.debug("Transition effect:", effect);
-        const args = ["img", path, "--outputs", output, "--transition-fps", fps, "--transition-type", effect, ...extra_args];
+
+        let filter = "Nearest";
+        let wallpaper = path;
+        const match = path.match(/<(.+)>$/);
+        if (match !== null) {
+            filter = match[1];
+            wallpaper = path.substring(0, path.length - filter.length - 2);
+        }
+
+        const args = ["img", wallpaper, "--outputs", output, "--transition-fps", fps, "--transition-type", effect, "--filter", filter];
         swww(args);
     }
 

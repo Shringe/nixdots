@@ -246,8 +246,8 @@
                   "flakes"
                 ];
 
-                http-connections = 128;
-                max-substitution-jobs = 128;
+                # http-connections = 128;
+                # max-substitution-jobs = 128;
 
                 substituters = [
                   "https://devenv.cachix.org"
