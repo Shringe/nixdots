@@ -33,7 +33,6 @@ in
 
       programs.zen-browser = {
         enable = true;
-        suppressXdgMigrationWarning = true;
 
         policies = {
           DisableAppUpdate = true;

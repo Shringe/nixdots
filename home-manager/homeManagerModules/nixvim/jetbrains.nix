@@ -12,7 +12,8 @@ in
   options.homeManagerModules.nixvim.jetbrains = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.nixvim.enable;
+      # default = config.homeManagerModules.nixvim.enable;
+      default = false;
     };
   };
 

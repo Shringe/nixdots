@@ -35,7 +35,6 @@ in
       };
     };
 
-    # Once the package gets merged into nixpkgs
     environment.systemPackages = with pkgs; [
       nvidia_oc
       steam-run

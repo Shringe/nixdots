@@ -109,7 +109,7 @@ with lib;
     mpv.config = {
       gpu-api = "vulkan";
       # High vram usage but low cpu usage
-      hwdec = "nvdec";
+      # hwdec = "nvdec";
     };
   };
 
