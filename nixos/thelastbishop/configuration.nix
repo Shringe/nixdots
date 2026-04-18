@@ -11,6 +11,20 @@
     "flakes"
   ];
 
+  users.users.nixos = {
+    shell = pkgs.nushell;
+  };
+
+  nixosModules = {
+    hardware = {
+      kanata.enable = true;
+    };
+  };
+
+  environment.etc."nixdots" = {
+    source = ./../..;
+  };
+
   environment.systemPackages = with pkgs; [
     smartmontools
     usbutils
@@ -40,15 +54,12 @@
     fastfetch
     zellij
     ddrescue
+    zoxide
+    cmatrix
   ];
 
-  users.users.nixos = {
-    shell = pkgs.nushell;
-  };
-
-  nixosModules = {
-    hardware = {
-      kanata.enable = true;
-    };
+  services = {
+    # Mouse support in the tty
+    gpm.enable = true;
   };
 }

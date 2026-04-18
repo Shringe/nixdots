@@ -227,6 +227,61 @@
         };
       };
 
+      nixSettings = [
+        {
+          nixpkgs = pkgConfig;
+          nix.settings = {
+            experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
+
+            # http-connections = 128;
+            # max-substitution-jobs = 128;
+
+            substituters = [
+              "https://devenv.cachix.org"
+              "https://nix-community.cachix.org"
+              "https://hyprland.cachix.org"
+              "https://nix-gaming.cachix.org"
+              "https://walker.cachix.org"
+              "https://walker-git.cachix.org"
+              "https://cache.nixos-cuda.org"
+            ];
+
+            trusted-public-keys = [
+              "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+              "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+              "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+              "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+              "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+            ];
+          };
+        }
+      ]
+      ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
+        # Binary cache provided here
+        # https://docs.determinate.systems/guides/advanced-installation#nixos
+        inputs.determinate.nixosModules.default
+        {
+          nix.settings = {
+            substituters = [
+              "https://install.determinate.systems"
+            ];
+            trusted-public-keys = [
+              "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+            ];
+          };
+        }
+      ]
+      ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
+        {
+          nix.package = pkgs.lixPackageSets.stable.lix;
+        }
+      ];
+
       mkNixos =
         name:
         nixpkgs.lib.nixosSystem {
@@ -237,66 +292,11 @@
             ./shared
 
             {
-              networking.hostName = name;
-              nixpkgs = pkgConfig;
               documentation.enable = false; # Building docs is slow
-              nix.settings = {
-                experimental-features = [
-                  "nix-command"
-                  "flakes"
-                ];
-
-                # http-connections = 128;
-                # max-substitution-jobs = 128;
-
-                substituters = [
-                  "https://devenv.cachix.org"
-                  "https://nix-community.cachix.org"
-                  "https://hyprland.cachix.org"
-                  "https://nix-gaming.cachix.org"
-                  "https://walker.cachix.org"
-                  "https://walker-git.cachix.org"
-                  "https://cache.nixos-cuda.org"
-                ]
-                ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
-                  "https://install.determinate.systems"
-                ];
-
-                trusted-public-keys = [
-                  "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-                  "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
-                  "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
-                  "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-                  "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-                  "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-                  "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-                ]
-                ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
-                  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
-                ];
-              };
+              networking.hostName = name;
             }
           ]
-          ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
-            # Binary cache provided here
-            # https://docs.determinate.systems/guides/advanced-installation#nixos
-            inputs.determinate.nixosModules.default
-            {
-              nix.settings = {
-                substituters = [
-                  "https://install.determinate.systems"
-                ];
-                trusted-public-keys = [
-                  "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
-                ];
-              };
-            }
-          ]
-          ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
-            {
-              nix.package = pkgs.lixPackageSets.stable.lix;
-            }
-          ];
+          ++ nixSettings;
         };
 
       mkHome =
@@ -327,7 +327,8 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./nixos/thelastbishop/configuration.nix
-          ];
+          ]
+          ++ nixSettings;
         };
       };
 
