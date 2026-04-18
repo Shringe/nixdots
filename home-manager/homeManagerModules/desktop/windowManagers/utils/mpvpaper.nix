@@ -35,7 +35,7 @@ in
       enable = mkEnableOption "primary";
       display = mkOption {
         type = types.str;
-        default = "DP-2";
+        default = "DP-3";
       };
 
       wallpaper = mkOption {

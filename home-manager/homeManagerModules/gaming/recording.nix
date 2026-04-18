@@ -79,7 +79,7 @@ in
 
     monitor = mkOption {
       type = types.str;
-      default = "DP-2";
+      default = "DP-3";
       description = "Monitor to record";
     };
   };

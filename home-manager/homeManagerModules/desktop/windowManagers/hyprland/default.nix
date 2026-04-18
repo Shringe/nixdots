@@ -286,7 +286,7 @@ in
             # transform = 3;
           }
           {
-            output = "DP-2";
+            output = "DP-3";
             mode = "3440x1440@175";
             position = "0x0";
             scale = 1;

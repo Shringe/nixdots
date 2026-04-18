@@ -103,8 +103,8 @@ in
           };
 
           custom = {
-            # start = "${pkgs.sway}/bin/swaymsg output DP-2 adaptive_sync on";
-            # end = "${pkgs.sway}/bin/swaymsg output DP-2 adaptive_sync off";
+            # start = "${pkgs.sway}/bin/swaymsg output DP-3 adaptive_sync on";
+            # end = "${pkgs.sway}/bin/swaymsg output DP-3 adaptive_sync off";
 
             start = "$HOME/.local/bin/gamemode_start.sh";
             end = "$HOME/.local/bin/gamemode_end.sh";

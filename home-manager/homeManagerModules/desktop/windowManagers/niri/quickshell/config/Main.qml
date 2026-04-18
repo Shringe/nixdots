@@ -19,8 +19,8 @@ ShellRoot {
     }
 
     Screen {
-        output: "DP-2"
+        output: "DP-3"
         fps: 175
-        wallpaper: "collections/DP-2.json"
+        wallpaper: "collections/DP-3.json"
     }
 }

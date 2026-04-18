@@ -157,7 +157,7 @@ in
 
         # Display
         monitorrule=DP-1,0.55,1,tile,0,1,0,0,2560,1440,165
-        monitorrule=DP-2,0.55,1,tile,0,1,2560,0,3440,1440,175
+        monitorrule=DP-3,0.55,1,tile,0,1,2560,0,3440,1440,175
 
         # Appearance
         gappih=4
