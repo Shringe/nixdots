@@ -323,6 +323,12 @@
       nixosConfigurations = {
         deity = mkNixos "deity";
         luminum = mkNixos "luminum";
+        thelastbishop = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./nixos/thelastbishop/configuration.nix
+          ];
+        };
       };
 
       homeConfigurations = {
