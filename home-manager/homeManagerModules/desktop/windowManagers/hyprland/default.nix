@@ -286,7 +286,7 @@ in
             # transform = 3;
           }
           {
-            output = "HDMI-A-1";
+            output = "DP-2";
             mode = "3440x1440@175";
             position = "0x0";
             scale = 1;

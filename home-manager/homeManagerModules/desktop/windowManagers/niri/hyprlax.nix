@@ -10,7 +10,7 @@ let
   targets = [ "niri.service" ];
 
   # https://github.com/sandwichfarm/hyprlax/blob/master/docs/configuration/examples/basic.toml
-  hyprlaxConfig_hdmi-a-1 = pkgs.writeText "hyprlax.toml" ''
+  hyprlaxConfig_DP-2 = pkgs.writeText "hyprlax.toml" ''
     # Basic hyprlax configuration
     # Simple two-layer parallax wallpaper
 
@@ -41,7 +41,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.hyprlax-hdmi-a-1 = {
+    systemd.user.services.hyprlax-DP-2 = {
       Install.WantedBy = targets;
       Unit = {
         After = targets;
@@ -50,7 +50,7 @@ in
       };
 
       Service = {
-        ExecStart = "${pkgs.hyprlax}/bin/hyprlax --config ${hyprlaxConfig_hdmi-a-1}";
+        ExecStart = "${pkgs.hyprlax}/bin/hyprlax --config ${hyprlaxConfig_DP-2}";
         Restart = "on-failure";
       };
     };

@@ -35,7 +35,7 @@ in
       enable = mkEnableOption "primary";
       display = mkOption {
         type = types.str;
-        default = "HDMI-A-1";
+        default = "DP-2";
       };
 
       wallpaper = mkOption {

@@ -10,7 +10,7 @@ let
   mpvpaper = config.homeManagerModules.desktop.windowManagers.utils.mpvpaper;
   mod = config.wayland.windowManager.sway.config.modifier;
 
-  displ1 = "HDMI-A-1";
+  displ1 = "DP-2";
   displ2 = "DP-1";
 in
 {
