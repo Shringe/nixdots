@@ -55,7 +55,7 @@ Row {
                             property real split: 0.45
                             property vector3d src: model.isActive ? Config.colors.glsl.base0E : model.activeWindowId != "" ? Config.colors.glsl.base05 : Config.colors.glsl.base03
                             property vector3d dst: model.isActive ? Config.colors.glsl.base06 : Config.colors.glsl.base04
-                            property real time: Dat.Workspaces.animClock
+                            property real time: Dat.Session.animClock
                             fragmentShader: "../../shaders/bin/TwoColorAnimatedGradient.frag.qsb"
                         }
                     }

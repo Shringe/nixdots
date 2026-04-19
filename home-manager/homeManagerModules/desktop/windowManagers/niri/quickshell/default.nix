@@ -69,6 +69,8 @@ in
 
     home.packages = [
       cfg.package
+      pkgs.kdePackages.qtshadertools
+      pkgs.spirv-tools
     ];
 
     xdg.configFile."quickshell/inner".source =
@@ -158,6 +160,7 @@ in
               readonly property string swww: "${pkgs.swww}/bin/swww"
               readonly property string brightnessctl: "${pkgs.brightnessctl}/bin/brightnessctl"
               readonly property string wluma: "${pkgs.wluma}/bin/wluma"
+              readonly property string gamemoded: "${pkgs.gamemode}/bin/gamemoded"
           }
       }
     '';
