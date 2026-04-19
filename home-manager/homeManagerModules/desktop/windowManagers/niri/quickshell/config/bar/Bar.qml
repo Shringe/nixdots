@@ -88,6 +88,7 @@ PanelWindow {
             Workspaces {
                 id: workspaces
                 anchors.centerIn: parent
+                output: root.output.name
             }
 
             // Right
