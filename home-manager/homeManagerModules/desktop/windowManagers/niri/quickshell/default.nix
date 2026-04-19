@@ -91,6 +91,15 @@ in
       import Quickshell
 
       Singleton {
+          function glslColorFromHex(hex: color): vector3d {
+              hex = hex.toString().replace(/^#/, "").replace(/^0x/, "");
+              return Qt.vector3d(
+                  parseInt(hex.substring(0, 2), 16) / 255.0,
+                  parseInt(hex.substring(2, 4), 16) / 255.0,
+                  parseInt(hex.substring(4, 6), 16) / 255.0
+              );
+          }
+
           readonly property QtObject colors: QtObject {
               readonly property color base00: "${config.lib.stylix.colors.withHashtag.base00}"
               readonly property color base01: "${config.lib.stylix.colors.withHashtag.base01}"
@@ -108,6 +117,25 @@ in
               readonly property color base0D: "${config.lib.stylix.colors.withHashtag.base0D}"
               readonly property color base0E: "${config.lib.stylix.colors.withHashtag.base0E}"
               readonly property color base0F: "${config.lib.stylix.colors.withHashtag.base0F}"
+
+              readonly property QtObject glsl: QtObject {
+                  readonly property vector3d base00: glslColorFromHex(colors.base00)
+                  readonly property vector3d base01: glslColorFromHex(colors.base01)
+                  readonly property vector3d base02: glslColorFromHex(colors.base02)
+                  readonly property vector3d base03: glslColorFromHex(colors.base03)
+                  readonly property vector3d base04: glslColorFromHex(colors.base04)
+                  readonly property vector3d base05: glslColorFromHex(colors.base05)
+                  readonly property vector3d base06: glslColorFromHex(colors.base06)
+                  readonly property vector3d base07: glslColorFromHex(colors.base07)
+                  readonly property vector3d base08: glslColorFromHex(colors.base08)
+                  readonly property vector3d base09: glslColorFromHex(colors.base09)
+                  readonly property vector3d base0A: glslColorFromHex(colors.base0A)
+                  readonly property vector3d base0B: glslColorFromHex(colors.base0B)
+                  readonly property vector3d base0C: glslColorFromHex(colors.base0C)
+                  readonly property vector3d base0D: glslColorFromHex(colors.base0D)
+                  readonly property vector3d base0E: glslColorFromHex(colors.base0E)
+                  readonly property vector3d base0F: glslColorFromHex(colors.base0F)
+              }
           }
 
           readonly property QtObject fonts: QtObject {

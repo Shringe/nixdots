@@ -35,4 +35,6 @@ Singleton {
             }
         }
     }
+
+    Component.onCompleted: console.info("=".repeat(50) + " Reloading Quickshell " + "=".repeat(50))
 }
