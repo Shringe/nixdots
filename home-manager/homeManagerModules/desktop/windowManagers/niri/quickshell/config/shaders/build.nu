@@ -4,10 +4,6 @@ def main [] {
   main build
 }
 
-def --env "main shell" [] {
-  nix shell nixpkgs#spirv-tools nixpkgs#kdePackages.qtshadertools --command nu
-}
-
 # Build all shaders in src
 def "main build" [] {
   print "Building all shaders"
