@@ -52,17 +52,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets."user_passwords/qbittorrent".neededForUsers = true;
     users.users.qbittorrent = {
-      isNormalUser = true;
+      isSystemUser = true;
       group = "qbittorrent";
-      hashedPasswordFile = config.sops.secrets."user_passwords/qbittorrent".path;
     };
 
     users.groups.qbittorrent = { };
 
     systemd.tmpfiles.rules = [
       "d /mnt/server/local/qbittorrent 0770 qbittorrent qbittorrent -"
+      "d /var/lib/qbittorrent 0700 qbittorrent qbittorrent -"
     ];
 
     systemd.services.qbittorrent = {
@@ -77,7 +76,7 @@ in
         Type = "exec";
         User = "qbittorrent";
         Group = "qbittorrent";
-        ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.ports.webui}";
+        ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.ports.webui} --profile=/var/lib/qbittorrent";
         Nice = 17;
         IOSchedulingClass = "idle";
         # IOSchedulingClass = "best-effort";

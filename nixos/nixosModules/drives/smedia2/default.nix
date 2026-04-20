@@ -45,6 +45,9 @@ in
         smedia2a_crypt UUID=5bcfac04-0bdc-4282-a6cd-b7af2197c22c ${
           config.sops.secrets."disks/smedia2".path
         } luks,nofail
+        smedia2b_crypt UUID=46acd17e-adca-4632-a2a6-6be849afc994 ${
+          config.sops.secrets."disks/smedia2".path
+        } luks,nofail
       '';
 
       fileSystems = {
@@ -69,6 +72,7 @@ in
         };
       };
     }
+
     (util.mkWeeklyScrub "smedia2" "Fri")
   ]);
 }

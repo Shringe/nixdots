@@ -1,4 +1,5 @@
 pragma Singleton
+
 import QtQuick
 import Quickshell
 import Quickshell.Services.Notifications
@@ -19,6 +20,10 @@ Singleton {
     }
 
     function addNotif(n) {
+        console.debug(n.appName);
+        console.debug(n.summary);
+        console.debug(n.body);
+
         n.tracked = true;
         notif.latestNotification = n;
         notif.notificationReceived(n);

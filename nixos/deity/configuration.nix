@@ -70,7 +70,6 @@
     server.services.paperless.enable = false;
 
     kavita.enable = true;
-    groceries.tandoor.enable = true;
 
     social = {
       matrix.conduit.enable = true;
