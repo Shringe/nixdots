@@ -121,7 +121,7 @@ Row {
                 label.layer.enabled: Dat.Privacy.microphoneActive
                 label.layer.effect: Shaders.TwoColorAnimatedGradient {
                     src: Config.colors.glsl.base0A
-                    dst: Config.colors.glsl.base09
+                    dst: Config.colors.glsl.base08
                 }
             }
         }

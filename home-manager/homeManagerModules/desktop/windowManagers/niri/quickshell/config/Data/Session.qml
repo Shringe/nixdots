@@ -13,13 +13,21 @@ Singleton {
     property ShellScreen currentScreen: Quickshell.screens[Quickshell.screens.length - 1]
     property Niri niri: _niri
 
-    // The framerate to update animClock
+    // The framerate to update animations
     property int animFps: fancyAnimations ? 60 : 15
     property int animInterval: 1000 / animFps
-    property real animClock: _animClock
+    property real animClock
     // Whether or not to prioritize fidelity over resources
     property bool fancyAnimations: !(gamemode || Dat.Hardware.battery.low)
     property bool gamemode: false
+
+    signal drawAnimationFrame
+
+    onDrawAnimationFrame: {
+        if (_animClock < 1.0) {
+            animClock = _animClock;
+        }
+    }
 
     Niri {
         id: _niri
@@ -55,12 +63,7 @@ Singleton {
         interval: animInterval
         running: true
         repeat: true
-
-        onTriggered: {
-            if (_animClock < 1.0) {
-                animClock = _animClock;
-            }
-        }
+        onTriggered: drawAnimationFrame()
     }
 
     property real _animClock: 0.0

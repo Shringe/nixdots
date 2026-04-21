@@ -31,5 +31,6 @@ void main() {
   vec3 gradient = mix(src, dst, t);
 
   // Multiply by texture alpha to mask to text shape
-  fragColor = vec4(gradient * tex.a, tex.a) * qt_Opacity;
+  float a = tex.a * 1.0;
+  fragColor = vec4(gradient * a, a) * qt_Opacity;
 }

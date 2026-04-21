@@ -1,14 +1,25 @@
 pragma Singleton
+
 import QtQuick
 import Quickshell
 import Quickshell.Io
 
+import qs.inner.Data as Dat
+
 Singleton {
     id: root
 
-    readonly property list<int> bars: Array.from({
+    property list<int> bars
+    readonly property list<int> _bars: Array.from({
         length: 16
     }, () => 1)
+
+    Connections {
+        target: Dat.Session
+        function onDrawAnimationFrame() {
+            root.bars = root._bars;
+        }
+    }
 
     Process {
         id: cavaProc
@@ -17,8 +28,11 @@ Singleton {
         stdout: SplitParser {
             onRead: line => {
                 const values = line.trim().split(";").filter(v => v !== "");
-                if (values.length !== 0)
-                    root.bars = values.map(v => parseInt(v));
+                const bars = values.map(v => parseInt(v));
+
+                if (values.length !== 0 && bars != root._bars) {
+                    root._bars = bars;
+                }
             }
         }
     }
