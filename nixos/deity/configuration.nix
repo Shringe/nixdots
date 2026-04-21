@@ -55,7 +55,7 @@
       root.enable = true;
       root.steam = true;
       backups1.enable = false;
-      smedia1.enable = true;
+      smedia1.enable = false;
       smedia2.enable = true;
       steamssd1.enable = true;
       steamssd2.enable = false;
@@ -102,7 +102,6 @@
 
     docker = {
       enable = true;
-      romm.enable = true;
       wallos.enable = true;
     };
 
