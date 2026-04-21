@@ -61,12 +61,34 @@ workspace "chat" {
   open-on-output "DP-1"
 }
 
+// workspace "audio" {
+//   open-on-output "DP-1"
+// }
+//
+// workspace "nixdots" {
+//   open-on-output "DP-1"
+// }
+
 window-rule {
   match at-startup=true app-id="thunderbird"
+  match at-startup=true app-id="nheko"
   open-on-workspace "chat"
 }
 
+// window-rule {
+//   match at-startup=true app-id="com.mitchellh.ghostty"
+//   open-on-workspace "audio"
+// }
+//
+// window-rule {
+//   match at-startup=true app-id="neovide_nixdots"
+//   open-on-workspace "nixdots"
+// }
+
 spawn-at-startup "thunderbird"
+spawn-at-startup "nheko"
+// spawn-at-startup "ghostty" "-e" "jellyfin-tui"
+// spawn-at-startup "neovide" "--no-fork" "--wayland_app_id" "neovide_nixdots" "/nixdots/flake.nix"
 
 window-rule {
   // opacity = 0.5

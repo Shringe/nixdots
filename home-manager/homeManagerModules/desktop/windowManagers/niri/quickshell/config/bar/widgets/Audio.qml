@@ -7,6 +7,7 @@ import "../../.."
 import "../../Data" as Dat
 import "../utils"
 import qs.inner.bar.widgets.VolumeOsd
+import qs.inner.Shaders as Shaders
 
 Row {
     id: root
@@ -55,6 +56,12 @@ Row {
             Stext {
                 text: Dat.Mpris.trackTitle
                 visible: Dat.Mpris.trackHasTitle
+                layer.enabled: Dat.Mpris.isPlaying
+                layer.effect: Shaders.TwoColorAnimatedGradient {
+                    angle: 180
+                    src: Config.colors.glsl.base09
+                    dst: Config.colors.glsl.base0A
+                }
             }
         }
     }
@@ -111,6 +118,11 @@ Row {
             TextIcon {
                 icon: Dat.Pipewire.sourceIcon
                 lpad: 4
+                label.layer.enabled: Dat.Privacy.microphoneActive
+                label.layer.effect: Shaders.TwoColorAnimatedGradient {
+                    src: Config.colors.glsl.base0A
+                    dst: Config.colors.glsl.base09
+                }
             }
         }
     }

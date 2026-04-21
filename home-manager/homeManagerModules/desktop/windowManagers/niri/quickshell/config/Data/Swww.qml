@@ -265,7 +265,7 @@ Singleton {
                 }
 
                 // Show the first image immediately and schedule the timer
-                root._setImg(cycleStr.split("||")[0], output, fps);
+                // root._setImg(cycleStr.split("||")[0], output, fps);
                 root._scheduleNext();
             } else {
                 console.error("Wallpaper JSON has neither 'static' nor 'cycle' key:", wallpaperJson.path);

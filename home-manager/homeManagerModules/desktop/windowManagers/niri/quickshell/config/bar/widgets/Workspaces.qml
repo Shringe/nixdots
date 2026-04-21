@@ -5,6 +5,7 @@ import "../.."
 import "../../.."
 import "../utils"
 import qs.inner.Data as Dat
+import qs.inner.Shaders as Shaders
 
 Row {
     id: root
@@ -16,6 +17,8 @@ Row {
         case "":
             return indexToName[workspace.index - 1] ?? workspace.index;
             break;
+        case "chat":
+            return "C";
         default:
             return workspace.name[0].toUpperCase();
         }
@@ -32,6 +35,11 @@ Row {
         model: Dat.Session.niri.workspaces
 
         WrapperMouseArea {
+            readonly property bool isNamed: model.name !== ""
+            readonly property bool isActive: model.isActive
+            readonly property bool hasWindow: model.activeWindowId != ""
+            readonly property bool isCurrentScreen: model.output === Dat.Session.currentScreen.name
+
             visible: model.output === root.output
             implicitWidth: 22
             implicitHeight: 20
@@ -40,37 +48,15 @@ Row {
             onClicked: Dat.Session.niri.focusWorkspaceById(model.id)
             cursorShape: Qt.PointingHandCursor
 
-            Item {
-                Loader {
-                    active: model.name !== ""
-                    visible: active
-                    anchors.centerIn: parent
-                    WorkspaceIcon {
-                        text: getDisplayName(model)
-                        bgColor: containsMouse ? Config.colors.base02 : Config.colors.base00
-                        label.font.pixelSize: Config.fonts.size + 4
-                        label.layer.enabled: true
-                        label.layer.effect: ShaderEffect {
-                            property real angle: 120
-                            property real split: 0.45
-                            property vector3d src: model.isActive ? Config.colors.glsl.base0E : model.activeWindowId != "" ? Config.colors.glsl.base05 : Config.colors.glsl.base03
-                            property vector3d dst: model.isActive ? Config.colors.glsl.base06 : Config.colors.glsl.base04
-                            property real time: Dat.Session.animClock
-                            fragmentShader: "../../shaders/bin/TwoColorAnimatedGradient.frag.qsb"
-                        }
-                    }
-                }
-
-                Loader {
-                    active: model.name === ""
-                    visible: active
-                    anchors.centerIn: parent
-                    WorkspaceIcon {
-                        text: getDisplayName(model)
-                        bgColor: containsMouse ? Config.colors.base02 : Config.colors.base00
-                        label.font.pixelSize: Config.fonts.size
-                        label.color: model.isActive ? Config.colors.base0E : model.activeWindowId != "" ? Config.colors.base05 : Config.colors.base03
-                    }
+            WorkspaceIcon {
+                text: getDisplayName(model)
+                bgColor: containsMouse ? Config.colors.base02 : Config.colors.base00
+                label.font.pixelSize: isNamed ? Config.fonts.size + 4 : Config.fonts.size
+                label.color: isActive ? Config.colors.base0E : hasWindow ? Config.colors.base05 : Config.colors.base03
+                label.layer.enabled: isNamed || (isActive && isCurrentScreen)
+                label.layer.effect: Shaders.TwoColorAnimatedGradient {
+                    src: isActive ? Config.colors.glsl.base0E : hasWindow ? Config.colors.glsl.base05 : Config.colors.glsl.base03
+                    dst: isActive ? Config.colors.glsl.base06 : Config.colors.glsl.base04
                 }
             }
         }
