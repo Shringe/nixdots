@@ -19,8 +19,9 @@ Row {
             height: Math.max(2, Dat.Cava.bars[index] / 50)
             anchors.bottom: parent.bottom
             color: Config.colors.base05
-            layer.enabled: Dat.Mpris.isPlaying && Dat.Session.fancyAnimations
+            layer.enabled: true
             layer.effect: Shaders.TwoColorAnimatedGradient {
+                enabled: Dat.Mpris.isPlaying && Dat.Session.fancyAnimations
                 angle: 180
                 src: Config.colors.glsl.base09
                 dst: Config.colors.glsl.base0A

@@ -9,6 +9,8 @@ layout(std140, binding = 0) uniform buf {
   float angle;
   float split;
   float time;
+  float progress; // Progress in transitioning into the animation. Set to 1.0 to effectively disable the initial fade in
+  vec3 base; // The color of the unanimated text
   vec3 src;
   vec3 dst;
 };
@@ -29,8 +31,8 @@ void main() {
   t = clamp(t + (split - 0.5) * 2.0, 0.0, 1.0);
 
   vec3 gradient = mix(src, dst, t);
+  vec3 color = mix(base, gradient, progress);
 
   // Multiply by texture alpha to mask to text shape
-  float a = tex.a * 1.0;
-  fragColor = vec4(gradient * a, a) * qt_Opacity;
+  fragColor = vec4(color * tex.a, tex.a) * qt_Opacity;
 }

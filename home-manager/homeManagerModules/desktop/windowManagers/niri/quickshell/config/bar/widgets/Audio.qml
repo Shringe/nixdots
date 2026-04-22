@@ -56,8 +56,9 @@ Row {
             Stext {
                 text: Dat.Mpris.trackTitle
                 visible: Dat.Mpris.trackHasTitle
-                layer.enabled: Dat.Mpris.isPlaying
+                layer.enabled: true
                 layer.effect: Shaders.TwoColorAnimatedGradient {
+                    enabled: Dat.Mpris.isPlaying
                     angle: 180
                     src: Config.colors.glsl.base09
                     dst: Config.colors.glsl.base0A
