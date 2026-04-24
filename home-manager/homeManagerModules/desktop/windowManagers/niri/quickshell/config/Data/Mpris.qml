@@ -10,11 +10,13 @@ import qs.inner.Data as Dat
 
 Singleton {
     id: root
-    readonly property MprisPlayer player: Mpris.players.values[0] ?? null
+    readonly property MprisPlayer _priorityPlayer: Mpris.players.values.find(p => p.identity == "jellyfin-tui") ?? null
+    readonly property MprisPlayer _currentPlayer: Mpris.players.values[0] ?? null
+    readonly property MprisPlayer player: _priorityPlayer ?? _currentPlayer
     readonly property string trackTitle: player?.trackTitle ?? ""
     readonly property bool trackHasTitle: trackTitle !== ""
     readonly property string artist: player?.trackArtist ?? ""
-    readonly property bool isPlaying: earlyIsPlayingKnown > 0 ? earlyIsPlaying : player?.isPlaying
+    readonly property bool isPlaying: earlyIsPlayingKnown > 0 ? earlyIsPlaying : player?.isPlaying === true
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
     readonly property real volume: isMuted ? mutedVolume : earlyVolumeKnown ? earlyVolume : player?.volume
 
@@ -40,6 +42,8 @@ Singleton {
         earlyIsPlayingKnown = true;
         playPauseUpdate();
         player.togglePlaying();
+        console.debug("Current player:", player.identity);
+        console.debug("Priority player?:", player.identity == "jellyfin-tui");
     }
 
     function next() {
