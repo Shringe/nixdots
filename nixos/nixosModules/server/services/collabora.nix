@@ -3,7 +3,8 @@ with lib;
 let
   cfg = config.nixosModules.server.services.collabora;
 
-  domain = config.nixosModules.reverseProxy.aDomain;
+  domain = config.nixosModules.reverseProxy.pDomain;
+  nextcloud = config.nixosModules.server.services.nextcloud;
 in
 {
   options.nixosModules.server.services.collabora = {
@@ -34,12 +35,17 @@ in
 
     furl = mkOption {
       type = types.str;
-      default = "https://collabora.${domain}";
+      default = "https://${cfg.hostName}";
     };
 
     icon = mkOption {
       type = types.str;
       default = "paperless-ngx.svg";
+    };
+
+    hostName = mkOption {
+      type = types.str;
+      default = "collabora.${domain}";
     };
   };
 
@@ -64,10 +70,10 @@ in
         # Restrict loading documents from WOPI Host nextcloud.example.com
         storage.wopi = {
           "@allow" = true;
-          host = [ "nextcloud.${domain}" ];
+          host = [ nextcloud.hostName ];
         };
 
-        server_name = "collabora.${domain}";
+        server_name = cfg.hostName;
       };
 
       extraArgs = [

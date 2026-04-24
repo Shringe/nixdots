@@ -8,7 +8,7 @@ with lib;
 let
   cfg = config.nixosModules.server.services.nextcloud;
 
-  domain = config.nixosModules.reverseProxy.aDomain;
+  domain = config.nixosModules.reverseProxy.pDomain;
 in
 {
   options.nixosModules.server.services.nextcloud = {
