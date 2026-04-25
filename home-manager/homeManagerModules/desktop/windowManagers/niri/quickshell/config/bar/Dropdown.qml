@@ -38,6 +38,15 @@ Item {
         root.show = true;
     }
 
+    // Toggle the dropdown open or closed
+    function toggle(closeDuration) {
+        if (root.show) {
+            close(closeDuration ?? 0);
+        } else {
+            open();
+        }
+    }
+
     // Prop the dropdown open for a specified time, then close
     function propOpen(duration) {
         if (!root.timer.running) {

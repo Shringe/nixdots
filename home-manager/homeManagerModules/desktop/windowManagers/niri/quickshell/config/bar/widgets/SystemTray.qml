@@ -15,7 +15,7 @@ Row {
     layoutDirection: Qt.RightToLeft
 
     required property PanelWindow trunk
-    property Dropdown lastDropdown: null
+    // property Dropdown lastDropdown: null
 
     Repeater {
         model: SystemTray.items
@@ -36,15 +36,18 @@ Row {
             }
 
             mouseArea {
-                acceptedButtons: Qt.LeftButton
-                onEntered: {
-                    if (root.lastDropdown && root.lastDropdown !== dropdown)
-                        root.lastDropdown.close(0);
-                    root.lastDropdown = dropdown;
-                    dropdown.open();
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+            }
+
+            function mouseClick(event) {
+                switch (event.button) {
+                case Qt.LeftButton:
+                    modelData.activate();
+                    break;
+                case Qt.RightButton:
+                    dropdown.toggle();
+                    break;
                 }
-                onExited: dropdown.close()
-                onClicked: modelData.activate()
             }
         }
     }

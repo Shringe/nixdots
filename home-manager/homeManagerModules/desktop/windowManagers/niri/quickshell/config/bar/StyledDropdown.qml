@@ -10,31 +10,24 @@ Item {
     required property PanelWindow trunk
     required property Item triggerContent
     required property Item dropdownContent
-    property Item boxParent: _mouseArea
+    property Item boxParent: mouseArea
     property int padding: Config.borders.radius
     property int horizontalPadding: root.padding
     property int verticalPadding: root.padding
-    property alias mouseArea: _mouseArea
-    property alias dropdown: _dropdown
+    property alias mouseArea: mouseArea
+    property alias dropdown: dropdown
 
-    onTriggerContentChanged: triggerContent.parent = _mouseArea
+    onTriggerContentChanged: triggerContent.parent = mouseArea
     onDropdownContentChanged: {
         dropdownContent.parent = box;
         dropdownContent.anchors.centerIn = box;
     }
 
-    implicitWidth: _mouseArea.implicitWidth
-    implicitHeight: _mouseArea.implicitHeight
-
-    WrapperMouseArea {
-        id: _mouseArea
-        hoverEnabled: true
-        onEntered: _dropdown.open()
-        onExited: _dropdown.close()
-    }
+    implicitWidth: mouseArea.implicitWidth
+    implicitHeight: mouseArea.implicitHeight
 
     Dropdown {
-        id: _dropdown
+        id: dropdown
         trunk: root.trunk
         boxParent: root.boxParent
 
@@ -45,5 +38,27 @@ Item {
             color: Config.colors.base00
             radius: Config.borders.radius
         }
+    }
+
+    // If the caller overrides the mouseArea hooks, such as onClicked, directly, their logic will be merged with ours.
+    // If they override these functions instead, their logic will replace ours, which is sometimes desired.
+    function mouseClick(event) {
+        dropdown.toggle();
+    }
+
+    function mouseEnter() {
+    }
+
+    function mouseExit() {
+        dropdown.close();
+    }
+
+    WrapperMouseArea {
+        id: mouseArea
+        hoverEnabled: true
+        acceptedButtons: Qt.RightButton
+        onClicked: event => mouseClick(event)
+        onEntered: mouseEnter()
+        onExited: mouseExit()
     }
 }
