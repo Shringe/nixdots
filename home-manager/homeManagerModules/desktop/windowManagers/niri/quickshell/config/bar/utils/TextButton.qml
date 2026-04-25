@@ -12,6 +12,7 @@ WrapperMouseArea {
     property int radius: 6
     property int horizontalPadding: 16
     property int verticalPadding: 8
+    property alias label: label
 
     implicitWidth: label.implicitWidth + horizontalPadding
     implicitHeight: label.implicitHeight + verticalPadding

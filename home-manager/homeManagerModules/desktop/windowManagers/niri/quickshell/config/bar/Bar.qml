@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import Niri
 import "../.."
 import "../Data" as Dat
+import "../Shaders" as Shaders
 import "utils"
 import "separators"
 import "widgets"
@@ -97,6 +98,17 @@ PanelWindow {
                 anchors.right: parent.right
                 spacing: 5
 
+                TextButton {
+                    text: "Idle"
+                    verticalPadding: 1
+                    onClicked: Dat.Idle.toggleInhibit()
+                    label.layer.enabled: true
+                    label.layer.effect: Shaders.TwoColorAnimatedGradient {
+                        enabled: Dat.Idle.inhibiting
+                        src: Config.colors.glsl.base07
+                        // dst: Config.colors.glsl.base0A
+                    }
+                }
                 TextButton {
                     text: "Night"
                     verticalPadding: 1
