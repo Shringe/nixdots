@@ -16,17 +16,17 @@ PanelWindow {
 
     // We really should switch the layer whenever a dropdown is getting ready to reveal, to include the animation.
     // This used to be done by `root.dropdown.active` before the refactor.
-    WlrLayershell.layer: root.dropdown.revealed ? WlrLayer.Overlay : WlrLayer.Top
+    WlrLayershell.layer: root.dropdown.info.revealed ?? false ? WlrLayer.Overlay : WlrLayer.Top
 
     readonly property Rectangle bar: bar
     readonly property Item barItem: barItem
     required property ShellScreen output
     required property bool laptop
     property bool onBottom: false
-    property DropdownInfo dropdown: DropdownInfo {}
+    property Dropdown dropdown: dropdowns[0]
 
     // Dropdowns should register themselves here
-    property list<DropdownInfo> dropdowns: []
+    property var dropdowns: []
 
     screen: output
     anchors {

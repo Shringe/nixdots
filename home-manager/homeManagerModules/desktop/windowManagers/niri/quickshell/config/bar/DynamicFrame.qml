@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Shapes
+
 import qs
 
 Shape {
@@ -64,20 +65,20 @@ Shape {
 
         // bottom edge right side, up to dropdown right ramp
         PathLine {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + trunk.dropdown.width + root.ramp - root.sw / 2 : root.cr
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + trunk.dropdown.info.width + root.ramp - root.sw / 2 : root.cr
             y: bar.height
         }
 
         // dropdown gap
         PathMove {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + trunk.dropdown.width + root.ramp - root.sw / 2 : root.cr
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + trunk.dropdown.info.width + root.ramp - root.sw / 2 : root.cr
             y: bar.height
         }
 
         // ramp into dropdown right side (curves down and left)
         PathArc {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + trunk.dropdown.width - root.sw / 2 : root.cr
-            y: trunk.dropdown.revealed ? bar.height + root.ramp : bar.height
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + trunk.dropdown.info.width - root.sw / 2 : root.cr
+            y: trunk.dropdown.info.revealed ? bar.height + root.ramp : bar.height
             radiusX: root.ramp
             radiusY: root.ramp
             direction: PathArc.Counterclockwise
@@ -85,14 +86,14 @@ Shape {
 
         // dropdown right edge down
         PathLine {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + trunk.dropdown.width - root.sw / 2 : root.cr
-            y: trunk.dropdown.revealed ? bar.height + trunk.dropdown.height - root.cr - root.sw / 2 : bar.height
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + trunk.dropdown.info.width - root.sw / 2 : root.cr
+            y: trunk.dropdown.info.revealed ? bar.height + trunk.dropdown.info.height - root.cr - root.sw / 2 : bar.height
         }
 
         // dropdown bottom-right corner
         PathArc {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + trunk.dropdown.width - root.cr - root.sw / 2 : root.cr
-            y: trunk.dropdown.revealed ? bar.height + trunk.dropdown.height - root.sw / 2 : bar.height
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + trunk.dropdown.info.width - root.cr - root.sw / 2 : root.cr
+            y: trunk.dropdown.info.revealed ? bar.height + trunk.dropdown.info.height - root.sw / 2 : bar.height
             radiusX: root.cr
             radiusY: root.cr
             direction: PathArc.Clockwise
@@ -100,14 +101,14 @@ Shape {
 
         // dropdown bottom edge
         PathLine {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + root.cr + root.sw / 2 : root.cr
-            y: trunk.dropdown.revealed ? bar.height + trunk.dropdown.height - root.sw / 2 : bar.height
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + root.cr + root.sw / 2 : root.cr
+            y: trunk.dropdown.info.revealed ? bar.height + trunk.dropdown.info.height - root.sw / 2 : bar.height
         }
 
         // dropdown bottom-left corner
         PathArc {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + root.sw / 2 : root.cr
-            y: trunk.dropdown.revealed ? bar.height + trunk.dropdown.height - root.cr - root.sw / 2 : bar.height
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + root.sw / 2 : root.cr
+            y: trunk.dropdown.info.revealed ? bar.height + trunk.dropdown.info.height - root.cr - root.sw / 2 : bar.height
             radiusX: root.cr
             radiusY: root.cr
             direction: PathArc.Clockwise
@@ -115,13 +116,13 @@ Shape {
 
         // dropdown left edge up
         PathLine {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x + root.sw / 2 : root.cr
-            y: trunk.dropdown.revealed ? bar.height + root.ramp : bar.height
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x + root.sw / 2 : root.cr
+            y: trunk.dropdown.info.revealed ? bar.height + root.ramp : bar.height
         }
 
         // ramp back to bar bottom (curves up and left)
         PathArc {
-            x: trunk.dropdown.revealed ? trunk.dropdown.x - root.ramp + root.sw / 2 : root.cr
+            x: trunk.dropdown.info.revealed ? trunk.dropdown.info.x - root.ramp + root.sw / 2 : root.cr
             y: bar.height
             radiusX: root.ramp
             radiusY: root.ramp

@@ -20,7 +20,14 @@ Item {
     property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
     property int gracePeriod: 500
     property bool wasLimited: false
+
     property DropdownInfo info: DropdownInfo {}
+
+    // property bool info.revealed: false
+    // property int info.x: 0
+    // property int info.y: 0
+    // property int info.height: 0
+    // property int info.width: 0
 
     // the source of the menu
     required property var boxParent
@@ -30,7 +37,11 @@ Item {
 
     Component.onCompleted: {
         dropdown.parent = trunk.barItem;
+        // trunk.dropdown = this;
+        // trunk.dropdowns.push(this);
+        trunk.dropdowns = trunk.dropdowns.concat(this);
     }
+    Component.onDestruction: trunk.dropdowns = trunk.dropdowns.filter(d => d !== this)
 
     // Request to open the dropdown
     function open() {
@@ -153,7 +164,7 @@ Item {
                     }
 
                     PropertyAction {
-                        target: info
+                        target: root.info
                         property: "revealed"
                         value: true
                     }
@@ -186,13 +197,10 @@ Item {
 
                     ScriptAction {
                         script: {
-                            if (info.owner === root) {
-                                info.x = 0;
-                                info.width = 0;
-                                info.height = 0;
-                                info.y = 0;
-                                info.owner = null;
-                            }
+                            info.x = 0;
+                            info.width = 0;
+                            info.height = 0;
+                            info.y = 0;
                         }
                     }
                 }
@@ -287,19 +295,19 @@ Item {
         }
 
         onXChanged: {
-            if (root.show && info.owner === root) {
+            if (root.show) {
                 info.x = dropdown.x + (Config.borders.size * 2);
             }
         }
 
         onWidthChanged: {
-            if (root.show && info.owner === root) {
+            if (root.show) {
                 info.width = dropdown.width + (Config.borders.size * 2);
             }
         }
 
         onHeightChanged: {
-            if (root.show && info.owner === root) {
+            if (root.show) {
                 info.height = dropdown.height + (Config.borders.size * 2);
             }
         }
@@ -320,8 +328,6 @@ Item {
 
     onShowChanged: {
         if (show) {
-            info.owner = root;
-
             // Hack to align Dropdowns properly with the DynamicFrame
             if (trunk.laptop) {
                 info.x = dropdown.x + Config.borders.size * 2 + 1;
@@ -339,8 +345,6 @@ Item {
                 info.width = dropdown.width + Config.borders.size * 2;
                 info.height = dropdown.height + Config.borders.size;
             }
-
-            trunk.dropdown = info;
         }
     }
 }
