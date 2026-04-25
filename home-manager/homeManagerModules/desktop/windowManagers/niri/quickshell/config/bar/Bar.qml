@@ -13,22 +13,20 @@ import ".."
 
 PanelWindow {
     id: root
-    WlrLayershell.layer: root.dropdown.active ? WlrLayer.Overlay : WlrLayer.Top
+
+    // We really should switch the layer whenever a dropdown is getting ready to reveal, to include the animation.
+    // This used to be done by `root.dropdown.active` before the refactor.
+    WlrLayershell.layer: root.dropdown.revealed ? WlrLayer.Overlay : WlrLayer.Top
 
     readonly property Rectangle bar: bar
     readonly property Item barItem: barItem
     required property ShellScreen output
     required property bool laptop
     property bool onBottom: false
-    property QtObject dropdown: QtObject {
-        property bool revealed: false
-        property bool active: owner !== null
-        property var owner: null
-        property int x: 0
-        property int y: 0
-        property int height: 0
-        property int width: 0
-    }
+    property DropdownInfo dropdown: DropdownInfo {}
+
+    // Dropdowns should register themselves here
+    property list<DropdownInfo> dropdowns: []
 
     screen: output
     anchors {

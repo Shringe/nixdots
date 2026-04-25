@@ -20,6 +20,7 @@ Item {
     property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
     property int gracePeriod: 500
     property bool wasLimited: false
+    property DropdownInfo info: DropdownInfo {}
 
     // the source of the menu
     required property var boxParent
@@ -152,7 +153,7 @@ Item {
                     }
 
                     PropertyAction {
-                        target: trunk.dropdown
+                        target: info
                         property: "revealed"
                         value: true
                     }
@@ -185,12 +186,12 @@ Item {
 
                     ScriptAction {
                         script: {
-                            if (trunk.dropdown.owner === root) {
-                                trunk.dropdown.x = 0;
-                                trunk.dropdown.width = 0;
-                                trunk.dropdown.height = 0;
-                                trunk.dropdown.y = 0;
-                                trunk.dropdown.owner = null;
+                            if (info.owner === root) {
+                                info.x = 0;
+                                info.width = 0;
+                                info.height = 0;
+                                info.y = 0;
+                                info.owner = null;
                             }
                         }
                     }
@@ -286,20 +287,20 @@ Item {
         }
 
         onXChanged: {
-            if (root.show && trunk.dropdown.owner === root) {
-                trunk.dropdown.x = dropdown.x + (Config.borders.size * 2);
+            if (root.show && info.owner === root) {
+                info.x = dropdown.x + (Config.borders.size * 2);
             }
         }
 
         onWidthChanged: {
-            if (root.show && trunk.dropdown.owner === root) {
-                trunk.dropdown.width = dropdown.width + (Config.borders.size * 2);
+            if (root.show && info.owner === root) {
+                info.width = dropdown.width + (Config.borders.size * 2);
             }
         }
 
         onHeightChanged: {
-            if (root.show && trunk.dropdown.owner === root) {
-                trunk.dropdown.height = dropdown.height + (Config.borders.size * 2);
+            if (root.show && info.owner === root) {
+                info.height = dropdown.height + (Config.borders.size * 2);
             }
         }
     }
@@ -312,32 +313,34 @@ Item {
         onTriggered: {
             if (!dropdownHover.hovered) {
                 root.show = false;
-                trunk.dropdown.revealed = false;
+                info.revealed = false;
             }
         }
     }
 
     onShowChanged: {
         if (show) {
-            trunk.dropdown.owner = root;
+            info.owner = root;
 
             // Hack to align Dropdowns properly with the DynamicFrame
             if (trunk.laptop) {
-                trunk.dropdown.x = dropdown.x + Config.borders.size * 2 + 1;
-                trunk.dropdown.y = dropdown.y;
-                trunk.dropdown.width = dropdown.width + Config.borders.size;
-                trunk.dropdown.height = dropdown.height + Config.borders.size;
+                info.x = dropdown.x + Config.borders.size * 2 + 1;
+                info.y = dropdown.y;
+                info.width = dropdown.width + Config.borders.size;
+                info.height = dropdown.height + Config.borders.size;
             } else if (root.wasLimited) {
-                trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
-                trunk.dropdown.y = dropdown.y;
-                trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
-                trunk.dropdown.height = dropdown.height + Config.borders.size - 1;
+                info.x = dropdown.x + Config.borders.size * 2;
+                info.y = dropdown.y;
+                info.width = dropdown.width + Config.borders.size * 2;
+                info.height = dropdown.height + Config.borders.size - 1;
             } else {
-                trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
-                trunk.dropdown.y = dropdown.y;
-                trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
-                trunk.dropdown.height = dropdown.height + Config.borders.size;
+                info.x = dropdown.x + Config.borders.size * 2;
+                info.y = dropdown.y;
+                info.width = dropdown.width + Config.borders.size * 2;
+                info.height = dropdown.height + Config.borders.size;
             }
+
+            trunk.dropdown = info;
         }
     }
 }
