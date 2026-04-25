@@ -18,7 +18,7 @@ Singleton {
     readonly property string artist: player?.trackArtist ?? ""
     readonly property bool isPlaying: earlyIsPlayingKnown > 0 ? earlyIsPlaying : player?.isPlaying === true
     readonly property string icon: isPlaying ? "󰐊" : "󰏤"
-    readonly property real volume: isMuted ? mutedVolume : earlyVolumeKnown ? earlyVolume : player?.volume
+    readonly property real volume: isMuted ? mutedVolume : earlyVolumeKnown ? earlyVolume : player?.volume ?? 0.0
 
     property bool earlyIsPlayingKnown: false
     property bool earlyIsPlaying

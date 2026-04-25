@@ -6,15 +6,15 @@ import Quickshell.Services.Pipewire
 
 Singleton {
     readonly property PwNode sink: Pipewire.defaultAudioSink
-    readonly property bool sinkMuted: sink?.audio.muted
-    readonly property real sinkVolume: sink?.audio.volume
+    readonly property bool sinkMuted: sink?.audio.muted ?? true
+    readonly property real sinkVolume: sink?.audio.volume ?? 0.0
     readonly property string sinkIcon: {
         (sinkMuted) ? "󰝟" : (sinkVolume > 0.5) ? "󰕾" : (sinkVolume > 0.01) ? "󰖀" : "󰕿";
     }
 
     readonly property PwNode source: Pipewire.defaultAudioSource
-    readonly property bool sourceMuted: source?.audio.muted
-    readonly property real sourceVolume: source?.audio.volume
+    readonly property bool sourceMuted: source?.audio.muted ?? true
+    readonly property real sourceVolume: source?.audio.volume ?? 0.0
     readonly property string sourceIcon: (sourceMuted) ? "󰍭" : "󰍬"
 
     function toggleMute(node: PwNode) {
