@@ -75,8 +75,9 @@ Item {
         width: contentArea.implicitWidth
         height: contentArea.implicitHeight
 
+        readonly property var mapped: getAbsolutePosition(root.boxParent)
+
         x: {
-            const mapped = getAbsolutePosition(root.boxParent);
             const centered = mapped.x + (root.boxParent.width / 2) - (dropdown.width / 2) + xOffset;
             const screenWidth = getScreenWidth();
             const limited = Math.max(root.minimumDistanceFromScreenEdge, Math.min(centered, screenWidth - dropdown.width - root.minimumDistanceFromScreenEdge));
@@ -85,8 +86,7 @@ Item {
         }
 
         y: {
-            const mapped = getAbsolutePosition(root.boxParent);
-            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset : mapped.y + root.boxParent.height + yOffset + Config.borders.size;
+            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset : mapped.y + root.boxParent.height + yOffset + Config.borders.size + 1;
             return out;
         }
 
@@ -312,20 +312,23 @@ Item {
         if (show) {
             trunk.dropdown.owner = root;
 
-            // Hack to align drodowns on my desktop for some reason
+            // Hack to align Dropdowns properly with the DynamicFrame
             if (trunk.laptop) {
                 trunk.dropdown.x = dropdown.x + Config.borders.size * 2 + 1;
+                trunk.dropdown.y = dropdown.y;
                 trunk.dropdown.width = dropdown.width + Config.borders.size;
+                trunk.dropdown.height = dropdown.height + Config.borders.size;
             } else if (root.wasLimited) {
                 trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
+                trunk.dropdown.y = dropdown.y;
                 trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
+                trunk.dropdown.height = dropdown.height + Config.borders.size - 1;
             } else {
                 trunk.dropdown.x = dropdown.x + Config.borders.size * 2;
+                trunk.dropdown.y = dropdown.y;
                 trunk.dropdown.width = dropdown.width + Config.borders.size * 2;
+                trunk.dropdown.height = dropdown.height + Config.borders.size;
             }
-
-            trunk.dropdown.y = dropdown.y;
-            trunk.dropdown.height = dropdown.height + Config.borders.size;
         }
     }
 }

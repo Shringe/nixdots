@@ -19,6 +19,7 @@ Row {
         id: dropdown
         trunk: root.trunk
         boxParent: root.boxParent
+        yOffset: -1
 
         VolumeOsd {
             id: osd
