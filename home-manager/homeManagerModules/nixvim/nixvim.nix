@@ -10,6 +10,7 @@
     ./extra-plugins
     ./extra.nix
     ./optimizations.nix
+    ./git.nix
   ];
 
   stylix.targets.nixvim.enable = false;

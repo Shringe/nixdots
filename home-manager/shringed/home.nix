@@ -88,29 +88,10 @@ with lib;
 
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  programs = {
-    git = {
-      enable = true;
-
-      settings = {
-        user = {
-          name = "Shringe";
-          email = "dashingkoso@gmail.com";
-        };
-
-        credential.helper = "store";
-        safe.directory = [
-          "/nixdots"
-          "/nixdots/.git"
-        ];
-      };
-    };
-
-    mpv.config = {
-      gpu-api = "vulkan";
-      # High vram usage but low cpu usage
-      # hwdec = "nvdec";
-    };
+  programs.mpv.config = {
+    gpu-api = "vulkan";
+    # High vram usage but low cpu usage
+    # hwdec = "nvdec";
   };
 
   systemd.user.services.set-primary-display = {
@@ -161,7 +142,6 @@ with lib;
     sysbench
     stress
     fzf
-    git
     btop
     nh
     meslo-lgs-nf
