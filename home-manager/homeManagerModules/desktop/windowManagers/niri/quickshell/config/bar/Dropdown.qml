@@ -17,21 +17,19 @@ Item {
     property bool show: false
     property int xOffset: 0
     property int yOffset: 0
+    // How close the dropdown can sit to either screen edge
     property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
+    // How long in ms the mouse can be outside of `region` before we close the dropdown
     property int gracePeriod: 500
+    // Whetehr or not `minimumDistanceFromScreenEdge` mattered
     property bool wasLimited: false
-
-    property DropdownInfo info: DropdownInfo {}
-
+    // Whether the dropdown is requesting to be shown by its parent. This is similar to `show`,
+    // but `revealed` will also be active during the opening and closing animations.
+    property bool revealed: false
+    // The region that the dropdown wants to accept mouse events from
     property Region region: Region {
         item: dropdown
     }
-
-    // property bool info.revealed: false
-    // property int info.x: 0
-    // property int info.y: 0
-    // property int info.height: 0
-    // property int info.width: 0
 
     // the source of the menu
     required property var boxParent
@@ -41,8 +39,6 @@ Item {
 
     Component.onCompleted: {
         dropdown.parent = trunk.barItem;
-        // trunk.dropdown = this;
-        // trunk.dropdowns.push(this);
         trunk.dropdowns = trunk.dropdowns.concat(this);
     }
     Component.onDestruction: trunk.dropdowns = trunk.dropdowns.filter(d => d !== this)
@@ -168,7 +164,7 @@ Item {
                     }
 
                     PropertyAction {
-                        target: root.info
+                        target: root
                         property: "revealed"
                         value: true
                     }
@@ -197,15 +193,6 @@ Item {
                         target: dropdown
                         property: "visible"
                         value: false
-                    }
-
-                    ScriptAction {
-                        script: {
-                            info.x = 0;
-                            info.width = 0;
-                            info.height = 0;
-                            info.y = 0;
-                        }
                     }
                 }
             }
@@ -306,24 +293,6 @@ Item {
                 }
             }
         }
-
-        onXChanged: {
-            if (root.show) {
-                info.x = dropdown.x + (Config.borders.size * 2);
-            }
-        }
-
-        onWidthChanged: {
-            if (root.show) {
-                info.width = dropdown.width + (Config.borders.size * 2);
-            }
-        }
-
-        onHeightChanged: {
-            if (root.show) {
-                info.height = dropdown.height + (Config.borders.size * 2);
-            }
-        }
     }
 
     Timer {
@@ -334,29 +303,7 @@ Item {
         onTriggered: {
             if (!dropdownHover.hovered) {
                 root.show = false;
-                info.revealed = false;
-            }
-        }
-    }
-
-    onShowChanged: {
-        if (show) {
-            // Hack to align Dropdowns properly with the DynamicFrame
-            if (trunk.laptop) {
-                info.x = dropdown.x + Config.borders.size * 2 + 1;
-                info.y = dropdown.y;
-                info.width = dropdown.width + Config.borders.size;
-                info.height = dropdown.height + Config.borders.size;
-            } else if (root.wasLimited) {
-                info.x = dropdown.x + Config.borders.size * 2;
-                info.y = dropdown.y;
-                info.width = dropdown.width + Config.borders.size * 2;
-                info.height = dropdown.height + Config.borders.size - 1;
-            } else {
-                info.x = dropdown.x + Config.borders.size * 2;
-                info.y = dropdown.y;
-                info.width = dropdown.width + Config.borders.size * 2;
-                info.height = dropdown.height + Config.borders.size;
+                revealed = false;
             }
         }
     }

@@ -39,7 +39,7 @@ PanelWindow {
     // Dropdowns should register themselves here
     property var dropdowns: []
     property var revealedDropdowns: {
-        const out = dropdowns.filter(d => d.info.revealed);
+        const out = dropdowns.filter(d => d.revealed);
         regionMask.regions = [barRegion, ...out.map(d => d.region)];
         return out;
     }
