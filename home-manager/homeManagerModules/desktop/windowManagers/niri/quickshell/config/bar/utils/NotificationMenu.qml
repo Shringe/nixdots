@@ -13,12 +13,15 @@ import qs.inner.Shaders as Shaders
 
 Item {
     id: root
-    width: 300
+    width: 350
     height: mainLayout.implicitHeight
     required property PanelWindow trunk
     property int maxHeight: 520
     property bool previewMode: false
+    property bool historyMode: false
     signal closePreview
+
+    property var notifications: root.previewMode ? (Dat.Notifications.latestNotification ? [Dat.Notifications.latestNotification] : []) : root.historyMode ? Dat.Notifications.history : Dat.Notifications.server.trackedNotifications
 
     property Component dndShader: Shaders.TwoColorAnimatedGradient {
         enabled: Dat.Notifications.dndEnabled
@@ -50,12 +53,24 @@ Item {
 
             TextButton {
                 visible: Dat.Notifications.notifCount > 0
-                text: previewMode ? "Dismiss" : "Clear all"
+                text: previewMode ? "Dismiss" : "Clear"
                 onClicked: {
                     if (!previewMode)
                         Dat.Notifications.clearNotifs();
                     // open = false;
                     closePreview();
+                }
+            }
+
+            TextButton {
+                text: "History"
+                onClicked: historyMode = !historyMode
+                label.layer.enabled: true
+                label.layer.effect: Shaders.TwoColorAnimatedGradient {
+                    enabled: historyMode
+                    src: Config.colors.glsl.base0E
+                    dst: Config.colors.glsl.base07
+                    fadeDuration: 300
                 }
             }
 
@@ -77,12 +92,12 @@ Item {
             Layout.row: trunk.onBottom ? 0 : 1
             radius: 6
             color: Config.colors.base01
-            implicitHeight: Dat.Notifications.notifCount === 0 ? 60 : Math.min(notificationList.contentHeight + 24, root.maxHeight)
+            implicitHeight: !root.historyMode && Dat.Notifications.notifCount === 0 ? 60 : Math.min(notificationList.contentHeight + 24, root.maxHeight)
 
             // Empty state
             Column {
                 anchors.centerIn: parent
-                visible: Dat.Notifications.notifCount === 0
+                visible: !historyMode && Dat.Notifications.notifCount === 0
                 spacing: 6
 
                 Stext {
@@ -95,7 +110,7 @@ Item {
                 id: notificationList
                 anchors.fill: parent
                 anchors.margins: 12
-                visible: Dat.Notifications.notifCount > 0
+                visible: Dat.Notifications.notifCount > 0 || root.historyMode
                 clip: true
                 interactive: true
                 spacing: 6
@@ -103,8 +118,9 @@ Item {
                 verticalLayoutDirection: trunk.onBottom ? ListView.BottomToTop : ListView.TopToBottom
                 ScrollBar.vertical: ScrollBar {}
 
-                model: root.previewMode ? (Dat.Notifications.latestNotification ? [Dat.Notifications.latestNotification] : []) : Dat.Notifications.server.trackedNotifications
+                model: notifications
                 delegate: NotificationBubble {
+                    previewMode: root.historyMode
                     onDismissed: {
                         modelData.dismiss();
                         if (previewMode) {

@@ -11,6 +11,9 @@ Singleton {
     property int notifCount: notifServer.trackedNotifications.values.length
     property NotificationServer server: notifServer
     property Notification latestNotification: null
+    property list<var> history: []
+    property int historySize: 20
+
     signal notificationReceived(Notification notification)
 
     function clearNotifs() {
@@ -29,6 +32,15 @@ Singleton {
             n.dismiss();
             return;
         }
+
+        history = [...history,
+            {
+                appName: n.appName,
+                summary: n.summary,
+                body: n.body,
+                dismiss() {}
+            }
+        ].slice(-historySize);
 
         // console.debug(n.appName);
         // console.debug(n.summary);

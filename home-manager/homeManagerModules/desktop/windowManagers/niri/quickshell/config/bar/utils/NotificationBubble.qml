@@ -5,6 +5,7 @@ import "../.."
 
 Rectangle {
     required property var modelData
+    property bool previewMode: false
     signal dismissed
 
     width: ListView.view.width
@@ -49,6 +50,7 @@ Rectangle {
         }
 
         TextButton {
+            visible: !historyMode
             text: "X"
             onClicked: dismissed()
         }
