@@ -109,13 +109,18 @@ PanelWindow {
                     label.layer.effect: Shaders.TwoColorAnimatedGradient {
                         enabled: Dat.Idle.inhibiting
                         src: Config.colors.glsl.base07
-                        // dst: Config.colors.glsl.base0A
                     }
                 }
                 TextButton {
                     text: "Night"
                     verticalPadding: 1
                     onClicked: Dat.NightLight.toggle()
+                    label.layer.enabled: true
+                    label.layer.effect: Shaders.TwoColorAnimatedGradient {
+                        enabled: Dat.NightLight.process.running
+                        src: Config.colors.glsl.base07
+                        fadeDuration: 1200
+                    }
                 }
                 RightSeparator {
                     visible: Dat.Privacy.anyPrivacyActive

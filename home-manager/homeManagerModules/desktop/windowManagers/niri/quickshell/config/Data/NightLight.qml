@@ -1,14 +1,20 @@
 pragma Singleton
+
 import Quickshell
 import Quickshell.Io
 
+import qs
+
 Singleton {
+    property alias process: process
+
     function toggle() {
-        wlsunsetProcess.running = !wlsunsetProcess.running;
+        process.running = !process.running;
     }
 
     Process {
-        id: wlsunsetProcess
-        command: ["gammastep", "-O", "4000"]
+        id: process
+        running: false
+        command: [Config.dependencies.gammastep, "-O", "4000"]
     }
 }

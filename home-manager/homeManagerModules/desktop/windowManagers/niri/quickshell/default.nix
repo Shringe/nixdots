@@ -161,6 +161,7 @@ in
               readonly property string brightnessctl: "${pkgs.brightnessctl}/bin/brightnessctl"
               readonly property string wluma: "${pkgs.wluma}/bin/wluma"
               readonly property string gamemoded: "${pkgs.gamemode}/bin/gamemoded"
+              readonly property string gammastep: "${pkgs.gammastep}/bin/gammastep"
           }
       }
     '';
