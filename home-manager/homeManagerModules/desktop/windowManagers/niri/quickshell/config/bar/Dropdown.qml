@@ -23,6 +23,10 @@ Item {
 
     property DropdownInfo info: DropdownInfo {}
 
+    property Region region: Region {
+        item: dropdown
+    }
+
     // property bool info.revealed: false
     // property int info.x: 0
     // property int info.y: 0
@@ -207,6 +211,7 @@ Item {
             }
         ]
 
+        // Covers the seam between the bar and dropdown
         Rectangle {
             x: -(Config.borders.radius * 2)
             y: trunk.onBottom ? dropdown.height : -2

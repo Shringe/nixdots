@@ -14,19 +14,14 @@ import ".."
 PanelWindow {
     id: root
 
-    // We really should switch the layer whenever a dropdown is getting ready to reveal, to include the animation.
-    // This used to be done by `root.dropdown.active` before the refactor.
-    WlrLayershell.layer: root.dropdown.info.revealed ?? false ? WlrLayer.Overlay : WlrLayer.Top
+    // We switch to Wlr.Overlay when a dropdown is shown so that it will be drawn over any potential fullscreen window
+    WlrLayershell.layer: revealedDropdowns.length > 0 ? WlrLayer.Overlay : WlrLayer.Top
 
     readonly property Rectangle bar: bar
     readonly property Item barItem: barItem
     required property ShellScreen output
     required property bool laptop
     property bool onBottom: false
-    property Dropdown dropdown: dropdowns[0]
-
-    // Dropdowns should register themselves here
-    property var dropdowns: []
 
     screen: output
     anchors {
@@ -41,15 +36,21 @@ PanelWindow {
     // this reserves the space for the bar
     exclusiveZone: bar.visible ? bar.height : 0
 
+    // Dropdowns should register themselves here
+    property var dropdowns: []
+    property var revealedDropdowns: {
+        const out = dropdowns.filter(d => d.info.revealed);
+        regionMask.regions = [barRegion, ...out.map(d => d.region)];
+        return out;
+    }
+
+    Region {
+        id: barRegion
+        item: bar
+    }
+
     mask: Region {
-        regions: [
-            Region {
-                item: bar
-            },
-            Region {
-                item: root.dropdown.revealed && root.dropdown.owner ? root.dropdown.owner.dropdownItem : null
-            }
-        ]
+        id: regionMask
     }
 
     Rectangle {
