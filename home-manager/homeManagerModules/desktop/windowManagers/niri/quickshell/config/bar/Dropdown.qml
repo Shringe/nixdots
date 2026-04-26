@@ -207,6 +207,14 @@ Item {
             }
         ]
 
+        Rectangle {
+            x: -(Config.borders.radius * 2)
+            y: trunk.onBottom ? dropdown.height : -2
+            width: dropdown.width + 1 + Config.borders.radius * 4
+            height: 2
+            color: Config.colors.base00
+        }
+
         Shape {
             id: ramp
             preferredRendererType: Shape.CurveRenderer
@@ -218,28 +226,28 @@ Item {
             }
 
             ShapePath {
-                strokeColor: "transparent"
-                strokeWidth: Config.borders.size > 0 ? Config.borders.size : -1
+                strokeColor: Config.colors.base03
+                strokeWidth: Config.borders.size
                 fillColor: Config.colors.base00
 
                 startX: -(Config.borders.radius * 2)
                 startY: 0
 
                 PathArc {
-                    x: 0
+                    x: -1
                     y: Config.borders.radius * 2
                     radiusX: Config.borders.radius * 2
                     radiusY: Config.borders.radius * 2
                 }
 
                 PathLine {
-                    x: 0
+                    x: -1
                     y: dropdown.height - Config.borders.radius
                 }
 
                 PathArc {
                     x: Config.borders.radius
-                    y: dropdown.height
+                    y: dropdown.height + 1
                     direction: PathArc.Counterclockwise
                     radiusX: Config.borders.radius
                     radiusY: Config.borders.radius
@@ -247,24 +255,24 @@ Item {
 
                 PathLine {
                     x: dropdown.width - Config.borders.radius
-                    y: dropdown.height
+                    y: dropdown.height + 1
                 }
 
                 PathArc {
-                    x: dropdown.width
-                    y: dropdown.height - Config.borders.radius
+                    x: dropdown.width + 1
+                    y: dropdown.height + 1 - Config.borders.radius
                     direction: PathArc.Counterclockwise
                     radiusX: Config.borders.radius
                     radiusY: Config.borders.radius
                 }
 
                 PathLine {
-                    x: dropdown.width
+                    x: dropdown.width + 1
                     y: Config.borders.radius * 2
                 }
 
                 PathArc {
-                    x: dropdown.width + Config.borders.radius * 2
+                    x: dropdown.width + 1 + Config.borders.radius * 2
                     y: 0
                     radiusX: Config.borders.radius * 2
                     radiusY: Config.borders.radius * 2
