@@ -2,10 +2,11 @@
 with lib;
 let
   cfg = config.nixosModules.uptimeKuma;
-in {
+in
+{
   options.nixosModules.uptimeKuma = {
     enable = mkEnableOption "Status monitor";
-    
+
     port = mkOption {
       type = types.port;
       default = 47080;
@@ -36,8 +37,8 @@ in {
     services.uptime-kuma = {
       enable = true;
       settings = {
-        PORT = toString cfg.port; 
-        UPTIME_KUMA_HOST= cfg.ip;
+        PORT = toString cfg.port;
+        UPTIME_KUMA_HOST = cfg.ip;
       };
     };
 
