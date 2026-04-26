@@ -17,6 +17,8 @@ Item {
     property bool show: false
     property int xOffset: 0
     property int yOffset: 0
+    // Whether to sit on the bottom of the screen
+    property bool onBottom: trunk.onBottom
     // How close the dropdown can sit to either screen edge
     property int minimumDistanceFromScreenEdge: Config.borders.radius * 6
     // How long in ms the mouse can be outside of `region` before we close the dropdown
@@ -107,13 +109,22 @@ Item {
         }
 
         y: {
-            const out = trunk.onBottom ? mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset : mapped.y + root.boxParent.height + yOffset + Config.borders.size + 1;
-            return out;
+            const hangFromBar = root.onBottom === trunk.onBottom;
+            const openUpwards = root.onBottom;
+            if (openUpwards && hangFromBar) {
+                return mapped.y - getAbsolutePosition(root).y - dropdown.height + yOffset;
+            } else if (openUpwards) {
+                return mapped.y - getAbsolutePosition(root).y - dropdown.height + trunk.height;
+            } else if (hangFromBar) {
+                return mapped.y + root.boxParent.height + Config.borders.size + 1 + yOffset;
+            } else {
+                return root.boxParent.height + Config.borders.size + 1 - trunk.height;
+            }
         }
 
         opacity: 0
         scale: 0
-        transformOrigin: trunk.onBottom ? Item.Bottom : Item.Top
+        transformOrigin: root.onBottom ? Item.Bottom : Item.Top
 
         states: [
             State {
@@ -201,7 +212,7 @@ Item {
         // Covers the seam between the bar and dropdown
         Rectangle {
             x: -(Config.borders.radius * 2)
-            y: trunk.onBottom ? dropdown.height : -2
+            y: root.onBottom ? dropdown.height : -2
             width: dropdown.width + 1 + Config.borders.radius * 4
             height: 2
             color: Config.colors.base00
@@ -213,7 +224,7 @@ Item {
             anchors.fill: parent
 
             transform: Scale {
-                yScale: trunk.onBottom ? -1 : 1
+                yScale: root.onBottom ? -1 : 1
                 origin.y: ramp.height / 2
             }
 
