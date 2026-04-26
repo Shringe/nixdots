@@ -19,10 +19,20 @@ Singleton {
         });
     }
 
-    function addNotif(n) {
-        console.debug(n.appName);
-        console.debug(n.summary);
-        console.debug(n.body);
+    function shouldIgnore(n: Notification): bool {
+        return n.appName === "KDE Connect" && n.summary === "Home Assistant" && n.body === "Updating sensors";
+    }
+
+    function addNotif(n: Notification): void {
+        if (shouldIgnore(n)) {
+            console.debug("Ignoring notification:", n.summary);
+            n.dismiss();
+            return;
+        }
+
+        // console.debug(n.appName);
+        // console.debug(n.summary);
+        // console.debug(n.body);
 
         n.tracked = true;
         notif.latestNotification = n;
