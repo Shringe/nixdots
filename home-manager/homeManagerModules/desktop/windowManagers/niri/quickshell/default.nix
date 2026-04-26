@@ -162,6 +162,7 @@ in
               readonly property string wluma: "${pkgs.wluma}/bin/wluma"
               readonly property string gamemoded: "${pkgs.gamemode}/bin/gamemoded"
               readonly property string gammastep: "${pkgs.gammastep}/bin/gammastep"
+              readonly property string systemdInhibit: "${pkgs.systemd}/bin/systemd-inhibit"
           }
       }
     '';

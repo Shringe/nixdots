@@ -108,7 +108,8 @@ PanelWindow {
                     label.layer.enabled: true
                     label.layer.effect: Shaders.TwoColorAnimatedGradient {
                         enabled: Dat.Idle.inhibiting
-                        src: Config.colors.glsl.base07
+                        src: Config.colors.glsl.base0E
+                        dst: Config.colors.glsl.base07
                     }
                 }
                 TextButton {
@@ -118,7 +119,8 @@ PanelWindow {
                     label.layer.enabled: true
                     label.layer.effect: Shaders.TwoColorAnimatedGradient {
                         enabled: Dat.NightLight.process.running
-                        src: Config.colors.glsl.base07
+                        src: Config.colors.glsl.base0E
+                        dst: Config.colors.glsl.base07
                         fadeDuration: 1200
                     }
                 }

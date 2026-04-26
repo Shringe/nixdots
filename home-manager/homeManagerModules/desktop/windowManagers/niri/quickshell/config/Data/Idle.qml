@@ -3,6 +3,8 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 
+import qs
+
 Singleton {
     property bool inhibiting: false
 
@@ -18,6 +20,6 @@ Singleton {
 
     Process {
         running: inhibiting
-        command: ["systemd-inhibit", "--what=idle", "--who=quickshell", "sleep", "infinity"]
+        command: [Config.dependencies.systemdInhibit, "--what=idle", "--who=quickshell", "sleep", "infinity"]
     }
 }
