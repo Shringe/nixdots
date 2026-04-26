@@ -3,10 +3,13 @@ import Quickshell
 import Quickshell.Widgets
 import QtQuick.Layouts
 import QtQuick.Controls
+
 import "../../.."
 import "../.."
 import "../utils"
 import "../../Data" as Dat
+
+import qs.inner.Shaders as Shaders
 
 Item {
     id: root
@@ -16,6 +19,13 @@ Item {
     property int maxHeight: 520
     property bool previewMode: false
     signal closePreview
+
+    property Component dndShader: Shaders.TwoColorAnimatedGradient {
+        enabled: Dat.Notifications.dndEnabled
+        src: Config.colors.glsl.base0E
+        dst: Config.colors.glsl.base07
+        fadeDuration: 300
+    }
 
     GridLayout {
         id: mainLayout
@@ -47,6 +57,13 @@ Item {
                     // open = false;
                     closePreview();
                 }
+            }
+
+            TextButton {
+                text: "DND"
+                onClicked: Dat.Notifications.dndEnabled = !Dat.Notifications.dndEnabled
+                label.layer.enabled: true
+                label.layer.effect: dndShader
             }
 
             Spacer {

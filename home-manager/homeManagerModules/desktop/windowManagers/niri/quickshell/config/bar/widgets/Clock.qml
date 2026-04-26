@@ -22,6 +22,8 @@ StyledDropdown {
             icon: ""
             lpad: 5
             rpad: 8
+            label.layer.enabled: true
+            label.layer.effect: menu.dndShader
         }
 
         Stext {
@@ -46,6 +48,7 @@ StyledDropdown {
     }
 
     dropdownContent: NotificationMenu {
+        id: menu
         trunk: root.trunk
     }
 
