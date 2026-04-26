@@ -76,15 +76,17 @@ Item {
     }
 
     function getAbsolutePosition(node) {
-        let returnPos = {};
-        returnPos.x = 0;
-        returnPos.y = 0;
-        if (node !== undefined && node !== null) {
-            const parentValue = getAbsolutePosition(node.parent);
-            returnPos.x = parentValue.x + node.x;
-            returnPos.y = parentValue.y + node.y;
+        let x = 0;
+        let y = 0;
+        while (node !== undefined && node !== null) {
+            x += node.x;
+            y += node.y;
+            node = node.parent;
         }
-        return returnPos;
+        return {
+            x,
+            y
+        };
     }
 
     function getScreenWidth() {
