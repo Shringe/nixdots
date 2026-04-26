@@ -120,8 +120,9 @@ Row {
             TextIcon {
                 icon: Dat.Pipewire.sourceIcon
                 lpad: 4
-                label.layer.enabled: Dat.Privacy.microphoneActive
+                label.layer.enabled: true
                 label.layer.effect: Shaders.TwoColorAnimatedGradient {
+                    enabled: Dat.Privacy.microphoneActive
                     src: Config.colors.glsl.base0A
                     dst: Config.colors.glsl.base08
                 }

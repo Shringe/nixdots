@@ -21,6 +21,8 @@ ShaderEffect {
     property vector3d src: Config.colors.glsl.base05
     // The secondary color of the gradient
     property vector3d dst: Config.colors.glsl.base04
+    // The amount of time in ms to play the fade animation
+    property int fadeDuration: 600
 
     fragmentShader: Quickshell.shellDir + "/inner/Shaders/bin/TwoColorAnimatedGradient.frag.qsb"
 
@@ -34,7 +36,7 @@ ShaderEffect {
         id: progressAnim
         from: 0.0
         to: 1.0
-        duration: 600
+        duration: fadeDuration
         easing.type: Easing.OutCubic
     }
 }
