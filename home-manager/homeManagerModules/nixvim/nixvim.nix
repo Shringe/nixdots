@@ -55,6 +55,15 @@
       # }
     ];
 
+    files."ftplugin/slint.lua" = {
+      localOpts = {
+        expandtab = true;
+        shiftwidth = 4;
+        tabstop = 4;
+        softtabstop = 4;
+      };
+    };
+
     files."ftplugin/qml.lua" = {
       localOpts = {
         expandtab = true;
