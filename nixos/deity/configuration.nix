@@ -67,7 +67,7 @@
     server.enable = true;
 
     # TODO: wait for binary cache
-    server.services.paperless.enable = false;
+    server.services.paperless.enable = true;
 
     kavita.enable = true;
 
