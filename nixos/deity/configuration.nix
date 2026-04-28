@@ -4,9 +4,7 @@
 
 {
   config,
-  lib,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -223,6 +221,15 @@
     enable = true;
     enableSSHSupport = false;
   };
+
+  # services.nginx.virtualHosts."yukes.${config.nixosModules.reverseProxy.pDomain}" = {
+  #   onlySSL = true;
+  #   useACMEHost = "${config.nixosModules.reverseProxy.pDomain}";
+  #
+  #   locations."/" = {
+  #     proxyPass = "http://127.0.0.1:3000";
+  #   };
+  # };
 
   programs.coolercontrol.enable = true;
 
