@@ -17,21 +17,21 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."gammastep" = { };
+
     systemd.user.services.gammastep = {
       Unit = {
-        Description = "Starts gammastep for blue light filter.";
         PartOf = [ config.wayland.systemd.target ];
         After = [ config.wayland.systemd.target ];
         ConditionEnvironment = "WAYLAND_DISPLAY";
       };
 
       Service = {
-        ExecStart = "${pkgs.gammastep}/bin/gammastep -O 3600";
-        ExecPost = "${pkgs.gammastep}/bin/gammastep -x";
+        ExecStart = "${pkgs.gammastep}/bin/gammastep -c ${config.sops.secrets."gammastep".path}";
         Restart = "on-failure";
       };
 
-      # Install.WantedBy = [ config.wayland.systemd.target ];
+      Install.WantedBy = [ config.wayland.systemd.target ];
     };
   };
 }
