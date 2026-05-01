@@ -78,7 +78,8 @@ in
   options.homeManagerModules.desktop.browsers.firefox = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.browsers.enable;
+      # default = config.homeManagerModules.desktop.browsers.enable;
+      default = false;
     };
 
     search = mkOption {
