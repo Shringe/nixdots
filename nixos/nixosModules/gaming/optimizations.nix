@@ -26,6 +26,19 @@ in
       default = true;
       description = "Disables extra optimizations that that may result in increased power consumption.";
     };
+
+    native = {
+      architecture = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "If this is set, compile some packages with native optimizations targeting the set architecture.";
+      };
+
+      isAmd = mkOption {
+        type = types.bool;
+        default = false;
+      };
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -42,6 +55,39 @@ in
 
       boot.kernelParams = [
         "usbcore.autosuspend=60"
+      ];
+    })
+
+    (mkIf (cfg.native.architecture != null) {
+      nixpkgs.overlays = [
+        (self: super: {
+          xanmod = super.linuxKernel.packagesFor (
+            super.linux_xanmod_latest.override {
+              stdenv = super.stdenvAdapters.addAttrsToDerivation {
+                env.KCPPFLAGS = "-march=${cfg.native.architecture} -mtune=${cfg.native.architecture} -O3";
+                env.KCFLAGS = "-march=${cfg.native.architecture} -mtune=${cfg.native.architecture} -O3";
+                # TODO: Uncomment next time I update or rebuild the kernel
+                # env.KRUSTFLAGS = "-C target-cpu=${cfg.native.architecture} -C opt-level=3";
+              } super.stdenv;
+
+              structuredExtraConfig = with super.lib.kernel; {
+                PROCESSOR_SELECT = yes;
+                MNATIVE_AMD = mkIf cfg.native.isAmd yes;
+                MNATIVE_INTEL = mkIf (!cfg.native.isAmd) yes;
+              };
+
+              ignoreConfigErrors = false;
+            }
+          );
+        })
+      ];
+    })
+
+    (mkIf (cfg.native.architecture == null) {
+      nixpkgs.overlays = [
+        (self: super: {
+          xanmod = super.linuxPackages_xanmod_latest;
+        })
       ];
     })
 
@@ -64,7 +110,8 @@ in
         tmp.useTmpfs = true;
 
         # kernelPackages = pkgs.linuxPackages_zen;
-        kernelPackages = pkgs.linuxPackages_xanmod_latest;
+        # kernelPackages = pkgs.xanmod;
+        kernelPackages = pkgs.xanmod;
 
         kernelParams = [
           "nowatchdog"
