@@ -145,10 +145,6 @@
 
       optimizations.enable = true;
       optimizations.conservePower = false;
-      optimizations.native = {
-        architecture = "znver5";
-        isAmd = true;
-      };
       tooling.enable = true;
       steam.enable = true;
       games.enable = true;

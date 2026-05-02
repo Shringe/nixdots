@@ -130,93 +130,131 @@
       # Possible options: "cpp" "lix" "detsys"
       nixDistribution = "detsys";
 
-      overlays = [
-        inputs.nur.overlays.default
-        inputs.dwl.overlays.default
-        inputs.whalecrab.overlay
-        inputs.nix-minecraft.overlay
+      mkOverlays =
+        arch: isAmd:
+        [
+          inputs.nur.overlays.default
+          inputs.dwl.overlays.default
+          inputs.whalecrab.overlay
+          inputs.nix-minecraft.overlay
 
-        # Large overlay sets
-        (self: super: {
-          old = import nixpkgs-old {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          # Large overlay sets
+          (self: super: {
+            old = import nixpkgs-old {
+              inherit system;
+              config.allowUnfree = true;
+            };
 
-          unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        })
+            unstable = import nixpkgs-unstable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          })
 
-        # Customized builds
-        (self: super: {
-          nf = inputs.nf.packages.${system}.default;
-          swayosd_main_monitor = inputs.swayosd_main_monitor.packages.${system}.default;
-          wait-online = inputs.wait-online.packages.${system}.default;
-          torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
-            env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=native -mtune=native";
-          });
+          # Customized builds
+          (self: super: {
+            nf = inputs.nf.packages.${system}.default;
+            swayosd_main_monitor = inputs.swayosd_main_monitor.packages.${system}.default;
+            wait-online = inputs.wait-online.packages.${system}.default;
+            torzu = inputs.liberodark.packages.${system}.torzu.overrideAttrs (old: {
+              env.NIX_CFLAGS_COMPILE = "${old.env.NIX_CFLAGS_COMPILE} -Ofast -march=native -mtune=native";
+            });
 
-          searxng = self.unstable.searxng;
+            searxng = self.unstable.searxng;
 
-          niri = inputs.niri.packages.${system}.niri;
+            niri = inputs.niri.packages.${system}.niri;
 
-          # mpv = super.mpv.override {
-          #   scripts = with self.mpvScripts; [
-          #     mpris
-          #     dynamic-crop
-          #     thumbfast
-          #     quack
-          #   ];
-          # };
-        })
+            # mpv = super.mpv.override {
+            #   scripts = with self.mpvScripts; [
+            #     mpris
+            #     dynamic-crop
+            #     thumbfast
+            #     quack
+            #   ];
+            # };
+          })
 
-        # Waiting for binary cache
-        (self: super: {
-          # collabora-online = self.old.collabora-online;
-        })
+          # Waiting for binary cache
+          (self: super: {
+            # collabora-online = self.old.collabora-online;
+          })
 
-        # Backporting packages from unstable into stable
-        (self: super: {
-          hyprlax = self.unstable.hyprlax;
-        })
+          # Backporting packages from unstable into stable
+          (self: super: {
+            hyprlax = self.unstable.hyprlax;
+          })
 
-        # # Frequently slow or unreliable builds
-        # (self: super: {
-        #   opencv = self.stable.opencv;
-        #   jellyfin-media-player = self.stable.jellyfin-media-player;
-        #   jellyfin-tui = self.stable.jellyfin-tui;
-        #   jellyfin = self.stable.jellyfin;
-        #   homepage-dashboard = self.stable.homepage-dashboard;
-        #   lutris = self.stable.lutris;
-        # })
+          # # Frequently slow or unreliable builds
+          # (self: super: {
+          #   opencv = self.stable.opencv;
+          #   jellyfin-media-player = self.stable.jellyfin-media-player;
+          #   jellyfin-tui = self.stable.jellyfin-tui;
+          #   jellyfin = self.stable.jellyfin;
+          #   homepage-dashboard = self.stable.homepage-dashboard;
+          #   lutris = self.stable.lutris;
+          # })
 
-        # Broken builds
-        (self: super: {
-          # TODO, retry these in stable
-          # jellyfin = self.old.jellyfin;
-          # jellyfin-media-player = self.old.jellyfin-media-player;
-          # immich-machine-learning = self.old.immich-machine-learning;
-          # universal-android-debloater = self.old.universal-android-debloater;
-          # searxng = self.old.searxng;
-        })
-      ]
-      ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
-        # Use lix for supported tools
-        (self: super: {
-          inherit (super.lixPackageSets.stable)
-            nixpkgs-review
-            nix-eval-jobs
-            nix-fast-build
-            colmena
-            ;
-        })
-      ];
+          # Broken builds
+          (self: super: {
+            # TODO, retry these in stable
+            # jellyfin = self.old.jellyfin;
+            # jellyfin-media-player = self.old.jellyfin-media-player;
+            # immich-machine-learning = self.old.immich-machine-learning;
+            # universal-android-debloater = self.old.universal-android-debloater;
+            # searxng = self.old.searxng;
+          })
+        ]
+        ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
+          # Use lix for supported tools
+          (self: super: {
+            inherit (super.lixPackageSets.stable)
+              nixpkgs-review
+              nix-eval-jobs
+              nix-fast-build
+              colmena
+              ;
+          })
+        ]
+        ++ nixpkgs.lib.optionals (arch != null) (
+          let
+            optimize = old: {
+              NIX_CFLAGS_COMPILE = "${old.NIX_CFLAGS_COMPILE or ""} -march=${arch} -mtune=${arch} -O3";
+              NIX_ENFORCE_NO_NATIVE = false;
+              preferLocalBuild = true;
+              allowSubstitutes = false;
+            };
+          in
+          [
 
-      pkgs = import nixpkgs pkgConfig;
-      pkgConfig = {
-        inherit system overlays;
+            (self: super: {
+              linuxPackages_xanmod_latest = super.linuxKernel.packagesFor (
+                super.linux_xanmod_latest.override {
+                  stdenv = super.stdenvAdapters.addAttrsToDerivation {
+                    env.KCPPFLAGS = "-march=${arch} -mtune=${arch} -O3";
+                    env.KCFLAGS = "-march=${arch} -mtune=${arch} -O3";
+                    # TODO: Uncomment next time I update or rebuild the kernel
+                    # env.KRUSTFLAGS = "-C target-cpu=${cfg.native.architecture} -C opt-level=3";
+                  } super.stdenv;
+
+                  structuredExtraConfig = with super.lib.kernel; {
+                    PROCESSOR_SELECT = yes;
+                    MNATIVE_AMD = mkIf isAmd yes;
+                    MNATIVE_INTEL = mkIf (!isAmd) yes;
+                  };
+
+                  ignoreConfigErrors = false;
+                }
+              );
+
+              ghostty = super.ghostty;
+            })
+          ]
+        );
+
+      mkPkgs = arch: isAmd: import nixpkgs (mkPkgConfig arch isAmd);
+      mkPkgConfig = arch: isAmd: {
+        inherit system;
+        overlays = mkOverlays arch isAmd;
         config = {
           allowUnfree = true;
           permittedInsecurePackages = [
@@ -227,63 +265,65 @@
         };
       };
 
-      nixSettings = [
-        {
-          nixpkgs = pkgConfig;
-          nix.settings = {
-            experimental-features = [
-              "nix-command"
-              "flakes"
-            ];
+      mkNixSettings =
+        arch: isAmd:
+        [
+          {
+            nixpkgs = mkPkgConfig arch isAmd;
+            nix.settings = {
+              experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
 
-            # http-connections = 128;
-            # max-substitution-jobs = 128;
+              # http-connections = 128;
+              # max-substitution-jobs = 128;
 
-            substituters = [
-              "https://devenv.cachix.org"
-              "https://nix-community.cachix.org"
-              "https://hyprland.cachix.org"
-              "https://nix-gaming.cachix.org"
-              "https://walker.cachix.org"
-              "https://walker-git.cachix.org"
-              "https://cache.nixos-cuda.org"
-            ];
+              substituters = [
+                "https://devenv.cachix.org"
+                "https://nix-community.cachix.org"
+                "https://hyprland.cachix.org"
+                "https://nix-gaming.cachix.org"
+                "https://walker.cachix.org"
+                "https://walker-git.cachix.org"
+                "https://cache.nixos-cuda.org"
+              ];
 
-            trusted-public-keys = [
-              "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-              "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
-              "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
-              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-              "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-              "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-              "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-            ];
-          };
-        }
-      ]
-      ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
-        # Binary cache provided here
-        # https://docs.determinate.systems/guides/advanced-installation#nixos
-        inputs.determinate.nixosModules.default
-        {
-          nix.settings = {
-            substituters = [
-              "https://install.determinate.systems"
-            ];
-            trusted-public-keys = [
-              "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
-            ];
-          };
-        }
-      ]
-      ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
-        {
-          nix.package = pkgs.lixPackageSets.stable.lix;
-        }
-      ];
+              trusted-public-keys = [
+                "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+                "walker.cachix.org-1:fG8q+uAaMqhsMxWjwvk0IMb4mFPFLqHjuvfwQxE4oJM="
+                "walker-git.cachix.org-1:vmC0ocfPWh0S/vRAQGtChuiZBTAe4wiKDeyyXM0/7pM="
+                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+                "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+                "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+              ];
+            };
+          }
+        ]
+        ++ nixpkgs.lib.optionals (nixDistribution == "detsys") [
+          # Binary cache provided here
+          # https://docs.determinate.systems/guides/advanced-installation#nixos
+          inputs.determinate.nixosModules.default
+          {
+            nix.settings = {
+              substituters = [
+                "https://install.determinate.systems"
+              ];
+              trusted-public-keys = [
+                "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+              ];
+            };
+          }
+        ]
+        ++ nixpkgs.lib.optionals (nixDistribution == "lix") [
+          {
+            nix.package = (mkPkgs arch isAmd).lixPackageSets.stable.lix;
+          }
+        ];
 
       mkNixos =
-        name:
+        name: arch: isAmd:
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
           modules = [
@@ -296,13 +336,13 @@
               networking.hostName = name;
             }
           ]
-          ++ nixSettings;
+          ++ mkNixSettings arch isAmd;
         };
 
       mkHome =
-        name:
+        name: arch: isAmd:
         inputs.home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = mkPkgs arch isAmd;
           extraSpecialArgs = { inherit inputs; };
           modules = [
             ./home-manager/${name}/home.nix
@@ -321,69 +361,73 @@
     in
     {
       nixosConfigurations = {
-        deity = mkNixos "deity";
-        luminum = mkNixos "luminum";
+        deity = mkNixos "deity" "znver5" true;
+        luminum = mkNixos "luminum" null false;
         thelastbishop = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
             ./nixos/thelastbishop/configuration.nix
           ]
-          ++ nixSettings;
+          ++ mkNixSettings null false;
         };
       };
 
       homeConfigurations = {
-        shringe = mkHome "shringe";
-        shringed = mkHome "shringed";
+        shringed = mkHome "shringed" "znver5" true;
+        shringe = mkHome "shringe" null false;
       };
 
-      devShells.${system} = rec {
-        old = import ./devshell.nix { inherit pkgs; };
-        bootstrap = pkgs.mkShell {
-          packages = with pkgs; [
-            bash
-            nushell
-            zellij
-            btop
-            htop
-            acpi
+      devShells.${system} =
+        let
+          pkgs = mkPkgs null false;
+        in
+        rec {
+          old = import ./devshell.nix { inherit pkgs; };
+          bootstrap = pkgs.mkShell {
+            packages = with pkgs; [
+              bash
+              nushell
+              zellij
+              btop
+              htop
+              acpi
 
-            compose2nix
+              compose2nix
 
-            git
-            vim
-            yazi
-            kanata
+              git
+              vim
+              yazi
+              kanata
 
-            xorg.xev
-            wev
+              xorg.xev
+              wev
 
-            gparted
-            parted
+              gparted
+              parted
 
-            disko
-            util-linux
-            cryptsetup
-            btrfs-progs
+              disko
+              util-linux
+              cryptsetup
+              btrfs-progs
 
-            age
-            ssh-to-age
-            sops
-          ];
+              age
+              ssh-to-age
+              sops
+            ];
+          };
+
+          qml = pkgs.mkShell {
+            packages = with pkgs; [
+              inputs.qml-niri.packages.${system}.quickshell
+              inputs.qml-niri.packages.${system}.qml-niri
+              cava
+              gammastep
+              mpvpaper
+              swww
+            ];
+          };
+
+          default = bootstrap;
         };
-
-        qml = pkgs.mkShell {
-          packages = with pkgs; [
-            inputs.qml-niri.packages.${system}.quickshell
-            inputs.qml-niri.packages.${system}.qml-niri
-            cava
-            gammastep
-            mpvpaper
-            swww
-          ];
-        };
-
-        default = bootstrap;
-      };
     };
 }
