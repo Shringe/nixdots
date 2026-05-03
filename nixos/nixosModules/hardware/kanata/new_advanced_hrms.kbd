@@ -10,6 +10,7 @@
   caps      a    s    d    f    g    h    j    k    l    ;    '         ret
   lsft      z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc                 ralt rmet rctl
+  mmid mfwd mbck
 )
 
 ;; New advanced addons from https://github.com/jtroo/kanata/discussions/1656
@@ -99,6 +100,7 @@
   @wesclock  @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    '    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    ret
   @wnumpad   x          c          d          v          z    /    k    h          ,          .          @wfmkeys
   _    _     @wsym                            @wextendspc                     @wsym      _          _   
+  _ _ _
 )
 
 ;; Defaults
@@ -162,7 +164,7 @@
 )
 
 (deflayermap (layouts)
-  1 (layer-switch qwerty)
+  1 (tap-dance 300 ((layer-switch qwerty) (layer-switch qwerty_bloons)))
   2 (layer-switch colemak)
   3 (layer-switch gallium)
   4 (layer-switch colemak_dh)
@@ -217,6 +219,7 @@
   @wexit prev volu vold next _    _    f11  f4   f5   f6   _    _     
   _      _    mute pp   _    _    _    f10  f1   f2   f3   _     
   _    _    _            _          _    _    _    
+  _ _ _
 )
 
 (deflayer function_media
@@ -225,6 +228,7 @@
   _    prev volu vold next _    _    f4   f5   f6   f11  _    _     
   _    _    mute pp   _    _    _    f7   f8   f9   f12  _     
   _    _    _            _          _    _    _    
+  _ _ _
 )
 
 ;; (deflayer function_media
@@ -241,6 +245,7 @@
   @wexit _   kp+ kp* _ _ _ ]   4 5 6 0 ret
   _      kp- kp/ _   _ _ _ S-- 1 2 3 _
   _ _ _         _                _ _ _
+  _ _ _
 )
 
 (deflayer numpad
@@ -251,6 +256,7 @@
   _ kp- kp/ _   _ _ _ 1 2 3 . _
   _ _ _         _                _ _ _
   ;; _ _ _        @spcfm        _ _ _
+  _ _ _
 )
 
 
@@ -264,6 +270,7 @@
   _  [   ]   S-9 S-0 '   -   S-; S-5 S-1 ;   _ _
   _  S-[ S-] S-8 `   S-' S-6 S-- \   S-\ /   _
   _  _  _        _         _  _  _
+  _ _ _
 )
 
 
@@ -276,6 +283,7 @@
   @wexit S-- S-9 S-0 S-' -     _   S-/ S-6 S-; ;   S-4 _
   _      [   ]   '   S-` S-5   S-\ S-2 S-1 \   /   _
   _  _  _        _         _  _  _
+  _ _ _
 )
 
 ;; @{}~?  +<=>#
@@ -291,6 +299,7 @@
   _  S-- S-9 S-0 S-' -     S-/ S-4 S-, S-. S-6 _ _
   _  [   ]   '   S-`   S-5   S-2 S-1 \   S-\ /   _
   _  _  _        _         _  _  _
+  _ _ _
 )
 
 
@@ -308,6 +317,7 @@
   @extendesc @hrmlaa    @hrmlmr    @hrmlss    @hrmlct    g    m    @hrmrcn    @hrmrse    @hrmrmi    @hrmrao    '    ret
   @numpad    x          c          d          v          z    k    h          ,          .          /          @fmkeys
   _    _     @sym                             @extendspc                      @sym       _          _   
+  _ _ _
 )
 
 (deflayer colemak_dh
@@ -316,6 +326,7 @@
   @extendesc a    r    s    t    g    m    n    e    i    o    '    ret
   lsft       x    c    d    v    z    k    h    ,    .    /    rsft
   lctl lmet  lalt           spc                 ralt rmet rctl
+  _ _ _
 )
 
 (deflayer colemak
@@ -324,6 +335,7 @@
   esc        a    r    s    t    d    h    n    e    i    o    '    ret
   lsft       z    x    c    v    b    k    m    ,    .    /    rsft
   lctl lmet  lalt           @extendspc          ralt rmet rctl
+  _ _ _
 )
 
 (deflayer qwerty
@@ -332,6 +344,16 @@
   caps       a    s    d    f    g    h    j    k    l    ;    '         ret
   lsft       z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet  lalt           spc                 ralt rmet rctl
+  _ _ _
+)
+
+(deflayer qwerty_bloons
+  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps       a    s    d    f    g    h    j    k    l    ;    '         ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet  lalt           spc                 ralt rmet rctl
+  / , .
 )
 
 (deflayer qwerty_wide
@@ -340,6 +362,7 @@
   caps       a    s    d    f    g    '    h    j    k    l    ;         ret
   lsft       z    x    c    v    b    /    n    m    ,    .    rsft
   lctl lmet  lalt           spc                 ralt rmet rctl
+  _ _ _
 )
 
 (deflayer gallium
@@ -348,6 +371,7 @@
   esc        n    r    t    s    v    y    h    a    e    i    /         ret
   lsft       q    m    w    g    x    k    p    '    ;    .    rsft
   lctl lmet  lalt           @extendspc          ralt rmet rctl
+  _ _ _
 )
 
 ;; (deflayer gaming
@@ -364,6 +388,7 @@
   esc        '    a    s    d    f    g      h    j    k    l    ;         ret
   lsft       /    z    x    c    v    @fkeys n    m    ,    .    rsft
   lctl lmet  lalt           spc                 ralt rmet rctl
+  _ _ _
 )
 
 (deflayer extend_wide
@@ -372,4 +397,5 @@
   @wexit lalt lmet lsft lctl  _    _    _    left  down  up    right  _     
   _      @cws tab  C-tab _    _    _    _    bspc  del   _     _      
   _    _    _            _          _    _    _    
+  _ _ _
 )
