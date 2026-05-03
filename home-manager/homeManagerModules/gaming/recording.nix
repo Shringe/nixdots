@@ -125,6 +125,7 @@ in
       home.file =
         let
           varPath = config.homeManagerModules.desktop.windowManagers.niri.varPath;
+          quickshell = "${config.homeManagerModules.desktop.windowManagers.niri.quickshell.package}/bin/quickshell";
         in
         {
           # ".local/bin/clip-manager".source = clip-manager;
@@ -134,10 +135,12 @@ in
             ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
             ${pkgs.coreutils}/bin/ln -sfn ${varPath}/gamemode_enabled.kdl ${varPath}/gamemode_current.kdl
             # ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
+            ${quickshell} -p ${config.xdg.configHome}/quickshell ipc --any-display call session set_gamemode true
           '';
           ".local/bin/gamemode_end.sh".source = pkgs.writers.writeDash "gamemode_end" ''
             ${pkgs.coreutils}/bin/ln -sfn ${varPath}/gamemode_disabled.kdl ${varPath}/gamemode_current.kdl
             # ${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block
+            ${quickshell} -p ${config.xdg.configHome}/quickshell ipc --any-display call session set_gamemode false
           '';
         };
     })

@@ -75,28 +75,12 @@ Singleton {
         running: true
     }
 
-    Process {
-        id: gamemodeProcess
-        command: [Config.dependencies.gamemoded, "-s"]
+    IpcHandler {
+        target: "session"
 
-        stdout: StdioCollector {
-            onStreamFinished: {
-                if (gamemode && this.text === "gamemode is inactive\n") {
-                    console.debug("Gamemode disabled");
-                    gamemode = false;
-                } else if (!gamemode && this.text === "gamemode is active\n") {
-                    console.debug("Gamemode enabled");
-                    gamemode = true;
-                }
-            }
+        function set_gamemode(enabled: bool): void {
+            gamemode = enabled;
+            console.debug("Set gamemode to:", gamemode);
         }
-    }
-
-    Timer {
-        interval: 10000
-        running: true
-        repeat: true
-        triggeredOnStart: true
-        onTriggered: gamemodeProcess.running = true
     }
 }
