@@ -34,6 +34,11 @@ in
         default = cfg.monitors.primary;
       };
     };
+
+    varPath = lib.mkOption {
+      type = lib.types.externalPath;
+      default = "${config.xdg.configHome}/niri/var";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -68,6 +73,22 @@ in
     home.packages = with pkgs; [
       xwayland-satellite
     ];
+
+    home.activation.initVar = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -f "${config.xdg.configHome}/niri/var/current.kdl" ]; then
+        echo "Creating default var link: ${cfg.varPath}"
+        ln -sfn "${cfg.varPath}/gamemode_disabled.kdl" "${cfg.varPath}/gamemode_current.kdl"
+      fi
+    '';
+
+    xdg.configFile."niri/var/gamemode_enabled.kdl".text = "";
+
+    xdg.configFile."niri/var/gamemode_disabled.kdl".text = ''
+      cursor {
+        hide-when-typing true
+        hide-after-inactive-ms 5000
+      }
+    '';
 
     xdg.configFile."niri/config.kdl".source =
       config.lib.file.mkOutOfStoreSymlink "/nixdots/home-manager/homeManagerModules/desktop/windowManagers/niri/config.kdl";

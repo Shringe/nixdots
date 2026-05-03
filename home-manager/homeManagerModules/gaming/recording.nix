@@ -122,17 +122,24 @@ in
     })
 
     (mkIf (!cfg.enable) {
-      home.file = {
-        # ".local/bin/clip-manager".source = clip-manager;
-        ".local/bin/gamemode_start.sh".source = pkgs.writers.writeDash "gamemode_start" ''
-          ${pkgs.util-linux}/bin/renice --priority -15 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire)
-          ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire-pulse)
-          ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
-          # ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
-        '';
-        # ".local/bin/gamemode_end.sh".source =
-        #   pkgs.writers.writeDash "gamemode_end" "${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block";
-      };
+      home.file =
+        let
+          varPath = config.homeManagerModules.desktop.windowManagers.niri.varPath;
+        in
+        {
+          # ".local/bin/clip-manager".source = clip-manager;
+          ".local/bin/gamemode_start.sh".source = pkgs.writers.writeDash "gamemode_start" ''
+            ${pkgs.util-linux}/bin/renice --priority -15 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire)
+            ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact pipewire-pulse)
+            ${pkgs.util-linux}/bin/renice --priority -11 --pid $(${pkgs.procps}/bin/pgrep --exact wireplumber)
+            ${pkgs.coreutils}/bin/ln -sfn ${varPath}/gamemode_enabled.kdl ${varPath}/gamemode_current.kdl
+            # ${pkgs.systemd}/bin/systemctl --user start clip-manager --no-block
+          '';
+          ".local/bin/gamemode_end.sh".source = pkgs.writers.writeDash "gamemode_end" ''
+            ${pkgs.coreutils}/bin/ln -sfn ${varPath}/gamemode_disabled.kdl ${varPath}/gamemode_current.kdl
+            # ${pkgs.systemd}/bin/systemctl --user stop clip-manager --no-block
+          '';
+        };
     })
   ];
 }

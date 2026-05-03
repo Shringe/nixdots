@@ -1,10 +1,9 @@
 include "immutable.kdl"
+include "var/gamemode_current.kdl"
 
 prefer-no-csd
 
 cursor {
-  hide-when-typing
-  hide-after-inactive-ms 5000
 }
 
 hotkey-overlay {
