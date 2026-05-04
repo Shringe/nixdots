@@ -163,6 +163,8 @@
             searxng = self.unstable.searxng;
 
             niri = inputs.niri.packages.${system}.niri;
+            quickshell = inputs.qml-niri.packages.${system}.quickshell;
+            qml-niri = inputs.qml-niri.packages.${system}.qml-niri;
 
             # mpv = super.mpv.override {
             #   scripts = with self.mpvScripts; [
@@ -217,8 +219,13 @@
         ]
         ++ nixpkgs.lib.optionals (arch != null) (
           let
+            gccFlags = "-march=${arch} -mtune=${arch} -O3";
+            rustcFlags = "-C target-cpu=${arch}";
+
             optimize = old: {
-              NIX_CFLAGS_COMPILE = "${old.NIX_CFLAGS_COMPILE or ""} -march=${arch} -mtune=${arch} -O3";
+              NIX_CFLAGS_COMPILE = "${old.NIX_CFLAGS_COMPILE or ""} ${gccFlags}";
+              env.RUSTFLAGS = "${old.env.RUSTFLAGS or ""} ${rustcFlags}";
+
               NIX_ENFORCE_NO_NATIVE = false;
               preferLocalBuild = true;
               allowSubstitutes = false;
@@ -230,10 +237,9 @@
               linuxPackages_xanmod_latest = super.linuxKernel.packagesFor (
                 super.linux_xanmod_latest.override {
                   stdenv = super.stdenvAdapters.addAttrsToDerivation {
-                    env.KCPPFLAGS = "-march=${arch} -mtune=${arch} -O3";
-                    env.KCFLAGS = "-march=${arch} -mtune=${arch} -O3";
-                    # TODO: Uncomment next time I update or rebuild the kernel
-                    # env.KRUSTFLAGS = "-C target-cpu=${cfg.native.architecture} -C opt-level=3";
+                    env.KCPPFLAGS = gccFlags;
+                    env.KCFLAGS = gccFlags;
+                    env.KRUSTFLAGS = "${rustcFlags} -C opt-level=3";
                   } super.stdenv;
 
                   structuredExtraConfig = with super.lib.kernel; {
@@ -246,7 +252,24 @@
                 }
               );
 
-              ghostty = super.ghostty;
+              zoxide = super.zoxide.overrideAttrs (old: optimize old);
+              zellij = super.zellij.overrideAttrs (old: optimize old);
+              neovim = super.neovim.overrideAttrs (old: optimize old);
+              neovide = super.neovide.overrideAttrs (old: optimize old);
+              fastfetch = super.fastfetch.overrideAttrs (old: optimize old);
+              # nushell = super.nushell.overrideAttrs (old: optimize old);
+
+              niri = inputs.niri.packages.${system}.niri.overrideAttrs (old: optimize old);
+              quickshell = inputs.qml-niri.packages.${system}.quickshell.overrideAttrs (old: optimize old);
+              qml-niri = inputs.qml-niri.packages.${system}.qml-niri.overrideAttrs (old: optimize old);
+              swww = super.swww.overrideAttrs (old: optimize old);
+              regreet = super.regreet.overrideAttrs (old: optimize old);
+
+              # These cause too many rebuilds
+              # rustc = super.rustc.overrideAttrs (old: optimize old);
+              # gcc = super.gcc.overrideAttrs (old: optimize old);
+              # bash = super.bash.overrideAttrs (old: optimize old);
+              # dash = super.dash.overrideAttrs (old: optimize old);
             })
           ]
         );

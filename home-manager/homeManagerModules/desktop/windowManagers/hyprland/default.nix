@@ -189,7 +189,7 @@ in
           ", XF86AudioPrev, exec, ${swayosd} --playerctl previous"
 
           # Applications
-          "$mod, r, exec, zen-twilight"
+          "$mod, r, exec, zen-beta"
           "$mod, Return, exec, wezterm"
           "$mod, w, exec, ${killactive_wrapped}"
           "$mod, Space, toggleFloating"
@@ -307,7 +307,7 @@ in
         ];
 
         exec-once = [
-          "[workspace 2 silent] zen-twilight"
+          "[workspace 2 silent] zen-beta"
           "[workspace 3 silent] wezterm"
           "[workspace 6 silent] steam"
           "[workspace 7 silent] wezterm start jellyfin-tui"

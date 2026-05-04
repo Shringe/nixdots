@@ -11,7 +11,7 @@ let
 in
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
+    inputs.zen-browser.homeModules.beta
   ];
 
   options.homeManagerModules.desktop.browsers.zen = {

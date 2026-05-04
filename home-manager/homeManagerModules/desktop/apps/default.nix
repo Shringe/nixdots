@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.homeManagerModules.desktop.apps;
 
-  browsers = [ "zen-twilight.desktop" ];
+  browsers = [ "zen-beta.desktop" ];
   text = [
     "org.kde.kate.desktop"
     "neovide.desktop"

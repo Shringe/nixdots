@@ -20,7 +20,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = inputs.qml-niri.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+      default = pkgs.quickshell;
     };
   };
 
