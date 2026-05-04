@@ -63,9 +63,8 @@ in
       boot = {
         tmp.useTmpfs = true;
 
-        # kernelPackages = pkgs.linuxPackages_zen;
-        # kernelPackages = pkgs.xanmod;
-        kernelPackages = pkgs.linuxPackages_xanmod_latest;
+        # TODO: commented out because steam doens't load on 7.* kernels for some reason
+        # kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
         kernelParams = [
           "nowatchdog"
