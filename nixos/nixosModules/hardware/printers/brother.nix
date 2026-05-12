@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.hardware.printers.brother;
-in {
+in
+{
   options.nixosModules.hardware.printers.brother = {
     enable = mkOption {
       type = types.bool;
@@ -25,10 +31,10 @@ in {
       brscan4 = {
         enable = true;
 
-        # netDevices.brother = {
-        #   model = "Brother-HL-2280DW";
-        #   ip = "192.168.0.219";
-        # };
+        netDevices.brother = {
+          model = "Brother-HL-2280DW";
+          ip = "192.168.0.219";
+        };
       };
     };
   };

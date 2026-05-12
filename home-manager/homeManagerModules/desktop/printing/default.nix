@@ -19,11 +19,7 @@ in
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       system-config-printer
-      kdePackages.skanlite
-
-      # qt6 skanpage doesn't launch
-      # stable.libsForQt5.skanpage
-      kdePackages.skanpage
+      simple-scan
     ];
   };
 }
