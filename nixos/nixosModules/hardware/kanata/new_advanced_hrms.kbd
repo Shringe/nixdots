@@ -48,7 +48,7 @@
         ;;(lsft rsft) XX break ;; optional skip typing-layer activation for upper case keys might solves some FJ problems
         ()  (multi
               (layer-switch new_colemak_dh_hrms_wide_typing)
-              (on-idle 55 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
+              (on-idle 60 tap-vkey to-base) ;; timeouts from 30 to 100 are wide spread
             ) break
       )
   .spc-typing   (multi (layer-switch new_colemak_dh_hrms_wide_base) spc) ;; expilcitly leave typing-layer when hitting `space` - this allows experimenting with higher idle timeouts
@@ -118,10 +118,10 @@
   ost 1000
 
   ;; Home row mods
-  pinky 260
-  ring 240
-  middle 185
-  index 225
+  pinky 280
+  ring 260
+  middle 205
+  index 250
   hrm_tt 300
   ;; hrm_ht 200
 )
