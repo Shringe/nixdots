@@ -117,6 +117,7 @@ window-rule {
 window-rule {
   match is-focused=true is-floating=false app-id="steam_app_\\d+"
   match is-focused=true is-floating=false app-id="org.vinegarhq.Sober"
+  match is-focused=true is-floating=false app-id="Bloodthief"
   variable-refresh-rate true
 }
 

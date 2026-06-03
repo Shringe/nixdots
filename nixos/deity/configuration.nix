@@ -184,6 +184,10 @@
 
   programs.gpu-screen-recorder.enable = true;
 
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", ATTRS{idVendor}=="fee3", ATTRS{idProduct}=="0000", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  '';
+
   # $ nix search wget
   environment = {
     sessionVariables = {
@@ -222,14 +226,14 @@
     enableSSHSupport = false;
   };
 
-  # services.nginx.virtualHosts."yukes.${config.nixosModules.reverseProxy.pDomain}" = {
-  #   onlySSL = true;
-  #   useACMEHost = "${config.nixosModules.reverseProxy.pDomain}";
-  #
-  #   locations."/" = {
-  #     proxyPass = "http://127.0.0.1:3000";
-  #   };
-  # };
+  services.nginx.virtualHosts."yukes.${config.nixosModules.reverseProxy.pDomain}" = {
+    onlySSL = true;
+    useACMEHost = "${config.nixosModules.reverseProxy.pDomain}";
+
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:3000";
+    };
+  };
 
   programs.coolercontrol.enable = true;
 
