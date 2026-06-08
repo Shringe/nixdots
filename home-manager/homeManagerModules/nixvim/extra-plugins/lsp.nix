@@ -5,35 +5,34 @@
       inlayHints = true;
 
       servers = {
-        ruff = {
-          enable = true;
+        # ruff.enable = true;
+        # basedpyright = {
+        #   enable = true;
+        #   settings = {
+        #     python.analysis.ignore = [ "*" ];
+        #
+        #     basedpyright = {
+        #       disableOrganizeImports = true;
+        #       disableTaggedHints = true;
+        #
+        #       analysis = {
+        #         typeCheckingMode = "basic";
+        #         inlayHints = {
+        #           variableTypes = true;
+        #           functionReturnTypes = true;
+        #           callArgumentNames = "partial";
+        #           pytestParameters = true;
+        #           genericTypes = true;
+        #           declarationTypes = true;
+        #           assignmentTypes = true;
+        #         };
+        #       };
+        #     };
+        #   };
+        # };
 
-        };
-
-        basedpyright = {
-          enable = true;
-          settings = {
-            python.analysis.ignore = [ "*" ];
-
-            basedpyright = {
-              disableOrganizeImports = true;
-              disableTaggedHints = true;
-
-              analysis = {
-                typeCheckingMode = "basic";
-                inlayHints = {
-                  variableTypes = true;
-                  functionReturnTypes = true;
-                  callArgumentNames = "partial";
-                  pytestParameters = true;
-                  genericTypes = true;
-                  declarationTypes = true;
-                  assignmentTypes = true;
-                };
-              };
-            };
-          };
-        };
+        basedpyright.enable = true;
+        basedpyright.settings.basedpyright.analysis.typeCheckingMode = "basic";
 
         # jedi_language_server = {
         #   enable = true;
