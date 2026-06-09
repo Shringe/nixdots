@@ -70,7 +70,7 @@ in
     security.acme.certs."turn.${domain}" = {
       group = "turnserver";
       dnsProvider = "porkbun";
-      credentialsFile = config.sops.secrets."ssl/porkbun".path;
+      environmentFile = config.sops.secrets."ssl/porkbun".path;
     };
   };
 }

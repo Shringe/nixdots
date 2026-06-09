@@ -38,7 +38,8 @@ in
         haruna
         qtscrcpy
         lxqt.pavucontrol-qt
-        helvum
+        # helvum
+        crosspipe
         obs-studio
         pipe-viewer
       ])

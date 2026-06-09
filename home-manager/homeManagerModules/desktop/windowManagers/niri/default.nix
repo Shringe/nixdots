@@ -42,7 +42,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.swayidle.systemdTarget = "niri.service";
+    services.swayidle.systemdTargets = [ "niri.service" ];
     homeManagerModules.desktop.windowManagers.utils = {
       systemd = {
         enable = true;

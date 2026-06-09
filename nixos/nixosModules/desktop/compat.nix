@@ -86,7 +86,8 @@ in
         libvorbis
         SDL
         SDL2_image
-        glew110
+        glew
+        # glew_1_10
         libidn
         tbb
 

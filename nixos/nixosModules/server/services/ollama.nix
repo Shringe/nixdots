@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.nixosModules.server.services.ollama;
@@ -94,7 +99,7 @@ in
         host = cfg.host;
         port = cfg.port;
 
-        acceleration = mkIf cfg.enableCuda "cuda";
+        package = mkIf cfg.enableCuda pkgs.ollama-cuda;
 
         loadModels = [
           "phi3:mini-4k"

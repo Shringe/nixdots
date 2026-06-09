@@ -1,8 +1,10 @@
 {
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    # TODO: still in use?
     nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
@@ -87,7 +89,7 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix/release-25.11";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -102,12 +104,12 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.11";
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -234,42 +236,42 @@
           [
 
             (self: super: {
-              linuxPackages_xanmod_latest = super.linuxKernel.packagesFor (
-                super.linux_xanmod_latest.override {
-                  stdenv = super.stdenvAdapters.addAttrsToDerivation {
-                    env.KCPPFLAGS = gccFlags;
-                    env.KCFLAGS = gccFlags;
-                    env.KRUSTFLAGS = "${rustcFlags} -C opt-level=3";
-                  } super.stdenv;
-
-                  structuredExtraConfig = with super.lib.kernel; {
-                    PROCESSOR_SELECT = yes;
-                    MNATIVE_AMD = mkIf isAmd yes;
-                    MNATIVE_INTEL = mkIf (!isAmd) yes;
-                  };
-
-                  ignoreConfigErrors = false;
-                }
-              );
-
-              zoxide = super.zoxide.overrideAttrs (old: optimize old);
-              zellij = super.zellij.overrideAttrs (old: optimize old);
-              neovim = super.neovim.overrideAttrs (old: optimize old);
-              neovide = super.neovide.overrideAttrs (old: optimize old);
-              fastfetch = super.fastfetch.overrideAttrs (old: optimize old);
-              # nushell = super.nushell.overrideAttrs (old: optimize old);
-
-              niri = inputs.niri.packages.${system}.niri.overrideAttrs (old: optimize old);
-              quickshell = inputs.qml-niri.packages.${system}.quickshell.overrideAttrs (old: optimize old);
-              qml-niri = inputs.qml-niri.packages.${system}.qml-niri.overrideAttrs (old: optimize old);
-              swww = super.swww.overrideAttrs (old: optimize old);
-              regreet = super.regreet.overrideAttrs (old: optimize old);
-
-              # These cause too many rebuilds
-              # rustc = super.rustc.overrideAttrs (old: optimize old);
-              # gcc = super.gcc.overrideAttrs (old: optimize old);
-              # bash = super.bash.overrideAttrs (old: optimize old);
-              # dash = super.dash.overrideAttrs (old: optimize old);
+              # linuxPackages_xanmod_latest = super.linuxKernel.packagesFor (
+              #   super.linux_xanmod_latest.override {
+              #     stdenv = super.stdenvAdapters.addAttrsToDerivation {
+              #       env.KCPPFLAGS = gccFlags;
+              #       env.KCFLAGS = gccFlags;
+              #       env.KRUSTFLAGS = "${rustcFlags} -C opt-level=3";
+              #     } super.stdenv;
+              #
+              #     structuredExtraConfig = with super.lib.kernel; {
+              #       PROCESSOR_SELECT = yes;
+              #       MNATIVE_AMD = mkIf isAmd yes;
+              #       MNATIVE_INTEL = mkIf (!isAmd) yes;
+              #     };
+              #
+              #     ignoreConfigErrors = false;
+              #   }
+              # );
+              #
+              # zoxide = super.zoxide.overrideAttrs (old: optimize old);
+              # # zellij = super.zellij.overrideAttrs (old: optimize old);
+              # neovim = super.neovim.overrideAttrs (old: optimize old);
+              # neovide = super.neovide.overrideAttrs (old: optimize old);
+              # fastfetch = super.fastfetch.overrideAttrs (old: optimize old);
+              # # nushell = super.nushell.overrideAttrs (old: optimize old);
+              #
+              # niri = inputs.niri.packages.${system}.niri.overrideAttrs (old: optimize old);
+              # quickshell = inputs.qml-niri.packages.${system}.quickshell.overrideAttrs (old: optimize old);
+              # qml-niri = inputs.qml-niri.packages.${system}.qml-niri.overrideAttrs (old: optimize old);
+              # swww = super.swww.overrideAttrs (old: optimize old);
+              # regreet = super.regreet.overrideAttrs (old: optimize old);
+              #
+              # # These cause too many rebuilds
+              # # rustc = super.rustc.overrideAttrs (old: optimize old);
+              # # gcc = super.gcc.overrideAttrs (old: optimize old);
+              # # bash = super.bash.overrideAttrs (old: optimize old);
+              # # dash = super.dash.overrideAttrs (old: optimize old);
             })
           ]
         );

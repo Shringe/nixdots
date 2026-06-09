@@ -12,7 +12,8 @@ in
   options.homeManagerModules.desktop.office.bitwarden = {
     enable = mkOption {
       type = types.bool;
-      default = config.homeManagerModules.desktop.office.enable;
+      # default = config.homeManagerModules.desktop.office.enable;
+      default = false;
     };
   };
 

@@ -58,7 +58,7 @@ in
       enable = true;
       listenPort = cfg.port;
       package = fixedPaths;
-      environmentFile = config.sops.secrets."homepage".path;
+      environmentFiles = [ config.sops.secrets."homepage".path ];
       allowedHosts = "dash.${config.nixosModules.reverseProxy.domain}";
 
       settings = {

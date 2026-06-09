@@ -104,7 +104,7 @@ with lib;
 
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.xorg.xrandr}/bin/xrandr --output DP-3 --primary";
+      ExecStart = "${pkgs.xrandr}/bin/xrandr --output DP-3 --primary";
       RemainAfterExit = true;
     };
 

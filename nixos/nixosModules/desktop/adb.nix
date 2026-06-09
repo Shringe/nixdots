@@ -27,8 +27,6 @@ in
       with config.nixosModules.users;
       optionals shringe.enable [ "shringe" ] ++ optionals shringed.enable [ "shringed" ];
 
-    programs.adb.enable = true;
-
     environment = {
       sessionVariables = {
         ANDROID_ADB_SERVER_PORT = cfg.port;
@@ -37,6 +35,7 @@ in
       systemPackages = with pkgs; [
         scrcpy
         universal-android-debloater
+        android-tools
       ];
     };
   };

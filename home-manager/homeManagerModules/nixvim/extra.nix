@@ -56,6 +56,7 @@ in
       yazi = {
         enable = true;
 
+        shellWrapperName = "yy";
         settings = {
           # opener = {
           #   image = [

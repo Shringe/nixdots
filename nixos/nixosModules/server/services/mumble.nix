@@ -31,9 +31,11 @@ in
     services.murmur = {
       enable = true;
       openFirewall = true;
-      sslCert = "${sslCertDir}/fullchain.pem";
-      sslCa = "${sslCertDir}/chain.pem";
-      sslKey = "${sslCertDir}/key.pem";
+      tls = {
+        certPath = "${sslCertDir}/fullchain.pem";
+        caPath = "${sslCertDir}/chain.pem";
+        keyPath = "${sslCertDir}/key.pem";
+      };
       registerHostname = domain;
       port = cfg.port;
       hostName = cfg.host;

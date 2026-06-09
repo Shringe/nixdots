@@ -1,6 +1,7 @@
 {
   plugins.transparent = {
-    enable = true;
+    # Proprietary?
+    enable = false;
 
     settings = {
       groups = [
