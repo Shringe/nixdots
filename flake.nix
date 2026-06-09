@@ -110,7 +110,7 @@
 
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixcord = {
@@ -264,7 +264,7 @@
               # niri = inputs.niri.packages.${system}.niri.overrideAttrs (old: optimize old);
               # quickshell = inputs.qml-niri.packages.${system}.quickshell.overrideAttrs (old: optimize old);
               # qml-niri = inputs.qml-niri.packages.${system}.qml-niri.overrideAttrs (old: optimize old);
-              # swww = super.swww.overrideAttrs (old: optimize old);
+              # awww = super.awww.overrideAttrs (old: optimize old);
               # regreet = super.regreet.overrideAttrs (old: optimize old);
               #
               # # These cause too many rebuilds
@@ -448,7 +448,7 @@
               cava
               gammastep
               mpvpaper
-              swww
+              awww
             ];
           };
 

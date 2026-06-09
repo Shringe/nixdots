@@ -25,7 +25,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services.swww = {
+    systemd.user.services.awww = {
       Install.WantedBy = targets;
       Unit = {
         After = targets;
@@ -41,8 +41,8 @@ in
     systemd.user.services.quickshell = {
       Install.WantedBy = targets;
       Unit = {
-        After = targets ++ [ "swww.service" ];
-        Wants = [ "swww.service" ];
+        After = targets ++ [ "awww.service" ];
+        Wants = [ "awww.service" ];
         PartOf = targets;
         ConditionEnvironment = "WAYLAND_DISPLAY";
       };
@@ -57,13 +57,13 @@ in
               gammastep
               cava
               mpvpaper
-              swww
+              awww
             ]
           }";
       };
     };
 
-    services.swww = {
+    services.awww = {
       enable = true;
     };
 
@@ -157,7 +157,7 @@ in
           }
 
           readonly property QtObject dependencies: QtObject {
-              readonly property string swww: "${pkgs.swww}/bin/swww"
+              readonly property string swww: "${pkgs.awww}/bin/awww"
               readonly property string brightnessctl: "${pkgs.brightnessctl}/bin/brightnessctl"
               readonly property string wluma: "${pkgs.wluma}/bin/wluma"
               readonly property string gamemoded: "${pkgs.gamemode}/bin/gamemoded"
