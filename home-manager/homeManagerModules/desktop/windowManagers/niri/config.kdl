@@ -118,6 +118,8 @@ window-rule {
   match is-focused=true is-floating=false app-id="steam_app_\\d+"
   match is-focused=true is-floating=false app-id="org.vinegarhq.Sober"
   match is-focused=true is-floating=false app-id="Bloodthief"
+  match is-focused=true is-floating=false app-id="sotgame.exe"
+  match is-focused=true is-floating=false app-id="fpschess-win64-shipping.exe"
   variable-refresh-rate true
 }
 

@@ -76,7 +76,7 @@ in
         Type = "exec";
         User = "qbittorrent";
         Group = "qbittorrent";
-        ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --webui-port=${toString cfg.ports.webui} --profile=/var/lib/qbittorrent";
+        ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox --confirm-legal-notice --webui-port=${toString cfg.ports.webui} --profile=/var/lib/qbittorrent";
         Nice = 17;
         IOSchedulingClass = "idle";
         # IOSchedulingClass = "best-effort";

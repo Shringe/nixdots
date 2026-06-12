@@ -137,6 +137,17 @@ in
         # Appimages need fuse, e.g. https://musescore.org/fr/download/musescore-x86_64.AppImage
         fuse
         e2fsprogs
+
+        stdenv.cc.cc.lib
+        pkg-config
+        libx11
+        wayland
+        libGL
+        fontconfig.lib
+        freetype
+        libxkbcommon
+        dbus.lib
+        glib
       ];
     };
   };
