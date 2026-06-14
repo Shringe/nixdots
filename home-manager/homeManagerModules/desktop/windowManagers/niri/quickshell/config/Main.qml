@@ -19,8 +19,8 @@ ShellRoot {
     }
 
     Screen {
-        output: "DP-3"
+        output: "HDMI-A-1"
         fps: 175
-        wallpaper: "collections/DP-3.json"
+        wallpaper: "collections/HDMI-A-1.json"
     }
 }

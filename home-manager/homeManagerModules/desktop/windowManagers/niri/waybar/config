@@ -1,6 +1,6 @@
 [
   {
-    "output": [ "DP-3", "eDP-1" ],
+    "output": [ "HDMI-A-1", "eDP-1" ],
     "battery": {
       "bat": "BAT0",
       "format": "{capacity}% {icon}",

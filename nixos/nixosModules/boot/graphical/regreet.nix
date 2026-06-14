@@ -36,7 +36,7 @@ let
   #   }
   #
   #   monitorv2 {
-  #     output = DP-3
+  #     output = HDMI-A-1
   #     bitdepth = 10
   #     mode = 3440x1440@175
   #     position = 0x0
@@ -110,7 +110,7 @@ let
       off
     }
 
-    output "DP-3" {
+    output "HDMI-A-1" {
       mode "3440x1440@174.962"
     }
 
