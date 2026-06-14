@@ -4,9 +4,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    # TODO: still in use?
-    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-25.05";
-
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nf.url = "github:Shringe/nf";
@@ -123,7 +120,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs-old,
       nixpkgs-unstable,
       ...
     }@inputs:
@@ -142,11 +138,6 @@
 
           # Large overlay sets
           (self: super: {
-            old = import nixpkgs-old {
-              inherit system;
-              config.allowUnfree = true;
-            };
-
             unstable = import nixpkgs-unstable {
               inherit system;
               config.allowUnfree = true;
