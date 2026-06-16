@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.nixvim = {
     plugins.lsp = {
@@ -31,8 +32,18 @@
         #   };
         # };
 
-        basedpyright.enable = true;
-        basedpyright.settings.basedpyright.analysis.typeCheckingMode = "basic";
+        ruff.enable = true;
+        basedpyright = {
+          enable = true;
+          settings.python.analysis.ignore = [ "*" ];
+          settings.basedpyright = {
+            disableOrganizeImports = true;
+            analysis = {
+              typeCheckingMode = "basic";
+              ignore = [ "*" ];
+            };
+          };
+        };
 
         # jedi_language_server = {
         #   enable = true;
@@ -73,6 +84,9 @@
         slint_lsp.enable = true;
         # omnisharp.enable = true;
         # csharp_ls.enable = true;
+        r_language_server.enable = true;
+        r_language_server.package = pkgs.rPackages.languageserver;
+        r_language_server.packageFallback = true;
       };
     };
 
