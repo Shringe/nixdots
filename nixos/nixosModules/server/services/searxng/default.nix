@@ -141,7 +141,7 @@ in
 
             overrides = {
               # General
-              "startpage" = enable { weight = 1.1; };
+              "google" = enable { weight = 1.1; };
               "brave" = enable { weight = 1.05; };
               "duckduckgo" = enable { weight = 1.02; };
               "currency" = enable { };

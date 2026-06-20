@@ -40,7 +40,7 @@
             disableOrganizeImports = true;
             analysis = {
               typeCheckingMode = "basic";
-              ignore = [ "*" ];
+              # ignore = [ "*" ];
             };
           };
         };
