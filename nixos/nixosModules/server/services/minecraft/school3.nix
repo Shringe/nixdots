@@ -7,7 +7,7 @@
 }:
 with lib;
 let
-  cfg = config.nixosModules.server.services.minecraft;
+  cfg = config.nixosModules.server.services.minecraft.school3;
 
   domain = config.nixosModules.reverseProxy.domain;
 in
@@ -16,7 +16,7 @@ in
     inputs.nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  options.nixosModules.server.services.minecraft = {
+  options.nixosModules.server.services.minecraft.school3 = {
     enable = mkOption {
       type = types.bool;
       # default = config.nixosModules.server.services.enable;

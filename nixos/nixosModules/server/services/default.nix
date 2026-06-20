@@ -4,11 +4,11 @@ with lib;
   imports = [
     ./searxng
     ./homeAssistant
+    ./minecraft
     ./paperless.nix
     ./nextcloud.nix
     ./collabora.nix
     ./immich.nix
-    ./minecraft.nix
     ./traccar.nix
     ./whalecrab.nix
     ./tmodloader.nix
