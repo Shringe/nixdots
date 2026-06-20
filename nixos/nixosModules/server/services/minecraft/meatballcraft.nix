@@ -29,6 +29,11 @@ in
       type = lib.types.str;
       default = "meatballcraft";
     };
+
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 25565;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -42,20 +47,36 @@ in
       group = minecraft.group;
     };
 
+    networking.firewall.allowedTCPPorts = [
+      cfg.port
+    ];
+
     systemd.services.minecraft-meatballcraft = {
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
+      startLimitIntervalSec = 60 * 30;
+      startLimitBurst = 3;
+
       serviceConfig = {
-        ExecStart = "${pkgs.bash}/bin/bash ${cfg.directory}/start.sh";
+        ExecStart = "${cfg.directory}/ServerStart.sh";
         WorkingDirectory = cfg.directory;
         User = cfg.user;
         Restart = "on-failure";
+        Nice = 1;
       };
 
-      startLimitIntervalSec = 300;
-      startLimitBurst = 5;
+      path = with pkgs; [
+        bash
+        coreutils
+        gnused
+        gawk
+        ncurses
+        wget
+        unixtools.ping
+        zulu25
+      ];
     };
   };
 }

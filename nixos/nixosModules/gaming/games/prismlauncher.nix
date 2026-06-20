@@ -17,6 +17,7 @@ in
         jdks = [
           jdk21
           jdk17
+          zulu25
           # TODO: fix graalvm
           # graalvmPackages.graalvm-oracle
 
