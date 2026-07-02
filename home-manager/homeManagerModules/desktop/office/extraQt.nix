@@ -40,7 +40,6 @@ in
         lxqt.pavucontrol-qt
         # helvum
         crosspipe
-        obs-studio
         pipe-viewer
       ])
     ];

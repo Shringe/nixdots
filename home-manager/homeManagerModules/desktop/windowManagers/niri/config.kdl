@@ -120,6 +120,7 @@ window-rule {
   match is-focused=true is-floating=false app-id="Bloodthief"
   match is-focused=true is-floating=false app-id="sotgame.exe"
   match is-focused=true is-floating=false app-id="fpschess-win64-shipping.exe"
+  match is-focused=true is-floating=false app-id="Cleanroom"
   variable-refresh-rate true
 }
 

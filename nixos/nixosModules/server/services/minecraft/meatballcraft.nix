@@ -34,6 +34,18 @@ in
       type = lib.types.port;
       default = 25565;
     };
+
+    voicechat = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+      };
+
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 24454;
+      };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -49,6 +61,10 @@ in
 
     networking.firewall.allowedTCPPorts = [
       cfg.port
+    ];
+
+    networking.firewall.allowedUDPPorts = lib.mkIf cfg.voicechat.enable [
+      cfg.voicechat.port
     ];
 
     systemd.services.minecraft-meatballcraft = {

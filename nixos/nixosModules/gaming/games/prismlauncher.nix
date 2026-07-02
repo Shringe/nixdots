@@ -18,11 +18,7 @@ in
           jdk21
           jdk17
           zulu25
-          # TODO: fix graalvm
-          # graalvmPackages.graalvm-oracle
-
-          # graalvmPackages
-          # zulu
+          graalvmPackages.graalvm-oracle_25
         ];
       })
     ];

@@ -72,6 +72,8 @@ in
           "audit=0"
           "preempt=full"
           "nohz_full=all"
+          "transparent_hugepage=madvise"
+          "transparent_hugepage_shmem=advise"
         ];
 
         kernelModules = [
