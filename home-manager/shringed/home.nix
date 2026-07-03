@@ -12,6 +12,7 @@ with lib;
 
     info = {
       fps = 175;
+      cudaSupport = true;
     };
 
     tooling.enable = true;

@@ -12,5 +12,11 @@
       default = false;
       description = "Whether the current device is a laptop";
     };
+
+    cudaSupport = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether the current device has an NVIDIA GPU";
+    };
   };
 }

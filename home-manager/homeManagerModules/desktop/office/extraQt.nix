@@ -19,6 +19,15 @@ in
   config = mkIf cfg.enable {
     programs.freetube.enable = true;
 
+    programs.obs-studio = {
+      enable = true;
+      package = mkIf config.homeManagerModules.info.cudaSupport (
+        pkgs.obs-studio.override {
+          cudaSupport = true;
+        }
+      );
+    };
+
     home.packages = mkMerge [
       (with pkgs.kdePackages; [
         korganizer
