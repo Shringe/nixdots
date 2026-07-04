@@ -2427,11 +2427,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1783117447,
-        "narHash": "sha256-42aSK9UWOcYc/pnw5Zzofc1uUXc59L1TTCpQO2agXL0=",
+        "lastModified": 1783141928,
+        "narHash": "sha256-AbPbrCBZGcBv69nYQ+Ltczmb9fDi978xT09BzeCzuTY=",
         "owner": "Shringe",
         "repo": "whalecrab",
-        "rev": "a352522e3871cce6b2a72b1f1a846dc10c07208e",
+        "rev": "326bf6719435de7dae02a717291db94df19adca0",
         "type": "github"
       },
       "original": {
