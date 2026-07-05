@@ -37,23 +37,6 @@ with lib;
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   programs = {
-    git = {
-      enable = true;
-
-      settings = {
-        user = {
-          name = "Shringe";
-          email = "dashingkoso@gmail.com";
-        };
-
-        credential.helper = "store";
-        safe.directory = [
-          "/nixdots"
-          "/nixdots/.git"
-        ];
-      };
-    };
-
     mpv.config = {
       vo = "gpu-next";
       gpu-api = "vulkan";

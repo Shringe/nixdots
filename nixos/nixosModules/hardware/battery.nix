@@ -37,7 +37,7 @@ in
       powertop.enable = true;
     };
 
-    systemd.sleep.extraConfig = "HibernateDelaySec=15min";
+    systemd.sleep.settings.Sleep.HibernateDelaySec = "15min";
 
     services = {
       thermald.enable = true; # Prevents overheating on Intel
