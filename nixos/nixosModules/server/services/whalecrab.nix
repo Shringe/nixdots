@@ -23,7 +23,7 @@ in
 
     package = mkOption {
       type = types.package;
-      default = pkgs.whalecrab_uci_canary;
+      default = pkgs.whalecrab_uci;
     };
   };
 
