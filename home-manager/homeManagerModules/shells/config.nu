@@ -40,6 +40,60 @@ def --env ncd [dir: path] {
   cd $dir
 }
 
+# Finds and removes flags such as `-f` from `rm -f` or `rm -rf`
+def find_and_remove_flag [flag: string] {
+  let args = $in
+  if $flag in $args {
+    return ($args | find -v $flag)
+  }
+
+  let flag = $flag | str trim -lc "-"
+  mut looking_for_flag = true
+  mut out = []
+  for arg in $args {
+    if not $looking_for_flag {
+      $out = $out | append $arg
+      continue
+    }
+
+    if ($arg == "--") {
+      $looking_for_flag = false
+    }
+
+    if (
+      ($arg | str length) >= 3
+      and ($arg | str starts-with "-")
+      and ($arg | str contains $flag)
+    ) {
+      $out = $out | append ($arg | str replace $flag "")
+      $looking_for_flag = false
+      continue 
+    }
+
+    $out = $out | append $arg
+  }
+
+  $out
+}
+
+
+def --wrapped journalctl [...args] {
+  let processed_args = $args | find_and_remove_flag "-s"
+  let strip_extra = $args != $processed_args
+  if ($strip_extra) {
+    let use_pager = not ("--no-pager" in $args)
+    let output = SYSTEMD_COLORS=1 ^journalctl ...$processed_args
+    let filtered = $output | str replace -ram '^.*\]: ' ''
+    if $use_pager {
+      $filtered | less -R +G
+    } else {
+      $filtered
+    }
+  } else {
+    ^journalctl ...$processed_args
+  }
+}
+
 $env.config.keybindings ++= [
   {
     name: "prepend_sudo"
