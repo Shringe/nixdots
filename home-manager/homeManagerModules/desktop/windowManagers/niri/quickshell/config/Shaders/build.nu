@@ -17,7 +17,7 @@ def "main build" [] {
 
   for s in $shaders {
     print $"building ($s.src | path relative-to $env.FILE_PWD)..."
-    qsb -O --glsl "300 es" -o $s.bin $s.src
+    qsb -O --glsl "300 es,150" -o $s.bin $s.src
   }
 }
 
