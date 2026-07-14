@@ -25,6 +25,7 @@ in
 
     # systemd.user.targets."xdg-desktop-autostart".enable = mkForce false;
 
+    systemd.user.services.niri.environment.RUST_LOG = "error";
     programs.niri = {
       enable = true;
       # useNautilus = false;

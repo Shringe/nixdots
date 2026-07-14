@@ -138,7 +138,8 @@ in
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.niri}/bin/niri --config ${niri-config}";
+          command = "${pkgs.coreutils}/bin/env RUST_LOG=error ${pkgs.niri}/bin/niri --config ${niri-config}";
+          # command = "RUST_LOG='error' ${pkgs.niri}/bin/niri --config ${niri-config}";
           # command = "/run/current-system/sw/bin/start-hyprland -- --config ${hyprland-config}";
           user = "greeter";
         };
