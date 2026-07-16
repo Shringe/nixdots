@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.nixosModules.social.matrix.coturn;
 
-  domain = config.nixosModules.reverseProxy.aDomain;
+  domain = config.nixosModules.reverseProxy.pDomain;
 in
 {
   options.nixosModules.social.matrix.coturn = {

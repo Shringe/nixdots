@@ -100,7 +100,7 @@ in
           # (rps "ollama" server.services.ollama)
 
           # Public services
-          (rpad social.matrix.conduit)
+          # (rpas social.matrix.conduit)
           # (rpas "romm" docker.romm)
           # (rpas "collabora" server.services.collabora)
         ];

@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.nixosModules.social.matrix.conduit;
 
-  domain = config.nixosModules.reverseProxy.aDomain;
+  domain = config.nixosModules.reverseProxy.pDomain;
 in
 {
   options.nixosModules.social.matrix.conduit = {
@@ -56,6 +56,15 @@ in
           "turn:turn.${domain}?transport=udp"
           "turn:turn.${domain}?transport=tcp"
         ];
+      };
+    };
+
+    services.nginx.virtualHosts.${domain} = {
+      useACMEHost = domain;
+      onlySSL = true;
+
+      locations."/" = {
+        proxyPass = cfg.url;
       };
     };
   };
