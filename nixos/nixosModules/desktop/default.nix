@@ -8,6 +8,7 @@ with lib;
     ./compat.nix
     ./gpm.nix
     ./udisks.nix
+    ./localsend.nix
   ];
 
   options.nixosModules.desktop = {
